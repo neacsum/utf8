@@ -1,4 +1,4 @@
-UTF8 - Simple libary for internationalization
+UTF8 - Simple library for internationalization
 =============================================
 
 Windows functions to facilitate handling of I18N problems using
