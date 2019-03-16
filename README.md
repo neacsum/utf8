@@ -34,8 +34,8 @@ SOFTWARE.
 
 ## Building ##
 The UTF8 library doesn't have any dependencies. The test programs however uses
-the [UTTP library] (https://bitbucket.org/neacsum/utpp)
+the [UTTP library](https://bitbucket.org/neacsum/utpp)
 
 ## Documentation ##
-Use [Doxygen] (http://www.doxygen.nl/) to generate documentation.
+Use [Doxygen](http://www.doxygen.nl/) to generate documentation.
 
