@@ -139,6 +139,12 @@ bool valid (const std::string& s)
   return valid (s.c_str ());
 }
 
+#ifdef _WINDOWS_
+#undef MessageBox
+int MessageBox (HWND hWnd, const std::string& text, const std::string& caption,
+  unsigned int type);
+#endif
+
 }; //namespace utf8
 
 #pragma comment (lib, "utf8")

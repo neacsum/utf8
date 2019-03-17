@@ -217,3 +217,8 @@ TEST (get_putenv)
   utf8::putenv (u8"ελληνικό", string ());
   CHECK (utf8::getenv (u8"ελληνικό").empty ());
 }
+
+TEST (msgbox)
+{
+  utf8::MessageBox (NULL, u8"ελληνικό", u8"😃😎😛", MB_ICONINFORMATION);
+}
