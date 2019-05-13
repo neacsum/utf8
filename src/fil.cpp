@@ -1,3 +1,5 @@
+#define _CRT_SECURE_NO_WARNINGS
+
 #include <utf8/utf8.h>
 
 using namespace std;
@@ -95,5 +97,22 @@ bool rename (const std::string& oldname, const std::string& newname)
 }
 ///\}
 
+///\{
+/*!
+  Open a file
+
+  \param filename UTF-8 encoded file name
+  \param mode access mode
+  \return pointer to the opened file or NULL if an error occurs
+*/
+FILE* fopen (const char* filename, const char* mode)
+{
+  return (_wfopen (widen (filename).c_str (), widen (mode).c_str ()));
+}
+
+FILE* fopen (const std::string& filename, const std::string& mode)
+{
+  return (_wfopen (widen (filename).c_str (), widen (mode).c_str ()));
+}
 
 } //namespace utf8

@@ -188,6 +188,36 @@ TEST (in_stream)
   CHECK (remove (filename));
 }
 
+TEST (fopen_write)
+{
+  /* Write some text in a file with a UTF8 encoded filename. Verifies using
+  standard Windows file reading that content was written. */
+
+  string filename = u8"ελληνικό";
+  string filetext{ u8"😃😎😛" };
+
+  FILE *u8file = utf8::fopen (filename, "w");
+  CHECK (u8file);
+
+  fwrite (filetext.c_str(), sizeof(char), filetext.length(), u8file);
+  fclose (u8file);
+
+  HANDLE f = CreateFile (utf8::widen (filename).c_str (), GENERIC_READ, 0,
+    NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+  CHECK (f);
+
+  char read_back[80];
+  memset (read_back, 0, sizeof (read_back));
+
+  size_t len = filetext.size ();
+  DWORD nr;
+  ReadFile (f, read_back, (DWORD)len, &nr, NULL);
+  CloseHandle (f);
+  CHECK (remove (filename));
+  CHECK_EQUAL (len, nr);
+  CHECK_EQUAL (filetext, read_back);
+}
+
 TEST (make_splitpath)
 {
   const string dir{ u8"ελληνικό αλφάβητο\\" },
