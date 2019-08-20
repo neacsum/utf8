@@ -1,6 +1,6 @@
-﻿#include <windows.h>
+﻿#include <utpp/utpp.h>
+#include <windows.h>
 #include <utf8/utf8.h>
-#include <utpp/utpp.h>
 
 #pragma warning (disable : 4566)
 
