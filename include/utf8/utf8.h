@@ -56,7 +56,7 @@ bool rename (const std::string& oldname, const std::string& newname);
 FILE* fopen (const char* filename, const char* mode);
 FILE* fopen (const std::string& filename, const std::string& mode);
 
-void splitpath (const char* path, char* drive, char* dir, char* fname, char* ext);
+void splitpath (const std::string& path, char* drive, char* dir, char* fname, char* ext);
 void splitpath (const std::string& path, std::string& drive, std::string& dir,
                 std::string& fname, std::string& ext);
 bool makepath (std::string& path, const std::string& drive, const std::string& dir,

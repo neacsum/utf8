@@ -23,7 +23,7 @@ namespace utf8 {
 
   Returned strings are converted to UTF-8.
 */
-void splitpath (const char* path, char* drive, char* dir, char* fname, char* ext)
+void splitpath (const string& path, char* drive, char* dir, char* fname, char* ext)
 {
   wstring wpath = widen (path);
   wchar_t wdrive[_MAX_DRIVE];
