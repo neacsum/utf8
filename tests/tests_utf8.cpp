@@ -88,6 +88,15 @@ TEST (rune)
   CHECK_EQUAL (0x1f600, rune_smiley);
 }
 
+TEST (rune2)
+{
+  const char* smiley{ u8"😀" };
+  char32_t rune_smiley = rune (smiley);
+  CHECK_EQUAL (U'😀', rune_smiley);
+}
+
+
+
 TEST (next)
 {
   string emojis{ u8"😃😎😛" };

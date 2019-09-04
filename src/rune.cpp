@@ -42,6 +42,41 @@ char32_t rune (std::string::const_iterator p)
   return rune;
 }
 
+/// Return current Unicode code point.
+char32_t rune (const char* p)
+{
+  int rune = 0;
+  if ((*p & 0x80) == 0)
+  {
+    rune = *p;
+  }
+  else if ((*p & 0xE0) == 0xc0)
+  {
+    rune = (*p++ & 0x1f) << 6;
+    assert ((*p & 0xC0) == 0x80);
+    rune += *p & 0x3f;
+  }
+  else if ((*p & 0xf0) == 0xE0)
+  {
+    rune = (*p++ & 0x0f) << 12;
+    assert ((*p & 0xC0) == 0x80);
+    rune += (*p++ & 0x3f) << 6;
+    assert ((*p & 0xC0) == 0x80);
+    rune += (*p & 0x3f);
+  }
+  else
+  {
+    rune = (*p++ & 0x07) << 18;
+    assert ((*p & 0xC0) == 0x80);
+    rune += (*p++ & 0x3f) << 12;
+    assert ((*p & 0xC0) == 0x80);
+    rune += (*p++ & 0x3f) << 6;
+    assert ((*p & 0xC0) == 0x80);
+    rune += (*p & 0x3f);
+  }
+  return rune;
+}
+
 /*!
   Conversion from UTF-8 to UTF-32
   

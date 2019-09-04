@@ -23,6 +23,8 @@ size_t length (const std::string& s);
 bool next (const std::string& s, std::string::const_iterator& p);
 
 char32_t rune (std::string::const_iterator p);
+char32_t rune (const char* p);
+
 bool valid (const std::string& s);
 bool valid (const char *s);
 
