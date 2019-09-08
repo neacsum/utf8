@@ -21,6 +21,7 @@ std::u32string runes (const std::string& s);
 
 size_t length (const std::string& s);
 bool next (const std::string& s, std::string::const_iterator& p);
+bool next (char*& p);
 
 char32_t rune (std::string::const_iterator p);
 char32_t rune (const char* p);
@@ -142,6 +143,70 @@ inline
 bool valid (const std::string& s)
 {
   return valid (s.c_str ());
+}
+
+/// Return true if rune is a decimal digit (0-9)
+inline
+bool isdigit (const char *p)
+{
+  char32_t c = rune (p);
+  return '0' <= c && c <= '9';
+}
+
+/// Return true if rune is a decimal digit (0-9)
+inline
+bool isdigit (std::string::const_iterator p)
+{
+  char32_t c = rune (p);
+  return '0' <= c && c <= '9';
+}
+
+/// Return true if rune is an alphanumeric character (0-9 or A-Z or a-z)
+inline
+bool isalnum (const char *p)
+{
+  char32_t c = rune (p);
+  return ('0' <= c && c <= '9') || ('A' <= c && c <= 'Z') || ('a' <= c && c <= 'z') ;
+}
+
+/// Return true if rune is an alphanumeric character (0-9 or A-Z or a-z)
+inline
+bool isalnum (std::string::const_iterator p)
+{
+  char32_t c = rune (p);
+  return ('0' <= c && c <= '9') || ('A' <= c && c <= 'Z') || ('a' <= c && c <= 'z');
+}
+
+/// Return true if rune is an alphabetic character (A-Z or a-z)
+inline
+bool isalpha (const char *p)
+{
+  char32_t c = rune (p);
+  return ('A' <= c && c <= 'Z') || ('a' <= c && c <= 'z');
+}
+
+/// Return true if rune is an alphabetic character (A-Z or a-z)
+inline
+bool isalpha (std::string::const_iterator p)
+{
+  char32_t c = rune (p);
+  return ('A' <= c && c <= 'Z') || ('a' <= c && c <= 'z');
+}
+
+/// Return true if rune is a hexadecimal digit (0-9 or A-F or a-f)
+inline
+bool isxdigit (const char *p)
+{
+  char32_t c = rune (p);
+  return ('0' <= c && c <= '9') || ('A' <= c && c <= 'F') || ('a' <= c && c <= 'F');
+}
+
+/// Return true if rune is a hexadecimal digit (0-9 or A-F or a-f)
+inline
+bool isxdigit (std::string::const_iterator p)
+{
+  char32_t c = rune (p);
+  return ('0' <= c && c <= '9') || ('A' <= c && c <= 'F') || ('a' <= c && c <= 'F');
 }
 
 #ifdef _WINDOWS_

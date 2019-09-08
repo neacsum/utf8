@@ -96,7 +96,7 @@ TEST (rune2)
 }
 
 
-
+//check that next function advances with one UTF8 character (rune)
 TEST (next)
 {
   string emojis{ u8"😃😎😛" };
@@ -111,6 +111,22 @@ TEST (next)
   CHECK_EQUAL (3, i);
 }
 
+// same test but using a character pointer instead of a string iterator
+TEST (next_ptr)
+{
+  string emojis{ u8"😃😎😛" };
+  int i = 0;
+  const char *ptr = emojis.c_str ();
+  while (*ptr)
+  {
+    i++;
+    CHECK (next (ptr));
+  }
+
+  CHECK_EQUAL (3, i);
+}
+
+// test for runes function (conversion from UTF8 to UTF32)
 TEST (runes)
 {
   string emojis{ u8"😃😎😛" };

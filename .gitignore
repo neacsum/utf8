@@ -1,15 +1,14 @@
-﻿################################################################################
-# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
-################################################################################
-.vs/
+﻿# Mircea's standard .gitignore
+
+*.ipch
 *.opensdf
 *.sdf
 *.suo
 *.obj
 *.bak
 *.user
-o/
-doc/
-lib/
-x86/
-x64/
+/docs
+/o
+/exe
+/.vs
+/lib

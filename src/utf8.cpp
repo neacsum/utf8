@@ -149,4 +149,40 @@ bool next (const std::string& s, std::string::const_iterator& p)
   return !rem; // rem == 0 if sequence is complete
 }
 
+/*!
+  Advances a character pointer to next UTF-8 character
+
+  \param p    Reference to character pointer to be advanced
+  \return     True if pointer can be advanced or is already at end;
+              false if string contains an invalid UTF-8 encoding at current
+              position.
+*/
+bool next (char*& p)
+{
+  int rem = 0;
+  if (*p == 0)
+    return true;    //don't advance past end
+
+  do
+  {
+    if ((*p & 0xC0) == 0x80)
+    {
+      if (rem)
+        rem--;
+      else
+        return false;   //missing continuation byte
+    }
+    else if ((*p & 0xE0) == 0xC0)
+      rem = 1;
+    else if ((*p & 0xF0) == 0xE0)
+      rem = 2;
+    else if ((*p & 0xF8) == 0xF0)
+      rem = 3;
+    p++;
+  } while (rem && *p != 0);
+
+  return !rem; // rem == 0 if sequence is complete
+}
+
+
 } //end namespace
