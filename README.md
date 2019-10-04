@@ -33,25 +33,25 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 ## Content ##
-  The main function groups are:
-  - narrowing functions - narrow() - that go from UTF-16 or UTF-32 to UTF-8 encoding.
-  - widening functions - widen() - that go from UTF-8 to UTF-16
-  - widening functions - rune() and runes() - that go from UTF-8 to UTF-32
-  
-  There are also functions for:
-  - character counting - length()
-  - string traversal - next()
-  - validity checking - valid()
+The main function groups are:
+- narrowing functions - narrow() - that go from UTF-16 or UTF-32 to UTF-8 encoding.
+- widening functions - widen() - that go from UTF-8 to UTF-16
+- widening functions - rune() and runes() - that go from UTF-8 to UTF-32
 
-  In addition to those, there are wrappings for:
-  - the most common file access operations: fopen(), access(), remove(), chmod(),
-    rename()
-  - directory operations: mkdir(), rmdir(), chdir(), getcwd()
-  - path management: splitpath(), makepath()
-  - environment functions: getenv(), putenv()
-  - conversion of command-line arguments: get_argv() and free_argv()
-  - C++ I/O streams: \ref utf8::ifstream, \ref utf8::ofstream, \ref utf8::fstream
-  - Character classification functions *is...*: \ref charclass
+There are also functions for:
+- character counting - length()
+- string traversal - next()
+- validity checking - valid()
+
+In addition to those, there are wrappings for:
+- the most common file access operations: fopen(), access(), remove(), chmod(),
+  rename()
+- directory operations: mkdir(), rmdir(), chdir(), getcwd()
+- path management: splitpath(), makepath()
+- environment functions: getenv(), putenv()
+- conversion of command-line arguments: get_argv() and free_argv()
+- C++ I/O streams: \ref utf8::ifstream, \ref utf8::ofstream, \ref utf8::fstream
+- Character classification functions *is...*: \ref charclass
 
 ## Usage ##
 Before using this library it is a good idea to review the guidelines from the
