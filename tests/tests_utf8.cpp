@@ -120,7 +120,7 @@ TEST (next_ptr)
   while (*ptr)
   {
     i++;
-    CHECK (next (ptr));
+    CHECK (utf8::next (ptr));
   }
 
   CHECK_EQUAL (3, i);

@@ -1,3 +1,10 @@
+/*!
+  \file getargv.CPP Environment access functions for UTF-8 encoded strings.
+
+
+  \copyright Mircea Neacsu 2014-2019. Licensed under MIT License.
+  See README.md file for full license terms.
+*/
 #include <utf8/utf8.h>
 #include <windows.h>
 
@@ -7,8 +14,6 @@ namespace utf8 {
 /*!
   Converts wide byte command arguments to an array of pointers
   to UTF-8 strings.
-
-  \ingroup utf8
 
   \param  argc Pointer to an integer that contains number of parameters
   \return array of pointers to each command line parameter
@@ -32,7 +37,6 @@ char** get_argv (int *argc)
 
 /*!
   Frees the memory allocated by get_argv()
-  \ingroup utf8
 
   \param  argc  number of arguments
   \param  argv  array of pointers to arguments
@@ -46,7 +50,6 @@ void free_argv (int argc, char **argv)
 
 /*!
   Converts wide byte command arguments to UTF-8 to a vector of UTF-8 strings.
-  \ingroup utf8
 
   \return vector of UTF-8 strings
 */

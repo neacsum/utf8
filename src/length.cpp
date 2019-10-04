@@ -1,3 +1,10 @@
+/*!
+  \file LENGTH.CPP UTF-8 character counting.
+
+
+  \copyright Mircea Neacsu 2014-2019. Licensed under MIT License.
+  See README.md file for full license terms.
+*/
 #include <utf8/utf8.h>
 
 using namespace std;
@@ -5,8 +12,8 @@ namespace utf8 {
 /*!
   Counts number of characters in an UTF8 encoded string
   
-  \ingroup utf8
   \param s UTF8-encoded string
+  \return number of characters in string
 
   \note Algorithm from http://canonical.org/~kragen/strlen-utf8.html
 */

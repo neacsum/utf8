@@ -1,8 +1,8 @@
-UTF8 - Simple library for internationalization
+﻿UTF8 - Simple Library for Internationalization {#mainpage}
 =============================================
 
-Windows functions to facilitate handling of I18N problems using
-the strategy advocated by [UTF-8 Everywhere](http://utf8everywhere.org/)
+Functions to facilitate Windows handling of I18N problems using
+the strategy advocated by [UTF-8 Everywhere Manifesto](http://utf8everywhere.org/).
 
 
 Author:
@@ -32,9 +32,67 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
+## Content ##
+  The main function groups are:
+  - narrowing functions - narrow() - that go from UTF-16 or UTF-32 to UTF-8 encoding.
+  - widening functions - widen() - that go from UTF-8 to UTF-16
+  - widening functions - rune() and runes() - that go from UTF-8 to UTF-32
+  
+  There are also functions for:
+  - character counting - length()
+  - string traversal - next()
+  - validity checking - valid()
+
+  In addition to those, there are wrappings for:
+  - the most common file access operations: fopen(), access(), remove(), chmod(),
+    rename()
+  - directory operations: mkdir(), rmdir(), chdir(), getcwd()
+  - path management: splitpath(), makepath()
+  - environment functions: getenv(), putenv()
+  - conversion of command-line arguments: get_argv() and free_argv()
+  - C++ I/O streams: \ref utf8::ifstream, \ref utf8::ofstream, \ref utf8::fstream
+  - Character classification functions *is...*: \ref charclass
+
+## Usage ##
+Before using this library it is a good idea to review the guidelines from the
+[UTF-8 Everywhere Manifesto](http://utf8everywhere.org/). In particular:
+- define UNICODE or _UNICODE in your program (for Visual Studio users make sure
+  "Use Unicode Character Set" option is defined).
+- use only *std::string* and <i>char*</i> variables. Assume they all contain UTF-8
+  encoded strings.
+- use UTF-16 strings only in arguments to Windows API calls.
+
+All functions and classes in this library are included in the *utf8* namespace.
+It is a good idea not to have a using directive for this namespace. That makes it
+more evident in the code where UTF8-aware functions are used.
+
+This is an example of a function call:
+````
+  string dirname = u8"ελληνικό";
+  utf8::mkdir (dirname);   //create a directory with a UTF8-encoded name
+````
+And this is an example of a C++ stream with a weird name and content:
+````
+  string filename = u8"ελληνικό";
+  string filetext{ u8"😃😎😛" };
+
+  utf8::ofstream u8strm(filename);
+
+  u8strm << filetext << endl;
+  u8strm.close ();
+````
+Calling Windows API functions can be handled like this:
+````
+  string filename = u8"ελληνικό";
+  HANDLE f = CreateFile (utf8::widen (filename).c_str (), GENERIC_READ, 0,
+    NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+````
+
+ 
 ## Building ##
 The UTF8 library doesn't have any dependencies. The test programs however uses
-the [UTTP library](https://bitbucket.org/neacsum/utpp)
+the [UTTP library](https://bitbucket.org/neacsum/utpp).
+
 
 ## Documentation ##
 Use [Doxygen](http://www.doxygen.nl/) to generate documentation.

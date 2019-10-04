@@ -1,3 +1,10 @@
+/*!
+  \file RUNE.CPP Conversion to/from UTF-32 (char32_t) encoding.
+
+
+  \copyright Mircea Neacsu 2014-2019. Licensed under MIT License.
+  See README.md file for full license terms.
+*/
 #include <utf8/utf8.h>
 #include <assert.h>
 #include <string>
@@ -7,8 +14,12 @@
 using namespace std;
 namespace utf8 {
 
-/// Return current Unicode code point.
-char32_t rune (std::string::const_iterator p)
+/*!
+  Return current Unicode code point.
+  \param p pointer to character
+  \return UTF-32 encoded character
+*/
+char32_t rune (const char* p)
 {
   int rune = 0;
   if ((*p & 0x80) == 0)
@@ -42,39 +53,10 @@ char32_t rune (std::string::const_iterator p)
   return rune;
 }
 
-/// Return current Unicode code point.
-char32_t rune (const char* p)
+/// @copydoc rune()
+char32_t rune (const std::string::const_iterator& p)
 {
-  int rune = 0;
-  if ((*p & 0x80) == 0)
-  {
-    rune = *p;
-  }
-  else if ((*p & 0xE0) == 0xc0)
-  {
-    rune = (*p++ & 0x1f) << 6;
-    assert ((*p & 0xC0) == 0x80);
-    rune += *p & 0x3f;
-  }
-  else if ((*p & 0xf0) == 0xE0)
-  {
-    rune = (*p++ & 0x0f) << 12;
-    assert ((*p & 0xC0) == 0x80);
-    rune += (*p++ & 0x3f) << 6;
-    assert ((*p & 0xC0) == 0x80);
-    rune += (*p & 0x3f);
-  }
-  else
-  {
-    rune = (*p++ & 0x07) << 18;
-    assert ((*p & 0xC0) == 0x80);
-    rune += (*p++ & 0x3f) << 12;
-    assert ((*p & 0xC0) == 0x80);
-    rune += (*p++ & 0x3f) << 6;
-    assert ((*p & 0xC0) == 0x80);
-    rune += (*p & 0x3f);
-  }
-  return rune;
+  return rune (&(*p));
 }
 
 /*!

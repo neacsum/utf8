@@ -1,3 +1,10 @@
+/*!
+  \file ENVIR.CPP Environment access functions for UTF-8 encoded strings.
+
+
+  \copyright Mircea Neacsu 2014-2019. Licensed under MIT License.
+  See README.md file for full license terms.
+*/
 #include <utf8/utf8.h>
 
 using namespace std;
@@ -9,9 +16,10 @@ namespace utf8 {
   This is a wrapper for [_wputenv function]
   (https://docs.microsoft.com/en-us/cpp/c-runtime-library/reference/putenv-wputenv)
 
+  \param str environment string to modify
   \return true if successful, false otherwise.
 */
-bool putenv (const std::string & str)
+bool putenv (const std::string& str)
 {
   return (_wputenv (utf8::widen (str).c_str ()) == 0);
 }
@@ -32,7 +40,12 @@ bool putenv (const std::string& var, const std::string& val)
     widen(val).c_str()) == 0);
 }
 
-/// Gets a value from the current environment
+/*!
+  Retrieves the value of an environment variable
+  \param  var name of environment variable
+  \return value of environment variable or an empty string if there is no such
+          environment variable
+*/
 std::string getenv (const std::string & var)
 {
   size_t nsz;

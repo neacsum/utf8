@@ -1,5 +1,5 @@
 /*!
-  \file SPLITPATH.CPP - Path splitting functions using UTF-8 encoded filenames
+  \file SPLITPATH.CPP Path splitting functions using UTF-8 encoded filenames
 
   \copyright Mircea Neacsu 2014-2019. Licensed under MIT License.
   See README file for full license terms.
@@ -23,7 +23,7 @@ namespace utf8 {
 
   Returned strings are converted to UTF-8.
 */
-void splitpath (const string& path, char* drive, char* dir, char* fname, char* ext)
+void splitpath (const std::string& path, char* drive, char* dir, char* fname, char* ext)
 {
   wstring wpath = widen (path);
   wchar_t wdrive[_MAX_DRIVE];

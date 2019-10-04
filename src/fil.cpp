@@ -1,3 +1,10 @@
+/*!
+  \file FIL.CPP File access functions with UTF-8 encoded arguments
+
+
+  \copyright Mircea Neacsu 2014-2019. Licensed under MIT License.
+  See README.md file for full license terms.
+*/
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <utf8/utf8.h>
@@ -5,7 +12,6 @@
 using namespace std;
 namespace utf8 {
 
-///\{
 /*!
   Changes the file access permissions
 
@@ -16,20 +22,18 @@ namespace utf8 {
 
   \return true if successful, false otherwise
 */
-
 bool chmod (const char* filename, int mode)
 {
   return (_wchmod (widen (filename).c_str (), mode) == 0);
 }
 
+/// \copydoc chmod()
 bool chmod (const std::string& filename, int mode)
 {
   return (_wchmod (widen (filename).c_str (), mode) == 0);
 }
-///\}
 
 
-///\{
 /*!
   Determines if a file has the requested access permissions
 
@@ -41,20 +45,20 @@ bool chmod (const std::string& filename, int mode)
               - 6 read/write permission
 
   \return true if successful, false otherwise
+
 */
 bool access (const char* filename, int mode)
 {
   return (_waccess (widen (filename).c_str (), mode) == 0);
 }
 
+/// \copydoc access()
 bool access (const std::string& filename, int mode)
 {
   return (_waccess (widen (filename).c_str (), mode) == 0);
 }
-///\}
 
 
-///\{
 /*!
   Delete a file
 
@@ -66,11 +70,11 @@ bool remove (const char* filename)
   return (_wremove (widen (filename).c_str ()) == 0);
 }
 
+/// \copydoc remove()
 bool remove (const std::string& filename)
 {
   return (_wremove (widen (filename).c_str ()) == 0);
 }
-///\}
 
 ///\{
 /*!
@@ -88,6 +92,7 @@ bool rename (const char* oldname, const char* newname)
   return (_wrename (oldn.c_str (), newn.c_str ()) == 0);
 }
 
+/// \copydoc rename()
 bool rename (const std::string& oldname, const std::string& newname)
 {
   wstring oldn = widen (oldname);
@@ -95,9 +100,7 @@ bool rename (const std::string& oldname, const std::string& newname)
 
   return (_wrename (oldn.c_str (), newn.c_str ()) == 0);
 }
-///\}
 
-///\{
 /*!
   Open a file
 
@@ -110,6 +113,7 @@ FILE* fopen (const char* filename, const char* mode)
   return (_wfopen (widen (filename).c_str (), widen (mode).c_str ()));
 }
 
+/// \copydoc fopen()
 FILE* fopen (const std::string& filename, const std::string& mode)
 {
   return (_wfopen (widen (filename).c_str (), widen (mode).c_str ()));

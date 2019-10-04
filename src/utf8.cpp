@@ -1,5 +1,5 @@
 /*!
-  \file UTF8.CPP - Basic UTF8 Conversion functions
+  \file UTF8.CPP Basic UTF-8 Conversion functions
 
   These functions facilitate handling of I18N problems using
   the strategy advocated by [UTF-8 Everywhere](http://utf8everywhere.org/)
@@ -53,13 +53,12 @@ std::string narrow (const std::wstring& s)
   return out;
 }
 
-///\{
 /*!
   Conversion from UTF-8 to wide character
 
   \param  s input string
   \return wide character string
-  */
+*/
 std::wstring widen (const char* s)
 {
   int wsz;
@@ -72,7 +71,12 @@ std::wstring widen (const char* s)
   return out;
 }
 
+/*!
+  Conversion from UTF-8 to wide character
 
+  \param  s input string
+  \return wide character string
+*/
 std::wstring widen (const std::string& s)
 {
   int wsz = MultiByteToWideChar (CP_UTF8, 0, s.c_str(), -1, 0, 0);
@@ -84,10 +88,13 @@ std::wstring widen (const std::string& s)
   out.resize (wsz - 1); //output is null-terminated
   return out;
 }
-///\}
 
 
-/// Verifies if string is a valid UTF-8 string
+/*!
+  Verifies if string is a valid UTF-8 string
+  \param s pointer to character string to verify
+  \return true if string is a valid UTF-8 encoded string, false otherwise
+*/
 bool valid (const char *s)
 {
   int rem = 0;
@@ -152,12 +159,12 @@ bool next (const std::string& s, std::string::const_iterator& p)
 /*!
   Advances a character pointer to next UTF-8 character
 
-  \param p    Reference to character pointer to be advanced
+  \param p    <b>Reference</b> to character pointer to be advanced
   \return     True if pointer can be advanced or is already at end;
               false if string contains an invalid UTF-8 encoding at current
               position.
 */
-bool next (char*& p)
+bool next (const char*& p)
 {
   int rem = 0;
   if (*p == 0)

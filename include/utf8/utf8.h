@@ -1,8 +1,7 @@
 /*!
-  \file UTF8.H - UTF8 Conversion functions
+  \file UTF8.H UTF-8 Conversion functions
   (c) Mircea Neacsu 2014-2019
 
-  \addtogroup utf8
 */
 #pragma once
 #include <string>
@@ -21,9 +20,9 @@ std::u32string runes (const std::string& s);
 
 size_t length (const std::string& s);
 bool next (const std::string& s, std::string::const_iterator& p);
-bool next (char*& p);
+bool next (const char*& p);
 
-char32_t rune (std::string::const_iterator p);
+char32_t rune (const std::string::const_iterator& p);
 char32_t rune (const char* p);
 
 bool valid (const std::string& s);
@@ -69,6 +68,7 @@ std::string getenv (const std::string& var);
 bool putenv (const std::string& str);
 bool putenv (const std::string& var, const std::string& val);
 
+/// Input stream class using UTF-8 filename
 class ifstream : public std::ifstream
 {
 public:
@@ -92,6 +92,7 @@ public:
   }
 };
 
+/// Output stream class using UTF-8 filename
 class ofstream : public std::ofstream
 {
 public:
@@ -115,6 +116,7 @@ public:
   }
 };
 
+/// Bidirectional stream class using UTF-8 filename
 class fstream : public std::fstream
 {
 public:
@@ -138,75 +140,121 @@ public:
   }
 };
 
-/// Verifies if string is a valid UTF-8 string
+/*!
+  Verifies if string is a valid UTF-8 string
+  \param s character string to verify
+  \return true if string is a valid UTF-8 encoded string, false otherwise
+*/
 inline
 bool valid (const std::string& s)
 {
   return valid (s.c_str ());
 }
 
-/// Return true if rune is a decimal digit (0-9)
+/*!
+  \defgroup charclass Character Classification
+
+  Replacements for character classification functions.
+*/
+
+
+/*!
+  Return true if character is blank(-ish)
+  \param p pointer to character to check
+  \return true if character is blank, false otherwise
+  \ingroup charclass
+*/
+inline
+bool isblank (const char *p)
+{
+  return (strchr (" \t\n\r\f\v", *p) != nullptr);
+}
+
+/// \copydoc isblank()
+inline
+bool isblank (std::string::const_iterator p)
+{
+  return isblank (&*p);
+}
+
+/*!
+  Return true if character is a decimal digit (0-9)
+  \param p pointer to character to check
+  \return true if character is a digit, false otherwise
+  \ingroup charclass
+*/
 inline
 bool isdigit (const char *p)
 {
-  char32_t c = rune (p);
+  char c = *p;
   return '0' <= c && c <= '9';
 }
 
-/// Return true if rune is a decimal digit (0-9)
+/// \copydoc isdigit()
 inline
 bool isdigit (std::string::const_iterator p)
 {
-  char32_t c = rune (p);
-  return '0' <= c && c <= '9';
+  return isdigit (&*p);
 }
 
-/// Return true if rune is an alphanumeric character (0-9 or A-Z or a-z)
+/*!
+  Return true if character is an alphanumeric character (0-9 or A-Z or a-z)
+  \param p pointer to character to check
+  \return true if character is alphanumeric, false otherwise
+  \ingroup charclass
+*/
 inline
 bool isalnum (const char *p)
 {
-  char32_t c = rune (p);
+  char c = *p;
   return ('0' <= c && c <= '9') || ('A' <= c && c <= 'Z') || ('a' <= c && c <= 'z') ;
 }
 
-/// Return true if rune is an alphanumeric character (0-9 or A-Z or a-z)
+/// \copydoc isalnum()
 inline
 bool isalnum (std::string::const_iterator p)
 {
-  char32_t c = rune (p);
-  return ('0' <= c && c <= '9') || ('A' <= c && c <= 'Z') || ('a' <= c && c <= 'z');
+  return isalnum (&*p);
 }
 
-/// Return true if rune is an alphabetic character (A-Z or a-z)
+/*!
+  Return true if character is an alphabetic character (A-Z or a-z)
+  \param p pointer to character to check
+  \return true if character is alphabetic, false otherwise
+  \ingroup charclass
+*/
 inline
 bool isalpha (const char *p)
 {
-  char32_t c = rune (p);
+  char c = *p;
   return ('A' <= c && c <= 'Z') || ('a' <= c && c <= 'z');
 }
 
-/// Return true if rune is an alphabetic character (A-Z or a-z)
+/// \copydoc isalpha()
 inline
 bool isalpha (std::string::const_iterator p)
 {
-  char32_t c = rune (p);
-  return ('A' <= c && c <= 'Z') || ('a' <= c && c <= 'z');
+  return isalpha (&*p);
 }
 
-/// Return true if rune is a hexadecimal digit (0-9 or A-F or a-f)
+/*!
+  Return true if character is a hexadecimal digit (0-9 or A-F or a-f)
+  \param p pointer to character to check
+  \return true if character is hexadecimal, false otherwise
+  \ingroup charclass
+*/
 inline
 bool isxdigit (const char *p)
 {
-  char32_t c = rune (p);
+  char c = *p;
   return ('0' <= c && c <= '9') || ('A' <= c && c <= 'F') || ('a' <= c && c <= 'F');
 }
 
-/// Return true if rune is a hexadecimal digit (0-9 or A-F or a-f)
+/// \copydoc isxdigit()
 inline
 bool isxdigit (std::string::const_iterator p)
 {
-  char32_t c = rune (p);
-  return ('0' <= c && c <= '9') || ('A' <= c && c <= 'F') || ('a' <= c && c <= 'F');
+  return isxdigit (&*p);
 }
 
 #ifdef _WINDOWS_
