@@ -91,9 +91,10 @@ Calling Windows API functions can be handled like this:
  
 ## Building ##
 The UTF8 library doesn't have any dependencies. The test programs however uses
-the [UTTP library](https://bitbucket.org/neacsum/utpp).
+the [UTTP library](https://github.com/neacsum/utpp).
 
 
 ## Documentation ##
-Use [Doxygen](http://www.doxygen.nl/) to generate documentation.
+[Doxygen](http://www.doxygen.nl/) documentation can be found at https://neacsum.github.io/utf8/
+
 
