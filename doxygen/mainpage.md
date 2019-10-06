@@ -1,5 +1,4 @@
-﻿UTF8 - Simple Library for Internationalization {#mainpage}
-=============================================
+﻿## UTF8 - Simple Library for Internationalization ## {#mainpage}
 
 Functions to facilitate Windows handling of I18N problems using
 the strategy advocated by [UTF-8 Everywhere Manifesto](http://utf8everywhere.org/).
@@ -8,7 +7,7 @@ the strategy advocated by [UTF-8 Everywhere Manifesto](http://utf8everywhere.org
 Author:
 Mircea Neacsu (mircea@neacsu.net)
 
-## License ##
+# License #
 
 The MIT License (MIT)
  
@@ -32,7 +31,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-## Content ##
+# Content #
 The main function groups are:
 - narrowing functions - narrow() - that go from UTF-16 or UTF-32 to UTF-8 encoding.
 - widening functions - widen() - that go from UTF-8 to UTF-16
@@ -53,7 +52,7 @@ In addition to those, there are wrappings for:
 - C++ I/O streams: \ref utf8::ifstream, \ref utf8::ofstream, \ref utf8::fstream
 - Character classification functions *is...*: \ref charclass
 
-## Usage ##
+# Usage #
 Before using this library it is a good idea to review the guidelines from the
 [UTF-8 Everywhere Manifesto](http://utf8everywhere.org/). In particular:
 - define UNICODE or _UNICODE in your program (for Visual Studio users make sure
@@ -89,12 +88,9 @@ Calling Windows API functions can be handled like this:
 ````
 
  
-## Building ##
+# Building #
 The UTF8 library doesn't have any dependencies. The test programs however uses
 the [UTTP library](https://github.com/neacsum/utpp).
 
-
-## Documentation ##
-[Doxygen](http://www.doxygen.nl/) documentation can be found at https://neacsum.github.io/utf8/
 
 
