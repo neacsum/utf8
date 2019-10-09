@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['widen_79',['widen',['../utf8_8cpp.html#a78816035f4ecb835146b9b32146caf4a',1,'utf8::widen(const char *s)'],['../utf8_8cpp.html#a2a26135d3cdc32b19d67f79df8cef61a',1,'utf8::widen(const std::string &amp;s)']]]
+  ['size_94',['size',['../classutf8_1_1buffer.html#a2eabebd9d7e3ee428700c9805bc24340',1,'utf8::buffer']]],
+  ['splitpath_95',['splitpath',['../splitpath_8cpp.html#abc4219cc579a9e376e71f9d001fb1ddc',1,'utf8::splitpath(const std::string &amp;path, char *drive, char *dir, char *fname, char *ext)'],['../splitpath_8cpp.html#a0445457edb34e67a43085aeddf5725b0',1,'utf8::splitpath(const std::string &amp;path, std::string &amp;drive, std::string &amp;dir, std::string &amp;fname, std::string &amp;ext)']]]
 ];

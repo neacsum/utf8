@@ -159,6 +159,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\buffer.cpp" />
     <ClCompile Include="src\dir.cpp" />
     <ClCompile Include="src\envir.cpp" />
     <ClCompile Include="src\fil.cpp" />
@@ -173,6 +174,7 @@
     <ClInclude Include="include\utf8\utf8.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="doxygen\mainpage.md" />
     <None Include="README.md" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

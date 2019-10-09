@@ -50,10 +50,11 @@ In addition to those, there are wrappings for:
 - environment functions: getenv(), putenv()
 - conversion of command-line arguments: get_argv() and free_argv()
 - C++ I/O streams: \ref utf8::ifstream, \ref utf8::ofstream, \ref utf8::fstream
-- Character classification functions *is...*: \ref charclass
+- Character classification functions: \ref charclass "is... (isdigit, isalnum, etc.)"
+- A simple \ref utf8::buffer "buffer class" for handling Windows API parameters. 
 
 # Usage #
-Before using this library it is a good idea to review the guidelines from the
+Before using this library you might want to review the guidelines from the
 [UTF-8 Everywhere Manifesto](http://utf8everywhere.org/). In particular:
 - define UNICODE or _UNICODE in your program (for Visual Studio users make sure
   "Use Unicode Character Set" option is defined).
@@ -70,7 +71,12 @@ This is an example of a function call:
   string dirname = u8"ελληνικό";
   utf8::mkdir (dirname);   //create a directory with a UTF8-encoded name
 ````
-And this is an example of a C++ stream with a weird name and content:
+Most functions mimic the behavior of standard C functions. A notable exception is
+the access() function. The utf8::access() function returns a bool value while the
+standard library function returns 0 if the file can be accessed.
+ 
+Wrappers for C++ I/O streams can be used for file streams with UTF-8 encoded filenames.
+This is an example of a C++ stream with a weird name and content:
 ````
   string filename = u8"ελληνικό";
   string filetext{ u8"😃😎😛" };
@@ -80,7 +86,11 @@ And this is an example of a C++ stream with a weird name and content:
   u8strm << filetext << endl;
   u8strm.close ();
 ````
-Calling Windows API functions can be handled like this:
+Translation from UTF-16 to UTF-8 applies only to file names. C++ streams are agnostic
+about their content.
+
+Calling Windows API functions can be handled using the generic widening and
+narrowing functions like this example:
 ````
   string filename = u8"ελληνικό";
   HANDLE f = CreateFile (utf8::widen (filename).c_str (), GENERIC_READ, 0,

@@ -1,4 +1,4 @@
-﻿UTF8 - Simple Library for Internationalization {#mainpage}
+﻿UTF8 - Simple Library for Internationalization
 =============================================
 
 Functions to facilitate Windows handling of I18N problems using

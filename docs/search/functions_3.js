@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['get_5fargv_58',['get_argv',['../getargv_8cpp.html#a86847074de33ea4eec2aa91ba500119b',1,'utf8::get_argv(int *argc)'],['../getargv_8cpp.html#a87630aaaeb49685ad3359000aa670c66',1,'utf8::get_argv()']]],
-  ['getcwd_59',['getcwd',['../dir_8cpp.html#ad489d686670dff8206a2c45a7b237ef1',1,'utf8']]],
-  ['getenv_60',['getenv',['../envir_8cpp.html#a445530e19aefad1fde92232c09f37a4f',1,'utf8']]]
+  ['fopen_69',['fopen',['../fil_8cpp.html#a17111250dd542f9ed080a96cab913936',1,'utf8::fopen(const char *filename, const char *mode)'],['../fil_8cpp.html#af52d36c6cd5519362893a68808fad0fc',1,'utf8::fopen(const std::string &amp;filename, const std::string &amp;mode)']]],
+  ['free_5fargv_70',['free_argv',['../getargv_8cpp.html#a611de942130d7b70ff9cfaaa79a1f005',1,'utf8']]]
 ];

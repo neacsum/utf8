@@ -1,8 +1,7 @@
-/*!
-  \file LENGTH.CPP UTF-8 character counting.
+/// \file LENGTH.CPP UTF-8 character counting.
 
-
-  \copyright Mircea Neacsu 2014-2019. Licensed under MIT License.
+/*
+  (c) Mircea Neacsu 2014-2019. Licensed under MIT License.
   See README.md file for full license terms.
 */
 #include <utf8/utf8.h>

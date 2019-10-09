@@ -1,8 +1,7 @@
-/*!
-  \file getargv.CPP Environment access functions for UTF-8 encoded strings.
+/// \file getargv.CPP Environment access functions for UTF-8 encoded strings.
 
-
-  \copyright Mircea Neacsu 2014-2019. Licensed under MIT License.
+/*
+  (c) Mircea Neacsu 2014-2019. Licensed under MIT License.
   See README.md file for full license terms.
 */
 #include <utf8/utf8.h>

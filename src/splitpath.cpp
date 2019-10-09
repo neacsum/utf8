@@ -1,7 +1,7 @@
-/*!
-  \file SPLITPATH.CPP Path splitting functions using UTF-8 encoded filenames
+///  \file SPLITPATH.CPP Path splitting functions using UTF-8 encoded filenames
 
-  \copyright Mircea Neacsu 2014-2019. Licensed under MIT License.
+/*
+  (c) Mircea Neacsu 2014-2019. Licensed under MIT License.
   See README file for full license terms.
 */
 #include <utf8/utf8.h>

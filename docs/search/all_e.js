@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['utf8_20_2d_20simple_20library_20for_20internationalization_36',['UTF8 - Simple Library for Internationalization',['../index.html',1,'']]],
-  ['utf8_2ecpp_37',['utf8.cpp',['../utf8_8cpp.html',1,'']]],
-  ['utf8_2eh_38',['utf8.h',['../utf8_8h.html',1,'']]]
+  ['size_40',['size',['../classutf8_1_1buffer.html#a2eabebd9d7e3ee428700c9805bc24340',1,'utf8::buffer']]],
+  ['splitpath_41',['splitpath',['../splitpath_8cpp.html#abc4219cc579a9e376e71f9d001fb1ddc',1,'utf8::splitpath(const std::string &amp;path, char *drive, char *dir, char *fname, char *ext)'],['../splitpath_8cpp.html#a0445457edb34e67a43085aeddf5725b0',1,'utf8::splitpath(const std::string &amp;path, std::string &amp;drive, std::string &amp;dir, std::string &amp;fname, std::string &amp;ext)']]],
+  ['splitpath_2ecpp_42',['splitpath.cpp',['../splitpath_8cpp.html',1,'']]]
 ];

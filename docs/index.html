@@ -92,10 +92,11 @@ $(function() {
 <li>environment functions: <a class="el" href="envir_8cpp.html#a445530e19aefad1fde92232c09f37a4f" title="Retrieves the value of an environment variable.">getenv()</a>, <a class="el" href="envir_8cpp.html#a7efd70545eb2d60d5ec8136dfc3b37db" title="Creates, modifies, or removes environment variables.">putenv()</a></li>
 <li>conversion of command-line arguments: <a class="el" href="getargv_8cpp.html#a86847074de33ea4eec2aa91ba500119b" title="Converts wide byte command arguments to an array of pointers to UTF-8 strings.">get_argv()</a> and <a class="el" href="getargv_8cpp.html#a611de942130d7b70ff9cfaaa79a1f005" title="Frees the memory allocated by get_argv()">free_argv()</a></li>
 <li>C++ I/O streams: <a class="el" href="classutf8_1_1ifstream.html">utf8::ifstream</a>, <a class="el" href="classutf8_1_1ofstream.html">utf8::ofstream</a>, <a class="el" href="classutf8_1_1fstream.html">utf8::fstream</a></li>
-<li>Character classification functions <em>is...</em>: <a class="el" href="group__charclass.html">Character Classification</a></li>
+<li>Character classification functions: <a class="el" href="group__charclass.html">is... (isdigit, isalnum, etc.)</a></li>
+<li>A simple <a class="el" href="classutf8_1_1buffer.html">buffer class</a> for handling Windows API parameters.</li>
 </ul>
 <h1>Usage</h1>
-<p>Before using this library it is a good idea to review the guidelines from the <a href="http://utf8everywhere.org/">UTF-8 Everywhere Manifesto</a>. In particular:</p><ul>
+<p>Before using this library you might want to review the guidelines from the <a href="http://utf8everywhere.org/">UTF-8 Everywhere Manifesto</a>. In particular:</p><ul>
 <li>define UNICODE or _UNICODE in your program (for Visual Studio users make sure "Use Unicode Character Set" option is defined).</li>
 <li>use only <em>std::string</em> and <em>char*</em> variables. Assume they all contain UTF-8 encoded strings.</li>
 <li>use UTF-16 strings only in arguments to Windows API calls.</li>
@@ -103,14 +104,16 @@ $(function() {
 <p>All functions and classes in this library are included in the <em>utf8</em> namespace. It is a good idea not to have a using directive for this namespace. That makes it more evident in the code where UTF8-aware functions are used.</p>
 <p>This is an example of a function call: </p><div class="fragment"><div class="line">string dirname = u8&quot;ελληνικό&quot;;</div>
 <div class="line">utf8::mkdir (dirname);   //create a directory with a UTF8-encoded name</div>
-</div><!-- fragment --><p> And this is an example of a C++ stream with a weird name and content: </p><div class="fragment"><div class="line">string filename = u8&quot;ελληνικό&quot;;</div>
+</div><!-- fragment --><p> Most functions mimic the behavior of standard C functions. A notable exception is the <a class="el" href="fil_8cpp.html#af3ebab9439377a6a3f13542dbab4337c" title="Determines if a file has the requested access permissions.">access()</a> function. The <a class="el" href="fil_8cpp.html#af3ebab9439377a6a3f13542dbab4337c" title="Determines if a file has the requested access permissions.">utf8::access()</a> function returns a bool value while the standard library function returns 0 if the file can be accessed.</p>
+<p>Wrappers for C++ I/O streams can be used for file streams with UTF-8 encoded filenames. This is an example of a C++ stream with a weird name and content: </p><div class="fragment"><div class="line">string filename = u8&quot;ελληνικό&quot;;</div>
 <div class="line">string filetext{ u8&quot;😃😎😛&quot; };</div>
 <div class="line"> </div>
 <div class="line">utf8::ofstream u8strm(filename);</div>
 <div class="line"> </div>
 <div class="line">u8strm &lt;&lt; filetext &lt;&lt; endl;</div>
 <div class="line">u8strm.close ();</div>
-</div><!-- fragment --><p> Calling Windows API functions can be handled like this: </p><div class="fragment"><div class="line">string filename = u8&quot;ελληνικό&quot;;</div>
+</div><!-- fragment --><p> Translation from UTF-16 to UTF-8 applies only to file names. C++ streams are agnostic about their content.</p>
+<p>Calling Windows API functions can be handled using the generic widening and narrowing functions like this example: </p><div class="fragment"><div class="line">string filename = u8&quot;ελληνικό&quot;;</div>
 <div class="line">HANDLE f = CreateFile (utf8::widen (filename).c_str (), GENERIC_READ, 0,</div>
 <div class="line">  NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);</div>
 </div><!-- fragment --><h1>Building</h1>

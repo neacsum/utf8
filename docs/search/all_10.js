@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['widen_40',['widen',['../utf8_8cpp.html#a78816035f4ecb835146b9b32146caf4a',1,'utf8::widen(const char *s)'],['../utf8_8cpp.html#a2a26135d3cdc32b19d67f79df8cef61a',1,'utf8::widen(const std::string &amp;s)']]]
+  ['valid_46',['valid',['../utf8_8cpp.html#a9f6bd3582d6291eaba53779fd4fde4ae',1,'utf8::valid(const char *s)'],['../utf8_8h.html#a2521532e5f84a299e835bf606fadd08b',1,'utf8::valid(const std::string &amp;s)']]]
 ];

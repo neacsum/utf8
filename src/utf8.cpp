@@ -1,10 +1,7 @@
-/*!
-  \file UTF8.CPP Basic UTF-8 Conversion functions
+/// \file UTF8.CPP Basic UTF-8 Conversion functions
 
-  These functions facilitate handling of I18N problems using
-  the strategy advocated by [UTF-8 Everywhere](http://utf8everywhere.org/)
-
-  \copyright Mircea Neacsu 2014-2019. Licensed under MIT License.
+/*
+  (c) Mircea Neacsu 2014-2019. Licensed under MIT License.
   See README file for full license terms.
 */
 

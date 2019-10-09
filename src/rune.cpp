@@ -1,8 +1,7 @@
-/*!
-  \file RUNE.CPP Conversion to/from UTF-32 (char32_t) encoding.
+/// \file RUNE.CPP Conversion to/from UTF-32 (char32_t) encoding.
 
-
-  \copyright Mircea Neacsu 2014-2019. Licensed under MIT License.
+/*
+  (c) Mircea Neacsu 2014-2019. Licensed under MIT License.
   See README.md file for full license terms.
 */
 #include <utf8/utf8.h>

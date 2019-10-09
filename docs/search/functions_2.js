@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['fopen_56',['fopen',['../fil_8cpp.html#a17111250dd542f9ed080a96cab913936',1,'utf8::fopen(const char *filename, const char *mode)'],['../fil_8cpp.html#af52d36c6cd5519362893a68808fad0fc',1,'utf8::fopen(const std::string &amp;filename, const std::string &amp;mode)']]],
-  ['free_5fargv_57',['free_argv',['../getargv_8cpp.html#a611de942130d7b70ff9cfaaa79a1f005',1,'utf8']]]
+  ['chdir_67',['chdir',['../dir_8cpp.html#aabb576878dd9ae12de2f0ed0f854f1a4',1,'utf8::chdir(const char *dirname)'],['../dir_8cpp.html#a8d1e251e0c7ff195f4391432184b5183',1,'utf8::chdir(const std::string &amp;dirname)']]],
+  ['chmod_68',['chmod',['../fil_8cpp.html#a9a6a50a870135177fb98e9f2e0fb12d4',1,'utf8::chmod(const char *filename, int mode)'],['../fil_8cpp.html#ad90dc517c53a5c83029449263417ad06',1,'utf8::chmod(const std::string &amp;filename, int mode)']]]
 ];

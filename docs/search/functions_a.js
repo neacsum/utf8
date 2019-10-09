@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['splitpath_77',['splitpath',['../splitpath_8cpp.html#abc4219cc579a9e376e71f9d001fb1ddc',1,'utf8::splitpath(const std::string &amp;path, char *drive, char *dir, char *fname, char *ext)'],['../splitpath_8cpp.html#a0445457edb34e67a43085aeddf5725b0',1,'utf8::splitpath(const std::string &amp;path, std::string &amp;drive, std::string &amp;dir, std::string &amp;fname, std::string &amp;ext)']]]
+  ['putenv_88',['putenv',['../envir_8cpp.html#a7efd70545eb2d60d5ec8136dfc3b37db',1,'utf8::putenv(const std::string &amp;str)'],['../envir_8cpp.html#af5b9fd7fd9c1d5e90a29bdfce6428b1c',1,'utf8::putenv(const std::string &amp;var, const std::string &amp;val)']]]
 ];

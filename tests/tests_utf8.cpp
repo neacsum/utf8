@@ -277,3 +277,56 @@ TEST (msgbox)
 {
   utf8::MessageBox (NULL, u8"ελληνικό", u8"😃😎😛", MB_ICONINFORMATION);
 }
+
+TEST (buffer_test)
+{
+  utf8::buffer buf (_MAX_PATH);
+
+  // You can set a buffer to a an initial value through the string assignment
+  // operator
+  string tmp{ "Some initial value" };
+  buf = tmp;
+
+  CHECK_EQUAL (tmp, (string)buf);
+  // size doesn't shrink when assigning a string 
+  CHECK_EQUAL (_MAX_PATH, buf.size ());
+
+  //Copy ctor
+  utf8::buffer buf1(buf);
+  CHECK_EQUAL (tmp, (string)buf1);
+  CHECK_EQUAL (_MAX_PATH, buf1.size ());
+
+  //Principal assignment operator
+  utf8::buffer buf2 (50);
+  buf2 = buf1;
+  CHECK_EQUAL (tmp, (string)buf2);
+  //After buffer assignment, size matches the right-hand side size
+  CHECK_EQUAL (_MAX_PATH, buf2.size ());
+}
+
+TEST (Temp_FileName)
+{
+  wstring wpath (_MAX_PATH, L'\0');
+  wstring wfname (_MAX_PATH, L'\0');
+
+  GetTempPath ((DWORD)wpath.size (), const_cast<wchar_t*>(wpath.data ()));
+
+  UINT ret = GetTempFileName (wpath.c_str(), L"ÄñΩ",
+    1, const_cast<wchar_t*>(wfname.data ()));
+  CHECK (ret > 0);
+
+
+  //Let's do the same thing with utf8::buffer
+  utf8::buffer path (_MAX_PATH);
+  utf8::buffer fname (_MAX_PATH);
+
+  GetTempPath ((DWORD)path.size (), path);
+
+  ret = GetTempFileName (path, L"ÄñΩ", 1, fname);
+  CHECK (ret > 0);
+
+  //see that we get the same result
+  string result = fname;
+  CHECK_EQUAL (narrow (wfname), result);
+}
+
