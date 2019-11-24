@@ -20,6 +20,7 @@ std::u32string runes (const std::string& s);
 
 size_t length (const std::string& s);
 bool next (const std::string& s, std::string::const_iterator& p);
+bool next (char*& p);
 bool next (const char*& p);
 
 char32_t rune (const std::string::const_iterator& p);
@@ -139,6 +140,12 @@ public:
     std::fstream::open (utf8::widen (filename), mode, prot);
   }
 };
+
+inline
+bool next (const char*& p)
+{
+  return next (const_cast <char*&>(p));
+}
 
 /*!
   Verifies if string is a valid UTF-8 string

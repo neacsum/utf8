@@ -161,7 +161,7 @@ bool next (const std::string& s, std::string::const_iterator& p)
               false if string contains an invalid UTF-8 encoding at current
               position.
 */
-bool next (const char*& p)
+bool next (char*& p)
 {
   int rem = 0;
   if (*p == 0)
