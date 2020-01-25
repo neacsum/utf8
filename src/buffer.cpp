@@ -11,9 +11,9 @@ using namespace std;
 /*!
   \class utf8::buffer
   
-  Windows API returns output strings as UTF-16 encoded strings. This class
-  provides conversion operators that make it easier to go back to UTF-8 encoded
-  strings.
+  Many Windows API function return output strings as UTF-16 encoded strings.
+  This class provides conversion operators that make it easier to go back to
+  UTF-8 encoded strings.
 
   Here is a simple usage example:
 ````

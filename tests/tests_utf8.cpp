@@ -9,6 +9,9 @@ using namespace utf8;
 
 int main (int argc, char **argv)
 {
+  if (argc > 1)
+    return UnitTest::RunSuite (argv[1]);
+
   std::ofstream os ("utf8_tests.xml");
   UnitTest::ReporterXml xml (os);
   return UnitTest::RunAllTests (xml);

@@ -164,6 +164,7 @@
     <ClCompile Include="src\envir.cpp" />
     <ClCompile Include="src\fil.cpp" />
     <ClCompile Include="src\getargv.cpp" />
+    <ClCompile Include="src\ini.cpp" />
     <ClCompile Include="src\length.cpp" />
     <ClCompile Include="src\rune.cpp" />
     <ClCompile Include="src\splitpath.cpp" />
@@ -171,7 +172,9 @@
     <ClCompile Include="src\win.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\utf8\ini.h" />
     <ClInclude Include="include\utf8\utf8.h" />
+    <ClInclude Include="include\utf8\winutf8.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="doxygen\mainpage.md" />

@@ -5,6 +5,7 @@
   See README file for full license terms.
 */
 #include <utf8/utf8.h>
+#include <utf8/ini.h>
 #include <iostream>
 #include <conio.h>
 
@@ -42,11 +43,15 @@ int main (int /*unused*/, char ** /*unused*/)
   }
   out << endl;
 
+  //Create an INI file where we can store settings
+  utf8::IniFile ini(u8"Ελληνικός.ini");
+
   //create a (sub)folder
   printf ("Creating Arabic folder. ");
   utf8::mkdir (u8"اللغة العربي");
   out << u8"Created Arabic folder اللغة العربي" << endl;
   confirm ();
+  ini.PutString ("Folder", u8"اللغة العربي", "Settings");
 
   //Change working directory to this new folder and create a file using fopen
   utf8::chdir (u8"اللغة العربي");
@@ -61,6 +66,7 @@ int main (int /*unused*/, char ** /*unused*/)
   narrow versions of them.*/
   fputs (u8"This text is in Aramaic ܐܪܡܝܐ", f);
   fclose (f);
+  ini.PutString ("Aramaic", u8"ܐܪܡܝܐ", "Settings");
 
   out << u8"Created Aramaic file ܐܪܡܝܐ.txt\n";
   confirm ();
@@ -72,6 +78,7 @@ int main (int /*unused*/, char ** /*unused*/)
   os.close ();
   out << u8"Created Armenian file Հայերեն.txt" << endl;
   confirm ();
+  ini.PutString (u8"Հայերեն", "Armenian", "Settings");
 
   //Let's read some data using streams
   printf ("Reading data from Aramaic file. ");
@@ -100,6 +107,14 @@ int main (int /*unused*/, char ** /*unused*/)
   printf ("Deleting Arabic folder. ");
   utf8::rmdir (u8"اللغة العربي");
   confirm ();
+
+  //retrieve settings from INI file
+  out << "INI setting: Folder=" << ini.GetString ("Folder", "Settings") << endl;
+  out << "INI setting: Aramaic=" << ini.GetString ("Aramaic", "Settings") << endl;
+  out << "INI setting: Armenian=" << ini.GetString (u8"Հայերեն", "Settings") << endl;
+
+  //delete INI file
+  utf8::remove (u8"Ελληνικός.ini");
 
   //Done
   printf ("\nThat's all folks!\n");

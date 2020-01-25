@@ -141,6 +141,7 @@ public:
   }
 };
 
+
 inline
 bool next (const char*& p)
 {
@@ -264,51 +265,11 @@ bool isxdigit (std::string::const_iterator p)
   return isxdigit (&*p);
 }
 
-#ifdef _WINDOWS_
-#undef MessageBox
-int MessageBox (HWND hWnd, const std::string& text, const std::string& caption,
-  unsigned int type);
-#endif
-
-/// A simple buffer for caching values returned by Windows API 
-class buffer {
-public:
-  buffer (size_t size_);
-  ~buffer ();
-  buffer (const buffer& other);
-  buffer& operator = (const buffer& rhs);
-  buffer& operator = (const std::string& rhs);
-  operator wchar_t* ();
-  operator std::string () const;
-  size_t size () const;
-
-private:
-  wchar_t *ptr;
-  size_t sz;
-};
-
-/// Return a pointer to buffer
-inline
-buffer::operator wchar_t* ()
-{
-  return ptr;
-}
-
-/// Convert buffer to an UTF-8 encoded string
-inline
-buffer::operator std::string () const
-{
-  return narrow (ptr);
-}
-
-/// Return buffer size
-inline size_t
-buffer::size () const
-{
-  return sz;
-}
-
 }; //namespace utf8
+
+#include <utf8/winutf8.h>
+#include <utf8/ini.h>
+
 
 #pragma comment (lib, "utf8")
 

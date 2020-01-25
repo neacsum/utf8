@@ -5,7 +5,6 @@
   See README file for full license terms.
 */
 #include <utf8/utf8.h>
-#include <windows.h>
 #include <assert.h>
 
 using namespace std;

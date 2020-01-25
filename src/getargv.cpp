@@ -5,7 +5,6 @@
   See README.md file for full license terms.
 */
 #include <utf8/utf8.h>
-#include <windows.h>
 
 using namespace std;
 namespace utf8 {
