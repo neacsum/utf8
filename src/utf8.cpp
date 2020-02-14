@@ -17,18 +17,20 @@ namespace utf8 {
 /*!
   Conversion from wide character to UTF-8
 
-  \param  s input string
+  \param  s   input string
+  \param  nch number of character to convert or 0 if string is null-terminated
   \return UTF-8 character string
 */
-std::string narrow (const wchar_t* s)
+std::string narrow (const wchar_t* s, size_t nch)
 {
   int nsz;
-  if (!s || !(nsz = WideCharToMultiByte (CP_UTF8, 0, s, -1, 0, 0, 0, 0)))
+  if (!s || !(nsz = WideCharToMultiByte (CP_UTF8, 0, s, (nch?nch:-1), 0, 0, 0, 0)))
     return string ();
 
   string out (nsz, 0);
   WideCharToMultiByte (CP_UTF8, 0, s, -1, &out[0], nsz, 0, 0);
-  out.resize (nsz - 1); //output is null-terminated
+  if (!nch)
+    out.resize (nsz - 1); //output is null-terminated
   return out;
 }
 
@@ -56,15 +58,16 @@ std::string narrow (const std::wstring& s)
   \param  s input string
   \return wide character string
 */
-std::wstring widen (const char* s)
+std::wstring widen (const char* s, size_t nch)
 {
   int wsz;
-  if (!s || !(wsz = MultiByteToWideChar (CP_UTF8, 0, s, -1, 0, 0)))
+  if (!s || !(wsz = MultiByteToWideChar (CP_UTF8, 0, s, (nch?nch:-1), 0, 0)))
     return wstring ();
 
   wstring out (wsz, 0);
   MultiByteToWideChar (CP_UTF8, 0, s, -1, &out[0], wsz);
-  out.resize (wsz - 1); //output is null-terminated
+  if (!nch)
+    out.resize (wsz - 1); //output is null-terminated
   return out;
 }
 

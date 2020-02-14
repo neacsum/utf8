@@ -37,6 +37,17 @@ TEST (widen_ptr)
   CHECK (l1 == l2);
 }
 
+TEST (widen_count)
+{
+  const char *s1 = "ABCDEFGH";
+  wstring l1 (L"ABCD");
+
+  wstring l2 = widen (s1, 4);
+
+  CHECK (l1 == l2);
+
+}
+
 TEST (narrow_string)
 {
   wstring l1(L"ABCD");
@@ -49,6 +60,14 @@ TEST (narrow_ptr)
 {
   const wchar_t *l1 = L"ABCD";
   string s1 = narrow(l1);
+
+  CHECK ("ABCD" == s1);
+}
+
+TEST (narrow_count)
+{
+  const wchar_t *l1 = L"ABCDEFGH";
+  string s1 = narrow (l1, 4);
 
   CHECK ("ABCD" == s1);
 }
@@ -332,4 +351,5 @@ TEST (Temp_FileName)
   string result = fname;
   CHECK_EQUAL (narrow (wfname), result);
 }
+
 

@@ -1,6 +1,6 @@
 /*!
   \file UTF8.H UTF-8 Conversion functions
-  (c) Mircea Neacsu 2014-2019
+  (c) Mircea Neacsu 2014-2020
 
 */
 #pragma once
@@ -10,11 +10,11 @@
 
 namespace utf8 {
 
-std::string narrow (const wchar_t* s);
+std::string narrow (const wchar_t* s, size_t nch=0);
 std::string narrow (const std::wstring& s);
 std::string narrow (const std::u32string& s);
 
-std::wstring widen (const char* s);
+std::wstring widen (const char* s, size_t nch=0);
 std::wstring widen (const std::string& s);
 std::u32string runes (const std::string& s);
 
