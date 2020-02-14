@@ -37,4 +37,20 @@ bool CopyFile (const std::string& from, const std::string& to, bool fail_exist)
   return ::CopyFileW (widen (from).c_str (), widen (to).c_str (), fail_exist);
 }
 
+/*!
+  Convenience wrapper for Windows [LoadString]
+  https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-loadstringw
+  function.
+  \param hInst module handle of the module containing the string resource
+  \param id String identifier
+  \return UTF-8 resource string or an empty string if resource doesn't exist
+*/
+std::string LoadString (HINSTANCE hInst, UINT id)
+{
+  wchar_t *wptr;
+  int ret = ::LoadStringW (hInst, id, (LPWSTR)&wptr, 0);
+  return ret? utf8::narrow (wptr, ret) : string();
+}
+
+
 }

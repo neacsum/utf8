@@ -3,49 +3,53 @@
 #include <string>
 
 #undef MessageBox
+#undef CopyFile
+#undef LoadString
 
 namespace utf8 {
 
-  int MessageBox (HWND hWnd, const std::string& text, const std::string& caption,
-    unsigned int type);
+int MessageBox (HWND hWnd, const std::string& text, const std::string& caption,
+  unsigned int type);
+bool CopyFile (const std::string& from, const std::string& to, bool fail_exist);
+std::string LoadString (HINSTANCE hInst, UINT id);
 
-  /// A simple buffer for caching values returned by Windows API 
-  class buffer {
-  public:
-    buffer (size_t size_);
-    ~buffer ();
-    buffer (const buffer& other);
-    buffer& operator = (const buffer& rhs);
-    buffer& operator = (const std::string& rhs);
-    operator wchar_t* ();
-    operator std::string () const;
-    DWORD size () const;
+/// A simple buffer for caching values returned by Windows API 
+class buffer {
+public:
+  buffer (size_t size_);
+  ~buffer ();
+  buffer (const buffer& other);
+  buffer& operator = (const buffer& rhs);
+  buffer& operator = (const std::string& rhs);
+  operator wchar_t* ();
+  operator std::string () const;
+  DWORD size () const;
 
-  private:
-    wchar_t *ptr;
-    size_t sz;
-  };
+private:
+  wchar_t *ptr;
+  size_t sz;
+};
 
-  /// Return a pointer to buffer
-  inline
-    buffer::operator wchar_t* ()
-  {
-    return ptr;
-  }
+/// Return a pointer to buffer
+inline
+  buffer::operator wchar_t* ()
+{
+  return ptr;
+}
 
-  /// Convert buffer to an UTF-8 encoded string
-  inline
-    buffer::operator std::string () const
-  {
-    return narrow (ptr);
-  }
+/// Convert buffer to an UTF-8 encoded string
+inline
+  buffer::operator std::string () const
+{
+  return narrow (ptr);
+}
 
-  /// Return buffer size
-  inline DWORD
-    buffer::size () const
-  {
-    return (DWORD)sz;
-  }
+/// Return buffer size
+inline DWORD
+  buffer::size () const
+{
+  return (DWORD)sz;
+}
 
 }
 
