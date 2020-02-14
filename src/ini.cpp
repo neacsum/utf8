@@ -170,7 +170,7 @@ void IniFile::File (const std::string& fname)
 IniFile& IniFile::operator = (const IniFile& p)
 {
   // Copy the source file to the destination file.
-  CopyFile (utf8::widen (p.filename).c_str(), utf8::widen (filename).c_str(), FALSE);
+  CopyFile (p.filename, filename, false);
   return *this;
 }
 
@@ -519,8 +519,8 @@ bool IniFile::CopySection (const IniFile& from_file, const std::string& from_sec
     }
     //copy everything up to destination section
     findsection (dest_sect.c_str (), f_to, f_out, buffer, sizeof (buffer));
-    writesection (dest_sect.c_str (), f_out);
   }
+  writesection (dest_sect.c_str (), f_out);
 
   //copy [from_section]
   while (fgets (buffer, sizeof (buffer), f_from) && *skipleading (buffer) != '[')

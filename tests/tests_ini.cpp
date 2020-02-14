@@ -405,8 +405,14 @@ SUITE (IniTests)
 
     f2.CopySection (f1, "section1");
     deque<string> keys;
-    CHECK_EQUAL (2, f2.GetKeys (keys, "section2"));
-    CHECK_EQUAL ("f1_val10", keys[0]);
+    
+    //previous content of section1 was erased
+    CHECK_EQUAL (2, f2.GetKeys (keys, "section1"));
+
+    //key was copied from test1 file
+    CHECK_EQUAL ("f1_val10", f2.GetString ("key0", "section1"));
+
+    //other sections of test2 file are not changed
     CHECK_EQUAL ("f2_val21", f2.GetString ("key1", "section2"));
 
     utf8::remove ("test1.ini");
