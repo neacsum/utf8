@@ -52,6 +52,14 @@ In addition to those, there are wrappings for:
 - C++ I/O streams (ifstream, ofstream, fstream)
 - Character classification functions *is...* (isalnum, isdigit, etc.)
 
+There is also a wrapper for Windows profile files (also called INI files) API.
+The <code>utf8::IniFile</code> object provides a convenient replacement for
+Windows <code>GetProvateProfileString</code> and related API functions.
+
+Some popular Windows API functions like <code>MessageBox</code> and
+<code>LoadString</code> have also been wrapped with UTF-8 compatible wrappers.
+This list might grow in the future.
+
 ## Usage ##
 Before using this library you might want to review the guidelines from the
 [UTF-8 Everywhere Manifesto](http://utf8everywhere.org/). In particular:

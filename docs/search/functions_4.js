@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['get_5fargv_71',['get_argv',['../getargv_8cpp.html#a86847074de33ea4eec2aa91ba500119b',1,'utf8::get_argv(int *argc)'],['../getargv_8cpp.html#a87630aaaeb49685ad3359000aa670c66',1,'utf8::get_argv()']]],
-  ['getcwd_72',['getcwd',['../dir_8cpp.html#ad489d686670dff8206a2c45a7b237ef1',1,'utf8']]],
-  ['getenv_73',['getenv',['../envir_8cpp.html#a445530e19aefad1fde92232c09f37a4f',1,'utf8']]]
+  ['file',['File',['../classutf8_1_1_ini_file.html#a986c4cb1a01beb8be56d5b282e0463ff',1,'utf8::IniFile::File() const'],['../classutf8_1_1_ini_file.html#a7a50dd73dcfe5e26d2d6c6e0b266ac6f',1,'utf8::IniFile::File(const std::string &amp;filename)']]],
+  ['fopen',['fopen',['../fil_8cpp.html#a17111250dd542f9ed080a96cab913936',1,'utf8::fopen(const char *filename, const char *mode)'],['../fil_8cpp.html#af52d36c6cd5519362893a68808fad0fc',1,'utf8::fopen(const std::string &amp;filename, const std::string &amp;mode)']]],
+  ['free_5fargv',['free_argv',['../getargv_8cpp.html#a611de942130d7b70ff9cfaaa79a1f005',1,'utf8']]]
 ];

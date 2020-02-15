@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['operator_20wchar_5ft_20_2a_85',['operator wchar_t *',['../classutf8_1_1buffer.html#a866cbb11c94e263cb1ded6ed236d23e1',1,'utf8::buffer']]],
-  ['operator_3d_86',['operator=',['../classutf8_1_1buffer.html#ab134738ba994b76df79226948d9b47ac',1,'utf8::buffer::operator=(const buffer &amp;rhs)'],['../classutf8_1_1buffer.html#adab00750962dbd42742b56f27ad8e4d6',1,'utf8::buffer::operator=(const std::string &amp;rhs)']]],
-  ['string_87',['string',['../classutf8_1_1buffer.html#adefb45810cb72a5a3fa6b69684b7da83',1,'utf8::buffer']]]
+  ['makepath',['makepath',['../splitpath_8cpp.html#a07eb0dcaf69e2d9cbcd7d7b6f203f20a',1,'utf8']]],
+  ['messagebox',['MessageBox',['../win_8cpp.html#a5c8bfa90bb0ba20781ec286f6c446d62',1,'utf8']]],
+  ['mkdir',['mkdir',['../dir_8cpp.html#aa6aefa08998a55dca4ba75312126e353',1,'utf8::mkdir(const char *dirname)'],['../dir_8cpp.html#afde36b3fabc92ff53124bc81d91db646',1,'utf8::mkdir(const std::string &amp;dirname)']]]
 ];

@@ -1,8 +1,6 @@
 var searchData=
 [
-  ['remove_89',['remove',['../fil_8cpp.html#a5f0eb1fee50553ad4e55671f52c7f2ec',1,'utf8::remove(const char *filename)'],['../fil_8cpp.html#ac5b06bf0060adccc6b102268fc7cf4a0',1,'utf8::remove(const std::string &amp;filename)']]],
-  ['rename_90',['rename',['../fil_8cpp.html#a1d0245cbb42146a80be6b62c718f61a6',1,'utf8::rename(const char *oldname, const char *newname)'],['../fil_8cpp.html#abf5baede52d0081d7f471ba7a62ac52f',1,'utf8::rename(const std::string &amp;oldname, const std::string &amp;newname)']]],
-  ['rmdir_91',['rmdir',['../dir_8cpp.html#a42637c506240d2a9bfb1d69dcd083645',1,'utf8::rmdir(const char *dirname)'],['../dir_8cpp.html#aff322efb8a22d9d5ce871e259d60a6e7',1,'utf8::rmdir(const std::string &amp;dirname)']]],
-  ['rune_92',['rune',['../rune_8cpp.html#a7c43141140402bf66979c6571760cbbe',1,'utf8::rune(const char *p)'],['../rune_8cpp.html#a99123c395e1291a759b3d2abb6adbc8d',1,'utf8::rune(const std::string::const_iterator &amp;p)']]],
-  ['runes_93',['runes',['../rune_8cpp.html#a29b32af36ac8088c622fe1d42f13f702',1,'utf8']]]
+  ['operator_20wchar_5ft_20_2a',['operator wchar_t *',['../classutf8_1_1buffer.html#a866cbb11c94e263cb1ded6ed236d23e1',1,'utf8::buffer']]],
+  ['operator_3d',['operator=',['../classutf8_1_1_ini_file.html#a2876e3a1943f0718356cb5256316e119',1,'utf8::IniFile::operator=()'],['../classutf8_1_1buffer.html#ab134738ba994b76df79226948d9b47ac',1,'utf8::buffer::operator=(const buffer &amp;rhs)'],['../classutf8_1_1buffer.html#adab00750962dbd42742b56f27ad8e4d6',1,'utf8::buffer::operator=(const std::string &amp;rhs)']]],
+  ['string',['string',['../classutf8_1_1buffer.html#adefb45810cb72a5a3fa6b69684b7da83',1,'utf8::buffer']]]
 ];

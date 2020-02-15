@@ -56,6 +56,7 @@ std::string narrow (const std::wstring& s)
   Conversion from UTF-8 to wide character
 
   \param  s input string
+  \param nch number of characters to convert or 0 if string is null-terminated
   \return wide character string
 */
 std::wstring widen (const char* s, size_t nch)

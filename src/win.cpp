@@ -39,7 +39,7 @@ bool CopyFile (const std::string& from, const std::string& to, bool fail_exist)
 
 /*!
   Convenience wrapper for Windows [LoadString]
-  https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-loadstringw
+  (https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-loadstringw)
   function.
   \param hInst module handle of the module containing the string resource
   \param id String identifier

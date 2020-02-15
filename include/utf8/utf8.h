@@ -142,6 +142,7 @@ public:
 };
 
 
+/// Advances a pointer to next valid UTF-8 character
 inline
 bool next (const char*& p)
 {

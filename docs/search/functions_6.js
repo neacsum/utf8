@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['length_79',['length',['../length_8cpp.html#afbcb53fd241b51ed4744eef1d7400a23',1,'utf8']]]
+  ['haskey',['HasKey',['../classutf8_1_1_ini_file.html#a7ecd1193cd7b3eb901ed00e5507e89f4',1,'utf8::IniFile']]],
+  ['hassection',['HasSection',['../classutf8_1_1_ini_file.html#a8ce2c0ec391efe24b259185f606fb674',1,'utf8::IniFile']]]
 ];

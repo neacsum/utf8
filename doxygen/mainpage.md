@@ -52,6 +52,9 @@ In addition to those, there are wrappings for:
 - C++ I/O streams: \ref utf8::ifstream, \ref utf8::ofstream, \ref utf8::fstream
 - Character classification functions: \ref charclass "is... (isdigit, isalnum, etc.)"
 - A simple \ref utf8::buffer "buffer class" for handling Windows API parameters. 
+- \ref utf8::IniFile - a class for handling Windows "profile files" (also
+  called INI files) API".
+- Frequently used Windows functions like MessageBox and LoadString.
 
 # Usage #
 Before using this library you might want to review the guidelines from the

@@ -18,6 +18,7 @@
 #include <utf8/utf8.h>
 #include <functional>
 
+/// Maximum line length for a line in an INI file
 #define INI_BUFFERSIZE  1024
 using namespace std;
 
@@ -103,8 +104,9 @@ static std::string tempname (const std::string& source)
 
 //-----------------------------------------------------------------------------
 /*!
-  \class IniFile Provides a handy object oriented encapsulation of functions
-  needed to manipulate INI (profile) files.
+  \class IniFile
+  Provides a handy object oriented encapsulation of functions needed to
+  manipulate INI (profile) files.
 */
 
 /// Constructor 
@@ -461,11 +463,11 @@ bool IniFile::PutBool (const std::string& key, bool value, const std::string& se
   \param  to_sect     destination section
   \return             true if successful, false otherwise
 
-  If \p to_sec is NULL the destination section is the same as the source section.
+  If \p to_sec is empty the destination section is the same as the source section.
 
   The previous content of destination section is erased.
 
-  \pre from_sect != NULL
+  \pre from_sect cannot be empty
 */
 bool IniFile::CopySection (const IniFile& from_file, const std::string& from_sect, const std::string& to_sect)
 {
@@ -625,7 +627,7 @@ int IniFile::GetKeys (char *keys, size_t sz, const std::string& section)
   \param section  section name
   \return number of keys in section
 */
-size_t IniFile::GetKeys (deque<string>& keys, const std::string& section)
+size_t IniFile::GetKeys (std::deque<std::string>& keys, const std::string& section)
 {
   FILE* fp;
 
@@ -748,10 +750,8 @@ size_t IniFile::GetSections (char *sects, size_t sz)
 
   \param sects    seque of sections
   \return         number of sections found
-  \pre sects !=NULL
-
 */
-size_t IniFile::GetSections (deque<string>& sects)
+size_t IniFile::GetSections (std::deque<std::string>& sects)
 {
   FILE *fp = openread (filename);
   int cnt = 0;
