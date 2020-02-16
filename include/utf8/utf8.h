@@ -69,6 +69,10 @@ std::string getenv (const std::string& var);
 bool putenv (const std::string& str);
 bool putenv (const std::string& var, const std::string& val);
 
+//Case conversion functions
+void tolower (std::string& str);
+void toupper (std::string& str);
+
 /// Input stream class using UTF-8 filename
 class ifstream : public std::ifstream
 {

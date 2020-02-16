@@ -352,4 +352,14 @@ TEST (Temp_FileName)
   CHECK_EQUAL (narrow (wfname), result);
 }
 
-
+TEST (case_conversion)
+{
+  string lc{ u8"mircea neacșu ăâățî" };
+  string uc{ u8"MIRCEA NEACȘU ĂÂĂȚÎ" };
+  string t = lc;
+  utf8::toupper (t);
+  CHECK_EQUAL (uc, t);
+  t = uc;
+  utf8::tolower (t);
+  CHECK_EQUAL (lc, t);
+}
