@@ -49,7 +49,7 @@ int main (int argc, char **argv)
   out << "//Upper case table" << endl
     << "static char32_t u2l [" << tab.size() << "] = { " << endl;
   out << hex;
-  for (int i=0; i<tab.size(); i++)
+  for (size_t i=0; i<tab.size(); i++)
   {
     out << "  0x" << std::setfill ('0') << std::setw (5) << tab[i].uc;
     if (i == tab.size () - 1)
@@ -62,7 +62,7 @@ int main (int argc, char **argv)
   out << "//Lower case equivalents" << endl
     << "static char32_t lc [" << tab.size () << "] = { ";
   out << hex;
-  for (int i = 0; i < tab.size (); i++)
+  for (size_t i = 0; i < tab.size (); i++)
   {
     if (i % 8 == 0)
       out << endl << "  ";
@@ -80,7 +80,7 @@ int main (int argc, char **argv)
     [](codept& p1, codept& p2)->bool {return p1.lc < p2.lc; });
 
   //check for duplicates
-  for (int i = 0; i < tab.size () - 1; i++)
+  for (size_t i = 0; i < tab.size () - 1; i++)
   {
     if (tab[i].lc == tab[i + 1].lc)
     {
@@ -95,7 +95,7 @@ int main (int argc, char **argv)
   out << "//Lower case table" << dec << endl
     << "static char32_t l2u [" << tab.size () << "] = { ";
   out << hex;
-  for (int i = 0; i < tab.size (); i++)
+  for (size_t i = 0; i < tab.size (); i++)
   {
     if (i % 8 == 0)
       out << endl << "  ";
@@ -109,7 +109,7 @@ int main (int argc, char **argv)
   out << "//Upper case equivalents" << endl
     << "static char32_t uc [" << tab.size () << "] = { " << endl;
   out << hex;
-  for (int i = 0; i < tab.size (); i++)
+  for (size_t i = 0; i < tab.size (); i++)
   {
     out << "  0x" << std::setfill ('0') << std::setw (5) << tab[i].uc;
     if (i == tab.size () - 1)

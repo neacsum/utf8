@@ -98,6 +98,15 @@ int main (int /*unused*/, char ** /*unused*/)
   out << "The environment variable Punjabi is " 
       << utf8::getenv ("Punjabi") << endl;
 
+  //convert a string to uppercase
+  string all_caps = utf8::toupper (u8"Neacșu"); // all_caps should be "NEACȘU"
+  out << "The author's name is " << all_caps << endl;
+
+  //convert a string to lowercase
+  string greek{ u8"ΑΛΦΆΒΗΤΟ"};
+  utf8::tolower (greek); //string should be  u8"αλφάβητο"
+  out << "This is how Greeks say 'alphabet': " << greek << endl;
+
   // Cleanup
   printf ("Deleting Aramaic file.\n");
   utf8::remove (u8"ܐܪܡܝܐ.txt");
