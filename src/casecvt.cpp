@@ -10,35 +10,53 @@ namespace utf8 {
   Convert UTF-8 string to lower case using case folding table published by
   Unicode Consortium. (http://www.unicode.org/Public/12.1.0/ucd/CaseFolding.txt)
   \param str UTF-8 string to convert to lowercase.
+  \return lower case UTF-8 string
 */
-void tolower (std::string& str)
+
+std::string tolower (const std::string& str)
 {
-#include "uppertab.c"
-  u32string istr = runes (str);
-  for (auto ptr = istr.begin (); ptr < istr.end (); ptr++)
+  //definition of 'u2l' and 'lc' tables
+  #include "uppertab.c"
+  u32string wstr = runes (str);
+  for (auto ptr = wstr.begin (); ptr < wstr.end (); ptr++)
   {
-    char32_t *f = lower_bound (begin(u2l), end(u2l), *ptr);
-    if (f != end(u2l) && *f == *ptr)
+    char32_t *f = lower_bound (begin (u2l), end (u2l), *ptr);
+    if (f != end (u2l) && *f == *ptr)
       *ptr = lc[f - u2l];
   }
-  str = narrow (istr);
+  return narrow (wstr);
+}
+
+/// In place version converts a UTF-8 encoded string to lowercase
+void tolower (std::string& str)
+{
+  str = tolower (const_cast<const string&>(str));
 }
 
 /*!
   Convert UTF-8 string to upper case using case folding table published by
   Unicode Consortium. (http://www.unicode.org/Public/12.1.0/ucd/CaseFolding.txt)
   \param str UTF-8 string to convert to uppercase.
+  \return upper case UTF-8 string
 */
-void toupper (std::string& str)
+std::string toupper (const std::string& str)
 {
-#include "lowertab.c"
-  u32string istr = runes (str);
-  for (auto ptr = istr.begin(); ptr < istr.end(); ptr++)
+  // definition of 'l2u' and 'uc' tables
+  #include "lowertab.c"
+  u32string wstr = runes (str);
+  for (auto ptr = wstr.begin(); ptr < wstr.end(); ptr++)
   {
     char32_t *f = lower_bound (begin (l2u), end (l2u), *ptr);
     if (f != end(l2u) && *f == *ptr)
       *ptr = uc[f - l2u];
   }
-  str = narrow (istr);
+  return narrow (wstr);
 }
+
+/// In place version converts a UTF-8 encoded string to lowercase
+void toupper (std::string& str)
+{
+  str = toupper (const_cast<const string&>(str));
+}
+
 }

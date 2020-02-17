@@ -45,22 +45,6 @@ int main (int argc, char **argv)
     tab.push_back (code);
   }
 
-  //Table should be sorted by uppercase code but doesn't hurt to check
-  sort (tab.begin (), tab.end (),
-    [](codept& p1, codept& p2)->bool {return p1.uc < p2.uc; });
-
-  //check for duplicates (there aren't any but again better be safe)
-  for (int i = 0; i < tab.size () - 1; i++)
-  {
-    if (tab[i].uc == tab[i + 1].uc)
-    {
-      printf ("Duplicate uppercase: %05x:\n - %s\n and  %05x %s\n\n",
-        (int)tab[i].uc, tab[i].descr.c_str (), (int)tab[i + 1].uc,
-        tab[i + 1].descr.c_str ());
-      tab.erase (tab.begin () + i + 1);
-    }
-  }
-
   ofstream out ("../src/uppertab.c");
   out << "//Upper case table" << endl
     << "static char32_t u2l [" << tab.size() << "] = { " << endl;
@@ -76,16 +60,17 @@ int main (int argc, char **argv)
   }
   out << dec << endl;
   out << "//Lower case equivalents" << endl
-    << "static char32_t lc [" << tab.size () << "] = { " << endl;
+    << "static char32_t lc [" << tab.size () << "] = { ";
   out << hex;
   for (int i = 0; i < tab.size (); i++)
   {
-    out << "  0x" << std::setfill ('0') << std::setw (5) << tab[i].lc;
+    if (i % 8 == 0)
+      out << endl << "  ";
+    out << "0x" << std::setfill ('0') << std::setw (5) << tab[i].lc;
     if (i == tab.size () - 1)
       out << "};";
     else
       out << ", ";
-    out << endl;
   }
   out.close ();
 
@@ -108,16 +93,17 @@ int main (int argc, char **argv)
 
   out.open ("../src/lowertab.c");
   out << "//Lower case table" << dec << endl
-    << "static char32_t l2u [" << tab.size () << "] = { " << endl;
+    << "static char32_t l2u [" << tab.size () << "] = { ";
   out << hex;
   for (int i = 0; i < tab.size (); i++)
   {
-    out << "  0x" << std::setfill ('0') << std::setw (5) << tab[i].lc;
+    if (i % 8 == 0)
+      out << endl << "  ";
+    out << "0x" << std::setfill ('0') << std::setw (5) << tab[i].lc;
     if (i == tab.size () - 1)
       out << "};";
     else
       out << ", ";
-    out << endl;
   }
   out << dec << endl;
   out << "//Upper case equivalents" << endl

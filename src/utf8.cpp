@@ -24,7 +24,7 @@ namespace utf8 {
 std::string narrow (const wchar_t* s, size_t nch)
 {
   int nsz;
-  if (!s || !(nsz = WideCharToMultiByte (CP_UTF8, 0, s, (nch?nch:-1), 0, 0, 0, 0)))
+  if (!s || !(nsz = WideCharToMultiByte (CP_UTF8, 0, s, (nch?(int)nch:-1), 0, 0, 0, 0)))
     return string ();
 
   string out (nsz, 0);
@@ -62,7 +62,7 @@ std::string narrow (const std::wstring& s)
 std::wstring widen (const char* s, size_t nch)
 {
   int wsz;
-  if (!s || !(wsz = MultiByteToWideChar (CP_UTF8, 0, s, (nch?nch:-1), 0, 0)))
+  if (!s || !(wsz = MultiByteToWideChar (CP_UTF8, 0, s, (nch?(int)nch:-1), 0, 0)))
     return wstring ();
 
   wstring out (wsz, 0);

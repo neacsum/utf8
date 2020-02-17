@@ -1,6 +1,7 @@
 ﻿#include <utpp/utpp.h>
 #include <windows.h>
 #include <utf8/utf8.h>
+#include <iostream>
 
 #pragma warning (disable : 4566)
 
@@ -352,7 +353,8 @@ TEST (Temp_FileName)
   CHECK_EQUAL (narrow (wfname), result);
 }
 
-TEST (case_conversion)
+//check in-place versions of case folding functions
+TEST (case_conversion_inplace)
 {
   string lc{ u8"mircea neacșu ăâățî" };
   string uc{ u8"MIRCEA NEACȘU ĂÂĂȚÎ" };
@@ -362,4 +364,12 @@ TEST (case_conversion)
   t = uc;
   utf8::tolower (t);
   CHECK_EQUAL (lc, t);
+}
+
+//check string-returning versions of case folding functions
+TEST (case_conversion_ret)
+{
+  string uc = utf8::toupper (u8"αλφάβητο");
+  CHECK_EQUAL (u8"ΑΛΦΆΒΗΤΟ", uc);
+  CHECK_EQUAL (u8"αλφάβητο", utf8::tolower (u8"ΑΛΦΆΒΗΤΟ"));
 }
