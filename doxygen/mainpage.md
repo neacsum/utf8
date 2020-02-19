@@ -11,7 +11,7 @@ Mircea Neacsu (mircea@neacsu.net)
 
 The MIT License (MIT)
  
-Copyright (c) 2014-2019 Mircea Neacsu
+Copyright (c) 2014-2020 Mircea Neacsu
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -41,6 +41,7 @@ There are also functions for:
 - character counting - length()
 - string traversal - next()
 - validity checking - valid()
+- case folding - toupper() and tolower()
 
 In addition to those, there are wrappings for:
 - the most common file access operations: fopen(), access(), remove(), chmod(),

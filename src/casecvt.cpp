@@ -1,3 +1,21 @@
+/*!
+  \file casecvt.cpp Implementation of toupper and tolower functions
+
+  These functions use the case folding table published by Unicode Consortium.
+  A small ancillary program (gen_casetab) converts the original table 
+  in two tables of equal size, one with the upper case letters and the other
+  with the lower case ones. The upper case table is sorted to allow for
+  binary searching. If a code is found in the upper case table, it is replaced
+  with the matching code from the lower case.
+
+  Each function takes about 11k for the case folding table. Finding a code takes
+  at most 11 comparisons.
+*/
+/*
+  (c) Mircea Neacsu 2014-2020. Licensed under MIT License.
+  See README file for full license terms.
+*/
+
 #include <utf8/utf8.h>
 #include <algorithm>
 
