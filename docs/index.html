@@ -100,7 +100,9 @@ $(function() {
 </ul>
 <h1>Usage</h1>
 <p>Before using this library you might want to review the guidelines from the <a href="http://utf8everywhere.org/">UTF-8 Everywhere Manifesto</a>. In particular:</p><ul>
-<li>define UNICODE or _UNICODE in your program (for Visual Studio users make sure "Use Unicode Character Set" option is defined).</li>
+<li>define UNICODE or _UNICODE in your program</li>
+<li>for Visual Studio users, make sure "Use Unicode Character Set" option is defined under "General" &gt; "Project Defaults" tab.</li>
+<li>for Visual Studio users, add "/utf-8" option under "C/C++" &gt; "All Options" &gt; "Additional Options" (see <a href="https://docs.microsoft.com/en-us/cpp/build/reference/utf-8-set-source-and-executable-character-sets-to-utf-8">https://docs.microsoft.com/en-us/cpp/build/reference/utf-8-set-source-and-executable-character-sets-to-utf-8</a>)</li>
 <li>use only <em>std::string</em> and <em>char*</em> variables. Assume they all contain UTF-8 encoded strings.</li>
 <li>use UTF-16 strings only in arguments to Windows API calls.</li>
 </ul>

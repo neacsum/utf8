@@ -64,8 +64,11 @@ This list might grow in the future.
 ## Usage ##
 Before using this library you might want to review the guidelines from the
 [UTF-8 Everywhere Manifesto](http://utf8everywhere.org/). In particular:
-- define UNICODE or _UNICODE in your program (for Visual Studio users make sure
-  "Use Unicode Character Set" option is defined).
+- define UNICODE or _UNICODE in your program
+- for Visual Studio users, make sure "Use Unicode Character Set" option is defined
+  (under "Configuration Properties" > "General" > "Project Defaults" page).
+- for Visual Studio users, add "/utf-8" option under "C/C++" > "All Options" >
+  "Additional Options" (see https://docs.microsoft.com/en-us/cpp/build/reference/utf-8-set-source-and-executable-character-sets-to-utf-8)
 - use only *std::string* and <i>char*</i> variables. Assume they all contain UTF-8
   encoded strings.
 - use UTF-16 strings only in arguments to Windows API calls.
