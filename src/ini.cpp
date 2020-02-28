@@ -943,8 +943,10 @@ static bool putkey (const char *key, const char *value, const char *section, con
     else
     {
       //deleting the section -> skip all entries until next section or end of file 
-      while (fgets (buffer, sizeof (buffer), rfp) && *skipleading (buffer) != '[')
+      while (fgets (buffer, sizeof (buffer), rfp) && *(sp = skipleading (buffer)) != '[')
         ;
+      if (*sp == '[')
+        fputs (buffer, wfp); //write next section line
     }
     // Copy the rest of the INI file
     while (fgets (buffer, sizeof (buffer), rfp))

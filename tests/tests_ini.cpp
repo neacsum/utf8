@@ -419,4 +419,39 @@ SUITE (IniTests)
     utf8::remove ("test2.ini");
   }
 
+  TEST (Delete_section)
+  {
+    utf8::IniFile f1 ("test1.ini");
+    f1.PutString ("key0", "f1_val00", "section0");
+    f1.PutString ("key1", "f1_val01", "section0");
+    f1.PutString ("key0", "f1_val10", "section1");
+    f1.PutString ("key1", "f1_val11", "section1");
+    f1.PutString ("key0", "f1_val20", "section2");
+    f1.PutString ("key1", "f1_val21", "section2");
+
+    f1.DeleteSection ("section1"); //delete section in the middle
+
+    //other sections of file are not changed
+    CHECK_EQUAL ("f1_val01", f1.GetString ("key1", "section0"));
+    CHECK_EQUAL ("f1_val21", f1.GetString ("key1", "section2"));
+    utf8::remove ("test1.ini");
+  }
+
+  TEST (Delete_last_section)
+  {
+    utf8::IniFile f1 ("test1.ini");
+    f1.PutString ("key0", "f1_val00", "section0");
+    f1.PutString ("key1", "f1_val01", "section0");
+    f1.PutString ("key0", "f1_val10", "section1");
+    f1.PutString ("key1", "f1_val11", "section1");
+    f1.PutString ("key0", "f1_val20", "section2");
+    f1.PutString ("key1", "f1_val21", "section2");
+
+    f1.DeleteSection ("section2"); //delete last section
+
+    //other sections of file are not changed
+    CHECK_EQUAL ("f1_val01", f1.GetString ("key1", "section0"));
+    CHECK_EQUAL ("f1_val11", f1.GetString ("key1", "section1"));
+    utf8::remove ("test1.ini");
+  }
 }
