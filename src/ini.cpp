@@ -582,6 +582,7 @@ bool IniFile::DeleteKey (const std::string& key, const std::string& section)
 */
 bool IniFile::DeleteSection (const std::string& section)
 {
+  OutputDebugStringA ((string("Delete section %s") + section).c_str());
   return putkey (NULL, NULL, section.c_str (), filename.c_str ());
 }
 
@@ -927,15 +928,11 @@ static bool putkey (const char *key, const char *value, const char *section, con
       //start searching for key
       key = skipleading (key);
       len = trimmed_len (key);
-      while (true)
-      {
-        if (!fgets (buffer, sizeof (buffer), rfp) || *(sp = skipleading (buffer)) == '[')
-          break; // end of file or section
-        if (strchr (buffer, '=') && !_strnicmp (key, sp, len))
-          break;
-        else
-          fputs (buffer, wfp);
-      }
+      while ( fgets (buffer, sizeof (buffer), rfp)  // not end of file
+           && *(sp = skipleading (buffer)) != '['   // not end of section
+           && (!strchr (buffer, '=') || _strnicmp (key, sp, len))) //key not found
+        fputs (buffer, wfp);
+
       if (value)
         writekey (key, value, wfp);
       //otherwise we just don't write the key in the output file
@@ -945,10 +942,10 @@ static bool putkey (const char *key, const char *value, const char *section, con
       //deleting the section -> skip all entries until next section or end of file 
       while (fgets (buffer, sizeof (buffer), rfp) && *(sp = skipleading (buffer)) != '[')
         ;
-      if (*sp == '[')
-        fputs (buffer, wfp); //write next section line
     }
-    // Copy the rest of the INI file
+    if (*sp == '[')
+      fputs (buffer, wfp); //write next section line
+  // Copy the rest of the INI file
     while (fgets (buffer, sizeof (buffer), rfp))
       fputs (buffer, wfp);
   }
