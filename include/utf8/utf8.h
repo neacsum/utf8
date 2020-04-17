@@ -84,7 +84,7 @@ public:
     : std::ifstream (utf8::widen (filename), mode) {};
   ifstream (const std::string& filename, std::ios_base::openmode mode = ios_base::in)
     : std::ifstream (utf8::widen (filename), mode) {};
-  ifstream (ifstream&& other) : std::ifstream ((std::ifstream&&)other) {};
+  ifstream (ifstream&& other) noexcept : std::ifstream ((std::ifstream&&)other) {};
   ifstream (const ifstream& rhs) = delete;
 
   void open (const char* filename, ios_base::openmode mode = ios_base::in,
@@ -108,7 +108,7 @@ public:
     : std::ofstream (utf8::widen (filename), mode) {};
   ofstream (const std::string& filename, std::ios_base::openmode mode = ios_base::out)
     : std::ofstream (utf8::widen (filename), mode) {};
-  ofstream (ofstream&& other) : std::ofstream ((std::ofstream&&)other) {};
+  ofstream (ofstream&& other) noexcept : std::ofstream ((std::ofstream&&)other) {};
   ofstream (const ofstream& rhs) = delete;
 
   void open (const char* filename, ios_base::openmode mode = ios_base::out,
@@ -132,7 +132,7 @@ public:
     : std::fstream (utf8::widen (filename), mode) {};
   fstream (const std::string& filename, std::ios_base::openmode mode = ios_base::in | ios_base::out)
     : std::fstream (utf8::widen (filename), mode) {};
-  fstream (fstream&& other) : std::fstream ((std::fstream&&)other) {};
+  fstream (fstream&& other) noexcept : std::fstream ((std::fstream&&)other) {};
   fstream (const fstream& rhs) = delete;
 
   void open (const char* filename, ios_base::openmode mode = ios_base::in | ios_base::out,
