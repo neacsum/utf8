@@ -24,7 +24,18 @@ int main (int argc, char **argv)
   char line[1024];
   char *ptr;
   codept code;
-  ifstream in ("casefolding.txt");
+  if (argc < 2)
+  {
+    fprintf (stderr, "Usage: gen_casetab <input table> <output folder>\n");
+    exit (1);
+  }
+  ifstream in (argv[1]);
+  
+  if (!in.is_open ())
+  {
+    fprintf (stderr, "gen_casetab: cannot open input table: %s\n", argv[1]);
+    exit (1);
+  }
 
   while (in)
   {
@@ -45,7 +56,7 @@ int main (int argc, char **argv)
     tab.push_back (code);
   }
 
-  ofstream out ("../src/uppertab.c");
+  ofstream out (string(argv[2]) + "/uppertab.c");
   out << "//Upper case table" << endl
     << "static char32_t u2l [" << tab.size() << "] = { " << endl;
   out << hex;
@@ -91,7 +102,7 @@ int main (int argc, char **argv)
     }
   }
 
-  out.open ("../src/lowertab.c");
+  out.open (string(argv[2]) + "/lowertab.c");
   out << "//Lower case table" << dec << endl
     << "static char32_t l2u [" << tab.size () << "] = { ";
   out << hex;

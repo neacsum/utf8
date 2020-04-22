@@ -107,6 +107,9 @@
     </Link>
     <PreBuildEvent />
     <PreBuildEvent />
+    <PreBuildEvent>
+      <Command>$(SolutionDir)exe\gen_casetab.exe $(SolutionDir)gen_casetab\casefolding.txt $(SolutionDir)src </Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -125,6 +128,9 @@
     </Link>
     <PreBuildEvent />
     <PreBuildEvent />
+    <PreBuildEvent>
+      <Command>$(SolutionDir)exe\gen_casetab.exe $(SolutionDir)gen_casetab\casefolding.txt $(SolutionDir)src </Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -147,6 +153,9 @@
     </Link>
     <PreBuildEvent />
     <PreBuildEvent />
+    <PreBuildEvent>
+      <Command>$(SolutionDir)exe\gen_casetab.exe $(SolutionDir)gen_casetab\casefolding.txt $(SolutionDir)src </Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -169,6 +178,9 @@
     </Link>
     <PreBuildEvent />
     <PreBuildEvent />
+    <PreBuildEvent>
+      <Command>$(SolutionDir)exe\gen_casetab.exe $(SolutionDir)gen_casetab\casefolding.txt $(SolutionDir)src </Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\buffer.cpp" />
