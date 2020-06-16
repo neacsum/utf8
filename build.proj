@@ -1,0 +1,18 @@
+<Project DefaultTargets="gen_casetab;lib;tests">  
+    <Target Name="gen_casetab">  
+        <MSBuild Projects="gen_casetab/gen_casetab.vcxproj" Properties="Configuration=Debug;Platform=x64;SolutionDir=..\"/>  
+    </Target>
+    <Target Name="lib">
+        <MSBuild Projects="utf8.vcxproj" Properties="Configuration=Debug;Platform=x64"/>  
+        <MSBuild Projects="utf8.vcxproj" Properties="Configuration=Release;Platform=x64"/> 
+        <MSBuild Projects="utf8.vcxproj" Properties="Configuration=Debug;Platform=x86"/>  
+        <MSBuild Projects="utf8.vcxproj" Properties="Configuration=Release;Platform=x86"/>
+    </Target>
+    <Target Name="tests">
+        <MSBuild Projects="tests\tests.vcxproj" Properties="SolutionDir=..\;Configuration=Debug;Platform=x64"/>  
+        <MSBuild Projects="tests\tests.vcxproj" Properties="SolutionDir=..\;Configuration=Release;Platform=x64"/> 
+        <MSBuild Projects="tests\tests.vcxproj" Properties="SolutionDir=..\;Configuration=Debug;Platform=x86"/>  
+        <MSBuild Projects="tests\tests.vcxproj" Properties="SolutionDir=..\;Configuration=Release;Platform=x86"/>
+        <Exec Command="exe\x64\debug\tests.exe"/>
+    </Target>
+</Project>
