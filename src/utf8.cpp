@@ -1,4 +1,4 @@
-/// \file UTF8.CPP Basic UTF-8 Conversion functions
+/// \file utf8.cpp Basic UTF-8 Conversion functions
 
 /*
   (c) Mircea Neacsu 2014-2019. Licensed under MIT License.

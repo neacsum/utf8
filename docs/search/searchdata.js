@@ -4,9 +4,10 @@ var indexSectionsWithContent =
   1: "bfio",
   2: "bcdefgilrsuw",
   3: "abcdfghilmnoprstvw~",
-  4: "i",
-  5: "c",
-  6: "u"
+  4: "acfhsw",
+  5: "i",
+  6: "c",
+  7: "u"
 };
 
 var indexSectionNames =
@@ -15,9 +16,10 @@ var indexSectionNames =
   1: "classes",
   2: "files",
   3: "functions",
-  4: "defines",
-  5: "groups",
-  6: "pages"
+  4: "variables",
+  5: "defines",
+  6: "groups",
+  7: "pages"
 };
 
 var indexSectionLabels =
@@ -26,8 +28,9 @@ var indexSectionLabels =
   1: "Data Structures",
   2: "Files",
   3: "Functions",
-  4: "Macros",
-  5: "Modules",
-  6: "Pages"
+  4: "Variables",
+  5: "Macros",
+  6: "Modules",
+  7: "Pages"
 };
 

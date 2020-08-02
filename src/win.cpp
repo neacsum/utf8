@@ -1,4 +1,4 @@
-/// \file WIN.CPP Wrappers for common Windows functions 
+/// \file win.cpp Wrappers for common Windows functions 
 
 /*
   (c) Mircea Neacsu 2014-2019. Licensed under MIT License.
@@ -8,6 +8,87 @@
 
 using namespace std;
 namespace utf8 {
+
+static void copy_fdat (WIN32_FIND_DATAW& wfd, find_data& fdat)
+{
+  fdat.attributes = wfd.dwFileAttributes;
+  fdat.creation_time = wfd.ftCreationTime;
+  fdat.access_time = wfd.ftLastAccessTime;
+  fdat.write_time = wfd.ftLastWriteTime;
+  fdat.size = ((__int64)wfd.nFileSizeHigh << 32) | (wfd.nFileSizeLow);
+  fdat.filename = narrow (wfd.cFileName);
+  fdat.short_name = narrow (wfd.cAlternateFileName);
+}
+
+/*!
+  Searches a directory for a file or subdirectory with a name that matches
+  a name (that can have wildcards).
+
+  \param name File name (or partial file name) to find
+  \param fdat Information structure containing file name and attributes
+  \return _true_ if a file was found or _false_ otherwise.
+
+  \note Wrapper for [FindFirstFile](https://docs.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-findfirstfilew)
+  Windows API function.
+
+  If successful, the function opens a "search handle" stored in the fdat
+  structure. The handle has to be closed using find_close() function.
+*/
+bool find_first (const string& name, find_data& fdat)
+{
+  WIN32_FIND_DATAW wfd;
+  memset (&wfd, 0, sizeof (wfd));
+  fdat.handle = FindFirstFileW (widen (name).c_str (), &wfd);
+  if (fdat.handle != INVALID_HANDLE_VALUE)
+  {
+    copy_fdat (wfd, fdat);
+    return true;
+  }
+  return false;
+}
+
+/*!
+  Continues a search started by find_first() function.
+  \param fdat search results structure containing file information
+  \return _true_ if a file was found or _false_ otherwise.
+
+  \note Wrapper for [FindNextFileW](https://docs.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-findnextfilew)
+  Windows API function.
+  
+  If there are no more files, the function returns _false_ and GetLastError
+  function returns __ERROR_NO_MORE_FILES__
+*/
+bool find_next (find_data& fdat)
+{
+  if (fdat.handle == INVALID_HANDLE_VALUE)
+    return false;
+
+  WIN32_FIND_DATAW wfd;
+  memset (&wfd, 0, sizeof (wfd));
+
+  if (FindNextFileW (fdat.handle, &wfd))
+  {
+    copy_fdat (wfd, fdat);
+    return true;
+  }
+  else
+  {
+    FindClose (fdat.handle);
+    fdat.handle = INVALID_HANDLE_VALUE;
+  }
+  return false;
+}
+
+/// Closes a "search handle" opened by find_first() function
+void find_close (find_data& fdat)
+{
+  if (fdat.handle != INVALID_HANDLE_VALUE)
+  {
+    FindClose (fdat.handle);
+    fdat.handle = INVALID_HANDLE_VALUE;
+  }
+}
+
 
 /*!
   Convenience wrapper for Windows [MessageBox]
@@ -51,6 +132,21 @@ std::string LoadString (HINSTANCE hInst, UINT id)
   int ret = ::LoadStringW (hInst, id, (LPWSTR)&wptr, 0);
   return ret? utf8::narrow (wptr, ret) : string();
 }
+
+/*!
+  \class finder
+  Finder objects wrap a Windows search handle used in find_first/find_next
+  functions.
+  Use like in the following example:
+````
+  utf8::finder collection("sample.*");
+  while (collection.ok())
+  {
+    cout << collection.filename () << endl;
+    collection.next ();
+  }
+````
+*/
 
 
 }

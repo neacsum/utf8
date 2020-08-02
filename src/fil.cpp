@@ -1,4 +1,4 @@
-///  \file FIL.CPP File access functions with UTF-8 encoded arguments
+///  \file fil.cpp File access functions with UTF-8 encoded arguments
 
 /*
   (c) Mircea Neacsu 2014-2019. Licensed under MIT License.

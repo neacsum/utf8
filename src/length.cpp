@@ -1,4 +1,4 @@
-/// \file LENGTH.CPP UTF-8 character counting.
+/// \file length.cpp UTF-8 character counting.
 
 /*
   (c) Mircea Neacsu 2014-2019. Licensed under MIT License.

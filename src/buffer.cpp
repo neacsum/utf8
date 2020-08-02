@@ -1,4 +1,4 @@
-/// \file BUFFER.CPP Implementation of utf8::buffer class 
+/// \file buffer.cpp Implementation of utf8::buffer class 
 
 /*
   (c) Mircea Neacsu 2014-2019. Licensed under MIT License.

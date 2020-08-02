@@ -298,7 +298,10 @@ TEST (get_putenv)
 
 TEST (msgbox)
 {
+#if 0
+  //requires user's intervention
   utf8::MessageBox (NULL, u8"ελληνικό", u8"😃😎😛", MB_ICONINFORMATION);
+#endif
 }
 
 TEST (buffer_test)
@@ -372,4 +375,40 @@ TEST (case_conversion_ret)
   string uc = utf8::toupper (u8"αλφάβητο");
   CHECK_EQUAL (u8"ΑΛΦΆΒΗΤΟ", uc);
   CHECK_EQUAL (u8"αλφάβητο", utf8::tolower (u8"ΑΛΦΆΒΗΤΟ"));
+}
+
+// find files named "test*" using find_first/find_next functions
+TEST (find)
+{
+  find_data fd;
+  bool ret = find_first ("test*", fd);
+  cout << "find_first: " << fd.filename << " - " << fd.size/1024 << "kb" << endl;
+  CHECK (ret);
+  while (ret)
+  {
+    ret = find_next (fd);
+    if (ret)
+      cout << "find_next: " << fd.filename << " - " << fd.size / 1024 << "kb" << endl;
+  }
+  CHECK_EQUAL (ERROR_NO_MORE_FILES, GetLastError ());
+  find_close (fd);
+}
+
+// same thing as above using the finder class
+TEST (find_with_finder)
+{
+  finder f("test*");
+  CHECK (f.ok());
+  while (f.ok ())
+  {
+    cout << "finder: " << f.filename << " - " << f.size / 1024 << "kb" << endl;
+    f.next ();
+  }
+}
+
+TEST (find_missing_file)
+{
+  finder f ("no such file");
+  CHECK (!f.ok ());
+
 }

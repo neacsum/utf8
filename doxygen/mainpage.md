@@ -56,6 +56,7 @@ In addition to those, there are wrappings for:
 - \ref utf8::IniFile - a class for handling Windows "profile files" (also
   called INI files) API".
 - Frequently used Windows functions like MessageBox and LoadString.
+- File enumerating functions: find_first(), find_next()
 
 # Usage #
 Before using this library you might want to review the guidelines from the

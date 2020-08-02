@@ -1,4 +1,4 @@
-///  \file DIR.CPP Directory functions with UTF-8 encoded arguments
+///  \file dir.cpp Directory functions with UTF-8 encoded arguments
 
 /*
   (c) Mircea Neacsu 2014-2019. Licensed under MIT License.

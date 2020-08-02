@@ -1,5 +1,5 @@
 /*!
-  \file INI.CPP Implementation of IniFile
+  \file ini.cpp Implementation of IniFile
 
   (c) Mircea Neacsu 2017-2020
 

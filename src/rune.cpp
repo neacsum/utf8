@@ -1,4 +1,4 @@
-/// \file RUNE.CPP Conversion to/from UTF-32 (char32_t) encoding.
+/// \file rune.cpp Conversion to/from UTF-32 (char32_t) encoding.
 
 /*
   (c) Mircea Neacsu 2014-2019. Licensed under MIT License.

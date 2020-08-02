@@ -1,4 +1,4 @@
-///  \file SPLITPATH.CPP Path splitting functions using UTF-8 encoded filenames
+///  \file splitpath.cpp Path splitting functions using UTF-8 encoded filenames
 
 /*
   (c) Mircea Neacsu 2014-2019. Licensed under MIT License.

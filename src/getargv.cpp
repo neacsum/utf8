@@ -1,4 +1,4 @@
-/// \file getargv.CPP Environment access functions for UTF-8 encoded strings.
+/// \file getargv.cpp Environment access functions for UTF-8 encoded strings.
 
 /*
   (c) Mircea Neacsu 2014-2019. Licensed under MIT License.
