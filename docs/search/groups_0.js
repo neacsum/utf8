@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['character_20classification_186',['Character Classification',['../group__charclass.html',1,'']]]
+  ['character_20classification_190',['Character Classification',['../group__charclass.html',1,'']]]
 ];

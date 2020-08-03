@@ -390,14 +390,15 @@ TEST (find)
     if (ret)
       cout << "find_next: " << fd.filename << " - " << fd.size / 1024 << "kb" << endl;
   }
+  cout << endl;
   CHECK_EQUAL (ERROR_NO_MORE_FILES, GetLastError ());
   find_close (fd);
 }
 
-// same thing as above using the finder class
+// same thing as above using the file_enumerator class
 TEST (find_with_finder)
 {
-  finder f("test*");
+  file_enumerator f("test*");
   CHECK (f.ok());
   while (f.ok ())
   {
@@ -408,7 +409,7 @@ TEST (find_with_finder)
 
 TEST (find_missing_file)
 {
-  finder f ("no such file");
+  file_enumerator f ("no such file");
   CHECK (!f.ok ());
 
 }

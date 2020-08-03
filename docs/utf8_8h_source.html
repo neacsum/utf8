@@ -70,7 +70,7 @@ $(function() {
 <div class="title">utf8.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160; </div>
+<a href="utf8_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160; </div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
@@ -214,15 +214,15 @@ $(function() {
 <div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160; </div>
 <div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160; </div>
 <div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;<span class="keyword">inline</span></div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8cpp.html#a1c7f8749f24103988795c22575f1c99e">next</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>*&amp; p)</div>
+<div class="line"><a name="l00153"></a><span class="lineno"><a class="line" href="utf8_8h.html#a90dba94eb3f754f886553035abdb3113">  153</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8cpp.html#a1c7f8749f24103988795c22575f1c99e">next</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>*&amp; p)</div>
 <div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;{</div>
 <div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="utf8_8cpp.html#a1c7f8749f24103988795c22575f1c99e">next</a> (<span class="keyword">const_cast &lt;</span><span class="keywordtype">char</span>*&amp;<span class="keyword">&gt;</span>(p));</div>
 <div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;}</div>
 <div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160; </div>
 <div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;<span class="keyword">inline</span></div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;<span class="keywordtype">bool</span> valid (<span class="keyword">const</span> std::string&amp; s)</div>
+<div class="line"><a name="l00164"></a><span class="lineno"><a class="line" href="utf8_8h.html#a2521532e5f84a299e835bf606fadd08b">  164</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8cpp.html#a9f6bd3582d6291eaba53779fd4fde4ae">valid</a> (<span class="keyword">const</span> std::string&amp; s)</div>
 <div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;{</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;  <span class="keywordflow">return</span> valid (s.c_str ());</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="utf8_8cpp.html#a9f6bd3582d6291eaba53779fd4fde4ae">valid</a> (s.c_str ());</div>
 <div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;}</div>
 <div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160; </div>
 <div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;<span class="keyword">inline</span></div>
@@ -232,7 +232,7 @@ $(function() {
 <div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;}</div>
 <div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160; </div>
 <div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;<span class="keyword">inline</span></div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#gad027d49e136b37181017f4cd092f2dcb">isblank</a> (std::string::const_iterator p)</div>
+<div class="line"><a name="l00190"></a><span class="lineno"><a class="line" href="utf8_8h.html#afbef7ae59c2532df07c855a639ee0fe1">  190</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#gad027d49e136b37181017f4cd092f2dcb">isblank</a> (std::string::const_iterator p)</div>
 <div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;{</div>
 <div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="group__charclass.html#gad027d49e136b37181017f4cd092f2dcb">isblank</a> (&amp;*p);</div>
 <div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;}</div>
@@ -245,7 +245,7 @@ $(function() {
 <div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;}</div>
 <div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160; </div>
 <div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;<span class="keyword">inline</span></div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#ga7768e02a01309d80fc943daea89f9048">isdigit</a> (std::string::const_iterator p)</div>
+<div class="line"><a name="l00210"></a><span class="lineno"><a class="line" href="utf8_8h.html#a271adbb9c025c72612a2da2fb5d7d304">  210</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#ga7768e02a01309d80fc943daea89f9048">isdigit</a> (std::string::const_iterator p)</div>
 <div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;{</div>
 <div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="group__charclass.html#ga7768e02a01309d80fc943daea89f9048">isdigit</a> (&amp;*p);</div>
 <div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;}</div>
@@ -258,7 +258,7 @@ $(function() {
 <div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;}</div>
 <div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160; </div>
 <div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;<span class="keyword">inline</span></div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#ga30a655a5e7dd28e4d05ea9825ff32e73">isalnum</a> (std::string::const_iterator p)</div>
+<div class="line"><a name="l00230"></a><span class="lineno"><a class="line" href="utf8_8h.html#ae686cdfac97a3324193db0fae8214fd8">  230</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#ga30a655a5e7dd28e4d05ea9825ff32e73">isalnum</a> (std::string::const_iterator p)</div>
 <div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;{</div>
 <div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="group__charclass.html#ga30a655a5e7dd28e4d05ea9825ff32e73">isalnum</a> (&amp;*p);</div>
 <div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;}</div>
@@ -271,7 +271,7 @@ $(function() {
 <div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;}</div>
 <div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160; </div>
 <div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;<span class="keyword">inline</span></div>
-<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#gab75591f2630047a637f9cf14a636c91e">isalpha</a> (std::string::const_iterator p)</div>
+<div class="line"><a name="l00250"></a><span class="lineno"><a class="line" href="utf8_8h.html#a6bcbed4885bc561156d4481097ac6447">  250</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#gab75591f2630047a637f9cf14a636c91e">isalpha</a> (std::string::const_iterator p)</div>
 <div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;{</div>
 <div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="group__charclass.html#gab75591f2630047a637f9cf14a636c91e">isalpha</a> (&amp;*p);</div>
 <div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;}</div>
@@ -284,7 +284,7 @@ $(function() {
 <div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;}</div>
 <div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160; </div>
 <div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;<span class="keyword">inline</span></div>
-<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#gac02a4f9791c4d4f353869a0017cdb0d3">isxdigit</a> (std::string::const_iterator p)</div>
+<div class="line"><a name="l00270"></a><span class="lineno"><a class="line" href="utf8_8h.html#a5797323a87fdfdb9470804fa449e4ead">  270</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#gac02a4f9791c4d4f353869a0017cdb0d3">isxdigit</a> (std::string::const_iterator p)</div>
 <div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;{</div>
 <div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="group__charclass.html#gac02a4f9791c4d4f353869a0017cdb0d3">isxdigit</a> (&amp;*p);</div>
 <div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;}</div>

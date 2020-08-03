@@ -134,18 +134,18 @@ std::string LoadString (HINSTANCE hInst, UINT id)
 }
 
 /*!
-  \class finder
-  Finder objects wrap a Windows search handle used in find_first/find_next
+  \class file_enumerator
+  This object wraps a Windows search handle used in find_first/find_next
   functions.
   Use like in the following example:
-````
-  utf8::finder collection("sample.*");
+  \code
+  utf8::file_enumerator collection("sample.*");
   while (collection.ok())
   {
     cout << collection.filename () << endl;
     collection.next ();
   }
-````
+  \endcode
 */
 
 

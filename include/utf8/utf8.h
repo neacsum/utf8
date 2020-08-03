@@ -1,5 +1,5 @@
 /*!
-  \file UTF8.H UTF-8 Conversion functions
+  \file utf8.h UTF-8 Conversion functions
   (c) Mircea Neacsu 2014-2020
 
 */

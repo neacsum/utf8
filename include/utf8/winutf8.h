@@ -38,11 +38,11 @@ bool find_next (find_data& fdat);
 void find_close (find_data& fdat);
 
 /// An object-oriented wrapper for find_... functions
-class finder : protected find_data
+class file_enumerator : protected find_data
 {
 public:
-  finder (const std::string& name);
-  ~finder ();
+  file_enumerator (const std::string& name);
+  ~file_enumerator ();
   bool ok ();
   bool next ();
 
@@ -73,16 +73,16 @@ private:
 };
 
 //--------------------- INLINE FUNCTIONS --------------------------------------
-/// Constructs a finder object and tries to locate the first file
+/// Constructs a file_enumerator object and tries to locate the first file
 inline
-finder::finder (const std::string& name)
+file_enumerator::file_enumerator (const std::string& name)
 {
   find_first (name, *this);
 }
 
 /// Closes the search handle associated with this object
 inline
-finder::~finder ()
+file_enumerator::~file_enumerator ()
 {
   if (handle != INVALID_HANDLE_VALUE)
     find_close (*this);
@@ -90,14 +90,14 @@ finder::~finder ()
 
 /// Return _true_ if a file has been enumerated
 inline
-bool finder::ok ()
+bool file_enumerator::ok ()
 {
   return (handle != INVALID_HANDLE_VALUE);
 }
 
 /// Advance the enumerator to next file
 inline
-bool finder::next ()
+bool file_enumerator::next ()
 {
   return find_next (*this);
 }

@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['tolower_170',['tolower',['../casecvt_8cpp.html#a894cab0cb787243c4b12527548878f83',1,'utf8::tolower(const std::string &amp;str)'],['../casecvt_8cpp.html#a1cc1cac155b73072b92722be1d48e69b',1,'utf8::tolower(std::string &amp;str)']]],
-  ['toupper_171',['toupper',['../casecvt_8cpp.html#a91b3da502eef20834b49c946ff821b79',1,'utf8::toupper(const std::string &amp;str)'],['../casecvt_8cpp.html#a325bae2a5780a75b50ad1f9bfda2af09',1,'utf8::toupper(std::string &amp;str)']]]
+  ['size_172',['size',['../classutf8_1_1buffer.html#abb9310190676e5fccba04d31f70bf3ac',1,'utf8::buffer']]],
+  ['splitpath_173',['splitpath',['../splitpath_8cpp.html#abc4219cc579a9e376e71f9d001fb1ddc',1,'utf8::splitpath(const std::string &amp;path, char *drive, char *dir, char *fname, char *ext)'],['../splitpath_8cpp.html#a0445457edb34e67a43085aeddf5725b0',1,'utf8::splitpath(const std::string &amp;path, std::string &amp;drive, std::string &amp;dir, std::string &amp;fname, std::string &amp;ext)']]]
 ];

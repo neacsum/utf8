@@ -6,10 +6,6 @@
   A UTF-8 implementation of MS INI file functions.
 */
 
-#ifndef UNICODE
-#define UNICODE
-#endif
-
 #include <stdio.h>
 #include <string.h>
 #include <math.h>        // for atof
@@ -124,7 +120,7 @@ IniFile::IniFile (const std::string& file)
 IniFile::IniFile ()
 {
   wchar_t tmp[_MAX_PATH];
-  GetTempFileName (L".", L"INI", 0, tmp);
+  GetTempFileNameW (L".", L"INI", 0, tmp);
   filename = utf8::narrow(tmp);
   temp_file = true;
 }
@@ -162,7 +158,7 @@ void IniFile::File (const std::string& fname)
   else
   {
     wchar_t tmp[_MAX_PATH];
-    GetTempFileName (L".", L"INI", 0, tmp);
+    GetTempFileNameW (L".", L"INI", 0, tmp);
     filename = utf8::narrow (tmp);
     temp_file = true;
   }
@@ -582,7 +578,6 @@ bool IniFile::DeleteKey (const std::string& key, const std::string& section)
 */
 bool IniFile::DeleteSection (const std::string& section)
 {
-  OutputDebugStringA ((string("Delete section %s") + section).c_str());
   return putkey (NULL, NULL, section.c_str (), filename.c_str ());
 }
 
@@ -767,6 +762,7 @@ size_t IniFile::GetSections (std::deque<std::string>& sects)
   return cnt;
 }
 
+/// Invoke an enumeration function on each section of an INI file
 int enum_sections (FILE *fp, function<void (const char *str)> func)
 {
   char buffer[INI_BUFFERSIZE];
@@ -786,6 +782,7 @@ int enum_sections (FILE *fp, function<void (const char *str)> func)
   return cnt;
 }
 
+/// Invoke an enumeration function on each key in a section
 int enum_keys (FILE* fp, const char *section, function<void(const char*)> fun)
 {
   char buffer[INI_BUFFERSIZE];
@@ -1080,14 +1077,17 @@ static bool same_file (const std::string& f1, const std::string& f2)
   if (!access (f2, 0))
     return false; //first file exists, 2nd doesn't
 
-  HANDLE h1 = CreateFile (widen (f1).c_str (), GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
-  HANDLE h2 = CreateFile (widen (f2).c_str (), GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+  /* If both files exist, compare the unique FILE_ID_INFO for them.
+     This takes care of symlinks, hardlinks, etc. */
+  HANDLE h1 = CreateFileW (widen (f1).c_str (), GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+  HANDLE h2 = CreateFileW (widen (f2).c_str (), GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
   if (h1 == INVALID_HANDLE_VALUE || h2 == INVALID_HANDLE_VALUE)
   {
     CloseHandle (h1);
     CloseHandle (h2);
     return false;
   }
+
   FILE_ID_INFO fi1, fi2;
   GetFileInformationByHandleEx (h1, FileIdInfo, &fi1, sizeof (fi1));
   GetFileInformationByHandleEx (h2, FileIdInfo, &fi2, sizeof (fi2));

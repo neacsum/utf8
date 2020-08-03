@@ -52,11 +52,12 @@ In addition to those, there are wrappings for:
 - conversion of command-line arguments: get_argv() and free_argv()
 - C++ I/O streams: \ref utf8::ifstream, \ref utf8::ofstream, \ref utf8::fstream
 - Character classification functions: \ref charclass "is... (isdigit, isalnum, etc.)"
+- File enumerating functions: find_first(), find_next()
+- A \ref utf8::file_enumerator "file enumerator" object wrapping find_first/find_next functions.
 - A simple \ref utf8::buffer "buffer class" for handling Windows API parameters. 
 - \ref utf8::IniFile - a class for handling Windows "profile files" (also
   called INI files) API".
 - Frequently used Windows functions like MessageBox and LoadString.
-- File enumerating functions: find_first(), find_next()
 
 # Usage #
 Before using this library you might want to review the guidelines from the
