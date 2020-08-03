@@ -262,7 +262,7 @@ inline
 bool isxdigit (const char *p)
 {
   char c = *p;
-  return ('0' <= c && c <= '9') || ('A' <= c && c <= 'F') || ('a' <= c && c <= 'F');
+  return ('0' <= c && c <= '9') || ('A' <= c && c <= 'F') || ('a' <= c && c <= 'f');
 }
 
 /// \copydoc isxdigit()
