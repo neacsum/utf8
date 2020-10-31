@@ -111,4 +111,54 @@ std::string narrow (const std::u32string& s)
   return str;
 }
 
+/*!
+  Conversion from UTF32 to UTF8
+  \param s UTF-32 encoded string
+  \param  nch number of character to convert or 0 if string is null-terminated
+  \return UTF-8 encoded string
+
+  Each character in the input string should be a valid UTF-32 code point
+  ( <0x10FFFF)
+*/
+std::string narrow (const char32_t* s, size_t nch)
+{
+  string str;
+  const char32_t* p = s;
+  if (!nch)
+  {
+    //null terminated; count characters now
+    while (*p++)
+      nch++;
+    p = s;
+  }
+
+  for (;nch; nch--, p++)
+  {
+    assert (*p < 0x10ffff);
+
+    if (*p < 0x7f)
+      str.push_back ((char)*p);
+    else if (*p < 0x7ff)
+    {
+      str.push_back ((char)(0xC0 | *p >> 6));
+      str.push_back (0x80 | *p & 0x3f);
+    }
+    else if (*p < 0xFFFF)
+    {
+      str.push_back ((char)(0xE0 | *p >> 12));
+      str.push_back (0x80 | *p >> 6 & 0x3f);
+      str.push_back (0x80 | *p & 0x3f);
+    }
+    else
+    {
+      str.push_back ((char)(0xF0 | *p >> 18));
+      str.push_back (0x80 | *p >> 12 & 0x3f);
+      str.push_back (0x80 | *p >> 6 & 0x3f);
+      str.push_back (0x80 | *p & 0x3f);
+    }
+  }
+  return str;
+}
+
+
 }  //namespace utf8

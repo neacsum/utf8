@@ -73,6 +73,13 @@ TEST (narrow_count)
   CHECK ("ABCD" == s1);
 }
 
+TEST (narrow_char32)
+{
+  const char32_t* u1 = U"A😀BCDEFGH";
+  string s1 = narrow (u1, 4);
+  CHECK_EQUAL (u8"A😀BC", s1);
+}
+
 TEST (widen_narrow)
 {
   const char *ptr = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";

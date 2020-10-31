@@ -13,6 +13,7 @@ namespace utf8 {
 std::string narrow (const wchar_t* s, size_t nch=0);
 std::string narrow (const std::wstring& s);
 std::string narrow (const std::u32string& s);
+std::string narrow (const char32_t* s, size_t nch = 0);
 
 std::wstring widen (const char* s, size_t nch=0);
 std::wstring widen (const std::string& s);
