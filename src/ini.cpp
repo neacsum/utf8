@@ -1023,7 +1023,7 @@ static void writesection (const char* section, FILE *fp)
     buffer[0] = '[';
     strncpy_s (buffer + 1, sizeof (buffer) - 4, section, _TRUNCATE);
     trimtrailing (buffer);
-    strcat_s (buffer, "]\n");
+    strcat_s (buffer, "]\r\n");
     fputs (buffer, fp);
   }
 }
@@ -1039,7 +1039,7 @@ static void writekey (const char* key, const char* value, FILE *fp)
   *p++ = '=';
   strncpy_s (p, sizeof (buffer) - (p - buffer) - 3, skipleading(value), _TRUNCATE);
   p = trimtrailing (p);
-  *p++ = '\n';
+  *p++ = '\r';  *p++ = '\n';
   *p = 0;
   fputs (buffer, fp);
 }
