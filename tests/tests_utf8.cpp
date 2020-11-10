@@ -418,5 +418,10 @@ TEST (find_missing_file)
 {
   file_enumerator f ("no such file");
   CHECK (!f.ok ());
+}
 
+TEST (bool_op_missing_file)
+{
+  file_enumerator found ("no such file");
+  CHECK (!found);
 }

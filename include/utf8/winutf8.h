@@ -43,8 +43,10 @@ class file_enumerator : protected find_data
 public:
   file_enumerator (const std::string& name);
   ~file_enumerator ();
-  bool ok ();
+  bool ok () const;
   bool next ();
+
+  operator bool () const;
 
   find_data::attributes;
   find_data::creation_time;
@@ -90,9 +92,17 @@ file_enumerator::~file_enumerator ()
 
 /// Return _true_ if a file has been enumerated
 inline
-bool file_enumerator::ok ()
+bool file_enumerator::ok () const
 {
   return (handle != INVALID_HANDLE_VALUE);
+}
+
+//! Syntactic sugar for ok() function
+//! Return _true_ if a file has been enumerated
+inline
+file_enumerator::operator bool () const
+{
+  return ok ();
 }
 
 /// Advance the enumerator to next file
