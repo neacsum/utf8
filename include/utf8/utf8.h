@@ -76,6 +76,9 @@ void toupper (std::string& str);
 std::string tolower (const std::string& str);
 std::string toupper (const std::string& str);
 
+//case insensitive string comparison
+int icompare (const std::string& s1, const std::string& s2);
+
 /// Input stream class using UTF-8 filename
 class ifstream : public std::ifstream
 {

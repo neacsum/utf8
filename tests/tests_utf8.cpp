@@ -384,6 +384,30 @@ TEST (case_conversion_ret)
   CHECK_EQUAL (u8"αλφάβητο", utf8::tolower (u8"ΑΛΦΆΒΗΤΟ"));
 }
 
+//check case-insensitive comparison
+TEST (icompare_equal)
+{
+  string lc{ u8"mircea neacșu ăâățî" };
+  string uc{ u8"MIRCEA NEACȘU ĂÂĂȚÎ" };
+  CHECK (utf8::icompare (lc, uc) == 0);
+}
+
+TEST (icompare_less)
+{
+  string lc{ u8"mircea neacșu ăâățî" };
+  string uc{ u8"MIRCEA NEACȘU ĂÂĂȚÎ " };
+  CHECK (utf8::icompare (lc, uc) < 0);
+}
+
+TEST (icompare_greater)
+{
+  string lc{ u8"mircea neacșu ăâățî" };
+  string uc{ u8"MIRCEA NEACȘU ĂÂ2ȚÎ" };
+  CHECK (utf8::icompare (lc, uc) > 0);
+}
+
+
+
 // find files named "test*" using find_first/find_next functions
 TEST (find)
 {

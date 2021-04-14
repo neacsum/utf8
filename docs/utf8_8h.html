@@ -104,6 +104,9 @@ Functions</h2></td></tr>
 <tr class="memitem:af7d4d20b4193ac40e77a97012bbfdc3b"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rune_8cpp.html#af7d4d20b4193ac40e77a97012bbfdc3b">utf8::narrow</a> (const std::u32string &amp;s)</td></tr>
 <tr class="memdesc:af7d4d20b4193ac40e77a97012bbfdc3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Conversion from UTF32 to UTF8.  <a href="rune_8cpp.html#af7d4d20b4193ac40e77a97012bbfdc3b">More...</a><br /></td></tr>
 <tr class="separator:af7d4d20b4193ac40e77a97012bbfdc3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a19652d960bcca27b6911ddf61fd7e253"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rune_8cpp.html#a19652d960bcca27b6911ddf61fd7e253">utf8::narrow</a> (const char32_t *s, size_t nch)</td></tr>
+<tr class="memdesc:a19652d960bcca27b6911ddf61fd7e253"><td class="mdescLeft">&#160;</td><td class="mdescRight">Conversion from UTF32 to UTF8.  <a href="rune_8cpp.html#a19652d960bcca27b6911ddf61fd7e253">More...</a><br /></td></tr>
+<tr class="separator:a19652d960bcca27b6911ddf61fd7e253"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ade5f928144a0219a3725921de8cf8188"><td class="memItemLeft" align="right" valign="top">std::wstring&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utf8_8cpp.html#ade5f928144a0219a3725921de8cf8188">utf8::widen</a> (const char *s, size_t nch)</td></tr>
 <tr class="memdesc:ade5f928144a0219a3725921de8cf8188"><td class="mdescLeft">&#160;</td><td class="mdescRight">Conversion from UTF-8 to wide character.  <a href="utf8_8cpp.html#ade5f928144a0219a3725921de8cf8188">More...</a><br /></td></tr>
 <tr class="separator:ade5f928144a0219a3725921de8cf8188"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -218,6 +221,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="case
 <tr class="memitem:a91b3da502eef20834b49c946ff821b79"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="casecvt_8cpp.html#a91b3da502eef20834b49c946ff821b79">utf8::toupper</a> (const std::string &amp;str)</td></tr>
 <tr class="memdesc:a91b3da502eef20834b49c946ff821b79"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert UTF-8 string to upper case using case folding table published by Unicode Consortium.  <a href="casecvt_8cpp.html#a91b3da502eef20834b49c946ff821b79">More...</a><br /></td></tr>
 <tr class="separator:a91b3da502eef20834b49c946ff821b79"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa65352f672803529414aaba45c30763f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="casecvt_8cpp.html#aa65352f672803529414aaba45c30763f">utf8::icompare</a> (const std::string &amp;s1, const std::string &amp;s2)</td></tr>
+<tr class="memdesc:aa65352f672803529414aaba45c30763f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compare two strings in a case-insensitive way.  <a href="casecvt_8cpp.html#aa65352f672803529414aaba45c30763f">More...</a><br /></td></tr>
+<tr class="separator:aa65352f672803529414aaba45c30763f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gad027d49e136b37181017f4cd092f2dcb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__charclass.html#gad027d49e136b37181017f4cd092f2dcb">utf8::isblank</a> (const char *p)</td></tr>
 <tr class="memdesc:gad027d49e136b37181017f4cd092f2dcb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return true if character is blank(-ish)  <a href="group__charclass.html#gad027d49e136b37181017f4cd092f2dcb">More...</a><br /></td></tr>
 <tr class="separator:gad027d49e136b37181017f4cd092f2dcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -725,6 +731,49 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="case
 
 </div>
 </div>
+<a id="aa65352f672803529414aaba45c30763f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa65352f672803529414aaba45c30763f">&#9670;&nbsp;</a></span>icompare()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int utf8::icompare </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>s1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>s2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Compare two strings in a case-insensitive way. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">s1</td><td>first string </td></tr>
+    <tr><td class="paramname">s2</td><td>second string </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>&lt;0 if first string is lexicographically before the second one </dd>
+<dd>
+&gt;0 if first string is lexicographically after the second string </dd>
+<dd>
+=0 if the two strings are equal</dd></dl>
+<p>Strings must be valid UTF8 strings. </p>
+
+</div>
+</div>
 <a id="ae686cdfac97a3324193db0fae8214fd8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae686cdfac97a3324193db0fae8214fd8">&#9670;&nbsp;</a></span>isalnum()</h2>
 
@@ -1042,8 +1091,47 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="case
 
 </div>
 </div>
+<a id="a19652d960bcca27b6911ddf61fd7e253"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a19652d960bcca27b6911ddf61fd7e253">&#9670;&nbsp;</a></span>narrow() <span class="overload">[1/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string utf8::narrow </td>
+          <td>(</td>
+          <td class="paramtype">const char32_t *&#160;</td>
+          <td class="paramname"><em>s</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>nch</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Conversion from UTF32 to UTF8. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">s</td><td>UTF-32 encoded string </td></tr>
+    <tr><td class="paramname">nch</td><td>number of character to convert or 0 if string is null-terminated </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>UTF-8 encoded string</dd></dl>
+<p>Each character in the input string should be a valid UTF-32 code point ( &lt;0x10FFFF) </p>
+
+</div>
+</div>
 <a id="af7d4d20b4193ac40e77a97012bbfdc3b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af7d4d20b4193ac40e77a97012bbfdc3b">&#9670;&nbsp;</a></span>narrow() <span class="overload">[1/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af7d4d20b4193ac40e77a97012bbfdc3b">&#9670;&nbsp;</a></span>narrow() <span class="overload">[2/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1071,7 +1159,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="case
 </div>
 </div>
 <a id="a970ba3fbd79879d727137f70685ba126"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a970ba3fbd79879d727137f70685ba126">&#9670;&nbsp;</a></span>narrow() <span class="overload">[2/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a970ba3fbd79879d727137f70685ba126">&#9670;&nbsp;</a></span>narrow() <span class="overload">[3/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1098,7 +1186,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="case
 </div>
 </div>
 <a id="a7421a066f15d7f13f7ba6e237301ba76"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7421a066f15d7f13f7ba6e237301ba76">&#9670;&nbsp;</a></span>narrow() <span class="overload">[3/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a7421a066f15d7f13f7ba6e237301ba76">&#9670;&nbsp;</a></span>narrow() <span class="overload">[4/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

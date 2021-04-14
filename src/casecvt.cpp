@@ -8,8 +8,7 @@
   binary searching. If a code is found in the upper case table, it is replaced
   with the matching code from the lower case.
 
-  Each function takes about 11k for the case folding table. Finding a code takes
-  at most 11 comparisons.
+  Case folding tables take about 22k. Finding a code takes at most 11 comparisons.
 */
 /*
   (c) Mircea Neacsu 2014-2020. Licensed under MIT License.
@@ -18,11 +17,18 @@
 
 #include <utf8/utf8.h>
 #include <algorithm>
+#include <assert.h>
 
 using namespace std;
 
 
 namespace utf8 {
+
+//definition of 'u2l' and 'lc' tables
+#include "uppertab.c"
+
+// definition of 'l2u' and 'uc' tables
+#include "lowertab.c"
 
 /*!
   Convert UTF-8 string to lower case using case folding table published by
@@ -33,8 +39,6 @@ namespace utf8 {
 
 std::string tolower (const std::string& str)
 {
-  //definition of 'u2l' and 'lc' tables
-  #include "uppertab.c"
   u32string wstr = runes (str);
   for (auto ptr = wstr.begin (); ptr < wstr.end (); ptr++)
   {
@@ -59,8 +63,6 @@ void tolower (std::string& str)
 */
 std::string toupper (const std::string& str)
 {
-  // definition of 'l2u' and 'uc' tables
-  #include "lowertab.c"
   u32string wstr = runes (str);
   for (auto ptr = wstr.begin(); ptr < wstr.end(); ptr++)
   {
@@ -75,6 +77,47 @@ std::string toupper (const std::string& str)
 void toupper (std::string& str)
 {
   str = toupper (const_cast<const string&>(str));
+}
+
+/*!
+  Compare two strings in a case-insensitive way.
+  \param s1 first string
+  \param s2 second string
+  \return <0 if first string is lexicographically before the second one
+  \return >0 if first string is lexicographically after the second string
+  \return =0 if the two strings are equal
+
+  Strings must be valid UTF8 strings.
+*/
+int icompare (const std::string& s1, const std::string& s2)
+{
+  assert (valid (s1) && valid (s2));
+
+  auto p1 = s1.begin (), p2 = s2.begin ();
+  while (p1 < s1.end () && p2 < s2.end())
+  {
+    char32_t lc1, lc2, c1 = rune(p1), c2 = rune(p2);
+    char32_t* f = lower_bound (begin (u2l), end (u2l), c1);
+    if (f != end (u2l) && *f == c1)
+      lc1 = lc[f - u2l];
+    else
+      lc1 = c1;
+    f = lower_bound (begin (u2l), end (u2l), c2);
+    if (f != end (u2l) && *f == c2)
+      lc2 = lc[f - u2l];
+    else
+      lc2 = c2;
+    if ((lc1 != lc2))
+      return (lc1 < lc2)? -1 : 1;
+
+    next (s1, p1);
+    next (s2, p2);
+  }
+  if (p1 != s1.end ())
+    return 1;
+  if (p2 != s2.end ())
+    return -1;
+  return 0;
 }
 
 }

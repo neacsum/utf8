@@ -1,8 +1,12 @@
 ﻿UTF8 - Simple Library for Internationalization
 =============================================
 
-Functions to facilitate Windows handling of I18N problems using
-the strategy advocated by [UTF-8 Everywhere Manifesto](http://utf8everywhere.org/).
+This is a library designed to simplify the usage of UTF-8 strings under Win32.
+While most of the (computing) world has standardized on using UTF-8 encoding,
+Win32 has remained stuck with wide character strings (also called UTF-16 encoding).
+
+The library uses the principles outlined in the [UTF-8 Everywhere Manifesto](http://utf8everywhere.org/) to make it easy to switch between the different character encodings.
+
 
 
 Author:
@@ -12,7 +16,7 @@ Mircea Neacsu (mircea@neacsu.net)
 
 The MIT License (MIT)
  
-Copyright (c) 2014-2020 Mircea Neacsu
+Copyright (c) 2014-2021 Mircea Neacsu
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -32,7 +36,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-## Content ##
+# Content #
 The main function groups are:
 - narrowing functions that go from UTF-16 or UTF-32 to UTF-8 encoding.
 - widening functions that go from UTF-8 to UTF-16 or UTF-32
@@ -42,6 +46,7 @@ There are also functions for:
 - string traversal
 - validity checking
 - case folding - toupper() and tolower ()
+- case-insensitive string comparison - icompare()
 
 In addition to those, there are wrappings for:
 - the most common file access operations (fopen, access, remove, chmod,
@@ -61,7 +66,7 @@ Some popular Windows API functions like <code>MessageBox</code> and
 <code>LoadString</code> have also been wrapped with UTF-8 compatible wrappers.
 This list might grow in the future.
 
-## Usage ##
+# Usage #
 Before using this library you might want to review the guidelines from the
 [UTF-8 Everywhere Manifesto](http://utf8everywhere.org/). In particular:
 - define UNICODE or _UNICODE in your program
@@ -69,7 +74,7 @@ Before using this library you might want to review the guidelines from the
   (under "Configuration Properties" > "General" > "Project Defaults" page).
 - for Visual Studio users, add "/utf-8" option under "C/C++" > "All Options" >
   "Additional Options" (see https://docs.microsoft.com/en-us/cpp/build/reference/utf-8-set-source-and-executable-character-sets-to-utf-8)
-- use only *std::string* and <i>char*</i> variables. Assume they all contain UTF-8
+- use only *std::string* and *char\** variables. Assume they all contain UTF-8
   encoded strings.
 - use UTF-16 strings only in arguments to Windows API calls.
 
@@ -98,14 +103,13 @@ Calling Windows API functions can be handled like this:
   HANDLE f = CreateFile (utf8::widen (filename).c_str (), GENERIC_READ, 0,
     NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 ````
-
  
-## Building ##
+# Building #
 The UTF8 library doesn't have any dependencies. The test program however uses
 the [UTTP library](https://github.com/neacsum/utpp).
 
 
-## Documentation ##
+# Documentation #
 [Doxygen](http://www.doxygen.nl/) documentation can be found at https://neacsum.github.io/utf8/
 
 
