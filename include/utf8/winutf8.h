@@ -1,6 +1,7 @@
 #pragma once
 #include <Windows.h>
 #include <string>
+#include <ostream>
 
 #undef MessageBox
 #undef CopyFile
@@ -73,6 +74,14 @@ private:
   wchar_t *ptr;
   size_t sz;
 };
+
+inline std::ostream&
+operator << (std::ostream& s, const buffer& b)
+{
+  s << (std::string)b;
+  return s;
+}
+
 
 //--------------------- INLINE FUNCTIONS --------------------------------------
 /// Constructs a file_enumerator object and tries to locate the first file

@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['widen_181',['widen',['../utf8_8cpp.html#ade5f928144a0219a3725921de8cf8188',1,'utf8::widen(const char *s, size_t nch)'],['../utf8_8cpp.html#a2a26135d3cdc32b19d67f79df8cef61a',1,'utf8::widen(const std::string &amp;s)']]]
+  ['_7ebuffer_175',['~buffer',['../classutf8_1_1buffer.html#acac816efe3eb495cb8db6ebfcc9a0a73',1,'utf8::buffer']]],
+  ['_7efile_5fenumerator_176',['~file_enumerator',['../classutf8_1_1file__enumerator.html#ae87eae3dcf08591daa4b6fef91768588',1,'utf8::file_enumerator']]],
+  ['_7einifile_177',['~IniFile',['../classutf8_1_1_ini_file.html#ab3a076421dea7d25dabfc0768bb22348',1,'utf8::IniFile']]]
 ];

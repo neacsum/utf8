@@ -1,35 +1,7 @@
-﻿## UTF8 - Simple Library for Internationalization ## {#mainpage}
+﻿# UTF8 - Simple Library for Internationalization # {#mainpage}
 
 Functions to facilitate Windows handling of I18N problems using
 the strategy advocated by [UTF-8 Everywhere Manifesto](http://utf8everywhere.org/).
-
-
-Author:
-Mircea Neacsu (mircea@neacsu.net)
-
-# License #
-
-The MIT License (MIT)
- 
-Copyright (c) 2014-2021 Mircea Neacsu
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
 
 # Purpose #
 This is a library designed to simplify the usage of UTF-8 strings under Win32.
@@ -40,26 +12,23 @@ The library uses the principles outlined in the [UTF-8 Everywhere Manifesto](htt
 
 # Content #
 The main function groups are:
-- narrowing functions - narrow() - that go from UTF-16 or UTF-32 to UTF-8 encoding.
-- widening functions - widen() - that go from UTF-8 to UTF-16
-- widening functions - rune() and runes() - that go from UTF-8 to UTF-32
+- \ref basecvt "Narrowing/widening functions"
+- \ref charclass "Character classification functions"
+- \ref folding  "Case folding and case-insensitive comparison" 
+- \ref inifile "INI file replacement API"
 
 There are also functions for:
 - character counting - length()
 - string traversal - next()
 - validity checking - valid()
-- case folding - toupper() and tolower()
-- case-insensitive string comparison - icompare()
 
-In addition to those, there are wrappings for:
-- the most common file access operations: fopen(), access(), remove(), chmod(),
-  rename()
+In addition to those, there are wrappings commonly used C and C++ functions:
+- file access operations: fopen(), access(), remove(), chmod(), rename()
 - directory operations: mkdir(), rmdir(), chdir(), getcwd()
 - path management: splitpath(), makepath()
 - environment functions: getenv(), putenv()
 - conversion of command-line arguments: get_argv() and free_argv()
 - C++ I/O streams: \ref utf8::ifstream, \ref utf8::ofstream, \ref utf8::fstream
-- Character classification functions: \ref charclass "is... (isdigit, isalnum, etc.)"
 - File enumerating functions: find_first(), find_next()
 - A \ref utf8::file_enumerator "file enumerator" object wrapping find_first/find_next functions.
 - A simple \ref utf8::buffer "buffer class" for handling Windows API parameters. 
@@ -139,12 +108,39 @@ The only changes compared to the Windows API are:
  - files without a path are in current directory while Windows places them in Windows folder
 
 ## Case Conversion ##
-Case conversion in Unicode is a much more complicated issue than ASCII case conversion. This library uses standard tables published by Unicode Consortium to perform upper case to lower case conversions. There is also a function icompare() that performs string comparison ignoring the case.
+Case conversion in Unicode is a much more complicated issue than ASCII case conversion.
+This library uses standard tables published by Unicode Consortium to perform upper case
+to lower case conversions. There is also a function icompare() that performs string
+comparison ignoring the case.
 
 
 # Building #
 The UTF8 library doesn't have any dependencies. The test programs however uses
 the [UTTP library](https://github.com/neacsum/utpp).
+
+# License #
+
+The MIT License (MIT)
+ 
+Copyright (c) 2014-2021 Mircea Neacsu
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 
 
 

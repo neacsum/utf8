@@ -1,4 +1,4 @@
-/*!
+﻿/*!
   \file utf8.h UTF-8 Conversion functions
   (c) Mircea Neacsu 2014-2020
 
@@ -10,25 +10,31 @@
 
 namespace utf8 {
 
+/// \addtogroup basecvt
+/// @{
 std::string narrow (const wchar_t* s, size_t nch=0);
 std::string narrow (const std::wstring& s);
-std::string narrow (const std::u32string& s);
 std::string narrow (const char32_t* s, size_t nch = 0);
+std::string narrow (const std::u32string& s);
 
-std::wstring widen (const char* s, size_t nch=0);
+std::wstring widen (const char* s, size_t nch = 0);
 std::wstring widen (const std::string& s);
+std::u32string runes (const char* s, size_t nch = 0);
 std::u32string runes (const std::string& s);
 
-size_t length (const std::string& s);
+char32_t rune (const char* p);
+char32_t rune (const std::string::const_iterator& p);
+/// @}
+
+
+bool valid (const char* s, size_t nch = 0);
+bool valid (const std::string& s);
 bool next (const std::string& s, std::string::const_iterator& p);
-bool next (char*& p);
 bool next (const char*& p);
 
-char32_t rune (const std::string::const_iterator& p);
-char32_t rune (const char* p);
+size_t length (const std::string& s);
+size_t length (const char* s);
 
-bool valid (const std::string& s);
-bool valid (const char *s);
 
 std::vector<std::string> get_argv ();
 char** get_argv (int *argc);
@@ -60,8 +66,8 @@ bool rename (const std::string& oldname, const std::string& newname);
 FILE* fopen (const char* filename, const char* mode);
 FILE* fopen (const std::string& filename, const std::string& mode);
 
-void splitpath (const std::string& path, char* drive, char* dir, char* fname, char* ext);
-void splitpath (const std::string& path, std::string& drive, std::string& dir,
+bool splitpath (const std::string& path, char* drive, char* dir, char* fname, char* ext);
+bool splitpath (const std::string& path, std::string& drive, std::string& dir,
                 std::string& fname, std::string& ext);
 bool makepath (std::string& path, const std::string& drive, const std::string& dir,
                 const std::string& fname, const std::string& ext);
@@ -70,14 +76,39 @@ std::string getenv (const std::string& var);
 bool putenv (const std::string& str);
 bool putenv (const std::string& var, const std::string& val);
 
-//Case conversion functions
+/*!
+  \addtogroup folding
+  @{
+*/
 void tolower (std::string& str);
 void toupper (std::string& str);
 std::string tolower (const std::string& str);
 std::string toupper (const std::string& str);
-
-//case insensitive string comparison
 int icompare (const std::string& s1, const std::string& s2);
+/// @}
+
+/*!
+  \addtogroup charclass
+  @{
+*/
+
+bool isspace (const char* p);
+bool isspace (std::string::const_iterator p);
+bool isblank (const char* p);
+bool isblank (std::string::const_iterator p);
+bool isdigit (const char* p);
+bool isdigit (std::string::const_iterator p);
+bool isalnum (const char* p);
+bool isalnum (std::string::const_iterator p);
+bool isalpha (const char* p);
+bool isalpha (std::string::const_iterator p);
+bool isxdigit (const char* p);
+bool isxdigit (std::string::const_iterator p);
+bool isupper (const char* p);
+bool isupper (std::string::const_iterator p);
+bool islower (const char* p);
+bool islower (std::string::const_iterator p);
+/// @}
 
 /// Input stream class using UTF-8 filename
 class ifstream : public std::ifstream
@@ -152,11 +183,178 @@ public:
 };
 
 
-/// Advances a pointer to next valid UTF-8 character
+// INLINES --------------------------------------------------------------------
+
+/*!
+  Creates a new directory
+
+  \param dirname UTF-8 path for new directory
+  \return true if successful, false otherwise
+*/
 inline
-bool next (const char*& p)
+bool mkdir (const char* dirname)
 {
-  return next (const_cast <char*&>(p));
+  return (_wmkdir (widen (dirname).c_str ()) == 0);
+}
+
+/// \copydoc mkdir()
+inline
+bool mkdir (const std::string& dirname)
+{
+  return (_wmkdir (widen (dirname).c_str ()) == 0);
+}
+
+/*!
+  Deletes a directory
+
+  \param dirname UTF-8 path of directory to be removed
+  \return true if successful, false otherwise
+*/
+inline
+bool rmdir (const char* dirname)
+{
+  return (_wrmdir (widen (dirname).c_str ()) == 0);
+}
+
+/// \copydoc rmdir()
+inline
+bool rmdir (const std::string& dirname)
+{
+  return (_wrmdir (widen (dirname).c_str ()) == 0);
+}
+
+
+/*!
+  Changes the current working directory
+
+  \param dirname UTF-8 path of new working directory
+  \return true if successful, false otherwise
+*/
+inline
+bool chdir (const char* dirname)
+{
+  return (_wchdir (widen (dirname).c_str ()) == 0);
+}
+
+/// \copydoc chdir()
+inline
+bool chdir (const std::string& dirname)
+{
+  return (_wchdir (widen (dirname).c_str ()) == 0);
+}
+
+/*!
+  Changes the file access permissions
+
+  \param filename UTF-8 name of file
+  \param mode access permissions. Or'ed combination of:
+              - _S_IWRITE write permission
+              - _S_IREAD  read permission
+
+  \return true if successful, false otherwise
+*/
+inline
+bool chmod (const char* filename, int mode)
+{
+  return (_wchmod (widen (filename).c_str (), mode) == 0);
+}
+
+/// \copydoc chmod()
+inline
+bool chmod (const std::string& filename, int mode)
+{
+  return (_wchmod (widen (filename).c_str (), mode) == 0);
+}
+
+
+/*!
+  Determines if a file has the requested access permissions
+
+  \param filename UTF-8 file path of new working directory
+  \param mode required access:
+              - 0 existence only
+              - 2 write permission
+              - 4 read permission
+              - 6 read/write permission
+
+  \return true if successful, false otherwise
+
+*/
+inline
+bool access (const char* filename, int mode)
+{
+  return (_waccess (widen (filename).c_str (), mode) == 0);
+}
+
+/// \copydoc access()
+inline
+bool access (const std::string& filename, int mode)
+{
+  return (_waccess (widen (filename).c_str (), mode) == 0);
+}
+
+
+/*!
+  Delete a file
+
+  \param filename UTF-8 name of file to be deleted
+  \return true if successful, false otherwise
+*/
+inline
+bool remove (const char* filename)
+{
+  return (_wremove (widen (filename).c_str ()) == 0);
+}
+
+/// \copydoc remove()
+inline
+bool remove (const std::string& filename)
+{
+  return (_wremove (widen (filename).c_str ()) == 0);
+}
+
+/*!
+  Rename a file or directory
+
+  \param oldname current UTF-8 encoded name of file or directory
+  \param newname new UTF-8 name
+  \return true if successful, false otherwise
+*/
+inline
+bool rename (const char* oldname, const char* newname)
+{
+  return (_wrename (widen (oldname).c_str (), widen (newname).c_str ()) == 0);
+}
+
+/// \copydoc rename()
+inline
+bool rename (const std::string& oldname, const std::string& newname)
+{
+  return (_wrename (widen (oldname).c_str (), widen (newname).c_str ()) == 0);
+}
+
+/*!
+  Open a file
+
+  \param filename UTF-8 encoded file name
+  \param mode access mode
+  \return pointer to the opened file or NULL if an error occurs
+*/
+inline
+FILE* fopen (const char* filename, const char* mode)
+{
+  FILE* h = nullptr;
+  _wfopen_s (&h, widen (filename).c_str (), widen (mode).c_str ());
+  return h;
+}
+
+/// \copydoc fopen()
+inline
+FILE* fopen (const std::string& filename, const std::string& mode)
+{
+  FILE* h = nullptr;
+  _wfopen_s (&h, widen (filename).c_str (), widen (mode).c_str ());
+  return h;
 }
 
 /*!
@@ -167,26 +365,45 @@ bool next (const char*& p)
 inline
 bool valid (const std::string& s)
 {
-  return valid (s.c_str ());
+  return valid (s.c_str (), s.size());
 }
 
-/*!
-  \defgroup charclass Character Classification
-
-  Replacements for character classification functions.
-*/
+/// @copydoc rune()
+inline
+char32_t rune (const std::string::const_iterator& p)
+{
+  return rune (&(*p));
+}
 
 
 /*!
   Return true if character is blank(-ish)
   \param p pointer to character to check
   \return true if character is blank, false otherwise
-  \ingroup charclass
+*/
+inline
+bool isspace (const char* p)
+{
+  return (*p && (strchr (" \t\n\r\f\v", *p) != nullptr));
+}
+
+/// \copydoc isspace()
+inline
+bool isspace (std::string::const_iterator p)
+{
+  return isspace (&*p);
+}
+
+
+/*!
+  Return true if character is blank or tab
+  \param p pointer to character to check
+  \return true if character is blank, false otherwise
 */
 inline
 bool isblank (const char *p)
 {
-  return (strchr (" \t\n\r\f\v", *p) != nullptr);
+  return (*p == ' ' || *p == '\t');
 }
 
 /// \copydoc isblank()
@@ -200,7 +417,6 @@ bool isblank (std::string::const_iterator p)
   Return true if character is a decimal digit (0-9)
   \param p pointer to character to check
   \return true if character is a digit, false otherwise
-  \ingroup charclass
 */
 inline
 bool isdigit (const char *p)
@@ -220,7 +436,6 @@ bool isdigit (std::string::const_iterator p)
   Return true if character is an alphanumeric character (0-9 or A-Z or a-z)
   \param p pointer to character to check
   \return true if character is alphanumeric, false otherwise
-  \ingroup charclass
 */
 inline
 bool isalnum (const char *p)
@@ -240,7 +455,6 @@ bool isalnum (std::string::const_iterator p)
   Return true if character is an alphabetic character (A-Z or a-z)
   \param p pointer to character to check
   \return true if character is alphabetic, false otherwise
-  \ingroup charclass
 */
 inline
 bool isalpha (const char *p)
@@ -260,7 +474,6 @@ bool isalpha (std::string::const_iterator p)
   Return true if character is a hexadecimal digit (0-9 or A-F or a-f)
   \param p pointer to character to check
   \return true if character is hexadecimal, false otherwise
-  \ingroup charclass
 */
 inline
 bool isxdigit (const char *p)
@@ -274,6 +487,51 @@ inline
 bool isxdigit (std::string::const_iterator p)
 {
   return isxdigit (&*p);
+}
+
+/// \copydoc isupper()
+inline
+bool isupper (std::string::const_iterator p)
+{
+  return isupper (&*p);
+}
+
+/// \copydoc islower()
+inline
+bool islower (std::string::const_iterator p)
+{
+  return isupper (&*p);
+}
+
+/*!
+  Creates, modifies, or removes environment variables.
+  This is a wrapper for [_wputenv function]
+  (https://docs.microsoft.com/en-us/cpp/c-runtime-library/reference/putenv-wputenv)
+
+  \param str environment string to modify
+  \return true if successful, false otherwise.
+*/
+inline
+bool putenv (const std::string& str)
+{
+  return (_wputenv (utf8::widen (str).c_str ()) == 0);
+}
+
+/*!
+  Creates, modifies, or removes environment variables.
+  This is a wrapper for [_wputenv_s function]
+  https://docs.microsoft.com/en-us/cpp/c-runtime-library/reference/putenv-s-wputenv-s
+
+  \param var  name of environment variable
+  \param val  new value of environment variable. If empty, the environment
+              variable is removed
+  \return true if successful, false otherwise
+*/
+inline
+bool putenv (const std::string& var, const std::string& val)
+{
+  return (_wputenv_s (widen (var).c_str (),
+    widen (val).c_str ()) == 0);
 }
 
 }; //namespace utf8

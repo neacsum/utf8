@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['short_5fname_80',['short_name',['../structutf8_1_1find__data.html#ab57e8b00e7bda123399680582cd2b948',1,'utf8::find_data']]],
-  ['size_81',['size',['../structutf8_1_1find__data.html#a0c3e04203610ddb1fc4cf476751d0e91',1,'utf8::find_data::size()'],['../classutf8_1_1buffer.html#abb9310190676e5fccba04d31f70bf3ac',1,'utf8::buffer::size()']]],
-  ['splitpath_82',['splitpath',['../splitpath_8cpp.html#abc4219cc579a9e376e71f9d001fb1ddc',1,'utf8::splitpath(const std::string &amp;path, char *drive, char *dir, char *fname, char *ext)'],['../splitpath_8cpp.html#a0445457edb34e67a43085aeddf5725b0',1,'utf8::splitpath(const std::string &amp;path, std::string &amp;drive, std::string &amp;dir, std::string &amp;fname, std::string &amp;ext)']]],
-  ['splitpath_2ecpp_83',['splitpath.cpp',['../splitpath_8cpp.html',1,'']]]
+  ['tolower_82',['tolower',['../group__folding.html#ga894cab0cb787243c4b12527548878f83',1,'utf8::tolower(const std::string &amp;str)'],['../group__folding.html#ga1cc1cac155b73072b92722be1d48e69b',1,'utf8::tolower(std::string &amp;str)']]],
+  ['toupper_83',['toupper',['../group__folding.html#ga91b3da502eef20834b49c946ff821b79',1,'utf8::toupper(const std::string &amp;str)'],['../group__folding.html#ga325bae2a5780a75b50ad1f9bfda2af09',1,'utf8::toupper(std::string &amp;str)']]]
 ];

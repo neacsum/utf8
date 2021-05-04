@@ -20,8 +20,37 @@ using namespace std;
 
 namespace utf8 {
 
-static int enum_keys (FILE* fp, const char *section, function<void (const char*)> fun);
-static int enum_sections (FILE* fp, function<void (const char*)> fun);
+/*!
+  \defgroup inifile INI File Replacement API
+  An object-oriented replacement for working with INI files
+
+  The basic Windows API functions for reading and writing INI files, 
+  [GetPrivateProfileStringW](https://docs.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-getprivateprofilestringw)
+  and [WritePrivateProfileStringW](https://docs.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-writeprivateprofilestringw),
+  combine both the file name and the information to be read or written in one API call.
+
+  Using the utf8::widen() function to convert all strings passed to this API
+  produces an INI file that contains UTF-16 characters.
+
+  The solution is to completely replace the Windows API functions with an IniFile
+  object that is UTF-8 aware and provides a rich interface.
+
+  This implementation struggles to be as compatible as possible with the original Windows API.
+  There are no arbitrary extensions to the file format and I've done a lot of
+  testing to identify different corner cases. Here are the rules I discovered
+  by trying different combination of calls to the original Windows API:
+  - the only comments lines are the ones starting with a semi-colon
+  (hashes are not considered comments by Windows API)
+  - there are no trailing comments; anything after the '=' sign is part of the key value
+  - leading and trailing spaces are removed both from returned strings and from parameters
+
+  The only changes compared to the Windows API are:
+  - line length defaults to 1024 (the INI_BUFFER_SIZE value) while Windows API limits it to 256 characters
+  - files without a path are in current directory while Windows API places them in Windows folder
+*/
+
+static int enum_keys (FILE* fp, const char *section, std::function<void (const char*)> fun);
+static int enum_sections (FILE* fp, std::function<void (const char*)> fun);
 static bool findsection (const char *section, FILE *rf, FILE *wf, char *buffer, size_t bsize);
 static bool putkey (const char *key, const char *value, const char *section, const char *filename);
 static bool getkey (FILE* fp, const char* section, const char* key, char* buffer, size_t BufferSize);
@@ -103,6 +132,7 @@ static std::string tempname (const std::string& source)
   \class IniFile
   Provides a handy object oriented encapsulation of functions needed to
   manipulate INI (profile) files.
+  \ingroup inifile
 */
 
 /// Constructor 
@@ -211,7 +241,7 @@ double IniFile::GetDouble (const std::string& key, const std::string& section, d
 */
 bool IniFile::PutInt (const std::string& key, long value, const std::string& section)
 {
-  char buffer[80];
+  char buffer[_MAX_ITOSTR_BASE10_COUNT];
 
   _itoa_s (value, buffer, 10);
   return PutString (key, buffer, section);
@@ -762,8 +792,8 @@ size_t IniFile::GetSections (std::deque<std::string>& sects)
   return cnt;
 }
 
-/// Invoke an enumeration function on each section of an INI file
-int enum_sections (FILE *fp, function<void (const char *str)> func)
+// Invoke an enumeration function on each section of an INI file
+static int enum_sections (FILE *fp, std::function<void (const char *str)> func)
 {
   char buffer[INI_BUFFERSIZE];
   int cnt = 0;
@@ -782,8 +812,8 @@ int enum_sections (FILE *fp, function<void (const char *str)> func)
   return cnt;
 }
 
-/// Invoke an enumeration function on each key in a section
-int enum_keys (FILE* fp, const char *section, function<void(const char*)> fun)
+// Invoke an enumeration function on each key in a section
+static int enum_keys (FILE* fp, const char *section, std::function<void(const char*)> fun)
 {
   char buffer[INI_BUFFERSIZE];
   int cnt = 0;
@@ -866,8 +896,8 @@ static bool putkey (const char *key, const char *value, const char *section, con
   FILE* rfp;
   FILE* wfp;
 
-  const char *sp;
   char buffer[INI_BUFFERSIZE];
+  const char* sp;
   size_t len;
 
   assert (section);
@@ -925,7 +955,7 @@ static bool putkey (const char *key, const char *value, const char *section, con
       //start searching for key
       key = skipleading (key);
       len = trimmed_len (key);
-      while ( fgets (buffer, sizeof (buffer), rfp)  // not end of file
+      while ( (sp=fgets (buffer, sizeof (buffer), rfp))  // not end of file
            && *(sp = skipleading (buffer)) != '['   // not end of section
            && (!strchr (buffer, '=') || _strnicmp (key, sp, len))) //key not found
         fputs (buffer, wfp);
@@ -937,12 +967,12 @@ static bool putkey (const char *key, const char *value, const char *section, con
     else
     {
       //deleting the section -> skip all entries until next section or end of file 
-      while (fgets (buffer, sizeof (buffer), rfp) && *(sp = skipleading (buffer)) != '[')
+      while ((sp = fgets (buffer, sizeof (buffer), rfp)) && *(sp = skipleading (buffer)) != '[')
         ;
     }
-    if (*sp == '[')
+    if (sp && *sp == '[')
       fputs (buffer, wfp); //write next section line
-  // Copy the rest of the INI file
+    // Copy the rest of the INI file
     while (fgets (buffer, sizeof (buffer), rfp))
       fputs (buffer, wfp);
   }

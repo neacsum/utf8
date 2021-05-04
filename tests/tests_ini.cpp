@@ -42,17 +42,19 @@ SUITE (IniTests)
     char val[80];
     FILE *wfp = fopen ("test.ini", "w");
 
-    fputs (" \t[section]\n", wfp);  //section entries can be preceded by whitespace
-    fputs ("key01=value01\n", wfp);
-    fputs (";key02=value02\n", wfp);    //semicolon is comment
-    fputs ("#key03=value03\n", wfp);    //hash is NOT comment
-    fputs (" \tkey04=value04\n", wfp);  //keys can be preceded by spaces
-    fputs ("key05=  value05\n", wfp);   //values are stripped of leading spaces
-    fputs ("key06 =value06\n", wfp);    //trailing key spaces are removed
-    fputs ("key07=value07  \n", wfp);   //trailing value spaces are removed
-    fputs ("key08=value08  ;\n", wfp);  //no trailing comment removal
-    fputs (" \t[  spaced section  ]\n", wfp);  //section names can be preceded by whitespace
-    fputs ("key01=value11\n", wfp);
+    fputs (
+      " \t[section]\n"             //section entries can be preceded by whitespace
+      "key01=value01\n"
+      ";key02=value02\n"           //semicolon is comment
+      "#key03=value03\n"           //hash is NOT comment
+      " \tkey04=value04\n"         //keys can be preceded by spaces
+      "key05=  value05\n"          //values are stripped of leading spaces
+      "key06 =value06\n"           //trailing key spaces are removed
+      "key07=value07  \n"          //trailing value spaces are removed
+      "key08=value08  ;\n"         //no trailing comment removal
+      "KEY09=value09\n"            //keys are case insensitive
+      " \t[  spaced section  ]\n"  //section names can be preceded by whitespace
+      "key01=value11\n", wfp);
 
     fclose (wfp);
     utf8::IniFile ini ("test.ini");
@@ -93,6 +95,10 @@ SUITE (IniTests)
     CHECK_EQUAL ("value08  ;", val);
     CHECK_EQUAL (val, ini.GetString ("key08", "section", "inexistent"));
 
+    GetPrivateProfileStringA ("section", "key09", "inexistent", val, sizeof (val), ".\\test.ini");
+    CHECK_EQUAL ("value09", val);
+    CHECK_EQUAL (val, ini.GetString ("key09", "section", "inexistent"));
+
     //Leading and trailing spaces are removed from parameters
     const char *key7 = " key07   ";
     const char *sect = "  section  ";
@@ -107,6 +113,83 @@ SUITE (IniTests)
     remove ("test.ini");
     //
   }
+
+  //Same test as above but using wide character versions of Windows API
+  TEST (compat_wide)
+  {
+    utf8::buffer val(80);
+
+    FILE* wfp = fopen ("test.ini", "w");
+
+    fputs (
+      " \t[section]\n"             //section entries can be preceded by whitespace
+      "key01=value01\n"
+      ";key02=value02\n"           //semicolon is comment
+      "#key03=value03\n"           //hash is NOT comment
+      " \tkey04=value04\n"         //keys can be preceded by spaces
+      "key05=  value05\n"          //values are stripped of leading spaces
+      "key06 =value06\n"           //trailing key spaces are removed
+      "key07=value07  \n"          //trailing value spaces are removed
+      "key08=value08  ;\n"         //no trailing comment removal
+      "KEY09=value09\n"            //keys are case insensitive
+      " \t[  spaced section  ]\n"  //section names can be preceded by whitespace
+      "key01=value11\n", wfp);
+
+    fclose (wfp);
+    WritePrivateProfileStringW (L"section1", L"ΚΛΕΙΔΙ10", L"αξία10", L".\\test.ini");
+
+    utf8::IniFile ini ("test.ini");
+
+    GetPrivateProfileStringW (L"section", L"key01", L"inexistent", val, val.size(), L".\\test.ini");
+    CHECK_EQUAL ("value01", (string)val);
+    CHECK_EQUAL ((string)val, ini.GetString ("key01", "section", "inexistent"));
+
+    GetPrivateProfileStringW (L"section", L"key02", L"inexistent", val, val.size(), L".\\test.ini");
+    CHECK_EQUAL ("inexistent", (string)val);
+    CHECK_EQUAL ((string)val, ini.GetString ("key02", "section", "inexistent"));
+
+    GetPrivateProfileStringW (L"section", L";key02", L"inexistent", val, val.size(), L".\\test.ini");
+    CHECK_EQUAL ("inexistent", (string)val);
+    CHECK_EQUAL ((string)val, ini.GetString (";key02", "section", "inexistent"));
+
+    GetPrivateProfileStringW (L"section", L"#key03", L"inexistent", val, val.size(), L".\\test.ini");
+    CHECK_EQUAL ("value03", (string)val);
+    CHECK_EQUAL ((string)val, ini.GetString ("#key03", "section", "inexistent"));
+
+    GetPrivateProfileStringW (L"section", L"key04", L"inexistent", val, val.size(), L".\\test.ini");
+    CHECK_EQUAL ("value04", (string)val);
+    CHECK_EQUAL ((string)val, ini.GetString ("key04", "section", "inexistent"));
+
+    GetPrivateProfileStringW (L"section", L"key05", L"inexistent", val, val.size(), L".\\test.ini");
+    CHECK_EQUAL ("value05", (string)val);
+    CHECK_EQUAL ((string)val, ini.GetString ("key05", "section", "inexistent"));
+
+    GetPrivateProfileStringW (L"section", L"key06 ", L"inexistent", val, val.size(), L".\\test.ini");
+    CHECK_EQUAL ("value06", (string)val);
+    CHECK_EQUAL ((string)val, ini.GetString ("key06 ", "section", "inexistent"));
+
+    GetPrivateProfileStringW (L"section", L"key07", L"inexistent", val, val.size(), L".\\test.ini");
+    CHECK_EQUAL ("value07", (string)val);
+    CHECK_EQUAL ((string)val, ini.GetString ("key07", "section", "inexistent"));
+
+    GetPrivateProfileStringW (L"section", L"key08", L"inexistent", val, val.size(), L".\\test.ini");
+    CHECK_EQUAL ("value08  ;", (string)val);
+    CHECK_EQUAL ((string)val, ini.GetString ("key08", "section", "inexistent"));
+
+    //Leading and trailing spaces are removed from parameters
+    const wchar_t* key7 = L" key07   ";
+    const wchar_t* sect = L"  section  ";
+    GetPrivateProfileStringW (sect, key7, L"inexistent", val, val.size(), L".\\test.ini");
+    CHECK_EQUAL ("value07", (string)val);
+    CHECK_EQUAL ((string)val, ini.GetString (utf8::narrow(key7), utf8::narrow(sect), "inexistent"));
+
+    GetPrivateProfileStringW (L"spaced section", L"key01", L"inexistent", val, val.size(), L".\\test.ini");
+    CHECK_EQUAL ("value11", (string)val);
+    CHECK_EQUAL ((string)val, ini.GetString ("key01", "spaced section", "inexistent"));
+
+    remove ("test.ini");
+  }
+
 
   // Check malformed section line
   TEST (Malformed_section)

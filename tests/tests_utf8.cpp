@@ -156,6 +156,20 @@ TEST (next_ptr)
   CHECK_EQUAL (3, i);
 }
 
+TEST (valid_funcs)
+{
+  string emojis{ u8"😃😎😛" };
+  CHECK (utf8::valid (emojis));
+  CHECK (utf8::valid (emojis.c_str ()));
+  CHECK (utf8::valid (emojis.c_str (), emojis.length()));
+
+  CHECK (!utf8::valid (emojis.c_str (), emojis.length () - 1));
+  emojis[8] = 0;
+  CHECK (utf8::valid (emojis.c_str ()));
+  emojis[6] = 0;
+  CHECK (!utf8::valid (emojis.c_str (), emojis.length ()));
+}
+
 // test for runes function (conversion from UTF8 to UTF32)
 TEST (runes)
 {
@@ -275,17 +289,17 @@ TEST (fopen_write)
 
 TEST (make_splitpath)
 {
-  const string dir{ u8"ελληνικό αλφάβητο\\" },
+  const string dir{ u8"ελληνικό αλφάβητο" },
     fname{ u8"😃😎😛" };
   string path;
-  utf8::makepath (path, "C", dir, fname, ".txt");
+  CHECK (utf8::makepath (path, "C", dir, fname, ".txt"));
   wstring wpath = widen (path);
   CHECK_EQUAL (u8"C:ελληνικό αλφάβητο\\😃😎😛.txt", path);
   string drv1, dir1, fname1, ext1;
-  splitpath (path, drv1, dir1, fname1, ext1);
+  CHECK (splitpath (path, drv1, dir1, fname1, ext1));
 
   CHECK_EQUAL ("C:", drv1);
-  CHECK_EQUAL (dir, dir1);
+  CHECK_EQUAL (dir + "\\", dir1);
   CHECK_EQUAL (fname, fname1);
   CHECK_EQUAL (".txt", ext1);
 }
@@ -406,8 +420,6 @@ TEST (icompare_greater)
   CHECK (utf8::icompare (lc, uc) > 0);
 }
 
-
-
 // find files named "test*" using find_first/find_next functions
 TEST (find)
 {
@@ -448,4 +460,43 @@ TEST (bool_op_missing_file)
 {
   file_enumerator found ("no such file");
   CHECK (!found);
+}
+
+// test character classes in 0-127 range match standard functions
+TEST (char_class)
+{
+  char chartab[128];
+  for (int i = 0; i < 128; i++)
+    chartab[i] = (char)i;
+
+  for (int i = 0; i < 128; i++)
+  {
+    char temp[2];
+    temp[0] = chartab[i];
+    temp[1] = 0;
+    char tst[80];
+    sprintf_s (tst, "testing char %d", i);
+    CHECK_EQUAL_EX ((bool)isalpha (chartab[i]), utf8::isalpha (temp), tst);
+    CHECK_EQUAL_EX ((bool)isalnum (chartab[i]), utf8::isalnum (temp), tst);
+    CHECK_EQUAL_EX ((bool)(isdigit) (chartab[i]), utf8::isdigit (temp), tst);
+    CHECK_EQUAL_EX ((bool)(isspace) (chartab[i]), utf8::isspace (temp), tst);
+    CHECK_EQUAL_EX ((bool)(isblank)(chartab[i]), utf8::isblank (temp), tst);
+    CHECK_EQUAL_EX ((bool)(isxdigit) (chartab[i]), utf8::isxdigit (temp), tst);
+    CHECK_EQUAL_EX ((bool)isupper (chartab[i]), utf8::isupper (temp), tst);
+    CHECK_EQUAL_EX ((bool)islower (chartab[i]), utf8::islower (temp), tst);
+  }
+}
+
+// test character classes outside the 0-127 range
+TEST (is_upper_lower)
+{
+  const char* uc{ u8"MIRCEANEACȘUĂÂȚÎ" };
+  const char* lc{ u8"mirceaneacșuăâățî" };
+
+  for (auto p = uc; *p; next (p))
+    CHECK (isupper (p));
+
+  for (auto p = lc; *p; next (p))
+    CHECK (islower (p));
+
 }

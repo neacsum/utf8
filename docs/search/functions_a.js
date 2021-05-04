@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['makepath_154',['makepath',['../splitpath_8cpp.html#a07eb0dcaf69e2d9cbcd7d7b6f203f20a',1,'utf8']]],
-  ['messagebox_155',['MessageBox',['../win_8cpp.html#a5c8bfa90bb0ba20781ec286f6c446d62',1,'utf8']]],
-  ['mkdir_156',['mkdir',['../dir_8cpp.html#aa6aefa08998a55dca4ba75312126e353',1,'utf8::mkdir(const char *dirname)'],['../dir_8cpp.html#afde36b3fabc92ff53124bc81d91db646',1,'utf8::mkdir(const std::string &amp;dirname)']]]
+  ['narrow_150',['narrow',['../group__basecvt.html#ga7421a066f15d7f13f7ba6e237301ba76',1,'utf8::narrow(const wchar_t *s, size_t nch)'],['../group__basecvt.html#ga970ba3fbd79879d727137f70685ba126',1,'utf8::narrow(const std::wstring &amp;s)'],['../group__basecvt.html#ga19652d960bcca27b6911ddf61fd7e253',1,'utf8::narrow(const char32_t *s, size_t nch)'],['../group__basecvt.html#gaf7d4d20b4193ac40e77a97012bbfdc3b',1,'utf8::narrow(const std::u32string &amp;s)']]],
+  ['next_151',['next',['../classutf8_1_1file__enumerator.html#a6db500526fd72a2c81c9783ab999fb3c',1,'utf8::file_enumerator::next()'],['../utf8_8cpp.html#a1c7f8749f24103988795c22575f1c99e',1,'utf8::next(const std::string &amp;s, std::string::const_iterator &amp;p)'],['../utf8_8cpp.html#a90dba94eb3f754f886553035abdb3113',1,'utf8::next(const char *&amp;p)']]]
 ];
