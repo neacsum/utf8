@@ -31,6 +31,7 @@ bool valid (const char* s, size_t nch = 0);
 bool valid (const std::string& s);
 bool next (const std::string& s, std::string::const_iterator& p);
 bool next (const char*& p);
+bool next (char*& p);
 
 size_t length (const std::string& s);
 size_t length (const char* s);
