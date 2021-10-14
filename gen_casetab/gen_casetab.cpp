@@ -1,7 +1,9 @@
 /*
   Generate case folding tables (UCASETAB.C and LCASETAB.C) from
   CASEFOLDING.TXT file.
-
+  
+  Latest version of case folding table can be downloaed from:
+  https://www.unicode.org/Public/UCD/latest/ucd/CaseFolding.txt
 */
 #define _CRT_SECURE_NO_WARNINGS
 
