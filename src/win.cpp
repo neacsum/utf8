@@ -134,6 +134,28 @@ std::string LoadString (HINSTANCE hInst, UINT id)
 }
 
 /*!
+  Create a symbolic link
+
+  \param path target path name
+  \param link name of symbolic link
+  \param directory `true` if link target is a directory
+  \return true if successful, false otherwise
+*/
+bool symlink (const char* path, const char* link, bool directory)
+{
+  return CreateSymbolicLinkW (widen (link).c_str (), widen (path).c_str (),
+    (directory ? SYMBOLIC_LINK_FLAG_DIRECTORY : 0) | SYMBOLIC_LINK_FLAG_ALLOW_UNPRIVILEGED_CREATE) != 0;
+}
+
+/// \copydoc symlink()
+bool symlink (const std::string& path, const std::string& link, bool directory)
+{
+  return CreateSymbolicLinkW (widen (link).c_str (), widen (path).c_str (),
+    (directory ? SYMBOLIC_LINK_FLAG_DIRECTORY : 0) | SYMBOLIC_LINK_FLAG_ALLOW_UNPRIVILEGED_CREATE) != 0;
+}
+
+
+/*!
   \class file_enumerator
   This object wraps a Windows search handle used in find_first/find_next
   functions.

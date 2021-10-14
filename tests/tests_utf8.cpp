@@ -203,6 +203,41 @@ TEST (dir)
   CHECK (rmdir (dirname));    //rmdir returrs true for success
 }
 
+TEST (symlink)
+{
+  /* Make a folder using Greek alphabet, and another one using Armenian.
+  enter the first directory and create a link to the 2nd */
+
+  //make first directory
+  CHECK (mkdir (u8"ελληνικό"));
+  chdir (u8"ελληνικό");
+  //and a file in it
+  utf8::ofstream out ("f.txt");
+  out << "text" << endl;
+  out.close ();
+  chdir ("..");
+  //make 2nd directory
+  CHECK (mkdir (u8"Հայերեն"));
+  chdir (u8"Հայերեն");
+  //and symlink to first
+  CHECK (symlink (u8"..\\ελληνικό", u8"पंजाबी", true));
+  //change into symlink
+  chdir (u8"पंजाबी");
+  utf8::ifstream in ("f.txt");
+  string str;
+  in >> str;
+  CHECK_EQUAL ("text", str);
+  in.close ();
+
+  //cleanup
+  utf8::remove ("f.txt");
+  chdir (u8"..");
+  rmdir (u8"पंजाबी");
+  chdir ("..");
+  rmdir (u8"Հայերեն");
+  rmdir (u8"ελληνικό");
+}
+
 TEST (out_stream)
 {
   /* Write some text in a file with a UTF8 encoded filename. Verifies using
@@ -264,9 +299,8 @@ TEST (fopen_write)
 
   string filename = u8"ελληνικό";
   string filetext{ u8"😃😎😛" };
-
   FILE *u8file = utf8::fopen (filename, "w");
-  CHECK (u8file);
+  ABORT_EX (u8file, "Failed to create output file");
 
   fwrite (filetext.c_str(), sizeof(char), filetext.length(), u8file);
   fclose (u8file);

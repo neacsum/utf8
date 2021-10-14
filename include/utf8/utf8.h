@@ -77,6 +77,9 @@ std::string getenv (const std::string& var);
 bool putenv (const std::string& str);
 bool putenv (const std::string& var, const std::string& val);
 
+bool symlink (const char* path, const char* link, bool directory);
+bool symlink (const std::string& path, const std::string& target, bool directory);
+
 /*!
   \addtogroup folding
   @{
