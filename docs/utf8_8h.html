@@ -140,6 +140,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a90dba94eb3f754f886553035abdb3113"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utf8_8cpp.html#a90dba94eb3f754f886553035abdb3113">utf8::next</a> (const char *&amp;p)</td></tr>
 <tr class="memdesc:a90dba94eb3f754f886553035abdb3113"><td class="mdescLeft">&#160;</td><td class="mdescRight">Advances a character pointer to next UTF-8 character.  <a href="utf8_8cpp.html#a90dba94eb3f754f886553035abdb3113">More...</a><br /></td></tr>
 <tr class="separator:a90dba94eb3f754f886553035abdb3113"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a33c723d6a9f1fb9d07c676802160af7d"><td class="memItemLeft" align="right" valign="top"><a id="a33c723d6a9f1fb9d07c676802160af7d"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>utf8::next</b> (char *&amp;p)</td></tr>
+<tr class="separator:a33c723d6a9f1fb9d07c676802160af7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afbcb53fd241b51ed4744eef1d7400a23"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utf8_8cpp.html#afbcb53fd241b51ed4744eef1d7400a23">utf8::length</a> (const std::string &amp;s)</td></tr>
 <tr class="memdesc:afbcb53fd241b51ed4744eef1d7400a23"><td class="mdescLeft">&#160;</td><td class="mdescRight">Counts number of characters in an UTF8 encoded string.  <a href="utf8_8cpp.html#afbcb53fd241b51ed4744eef1d7400a23">More...</a><br /></td></tr>
 <tr class="separator:afbcb53fd241b51ed4744eef1d7400a23"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -224,6 +227,12 @@ Functions</h2></td></tr>
 <tr class="memitem:af5b9fd7fd9c1d5e90a29bdfce6428b1c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utf8_8h.html#af5b9fd7fd9c1d5e90a29bdfce6428b1c">utf8::putenv</a> (const std::string &amp;var, const std::string &amp;val)</td></tr>
 <tr class="memdesc:af5b9fd7fd9c1d5e90a29bdfce6428b1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates, modifies, or removes environment variables.  <a href="utf8_8h.html#af5b9fd7fd9c1d5e90a29bdfce6428b1c">More...</a><br /></td></tr>
 <tr class="separator:af5b9fd7fd9c1d5e90a29bdfce6428b1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac1275556865f307d60296437899bcdef"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="win_8cpp.html#ac1275556865f307d60296437899bcdef">utf8::symlink</a> (const char *path, const char *link, bool directory)</td></tr>
+<tr class="memdesc:ac1275556865f307d60296437899bcdef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a symbolic link.  <a href="win_8cpp.html#ac1275556865f307d60296437899bcdef">More...</a><br /></td></tr>
+<tr class="separator:ac1275556865f307d60296437899bcdef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad421be5a76e30b85acb42ca25c286cba"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="win_8cpp.html#ad421be5a76e30b85acb42ca25c286cba">utf8::symlink</a> (const std::string &amp;path, const std::string &amp;link, bool directory)</td></tr>
+<tr class="memdesc:ad421be5a76e30b85acb42ca25c286cba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a symbolic link.  <a href="win_8cpp.html#ad421be5a76e30b85acb42ca25c286cba">More...</a><br /></td></tr>
+<tr class="separator:ad421be5a76e30b85acb42ca25c286cba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga1cc1cac155b73072b92722be1d48e69b"><td class="memItemLeft" align="right" valign="top">
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__folding.html#ga1cc1cac155b73072b92722be1d48e69b">utf8::tolower</a> (std::string &amp;str)</td></tr>
 <tr class="memdesc:ga1cc1cac155b73072b92722be1d48e69b"><td class="mdescLeft">&#160;</td><td class="mdescRight">In place version converts a UTF-8 encoded string to lowercase. <br /></td></tr>
@@ -1406,6 +1415,92 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
   </dd>
 </dl>
 <p>Returned strings are converted to UTF-8. </p>
+
+</div>
+</div>
+<a id="ac1275556865f307d60296437899bcdef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac1275556865f307d60296437899bcdef">&#9670;&nbsp;</a></span>symlink() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool utf8::symlink </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>path</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>link</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>directory</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path</td><td>target path name </td></tr>
+    <tr><td class="paramname">link</td><td>name of symbolic link </td></tr>
+    <tr><td class="paramname">directory</td><td><code>true</code> if link target is a directory </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if successful, false otherwise </dd></dl>
+
+</div>
+</div>
+<a id="ad421be5a76e30b85acb42ca25c286cba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad421be5a76e30b85acb42ca25c286cba">&#9670;&nbsp;</a></span>symlink() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool utf8::symlink </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>path</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>link</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>directory</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path</td><td>target path name </td></tr>
+    <tr><td class="paramname">link</td><td>name of symbolic link </td></tr>
+    <tr><td class="paramname">directory</td><td><code>true</code> if link target is a directory </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if successful, false otherwise </dd></dl>
 
 </div>
 </div>

@@ -25,6 +25,7 @@ There are also functions for:
 In addition to those, there are wrappings commonly used C and C++ functions:
 - file access operations: fopen(), access(), remove(), chmod(), rename()
 - directory operations: mkdir(), rmdir(), chdir(), getcwd()
+- symbolic link creation: symlink()
 - path management: splitpath(), makepath()
 - environment functions: getenv(), putenv()
 - conversion of command-line arguments: get_argv() and free_argv()

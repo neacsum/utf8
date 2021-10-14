@@ -206,7 +206,8 @@ TEST (dir)
 TEST (symlink)
 {
   /* Make a folder using Greek alphabet, and another one using Armenian.
-  enter the first directory and create a link to the 2nd */
+  enter the 2nd directory and create a link to the first. It verifies a file
+  created in the first directory is visible through the symlink.*/
 
   //make first directory
   CHECK (mkdir (u8"ελληνικό"));
