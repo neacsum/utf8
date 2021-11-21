@@ -6,4 +6,4 @@ rem
 
 call mklinks.bat
 call setup.bat
-msbuild build.proj
+if "%~1"=="" (msbuild build.proj) else (msbuild -target:%1 build.proj)

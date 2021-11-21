@@ -1,6 +1,9 @@
 {
     "name": "utf8",
     "git": "git@github.org:neacsum/utf8.git",
+    "build": [
+        {"cmd": "build.bat", "args": ["lib"]}
+    ], 
     "depends": [
         {
             "name": "utpp",
