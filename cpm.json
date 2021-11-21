@@ -1,0 +1,10 @@
+{
+    "name": "utf8",
+    "git": "git@github.org:neacsum/utf8.git",
+    "depends": [
+        {
+            "name": "utpp",
+            "git": "git@github.com:neacsum/utpp.git"
+        }
+    ]
+}
