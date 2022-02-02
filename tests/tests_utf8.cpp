@@ -8,7 +8,7 @@
 using namespace std;
 using namespace utf8;
 
-int main (int argc, char **argv)
+TEST_MAIN (int argc, char **argv)
 {
   if (argc > 1)
     return UnitTest::RunSuite (argv[1]);
