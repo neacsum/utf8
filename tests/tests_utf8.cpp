@@ -86,6 +86,16 @@ TEST (widen_narrow)
   CHECK_EQUAL (ptr, narrow(widen(ptr)).c_str());
 }
 
+TEST (surrogates)
+{
+  //example from RFC8259
+  const wchar_t* gclef{ L"\xd834\xdd1e" };
+  const char32_t rune_gclef = 0x1d11e;
+  string u8_1, u8_2;
+  u8_1 = utf8::narrow (gclef);
+  u8_2 = utf8::narrow (&rune_gclef, 1);
+  CHECK_EQUAL (u8_1, u8_2);
+}
 
 TEST (greek_letters)
 {
