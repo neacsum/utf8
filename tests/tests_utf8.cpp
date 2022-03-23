@@ -18,6 +18,28 @@ TEST_MAIN (int argc, char **argv)
   return UnitTest::RunAllTests (xml);
 }
 
+TEST (narrow_with_null)
+{
+  wstring w1 (L"ABC");
+  w1 += L'\0';
+  w1 += L"DEF";
+  string n1 = utf8::narrow (w1);
+  size_t szw = w1.size (), szn = size (n1);
+
+  CHECK_EQUAL (szw, szn);
+}
+
+TEST (widen_with_null)
+{
+  string n1 ("ABC");
+  n1 += '\0';
+  n1 += "DEF";
+  wstring w1 = utf8::widen (n1);
+  size_t szw = w1.size (), szn = size (n1);
+
+  CHECK_EQUAL (szn, szw);
+}
+
 TEST (widen_string)
 {
   string s1 ("ABCD");
@@ -419,7 +441,7 @@ TEST (Temp_FileName)
 
   //see that we get the same result
   string result = fname;
-  CHECK_EQUAL (narrow (wfname), result);
+  CHECK_EQUAL (narrow (wfname.c_str()), result);
 }
 
 //check in-place versions of case folding functions

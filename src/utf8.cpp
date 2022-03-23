@@ -69,13 +69,12 @@ std::string narrow (const wchar_t* s, size_t nch)
 */
 std::string narrow (const std::wstring& s)
 {
-  int nsz = WideCharToMultiByte (CP_UTF8, 0, s.c_str(), -1, 0, 0, 0, 0);
+  int nsz = WideCharToMultiByte (CP_UTF8, 0, s.c_str(), s.size(), 0, 0, 0, 0);
   if (!nsz)
     return string ();
 
   string out (nsz, 0);
-  WideCharToMultiByte (CP_UTF8, 0, s.c_str (), -1, &out[0], nsz, 0, 0);
-  out.resize (nsz - 1); //output is null-terminated
+  WideCharToMultiByte (CP_UTF8, 0, s.c_str (), s.size(), &out[0], nsz, 0, 0);
   return out;
 }
 
@@ -195,13 +194,12 @@ std::wstring widen (const char* s, size_t nch)
 */
 std::wstring widen (const std::string& s)
 {
-  int wsz = MultiByteToWideChar (CP_UTF8, 0, s.c_str(), -1, 0, 0);
+  int wsz = MultiByteToWideChar (CP_UTF8, 0, s.c_str(), s.size(), 0, 0);
   if (!wsz)
     return wstring ();
 
   wstring out (wsz, 0);
-  MultiByteToWideChar (CP_UTF8, 0, s.c_str (), -1, &out[0], wsz);
-  out.resize (wsz - 1); //output is null-terminated
+  MultiByteToWideChar (CP_UTF8, 0, s.c_str (), s.size(), &out[0], wsz);
   return out;
 }
 
