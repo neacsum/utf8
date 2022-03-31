@@ -133,6 +133,30 @@ std::string LoadString (HINSTANCE hInst, UINT id)
   return ret? utf8::narrow (wptr, ret) : string();
 }
 
+
+/*!
+  Convenience wrapper for Windows [ShellExecute]
+  (https://docs.microsoft.com/en-us/windows/win32/api/shellapi/nf-shellapi-shellexecutew)
+  function.
+  \param file file or object on which to execute the specified verb
+  \param verb action to be performed
+  \param parameters parameters to be passed to the application
+  \param directory default (working) directory
+  \param hwnd handle to the parent window
+  \param show parameter for the ShowWindow function
+
+  \return pseudo instance handle >32 if function succeeds.
+*/
+HINSTANCE ShellExecute (const std::string& file, const std::string& verb, const std::string& parameters, const std::string& directory, HWND hWnd, int show)
+{
+  return ShellExecuteW (hWnd,
+    (verb.empty () ? NULL : utf8::widen (verb).c_str ()),
+    utf8::widen (file).c_str (),
+    utf8::widen(parameters).c_str(),
+    utf8::widen (directory).c_str (),
+    show);
+}
+
 /*!
   Create a symbolic link
 

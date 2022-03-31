@@ -6,6 +6,7 @@
 #undef MessageBox
 #undef CopyFile
 #undef LoadString
+#undef ShellExecute
 
 namespace utf8 {
 
@@ -13,6 +14,13 @@ int MessageBox (HWND hWnd, const std::string& text, const std::string& caption,
   unsigned int type);
 bool CopyFile (const std::string& from, const std::string& to, bool fail_exist);
 std::string LoadString (HINSTANCE hInst, UINT id);
+
+HINSTANCE ShellExecute (const std::string& file,
+  const std::string& verb = std::string (),
+  const std::string& parameters = std::string (),
+  const std::string& directory = std::string ("."),
+  HWND hWnd = NULL,
+  int show = SW_SHOW);
 
 /// File enumeration structure used by find_first() and find_next() functions 
 struct find_data {

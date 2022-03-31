@@ -69,12 +69,12 @@ std::string narrow (const wchar_t* s, size_t nch)
 */
 std::string narrow (const std::wstring& s)
 {
-  int nsz = WideCharToMultiByte (CP_UTF8, 0, s.c_str(), s.size(), 0, 0, 0, 0);
+  size_t nsz = WideCharToMultiByte (CP_UTF8, 0, s.c_str(), (int)s.size(), 0, 0, 0, 0);
   if (!nsz)
     return string ();
 
   string out (nsz, 0);
-  WideCharToMultiByte (CP_UTF8, 0, s.c_str (), s.size(), &out[0], nsz, 0, 0);
+  WideCharToMultiByte (CP_UTF8, 0, s.c_str (), (int)s.size(), &out[0], (int)nsz, 0, 0);
   return out;
 }
 
@@ -175,12 +175,12 @@ std::string narrow (const std::u32string& s)
 */
 std::wstring widen (const char* s, size_t nch)
 {
-  int wsz;
+  size_t wsz;
   if (!s || !(wsz = MultiByteToWideChar (CP_UTF8, 0, s, (nch?(int)nch:-1), 0, 0)))
     return wstring ();
 
   wstring out (wsz, 0);
-  MultiByteToWideChar (CP_UTF8, 0, s, -1, &out[0], wsz);
+  MultiByteToWideChar (CP_UTF8, 0, s, -1, &out[0], (int)wsz);
   if (!nch)
     out.resize (wsz - 1); //output is null-terminated
   return out;
@@ -194,12 +194,12 @@ std::wstring widen (const char* s, size_t nch)
 */
 std::wstring widen (const std::string& s)
 {
-  int wsz = MultiByteToWideChar (CP_UTF8, 0, s.c_str(), s.size(), 0, 0);
+  size_t wsz = MultiByteToWideChar (CP_UTF8, 0, s.c_str(), (int)s.size(), 0, 0);
   if (!wsz)
     return wstring ();
 
   wstring out (wsz, 0);
-  MultiByteToWideChar (CP_UTF8, 0, s.c_str (), s.size(), &out[0], wsz);
+  MultiByteToWideChar (CP_UTF8, 0, s.c_str (), (int)s.size(), &out[0], (int)wsz);
   return out;
 }
 
