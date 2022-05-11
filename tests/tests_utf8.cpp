@@ -423,25 +423,18 @@ TEST (Temp_FileName)
   wstring wpath (_MAX_PATH, L'\0');
   wstring wfname (_MAX_PATH, L'\0');
 
-  GetTempPath ((DWORD)wpath.size (), const_cast<wchar_t*>(wpath.data ()));
+  GetTempPathW ((DWORD)wpath.size (), const_cast<wchar_t*>(wpath.data ()));
 
-  UINT ret = GetTempFileName (wpath.c_str(), L"ÄñΩ",
+  UINT ret = ::GetTempFileNameW (wpath.c_str(), L"ÄñΩ",
     1, const_cast<wchar_t*>(wfname.data ()));
   CHECK (ret > 0);
 
 
-  //Let's do the same thing with utf8::buffer
-  utf8::buffer path (_MAX_PATH);
-  utf8::buffer fname (_MAX_PATH);
-
-  GetTempPath ((DWORD)path.size (), path);
-
-  ret = GetTempFileName (path, L"ÄñΩ", 1, fname);
-  CHECK (ret > 0);
+  //Do the same thing with utf8::GetTempPath and utf8::GetTempFileName
+  auto fname =  utf8::GetTempFileName (utf8::GetTempPath (), u8"ÄñΩ", 1);
 
   //see that we get the same result
-  string result = fname;
-  CHECK_EQUAL (narrow (wfname.c_str()), result);
+  CHECK_EQUAL (narrow (wfname.c_str()), fname);
 }
 
 //check in-place versions of case folding functions

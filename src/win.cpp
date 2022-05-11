@@ -158,6 +158,39 @@ HINSTANCE ShellExecute (const std::string& file, const std::string& verb, const 
 }
 
 /*!
+  Convenience wrapper for [GetTempPath]
+  (https://docs.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-gettemppathw)
+
+  \return path of the directory designated for temporary files.
+*/
+std::string GetTempPath ()
+{
+  wchar_t tmp [_MAX_PATH + 1];
+  ::GetTempPathW (_MAX_PATH+1, tmp);
+  return narrow(tmp);
+}
+
+/*!
+  Convenience wrapper for [GetTempFileName]
+  (https://docs.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-gettempfilenamew)
+
+  \param path directory path
+  \param prefix filename prefix (up to 3 characters)
+  \param unique integer value used to crate filename
+
+  \return a filename with structure `<path>\<prefix>nnnnn.tmp`
+*/
+std::string GetTempFileName (const std::string& path, const std::string& prefix, UINT unique)
+{
+  auto wpath = utf8::widen (path);
+  auto wpfx = utf8::widen (prefix);
+  wchar_t fname[_MAX_PATH + 1];
+  ::GetTempFileNameW (wpath.c_str (), wpfx.c_str (), unique, fname);
+
+  return utf8::narrow (fname);
+}
+
+/*!
   Create a symbolic link
 
   \param path target path name

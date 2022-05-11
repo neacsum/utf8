@@ -13,6 +13,8 @@
 #undef CopyFile
 #undef LoadString
 #undef ShellExecute
+#undef GetTempPath
+#undef GetTempFileName
 
 namespace utf8 {
 
@@ -27,6 +29,9 @@ HINSTANCE ShellExecute (const std::string& file,
   const std::string& directory = std::string ("."),
   HWND hWnd = NULL,
   int show = SW_SHOW);
+
+std::string GetTempPath ();
+std::string GetTempFileName (const std::string& path, const std::string& prefix, UINT unique=0);
 
 /// File enumeration structure used by find_first() and find_next() functions 
 struct find_data {
