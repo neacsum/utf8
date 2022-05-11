@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>UTF-8 Simple Library for Internationalization: D:/development/utf8/src/win.cpp File Reference</title>
+<title>UTF-8 Simple Library for Internationalization: D:/development/utf8/include/utf8/winutf8.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -62,33 +62,44 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_7d4843461af9d6f4a02bf95d6cf6c6ce.html">utf8</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Data Structures</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">win.cpp File Reference</div>  </div>
+<div class="title">winutf8.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Wrappers for common Windows functions.  
+<p><ul>
+<li>Wrapper for popular Windows API functions </li>
+</ul>
+ 
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;<a class="el" href="utf8_8h_source.html">utf8/utf8.h</a>&gt;</code><br />
-</div><table class="memberdecls">
+<div class="textblock"><code>#include &lt;Windows.h&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;ostream&gt;</code><br />
+<code>#include &lt;<a class="el" href="utf8_8h_source.html">utf8/utf8.h</a>&gt;</code><br />
+</div>
+<p><a href="winutf8_8h_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Data Structures</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structutf8_1_1find__data.html">utf8::find_data</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">File enumeration structure used by find_first() and <a class="el" href="win_8cpp.html#a62db79c86ab71f2fa7cc10dbd6a77e52" title="Continues a search started by find_first() function.">find_next()</a> functions.  <a href="structutf8_1_1find__data.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classutf8_1_1file__enumerator.html">utf8::file_enumerator</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An object-oriented wrapper for find_... functions.  <a href="classutf8_1_1file__enumerator.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classutf8_1_1buffer.html">utf8::buffer</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A simple buffer for caching values returned by Windows API.  <a href="classutf8_1_1buffer.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a86589b54792771e7c8833d41691e2f61"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="win_8cpp.html#a86589b54792771e7c8833d41691e2f61">utf8::find_first</a> (const string &amp;name, find_data &amp;fdat)</td></tr>
-<tr class="memdesc:a86589b54792771e7c8833d41691e2f61"><td class="mdescLeft">&#160;</td><td class="mdescRight">Searches a directory for a file or subdirectory with a name that matches a name (that can have wildcards).  <a href="win_8cpp.html#a86589b54792771e7c8833d41691e2f61">More...</a><br /></td></tr>
-<tr class="separator:a86589b54792771e7c8833d41691e2f61"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a62db79c86ab71f2fa7cc10dbd6a77e52"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="win_8cpp.html#a62db79c86ab71f2fa7cc10dbd6a77e52">utf8::find_next</a> (find_data &amp;fdat)</td></tr>
-<tr class="memdesc:a62db79c86ab71f2fa7cc10dbd6a77e52"><td class="mdescLeft">&#160;</td><td class="mdescRight">Continues a search started by <a class="el" href="win_8cpp.html#a86589b54792771e7c8833d41691e2f61" title="Searches a directory for a file or subdirectory with a name that matches a name (that can have wildca...">find_first()</a> function.  <a href="win_8cpp.html#a62db79c86ab71f2fa7cc10dbd6a77e52">More...</a><br /></td></tr>
-<tr class="separator:a62db79c86ab71f2fa7cc10dbd6a77e52"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afb6d099a02f7e2d5be0cbdffe78fc7fe"><td class="memItemLeft" align="right" valign="top"><a id="afb6d099a02f7e2d5be0cbdffe78fc7fe"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="win_8cpp.html#afb6d099a02f7e2d5be0cbdffe78fc7fe">utf8::find_close</a> (find_data &amp;fdat)</td></tr>
-<tr class="memdesc:afb6d099a02f7e2d5be0cbdffe78fc7fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Closes a "search handle" opened by <a class="el" href="win_8cpp.html#a86589b54792771e7c8833d41691e2f61" title="Searches a directory for a file or subdirectory with a name that matches a name (that can have wildca...">find_first()</a> function. <br /></td></tr>
-<tr class="separator:afb6d099a02f7e2d5be0cbdffe78fc7fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5c8bfa90bb0ba20781ec286f6c446d62"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="win_8cpp.html#a5c8bfa90bb0ba20781ec286f6c446d62">utf8::MessageBox</a> (HWND hWnd, const std::string &amp;text, const std::string &amp;caption, unsigned int type)</td></tr>
 <tr class="memdesc:a5c8bfa90bb0ba20781ec286f6c446d62"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience wrapper for Windows <a href="https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-messagebox">MessageBox</a> function.  <a href="win_8cpp.html#a5c8bfa90bb0ba20781ec286f6c446d62">More...</a><br /></td></tr>
 <tr class="separator:a5c8bfa90bb0ba20781ec286f6c446d62"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -101,14 +112,23 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="win_
 <tr class="memitem:a3a9118219f196710e4ee8f90e94264fc"><td class="memItemLeft" align="right" valign="top">HINSTANCE&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="win_8cpp.html#a3a9118219f196710e4ee8f90e94264fc">utf8::ShellExecute</a> (const std::string &amp;file, const std::string &amp;verb, const std::string &amp;parameters, const std::string &amp;directory, HWND hWnd, int show)</td></tr>
 <tr class="memdesc:a3a9118219f196710e4ee8f90e94264fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience wrapper for Windows <a href="https://docs.microsoft.com/en-us/windows/win32/api/shellapi/nf-shellapi-shellexecutew">ShellExecute</a> function.  <a href="win_8cpp.html#a3a9118219f196710e4ee8f90e94264fc">More...</a><br /></td></tr>
 <tr class="separator:a3a9118219f196710e4ee8f90e94264fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac1275556865f307d60296437899bcdef"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="win_8cpp.html#ac1275556865f307d60296437899bcdef">utf8::symlink</a> (const char *path, const char *link, bool directory)</td></tr>
-<tr class="memdesc:ac1275556865f307d60296437899bcdef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a symbolic link.  <a href="win_8cpp.html#ac1275556865f307d60296437899bcdef">More...</a><br /></td></tr>
-<tr class="separator:ac1275556865f307d60296437899bcdef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad421be5a76e30b85acb42ca25c286cba"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="win_8cpp.html#ad421be5a76e30b85acb42ca25c286cba">utf8::symlink</a> (const std::string &amp;path, const std::string &amp;link, bool directory)</td></tr>
-<tr class="memdesc:ad421be5a76e30b85acb42ca25c286cba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a symbolic link.  <a href="win_8cpp.html#ad421be5a76e30b85acb42ca25c286cba">More...</a><br /></td></tr>
-<tr class="separator:ad421be5a76e30b85acb42ca25c286cba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c90d5556940e211346573f6ad2b58a8"><td class="memItemLeft" align="right" valign="top"><a id="a0c90d5556940e211346573f6ad2b58a8"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>utf8::find_first</b> (const std::string &amp;name, find_data &amp;fdat)</td></tr>
+<tr class="separator:a0c90d5556940e211346573f6ad2b58a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62db79c86ab71f2fa7cc10dbd6a77e52"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="win_8cpp.html#a62db79c86ab71f2fa7cc10dbd6a77e52">utf8::find_next</a> (find_data &amp;fdat)</td></tr>
+<tr class="memdesc:a62db79c86ab71f2fa7cc10dbd6a77e52"><td class="mdescLeft">&#160;</td><td class="mdescRight">Continues a search started by <a class="el" href="win_8cpp.html#a86589b54792771e7c8833d41691e2f61" title="Searches a directory for a file or subdirectory with a name that matches a name (that can have wildca...">find_first()</a> function.  <a href="win_8cpp.html#a62db79c86ab71f2fa7cc10dbd6a77e52">More...</a><br /></td></tr>
+<tr class="separator:a62db79c86ab71f2fa7cc10dbd6a77e52"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb6d099a02f7e2d5be0cbdffe78fc7fe"><td class="memItemLeft" align="right" valign="top"><a id="afb6d099a02f7e2d5be0cbdffe78fc7fe"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="win_8cpp.html#afb6d099a02f7e2d5be0cbdffe78fc7fe">utf8::find_close</a> (find_data &amp;fdat)</td></tr>
+<tr class="memdesc:afb6d099a02f7e2d5be0cbdffe78fc7fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Closes a "search handle" opened by <a class="el" href="win_8cpp.html#a86589b54792771e7c8833d41691e2f61" title="Searches a directory for a file or subdirectory with a name that matches a name (that can have wildca...">find_first()</a> function. <br /></td></tr>
+<tr class="separator:afb6d099a02f7e2d5be0cbdffe78fc7fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67070b044fb1be0b2de8d4237c2a752a"><td class="memItemLeft" align="right" valign="top"><a id="a67070b044fb1be0b2de8d4237c2a752a"></a>
+std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>utf8::operator&lt;&lt;</b> (std::ostream &amp;s, const buffer &amp;b)</td></tr>
+<tr class="separator:a67070b044fb1be0b2de8d4237c2a752a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>(c) Mircea Neacsu 2019-2022. All rights reserved. </p>
+</div><h2 class="groupheader">Function Documentation</h2>
 <a id="a685832fc48fb24f2a711f047e110db11"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a685832fc48fb24f2a711f047e110db11">&#9670;&nbsp;</a></span>CopyFile()</h2>
 
@@ -148,44 +168,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="win_
   </table>
   </dd>
 </dl>
-
-</div>
-</div>
-<a id="a86589b54792771e7c8833d41691e2f61"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a86589b54792771e7c8833d41691e2f61">&#9670;&nbsp;</a></span>find_first()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool utf8::find_first </td>
-          <td>(</td>
-          <td class="paramtype">const string &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="structutf8_1_1find__data.html">find_data</a> &amp;&#160;</td>
-          <td class="paramname"><em>fdat</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">name</td><td>File name (or partial file name) to find </td></tr>
-    <tr><td class="paramname">fdat</td><td>Information structure containing file name and attributes </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><em>true</em> if a file was found or <em>false</em> otherwise.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>Wrapper for <a href="https://docs.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-findfirstfilew">FindFirstFile</a> Windows API function.</dd></dl>
-<p>If successful, the function opens a "search handle" stored in the fdat structure. The handle has to be closed using <a class="el" href="win_8cpp.html#afb6d099a02f7e2d5be0cbdffe78fc7fe" title="Closes a &quot;search handle&quot; opened by find_first() function.">find_close()</a> function. </p>
 
 </div>
 </div>
@@ -362,92 +344,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="win_
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>pseudo instance handle &gt;32 if function succeeds. </dd></dl>
-
-</div>
-</div>
-<a id="ac1275556865f307d60296437899bcdef"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac1275556865f307d60296437899bcdef">&#9670;&nbsp;</a></span>symlink() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool utf8::symlink </td>
-          <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>path</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>link</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>directory</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">path</td><td>target path name </td></tr>
-    <tr><td class="paramname">link</td><td>name of symbolic link </td></tr>
-    <tr><td class="paramname">directory</td><td><code>true</code> if link target is a directory </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>true if successful, false otherwise </dd></dl>
-
-</div>
-</div>
-<a id="ad421be5a76e30b85acb42ca25c286cba"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad421be5a76e30b85acb42ca25c286cba">&#9670;&nbsp;</a></span>symlink() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool utf8::symlink </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>path</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>link</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>directory</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">path</td><td>target path name </td></tr>
-    <tr><td class="paramname">link</td><td>name of symbolic link </td></tr>
-    <tr><td class="paramname">directory</td><td><code>true</code> if link target is a directory </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>true if successful, false otherwise </dd></dl>
 
 </div>
 </div>
