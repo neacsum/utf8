@@ -1,7 +1,13 @@
 #pragma once
+/*!
+  \file winutf8.h - Wrapper for popular Windows API functions
+
+  (c) Mircea Neacsu 2019-2022. All rights reserved.
+*/
 #include <Windows.h>
 #include <string>
 #include <ostream>
+#include <utf8/utf8.h>
 
 #undef MessageBox
 #undef CopyFile
@@ -141,7 +147,7 @@ inline
 inline
   buffer::operator std::string () const
 {
-  return narrow (ptr);
+  return utf8::narrow (ptr);
 }
 
 /// Return buffer size

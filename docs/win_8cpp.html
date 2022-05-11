@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>UTF-8 Simple Library for Internationalization: D:/development/utf8/src/win.cpp File Reference</title>
+<title>UTF-8 Simple Library for Internationalization: src/win.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -98,6 +98,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="win_
 <tr class="memitem:a05568d44a6186ba5f0c7295bb60e3be6"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="win_8cpp.html#a05568d44a6186ba5f0c7295bb60e3be6">utf8::LoadString</a> (HINSTANCE hInst, UINT id)</td></tr>
 <tr class="memdesc:a05568d44a6186ba5f0c7295bb60e3be6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience wrapper for Windows <a href="https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-loadstringw">LoadString</a> function.  <a href="win_8cpp.html#a05568d44a6186ba5f0c7295bb60e3be6">More...</a><br /></td></tr>
 <tr class="separator:a05568d44a6186ba5f0c7295bb60e3be6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a9118219f196710e4ee8f90e94264fc"><td class="memItemLeft" align="right" valign="top">HINSTANCE&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="win_8cpp.html#a3a9118219f196710e4ee8f90e94264fc">utf8::ShellExecute</a> (const std::string &amp;file, const std::string &amp;verb, const std::string &amp;parameters, const std::string &amp;directory, HWND hWnd, int show)</td></tr>
+<tr class="memdesc:a3a9118219f196710e4ee8f90e94264fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience wrapper for Windows <a href="https://docs.microsoft.com/en-us/windows/win32/api/shellapi/nf-shellapi-shellexecutew">ShellExecute</a> function.  <a href="win_8cpp.html#a3a9118219f196710e4ee8f90e94264fc">More...</a><br /></td></tr>
+<tr class="separator:a3a9118219f196710e4ee8f90e94264fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac1275556865f307d60296437899bcdef"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="win_8cpp.html#ac1275556865f307d60296437899bcdef">utf8::symlink</a> (const char *path, const char *link, bool directory)</td></tr>
 <tr class="memdesc:ac1275556865f307d60296437899bcdef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a symbolic link.  <a href="win_8cpp.html#ac1275556865f307d60296437899bcdef">More...</a><br /></td></tr>
 <tr class="separator:ac1275556865f307d60296437899bcdef"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -295,6 +298,70 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="win_
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a3a9118219f196710e4ee8f90e94264fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a9118219f196710e4ee8f90e94264fc">&#9670;&nbsp;</a></span>ShellExecute()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">HINSTANCE utf8::ShellExecute </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>file</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>verb</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>parameters</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>directory</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">HWND&#160;</td>
+          <td class="paramname"><em>hWnd</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>show</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">file</td><td>file or object on which to execute the specified verb </td></tr>
+    <tr><td class="paramname">verb</td><td>action to be performed </td></tr>
+    <tr><td class="paramname">parameters</td><td>parameters to be passed to the application </td></tr>
+    <tr><td class="paramname">directory</td><td>default (working) directory </td></tr>
+    <tr><td class="paramname">hwnd</td><td>handle to the parent window </td></tr>
+    <tr><td class="paramname">show</td><td>parameter for the ShowWindow function</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>pseudo instance handle &gt;32 if function succeeds. </dd></dl>
 
 </div>
 </div>
