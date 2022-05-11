@@ -101,5 +101,9 @@ The API for Windows profile files (also called INI files) was replaced with an o
 The UTF8 library doesn't have any dependencies. The test program however uses
 the [UTTP library](https://github.com/neacsum/utpp).
 
+You can use the [CPM - C/C++ Package Manager](https://github.com/neacsum/cpm) to fetch all dependent packages and build them. Just issue the `cpm` command
 
+Alternatively, `BUILD.bat` script will build the libraries and test programs.
 
+# License #
+[The MIT License](https://github.com/neacsum/utf8/blob/master/LICENSE)
