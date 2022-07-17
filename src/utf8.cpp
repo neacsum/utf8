@@ -544,6 +544,19 @@ bool makepath (std::string& path, const std::string& drive, const std::string& d
 }
 
 /*!
+  Returns the absolute (full) path of a filename
+  \param relpath relative path
+*/
+std::string fullpath (const std::string& relpath)
+{
+  wchar_t wpath[_MAX_PATH];
+  if (_wfullpath (wpath, widen (relpath).c_str (), _MAX_PATH))
+    return narrow (wpath);
+  else
+    return std::string ();
+}
+
+/*!
   Retrieves the value of an environment variable
   \param  var name of environment variable
   \return value of environment variable or an empty string if there is no such

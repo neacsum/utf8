@@ -72,6 +72,7 @@ bool splitpath (const std::string& path, std::string& drive, std::string& dir,
                 std::string& fname, std::string& ext);
 bool makepath (std::string& path, const std::string& drive, const std::string& dir,
                 const std::string& fname, const std::string& ext);
+std::string fullpath (const std::string& relpath);
 
 std::string getenv (const std::string& var);
 bool putenv (const std::string& str);

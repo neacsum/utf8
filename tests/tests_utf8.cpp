@@ -354,6 +354,19 @@ TEST (fopen_write)
   CHECK_EQUAL (filetext, read_back);
 }
 
+TEST (full_path)
+{
+  const char* fname = "file.txt";
+  FILE* f = ::fopen (fname, "w");
+  fclose (f);
+
+  char full[_MAX_PATH];
+  _fullpath (full, fname, sizeof (full));
+  CHECK_EQUAL (full, utf8::fullpath (fname));
+  ::remove (fname);
+}
+
+
 TEST (make_splitpath)
 {
   const string dir{ u8"ελληνικό αλφάβητο" },
