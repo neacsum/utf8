@@ -191,6 +191,27 @@ std::string GetTempFileName (const std::string& path, const std::string& prefix,
 }
 
 /*!
+  Convenience wrapper for [GetFullPathName]
+  (https://docs.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-getfullpathnamew)
+
+  \param rel_path relative path name
+  \return full pathname or empty string if there is an error
+*/
+std::string GetFullPathName (const std::string& rel_path)
+{
+  auto wrel = widen (rel_path);
+  DWORD sz = GetFullPathNameW (wrel.c_str (), 0, 0, 0);
+  if (sz)
+  {
+    buffer wfull (sz);
+    GetFullPathNameW (wrel.c_str (), sz, wfull, 0);
+    return wfull;
+  }
+  return std::string ();
+}
+
+
+/*!
   Create a symbolic link
 
   \param path target path name

@@ -15,6 +15,7 @@
 #undef ShellExecute
 #undef GetTempPath
 #undef GetTempFileName
+#undef GetFullPathName
 
 namespace utf8 {
 
@@ -32,6 +33,7 @@ HINSTANCE ShellExecute (const std::string& file,
 
 std::string GetTempPath ();
 std::string GetTempFileName (const std::string& path, const std::string& prefix, UINT unique=0);
+std::string GetFullPathName (const std::string& rel_path);
 
 /// File enumeration structure used by find_first() and find_next() functions 
 struct find_data {
