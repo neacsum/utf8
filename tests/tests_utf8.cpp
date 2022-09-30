@@ -564,12 +564,26 @@ TEST (char_class)
 TEST (is_upper_lower)
 {
   const char* uc{ u8"MIRCEANEACȘUĂÂȚÎ" };
-  const char* lc{ u8"mirceaneacșuăâățî" };
+  const char* lc{ u8"mirceaneacșuăâțî" };
 
   for (auto p = uc; *p; next (p))
     CHECK (isupper (p));
 
   for (auto p = lc; *p; next (p))
     CHECK (islower (p));
+
+}
+
+TEST (lower_substring)
+{
+  const string uc{ u8"ȚEPUȘ nicolae" };
+  const string lc{ u8"Țepuș nicolae" };
+
+  auto p = uc.begin ();
+  string s = utf8::narrow (utf8::rune (p));
+  utf8::next (uc, p);
+  s += utf8::tolower (string (p, uc.end ()));
+
+  CHECK_EQUAL (lc, s);
 
 }

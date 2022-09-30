@@ -167,6 +167,43 @@ std::string narrow (const std::u32string& s)
 }
 
 /*!
+  Conversion from UTF32 to UTF8
+  \param r UTF-32 encoded character
+  \return UTF-8 encoded string
+
+  Input parameter must be a valid UTF-32 code point
+  ( <0x10FFFF)
+*/
+std::string narrow (char32_t r)
+{
+  assert (r < 0x10ffff);
+  string str;
+
+  if (r < 0x7f)
+    str.push_back ((char)r);
+  else if (r < 0x7ff)
+  {
+    str.push_back ((char)(0xC0 | r >> 6));
+    str.push_back (0x80 | r & 0x3f);
+  }
+  else if (r < 0xFFFF)
+  {
+    str.push_back ((char)(0xE0 | r >> 12));
+    str.push_back (0x80 | r >> 6 & 0x3f);
+    str.push_back (0x80 | r & 0x3f);
+  }
+  else
+  {
+    str.push_back ((char)(0xF0 | r >> 18));
+    str.push_back (0x80 | r >> 12 & 0x3f);
+    str.push_back (0x80 | r >> 6 & 0x3f);
+    str.push_back (0x80 | r & 0x3f);
+  }
+
+  return str;
+}
+
+/*!
   Conversion from UTF-8 to wide character
 
   \param  s input string
