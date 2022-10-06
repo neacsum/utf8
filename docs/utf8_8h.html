@@ -110,6 +110,9 @@ Functions</h2></td></tr>
 <tr class="memitem:gaf7d4d20b4193ac40e77a97012bbfdc3b"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__basecvt.html#gaf7d4d20b4193ac40e77a97012bbfdc3b">utf8::narrow</a> (const std::u32string &amp;s)</td></tr>
 <tr class="memdesc:gaf7d4d20b4193ac40e77a97012bbfdc3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Conversion from UTF32 to UTF8.  <a href="group__basecvt.html#gaf7d4d20b4193ac40e77a97012bbfdc3b">More...</a><br /></td></tr>
 <tr class="separator:gaf7d4d20b4193ac40e77a97012bbfdc3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1a33e30c93403893d3cb25a7cd6eec12"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__basecvt.html#ga1a33e30c93403893d3cb25a7cd6eec12">utf8::narrow</a> (char32_t r)</td></tr>
+<tr class="memdesc:ga1a33e30c93403893d3cb25a7cd6eec12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Conversion from UTF32 to UTF8.  <a href="group__basecvt.html#ga1a33e30c93403893d3cb25a7cd6eec12">More...</a><br /></td></tr>
+<tr class="separator:ga1a33e30c93403893d3cb25a7cd6eec12"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gade5f928144a0219a3725921de8cf8188"><td class="memItemLeft" align="right" valign="top">std::wstring&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">utf8::widen</a> (const char *s, size_t nch)</td></tr>
 <tr class="memdesc:gade5f928144a0219a3725921de8cf8188"><td class="mdescLeft">&#160;</td><td class="mdescRight">Conversion from UTF-8 to wide character.  <a href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">More...</a><br /></td></tr>
 <tr class="separator:gade5f928144a0219a3725921de8cf8188"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -218,6 +221,9 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>utf8::next</b> (char 
 <tr class="memitem:a07eb0dcaf69e2d9cbcd7d7b6f203f20a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utf8_8cpp.html#a07eb0dcaf69e2d9cbcd7d7b6f203f20a">utf8::makepath</a> (std::string &amp;path, const std::string &amp;drive, const std::string &amp;dir, const std::string &amp;fname, const std::string &amp;ext)</td></tr>
 <tr class="memdesc:a07eb0dcaf69e2d9cbcd7d7b6f203f20a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a path from UTF-8 encoded components.  <a href="utf8_8cpp.html#a07eb0dcaf69e2d9cbcd7d7b6f203f20a">More...</a><br /></td></tr>
 <tr class="separator:a07eb0dcaf69e2d9cbcd7d7b6f203f20a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a113b05b70ac281735a112606a18bc687"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utf8_8cpp.html#a113b05b70ac281735a112606a18bc687">utf8::fullpath</a> (const std::string &amp;relpath)</td></tr>
+<tr class="memdesc:a113b05b70ac281735a112606a18bc687"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the absolute (full) path of a filename.  <a href="utf8_8cpp.html#a113b05b70ac281735a112606a18bc687">More...</a><br /></td></tr>
+<tr class="separator:a113b05b70ac281735a112606a18bc687"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a445530e19aefad1fde92232c09f37a4f"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utf8_8cpp.html#a445530e19aefad1fde92232c09f37a4f">utf8::getenv</a> (const std::string &amp;var)</td></tr>
 <tr class="memdesc:a445530e19aefad1fde92232c09f37a4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the value of an environment variable.  <a href="utf8_8cpp.html#a445530e19aefad1fde92232c09f37a4f">More...</a><br /></td></tr>
 <tr class="separator:a445530e19aefad1fde92232c09f37a4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -675,6 +681,30 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
   <table class="params">
     <tr><td class="paramname">argc</td><td>number of arguments </td></tr>
     <tr><td class="paramname">argv</td><td>array of pointers to arguments </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a113b05b70ac281735a112606a18bc687"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a113b05b70ac281735a112606a18bc687">&#9670;&nbsp;</a></span>fullpath()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string utf8::fullpath </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>relpath</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">relpath</td><td>relative path </td></tr>
   </table>
   </dd>
 </dl>

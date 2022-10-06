@@ -101,6 +101,15 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="win_
 <tr class="memitem:a3a9118219f196710e4ee8f90e94264fc"><td class="memItemLeft" align="right" valign="top">HINSTANCE&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="win_8cpp.html#a3a9118219f196710e4ee8f90e94264fc">utf8::ShellExecute</a> (const std::string &amp;file, const std::string &amp;verb, const std::string &amp;parameters, const std::string &amp;directory, HWND hWnd, int show)</td></tr>
 <tr class="memdesc:a3a9118219f196710e4ee8f90e94264fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience wrapper for Windows <a href="https://docs.microsoft.com/en-us/windows/win32/api/shellapi/nf-shellapi-shellexecutew">ShellExecute</a> function.  <a href="win_8cpp.html#a3a9118219f196710e4ee8f90e94264fc">More...</a><br /></td></tr>
 <tr class="separator:a3a9118219f196710e4ee8f90e94264fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a009eda842dea241f8e9d570f880b6129"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="win_8cpp.html#a009eda842dea241f8e9d570f880b6129">utf8::GetTempPath</a> ()</td></tr>
+<tr class="memdesc:a009eda842dea241f8e9d570f880b6129"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience wrapper for <a href="https://docs.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-gettemppathw">GetTempPath</a>  <a href="win_8cpp.html#a009eda842dea241f8e9d570f880b6129">More...</a><br /></td></tr>
+<tr class="separator:a009eda842dea241f8e9d570f880b6129"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa80797b33793b653187807c3efcc3df7"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="win_8cpp.html#aa80797b33793b653187807c3efcc3df7">utf8::GetTempFileName</a> (const std::string &amp;path, const std::string &amp;prefix, UINT unique)</td></tr>
+<tr class="memdesc:aa80797b33793b653187807c3efcc3df7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience wrapper for <a href="https://docs.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-gettempfilenamew">GetTempFileName</a>  <a href="win_8cpp.html#aa80797b33793b653187807c3efcc3df7">More...</a><br /></td></tr>
+<tr class="separator:aa80797b33793b653187807c3efcc3df7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f638a67f8042af6ed041b7135bf54c6"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="win_8cpp.html#a7f638a67f8042af6ed041b7135bf54c6">utf8::GetFullPathName</a> (const std::string &amp;rel_path)</td></tr>
+<tr class="memdesc:a7f638a67f8042af6ed041b7135bf54c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience wrapper for <a href="https://docs.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-getfullpathnamew">GetFullPathName</a>  <a href="win_8cpp.html#a7f638a67f8042af6ed041b7135bf54c6">More...</a><br /></td></tr>
+<tr class="separator:a7f638a67f8042af6ed041b7135bf54c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac1275556865f307d60296437899bcdef"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="win_8cpp.html#ac1275556865f307d60296437899bcdef">utf8::symlink</a> (const char *path, const char *link, bool directory)</td></tr>
 <tr class="memdesc:ac1275556865f307d60296437899bcdef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a symbolic link.  <a href="win_8cpp.html#ac1275556865f307d60296437899bcdef">More...</a><br /></td></tr>
 <tr class="separator:ac1275556865f307d60296437899bcdef"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -213,6 +222,92 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="win_
 <dl class="section return"><dt>Returns</dt><dd><em>true</em> if a file was found or <em>false</em> otherwise.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Wrapper for <a href="https://docs.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-findnextfilew">FindNextFileW</a> Windows API function.</dd></dl>
 <p>If there are no more files, the function returns <em>false</em> and GetLastError function returns <b>ERROR_NO_MORE_FILES</b> </p>
+
+</div>
+</div>
+<a id="a7f638a67f8042af6ed041b7135bf54c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f638a67f8042af6ed041b7135bf54c6">&#9670;&nbsp;</a></span>GetFullPathName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string utf8::GetFullPathName </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>rel_path</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">rel_path</td><td>relative path name </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>full pathname or empty string if there is an error </dd></dl>
+
+</div>
+</div>
+<a id="aa80797b33793b653187807c3efcc3df7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa80797b33793b653187807c3efcc3df7">&#9670;&nbsp;</a></span>GetTempFileName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string utf8::GetTempFileName </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>path</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>prefix</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UINT&#160;</td>
+          <td class="paramname"><em>unique</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path</td><td>directory path </td></tr>
+    <tr><td class="paramname">prefix</td><td>filename prefix (up to 3 characters) </td></tr>
+    <tr><td class="paramname">unique</td><td>integer value used to crate filename</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>a filename with structure <code>&lt;path&gt;\&lt;prefix&gt;nnnnn.tmp</code> </dd></dl>
+
+</div>
+</div>
+<a id="a009eda842dea241f8e9d570f880b6129"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a009eda842dea241f8e9d570f880b6129">&#9670;&nbsp;</a></span>GetTempPath()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string utf8::GetTempPath </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>path of the directory designated for temporary files. </dd></dl>
 
 </div>
 </div>

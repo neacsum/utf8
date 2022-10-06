@@ -82,427 +82,430 @@ $(function() {
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;std::string <a class="code" href="group__basecvt.html#ga7421a066f15d7f13f7ba6e237301ba76">narrow</a> (<span class="keyword">const</span> std::wstring&amp; s);</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;std::string <a class="code" href="group__basecvt.html#ga7421a066f15d7f13f7ba6e237301ba76">narrow</a> (<span class="keyword">const</span> char32_t* s, <span class="keywordtype">size_t</span> nch = 0);</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;std::string <a class="code" href="group__basecvt.html#ga7421a066f15d7f13f7ba6e237301ba76">narrow</a> (<span class="keyword">const</span> std::u32string&amp; s);</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;std::wstring <a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">widen</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* s, <span class="keywordtype">size_t</span> nch = 0);</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;std::wstring <a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">widen</a> (<span class="keyword">const</span> std::string&amp; s);</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;std::u32string <a class="code" href="group__basecvt.html#ga40b8ab32b0b76d1f1df0b590e22e6283">runes</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* s, <span class="keywordtype">size_t</span> nch = 0);</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;std::u32string <a class="code" href="group__basecvt.html#ga40b8ab32b0b76d1f1df0b590e22e6283">runes</a> (<span class="keyword">const</span> std::string&amp; s);</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;char32_t <a class="code" href="group__basecvt.html#ga99123c395e1291a759b3d2abb6adbc8d">rune</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* p);</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;char32_t <a class="code" href="group__basecvt.html#ga99123c395e1291a759b3d2abb6adbc8d">rune</a> (<span class="keyword">const</span> std::string::const_iterator&amp; p);</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;std::string <a class="code" href="group__basecvt.html#ga7421a066f15d7f13f7ba6e237301ba76">narrow</a> (char32_t r);</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;std::wstring <a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">widen</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* s, <span class="keywordtype">size_t</span> nch = 0);</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;std::wstring <a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">widen</a> (<span class="keyword">const</span> std::string&amp; s);</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;std::u32string <a class="code" href="group__basecvt.html#ga40b8ab32b0b76d1f1df0b590e22e6283">runes</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* s, <span class="keywordtype">size_t</span> nch = 0);</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;std::u32string <a class="code" href="group__basecvt.html#ga40b8ab32b0b76d1f1df0b590e22e6283">runes</a> (<span class="keyword">const</span> std::string&amp; s);</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;char32_t <a class="code" href="group__basecvt.html#ga99123c395e1291a759b3d2abb6adbc8d">rune</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* p);</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;char32_t <a class="code" href="group__basecvt.html#ga99123c395e1291a759b3d2abb6adbc8d">rune</a> (<span class="keyword">const</span> std::string::const_iterator&amp; p);</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8cpp.html#ab630a55b877a77ba64550357d0f387a3">valid</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* s, <span class="keywordtype">size_t</span> nch = 0);</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8cpp.html#ab630a55b877a77ba64550357d0f387a3">valid</a> (<span class="keyword">const</span> std::string&amp; s);</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8cpp.html#a1c7f8749f24103988795c22575f1c99e">next</a> (<span class="keyword">const</span> std::string&amp; s, std::string::const_iterator&amp; p);</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8cpp.html#a1c7f8749f24103988795c22575f1c99e">next</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>*&amp; p);</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8cpp.html#a1c7f8749f24103988795c22575f1c99e">next</a> (<span class="keywordtype">char</span>*&amp; p);</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keywordtype">size_t</span> <a class="code" href="utf8_8cpp.html#afbcb53fd241b51ed4744eef1d7400a23">length</a> (<span class="keyword">const</span> std::string&amp; s);</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keywordtype">size_t</span> <a class="code" href="utf8_8cpp.html#afbcb53fd241b51ed4744eef1d7400a23">length</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* s);</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8cpp.html#ab630a55b877a77ba64550357d0f387a3">valid</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* s, <span class="keywordtype">size_t</span> nch = 0);</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8cpp.html#ab630a55b877a77ba64550357d0f387a3">valid</a> (<span class="keyword">const</span> std::string&amp; s);</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8cpp.html#a1c7f8749f24103988795c22575f1c99e">next</a> (<span class="keyword">const</span> std::string&amp; s, std::string::const_iterator&amp; p);</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8cpp.html#a1c7f8749f24103988795c22575f1c99e">next</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>*&amp; p);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8cpp.html#a1c7f8749f24103988795c22575f1c99e">next</a> (<span class="keywordtype">char</span>*&amp; p);</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keywordtype">size_t</span> <a class="code" href="utf8_8cpp.html#afbcb53fd241b51ed4744eef1d7400a23">length</a> (<span class="keyword">const</span> std::string&amp; s);</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keywordtype">size_t</span> <a class="code" href="utf8_8cpp.html#afbcb53fd241b51ed4744eef1d7400a23">length</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* s);</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;std::vector&lt;std::string&gt; <a class="code" href="utf8_8cpp.html#a86847074de33ea4eec2aa91ba500119b">get_argv</a> ();</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="keywordtype">char</span>** <a class="code" href="utf8_8cpp.html#a86847074de33ea4eec2aa91ba500119b">get_argv</a> (<span class="keywordtype">int</span> *argc);</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="keywordtype">void</span> <a class="code" href="utf8_8cpp.html#a611de942130d7b70ff9cfaaa79a1f005">free_argv</a> (<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> **argv);</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8h.html#aa6aefa08998a55dca4ba75312126e353">mkdir</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* dirname);</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8h.html#aa6aefa08998a55dca4ba75312126e353">mkdir</a> (<span class="keyword">const</span> std::string&amp; dirname);</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8h.html#a42637c506240d2a9bfb1d69dcd083645">rmdir</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* dirname);</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8h.html#a42637c506240d2a9bfb1d69dcd083645">rmdir</a> (<span class="keyword">const</span> std::string&amp; dirname);</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8h.html#aabb576878dd9ae12de2f0ed0f854f1a4">chdir</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* dirname);</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8h.html#aabb576878dd9ae12de2f0ed0f854f1a4">chdir</a> (<span class="keyword">const</span> std::string&amp; dirname);</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8h.html#a9a6a50a870135177fb98e9f2e0fb12d4">chmod</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* filename, <span class="keywordtype">int</span> mode);</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8h.html#a9a6a50a870135177fb98e9f2e0fb12d4">chmod</a> (<span class="keyword">const</span> std::string&amp; filename, <span class="keywordtype">int</span> mode);</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;std::string <a class="code" href="utf8_8cpp.html#ad489d686670dff8206a2c45a7b237ef1">getcwd</a> ();</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8h.html#af3ebab9439377a6a3f13542dbab4337c">access</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* filename, <span class="keywordtype">int</span> mode);</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8h.html#af3ebab9439377a6a3f13542dbab4337c">access</a> (<span class="keyword">const</span> std::string&amp; filename, <span class="keywordtype">int</span> mode);</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8h.html#a5f0eb1fee50553ad4e55671f52c7f2ec">remove</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* filename);</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8h.html#a5f0eb1fee50553ad4e55671f52c7f2ec">remove</a> (<span class="keyword">const</span> std::string&amp; filename);</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8h.html#a1d0245cbb42146a80be6b62c718f61a6">rename</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* oldname, <span class="keyword">const</span> <span class="keywordtype">char</span>* newname);</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8h.html#a1d0245cbb42146a80be6b62c718f61a6">rename</a> (<span class="keyword">const</span> std::string&amp; oldname, <span class="keyword">const</span> std::string&amp; newname);</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;FILE* <a class="code" href="utf8_8h.html#a17111250dd542f9ed080a96cab913936">fopen</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* filename, <span class="keyword">const</span> <span class="keywordtype">char</span>* mode);</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;FILE* <a class="code" href="utf8_8h.html#a17111250dd542f9ed080a96cab913936">fopen</a> (<span class="keyword">const</span> std::string&amp; filename, <span class="keyword">const</span> std::string&amp; mode);</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8cpp.html#a5d0ef62a8f148b006b9c6fb6562446e0">splitpath</a> (<span class="keyword">const</span> std::string&amp; path, <span class="keywordtype">char</span>* drive, <span class="keywordtype">char</span>* dir, <span class="keywordtype">char</span>* fname, <span class="keywordtype">char</span>* ext);</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8cpp.html#a5d0ef62a8f148b006b9c6fb6562446e0">splitpath</a> (<span class="keyword">const</span> std::string&amp; path, std::string&amp; drive, std::string&amp; dir,</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;                std::string&amp; fname, std::string&amp; ext);</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8cpp.html#a07eb0dcaf69e2d9cbcd7d7b6f203f20a">makepath</a> (std::string&amp; path, <span class="keyword">const</span> std::string&amp; drive, <span class="keyword">const</span> std::string&amp; dir,</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                <span class="keyword">const</span> std::string&amp; fname, <span class="keyword">const</span> std::string&amp; ext);</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;std::string <a class="code" href="utf8_8cpp.html#a445530e19aefad1fde92232c09f37a4f">getenv</a> (<span class="keyword">const</span> std::string&amp; var);</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8h.html#a7efd70545eb2d60d5ec8136dfc3b37db">putenv</a> (<span class="keyword">const</span> std::string&amp; str);</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8h.html#a7efd70545eb2d60d5ec8136dfc3b37db">putenv</a> (<span class="keyword">const</span> std::string&amp; var, <span class="keyword">const</span> std::string&amp; val);</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="win_8cpp.html#ac1275556865f307d60296437899bcdef">symlink</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* path, <span class="keyword">const</span> <span class="keywordtype">char</span>* link, <span class="keywordtype">bool</span> directory);</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="win_8cpp.html#ac1275556865f307d60296437899bcdef">symlink</a> (<span class="keyword">const</span> std::string&amp; path, <span class="keyword">const</span> std::string&amp; target, <span class="keywordtype">bool</span> directory);</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="keywordtype">void</span> <a class="code" href="group__folding.html#ga894cab0cb787243c4b12527548878f83">tolower</a> (std::string&amp; str);</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="keywordtype">void</span> <a class="code" href="group__folding.html#ga91b3da502eef20834b49c946ff821b79">toupper</a> (std::string&amp; str);</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;std::string <a class="code" href="group__folding.html#ga894cab0cb787243c4b12527548878f83">tolower</a> (<span class="keyword">const</span> std::string&amp; str);</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;std::string <a class="code" href="group__folding.html#ga91b3da502eef20834b49c946ff821b79">toupper</a> (<span class="keyword">const</span> std::string&amp; str);</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="keywordtype">int</span> <a class="code" href="group__folding.html#gaa65352f672803529414aaba45c30763f">icompare</a> (<span class="keyword">const</span> std::string&amp; s1, <span class="keyword">const</span> std::string&amp; s2);</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#ga67d7a7bf8769c5cf3c09760b1cb63d7e">isspace</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* p);</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#ga67d7a7bf8769c5cf3c09760b1cb63d7e">isspace</a> (std::string::const_iterator p);</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#gafbef7ae59c2532df07c855a639ee0fe1">isblank</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* p);</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#gafbef7ae59c2532df07c855a639ee0fe1">isblank</a> (std::string::const_iterator p);</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#ga271adbb9c025c72612a2da2fb5d7d304">isdigit</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* p);</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#ga271adbb9c025c72612a2da2fb5d7d304">isdigit</a> (std::string::const_iterator p);</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#gae686cdfac97a3324193db0fae8214fd8">isalnum</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* p);</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#gae686cdfac97a3324193db0fae8214fd8">isalnum</a> (std::string::const_iterator p);</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#ga6bcbed4885bc561156d4481097ac6447">isalpha</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* p);</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#ga6bcbed4885bc561156d4481097ac6447">isalpha</a> (std::string::const_iterator p);</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#ga5797323a87fdfdb9470804fa449e4ead">isxdigit</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* p);</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#ga5797323a87fdfdb9470804fa449e4ead">isxdigit</a> (std::string::const_iterator p);</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#gab5016c0cf5cfdfcbf462fe0b3071cb29">isupper</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* p);</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#gab5016c0cf5cfdfcbf462fe0b3071cb29">isupper</a> (std::string::const_iterator p);</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#gaec411c7eea5fc3fcf20af0a5f66bf177">islower</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* p);</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#gaec411c7eea5fc3fcf20af0a5f66bf177">islower</a> (std::string::const_iterator p);</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
-<div class="line"><a name="l00118"></a><span class="lineno"><a class="line" href="classutf8_1_1ifstream.html">  118</a></span>&#160;<span class="keyword">class </span><a class="code" href="classutf8_1_1ifstream.html">ifstream</a> : <span class="keyword">public</span> std::ifstream</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;{</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;  <a class="code" href="classutf8_1_1ifstream.html">ifstream</a> () : std::ifstream () {};</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;  <a class="code" href="classutf8_1_1ifstream.html">ifstream</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* filename, std::ios_base::openmode mode = ios_base::in)</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    : std::ifstream (<a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">utf8::widen</a> (filename), mode) {};</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;  <a class="code" href="classutf8_1_1ifstream.html">ifstream</a> (<span class="keyword">const</span> std::string&amp; filename, std::ios_base::openmode mode = ios_base::in)</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;std::vector&lt;std::string&gt; <a class="code" href="utf8_8cpp.html#a86847074de33ea4eec2aa91ba500119b">get_argv</a> ();</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="keywordtype">char</span>** <a class="code" href="utf8_8cpp.html#a86847074de33ea4eec2aa91ba500119b">get_argv</a> (<span class="keywordtype">int</span> *argc);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="keywordtype">void</span> <a class="code" href="utf8_8cpp.html#a611de942130d7b70ff9cfaaa79a1f005">free_argv</a> (<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> **argv);</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8h.html#aa6aefa08998a55dca4ba75312126e353">mkdir</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* dirname);</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8h.html#aa6aefa08998a55dca4ba75312126e353">mkdir</a> (<span class="keyword">const</span> std::string&amp; dirname);</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8h.html#a42637c506240d2a9bfb1d69dcd083645">rmdir</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* dirname);</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8h.html#a42637c506240d2a9bfb1d69dcd083645">rmdir</a> (<span class="keyword">const</span> std::string&amp; dirname);</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8h.html#aabb576878dd9ae12de2f0ed0f854f1a4">chdir</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* dirname);</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8h.html#aabb576878dd9ae12de2f0ed0f854f1a4">chdir</a> (<span class="keyword">const</span> std::string&amp; dirname);</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8h.html#a9a6a50a870135177fb98e9f2e0fb12d4">chmod</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* filename, <span class="keywordtype">int</span> mode);</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8h.html#a9a6a50a870135177fb98e9f2e0fb12d4">chmod</a> (<span class="keyword">const</span> std::string&amp; filename, <span class="keywordtype">int</span> mode);</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;std::string <a class="code" href="utf8_8cpp.html#ad489d686670dff8206a2c45a7b237ef1">getcwd</a> ();</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8h.html#af3ebab9439377a6a3f13542dbab4337c">access</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* filename, <span class="keywordtype">int</span> mode);</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8h.html#af3ebab9439377a6a3f13542dbab4337c">access</a> (<span class="keyword">const</span> std::string&amp; filename, <span class="keywordtype">int</span> mode);</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8h.html#a5f0eb1fee50553ad4e55671f52c7f2ec">remove</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* filename);</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8h.html#a5f0eb1fee50553ad4e55671f52c7f2ec">remove</a> (<span class="keyword">const</span> std::string&amp; filename);</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8h.html#a1d0245cbb42146a80be6b62c718f61a6">rename</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* oldname, <span class="keyword">const</span> <span class="keywordtype">char</span>* newname);</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8h.html#a1d0245cbb42146a80be6b62c718f61a6">rename</a> (<span class="keyword">const</span> std::string&amp; oldname, <span class="keyword">const</span> std::string&amp; newname);</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;FILE* <a class="code" href="utf8_8h.html#a17111250dd542f9ed080a96cab913936">fopen</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* filename, <span class="keyword">const</span> <span class="keywordtype">char</span>* mode);</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;FILE* <a class="code" href="utf8_8h.html#a17111250dd542f9ed080a96cab913936">fopen</a> (<span class="keyword">const</span> std::string&amp; filename, <span class="keyword">const</span> std::string&amp; mode);</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8cpp.html#a5d0ef62a8f148b006b9c6fb6562446e0">splitpath</a> (<span class="keyword">const</span> std::string&amp; path, <span class="keywordtype">char</span>* drive, <span class="keywordtype">char</span>* dir, <span class="keywordtype">char</span>* fname, <span class="keywordtype">char</span>* ext);</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8cpp.html#a5d0ef62a8f148b006b9c6fb6562446e0">splitpath</a> (<span class="keyword">const</span> std::string&amp; path, std::string&amp; drive, std::string&amp; dir,</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                std::string&amp; fname, std::string&amp; ext);</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8cpp.html#a07eb0dcaf69e2d9cbcd7d7b6f203f20a">makepath</a> (std::string&amp; path, <span class="keyword">const</span> std::string&amp; drive, <span class="keyword">const</span> std::string&amp; dir,</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;                <span class="keyword">const</span> std::string&amp; fname, <span class="keyword">const</span> std::string&amp; ext);</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;std::string <a class="code" href="utf8_8cpp.html#a113b05b70ac281735a112606a18bc687">fullpath</a> (<span class="keyword">const</span> std::string&amp; relpath);</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;std::string <a class="code" href="utf8_8cpp.html#a445530e19aefad1fde92232c09f37a4f">getenv</a> (<span class="keyword">const</span> std::string&amp; var);</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8h.html#a7efd70545eb2d60d5ec8136dfc3b37db">putenv</a> (<span class="keyword">const</span> std::string&amp; str);</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8h.html#a7efd70545eb2d60d5ec8136dfc3b37db">putenv</a> (<span class="keyword">const</span> std::string&amp; var, <span class="keyword">const</span> std::string&amp; val);</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="win_8cpp.html#ac1275556865f307d60296437899bcdef">symlink</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* path, <span class="keyword">const</span> <span class="keywordtype">char</span>* link, <span class="keywordtype">bool</span> directory);</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="win_8cpp.html#ac1275556865f307d60296437899bcdef">symlink</a> (<span class="keyword">const</span> std::string&amp; path, <span class="keyword">const</span> std::string&amp; target, <span class="keywordtype">bool</span> directory);</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="keywordtype">void</span> <a class="code" href="group__folding.html#ga894cab0cb787243c4b12527548878f83">tolower</a> (std::string&amp; str);</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="keywordtype">void</span> <a class="code" href="group__folding.html#ga91b3da502eef20834b49c946ff821b79">toupper</a> (std::string&amp; str);</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;std::string <a class="code" href="group__folding.html#ga894cab0cb787243c4b12527548878f83">tolower</a> (<span class="keyword">const</span> std::string&amp; str);</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;std::string <a class="code" href="group__folding.html#ga91b3da502eef20834b49c946ff821b79">toupper</a> (<span class="keyword">const</span> std::string&amp; str);</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="keywordtype">int</span> <a class="code" href="group__folding.html#gaa65352f672803529414aaba45c30763f">icompare</a> (<span class="keyword">const</span> std::string&amp; s1, <span class="keyword">const</span> std::string&amp; s2);</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#ga67d7a7bf8769c5cf3c09760b1cb63d7e">isspace</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* p);</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#ga67d7a7bf8769c5cf3c09760b1cb63d7e">isspace</a> (std::string::const_iterator p);</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#gafbef7ae59c2532df07c855a639ee0fe1">isblank</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* p);</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#gafbef7ae59c2532df07c855a639ee0fe1">isblank</a> (std::string::const_iterator p);</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#ga271adbb9c025c72612a2da2fb5d7d304">isdigit</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* p);</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#ga271adbb9c025c72612a2da2fb5d7d304">isdigit</a> (std::string::const_iterator p);</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#gae686cdfac97a3324193db0fae8214fd8">isalnum</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* p);</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#gae686cdfac97a3324193db0fae8214fd8">isalnum</a> (std::string::const_iterator p);</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#ga6bcbed4885bc561156d4481097ac6447">isalpha</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* p);</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#ga6bcbed4885bc561156d4481097ac6447">isalpha</a> (std::string::const_iterator p);</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#ga5797323a87fdfdb9470804fa449e4ead">isxdigit</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* p);</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#ga5797323a87fdfdb9470804fa449e4ead">isxdigit</a> (std::string::const_iterator p);</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#gab5016c0cf5cfdfcbf462fe0b3071cb29">isupper</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* p);</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#gab5016c0cf5cfdfcbf462fe0b3071cb29">isupper</a> (std::string::const_iterator p);</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#gaec411c7eea5fc3fcf20af0a5f66bf177">islower</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* p);</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#gaec411c7eea5fc3fcf20af0a5f66bf177">islower</a> (std::string::const_iterator p);</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
+<div class="line"><a name="l00120"></a><span class="lineno"><a class="line" href="classutf8_1_1ifstream.html">  120</a></span>&#160;<span class="keyword">class </span><a class="code" href="classutf8_1_1ifstream.html">ifstream</a> : <span class="keyword">public</span> std::ifstream</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;{</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;  <a class="code" href="classutf8_1_1ifstream.html">ifstream</a> () : std::ifstream () {};</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;  <a class="code" href="classutf8_1_1ifstream.html">ifstream</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* filename, std::ios_base::openmode mode = ios_base::in)</div>
 <div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    : std::ifstream (<a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">utf8::widen</a> (filename), mode) {};</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;  <a class="code" href="classutf8_1_1ifstream.html">ifstream</a> (<a class="code" href="classutf8_1_1ifstream.html">ifstream</a>&amp;&amp; other) noexcept : std::ifstream ((std::ifstream&amp;&amp;)other) {};</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;  <a class="code" href="classutf8_1_1ifstream.html">ifstream</a> (<span class="keyword">const</span> <a class="code" href="classutf8_1_1ifstream.html">ifstream</a>&amp; rhs) = <span class="keyword">delete</span>;</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160; </div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;  <span class="keywordtype">void</span> open (<span class="keyword">const</span> <span class="keywordtype">char</span>* filename, ios_base::openmode mode = ios_base::in,</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    <span class="keywordtype">int</span> prot = (<span class="keywordtype">int</span>)ios_base::_Openprot)</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;  {</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    std::ifstream::open (<a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">utf8::widen</a> (filename), mode, prot);</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;  }</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;  <span class="keywordtype">void</span> open (<span class="keyword">const</span> std::string&amp; filename, ios_base::openmode mode = ios_base::in,</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    <span class="keywordtype">int</span> prot = (<span class="keywordtype">int</span>)ios_base::_Openprot)</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;  {</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    std::ifstream::open (<a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">utf8::widen</a> (filename), mode, prot);</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;  }</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;};</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160; </div>
-<div class="line"><a name="l00142"></a><span class="lineno"><a class="line" href="classutf8_1_1ofstream.html">  142</a></span>&#160;<span class="keyword">class </span><a class="code" href="classutf8_1_1ofstream.html">ofstream</a> : <span class="keyword">public</span> std::ofstream</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;{</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;  <a class="code" href="classutf8_1_1ofstream.html">ofstream</a> () : std::ofstream () {};</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;  <a class="code" href="classutf8_1_1ofstream.html">ofstream</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* filename, std::ios_base::openmode mode = ios_base::out)</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    : std::ofstream (<a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">utf8::widen</a> (filename), mode) {};</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;  <a class="code" href="classutf8_1_1ofstream.html">ofstream</a> (<span class="keyword">const</span> std::string&amp; filename, std::ios_base::openmode mode = ios_base::out)</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;  <a class="code" href="classutf8_1_1ifstream.html">ifstream</a> (<span class="keyword">const</span> std::string&amp; filename, std::ios_base::openmode mode = ios_base::in)</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    : std::ifstream (<a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">utf8::widen</a> (filename), mode) {};</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;  <a class="code" href="classutf8_1_1ifstream.html">ifstream</a> (<a class="code" href="classutf8_1_1ifstream.html">ifstream</a>&amp;&amp; other) noexcept : std::ifstream ((std::ifstream&amp;&amp;)other) {};</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;  <a class="code" href="classutf8_1_1ifstream.html">ifstream</a> (<span class="keyword">const</span> <a class="code" href="classutf8_1_1ifstream.html">ifstream</a>&amp; rhs) = <span class="keyword">delete</span>;</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160; </div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;  <span class="keywordtype">void</span> open (<span class="keyword">const</span> <span class="keywordtype">char</span>* filename, ios_base::openmode mode = ios_base::in,</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    <span class="keywordtype">int</span> prot = (<span class="keywordtype">int</span>)ios_base::_Openprot)</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;  {</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    std::ifstream::open (<a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">utf8::widen</a> (filename), mode, prot);</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;  }</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;  <span class="keywordtype">void</span> open (<span class="keyword">const</span> std::string&amp; filename, ios_base::openmode mode = ios_base::in,</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    <span class="keywordtype">int</span> prot = (<span class="keywordtype">int</span>)ios_base::_Openprot)</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;  {</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    std::ifstream::open (<a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">utf8::widen</a> (filename), mode, prot);</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;  }</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;};</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160; </div>
+<div class="line"><a name="l00144"></a><span class="lineno"><a class="line" href="classutf8_1_1ofstream.html">  144</a></span>&#160;<span class="keyword">class </span><a class="code" href="classutf8_1_1ofstream.html">ofstream</a> : <span class="keyword">public</span> std::ofstream</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;{</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;  <a class="code" href="classutf8_1_1ofstream.html">ofstream</a> () : std::ofstream () {};</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;  <a class="code" href="classutf8_1_1ofstream.html">ofstream</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* filename, std::ios_base::openmode mode = ios_base::out)</div>
 <div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    : std::ofstream (<a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">utf8::widen</a> (filename), mode) {};</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;  <a class="code" href="classutf8_1_1ofstream.html">ofstream</a> (<a class="code" href="classutf8_1_1ofstream.html">ofstream</a>&amp;&amp; other) noexcept : std::ofstream ((std::ofstream&amp;&amp;)other) {};</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;  <a class="code" href="classutf8_1_1ofstream.html">ofstream</a> (<span class="keyword">const</span> <a class="code" href="classutf8_1_1ofstream.html">ofstream</a>&amp; rhs) = <span class="keyword">delete</span>;</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160; </div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;  <span class="keywordtype">void</span> open (<span class="keyword">const</span> <span class="keywordtype">char</span>* filename, ios_base::openmode mode = ios_base::out,</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    <span class="keywordtype">int</span> prot = (<span class="keywordtype">int</span>)ios_base::_Openprot)</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;  {</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    std::ofstream::open (<a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">utf8::widen</a> (filename), mode, prot);</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;  }</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;  <span class="keywordtype">void</span> open (<span class="keyword">const</span> std::string&amp; filename, ios_base::openmode mode = ios_base::out,</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    <span class="keywordtype">int</span> prot = (<span class="keywordtype">int</span>)ios_base::_Openprot)</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;  {</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    std::ofstream::open (<a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">utf8::widen</a> (filename), mode, prot);</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;  }</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;};</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160; </div>
-<div class="line"><a name="l00166"></a><span class="lineno"><a class="line" href="classutf8_1_1fstream.html">  166</a></span>&#160;<span class="keyword">class </span><a class="code" href="classutf8_1_1fstream.html">fstream</a> : <span class="keyword">public</span> std::fstream</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;{</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;  <a class="code" href="classutf8_1_1fstream.html">fstream</a> () : std::fstream () {};</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;  <a class="code" href="classutf8_1_1fstream.html">fstream</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* filename, std::ios_base::openmode mode = ios_base::in | ios_base::out)</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    : std::fstream (<a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">utf8::widen</a> (filename), mode) {};</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;  <a class="code" href="classutf8_1_1fstream.html">fstream</a> (<span class="keyword">const</span> std::string&amp; filename, std::ios_base::openmode mode = ios_base::in | ios_base::out)</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;  <a class="code" href="classutf8_1_1ofstream.html">ofstream</a> (<span class="keyword">const</span> std::string&amp; filename, std::ios_base::openmode mode = ios_base::out)</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    : std::ofstream (<a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">utf8::widen</a> (filename), mode) {};</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;  <a class="code" href="classutf8_1_1ofstream.html">ofstream</a> (<a class="code" href="classutf8_1_1ofstream.html">ofstream</a>&amp;&amp; other) noexcept : std::ofstream ((std::ofstream&amp;&amp;)other) {};</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;  <a class="code" href="classutf8_1_1ofstream.html">ofstream</a> (<span class="keyword">const</span> <a class="code" href="classutf8_1_1ofstream.html">ofstream</a>&amp; rhs) = <span class="keyword">delete</span>;</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160; </div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;  <span class="keywordtype">void</span> open (<span class="keyword">const</span> <span class="keywordtype">char</span>* filename, ios_base::openmode mode = ios_base::out,</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    <span class="keywordtype">int</span> prot = (<span class="keywordtype">int</span>)ios_base::_Openprot)</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;  {</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    std::ofstream::open (<a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">utf8::widen</a> (filename), mode, prot);</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;  }</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;  <span class="keywordtype">void</span> open (<span class="keyword">const</span> std::string&amp; filename, ios_base::openmode mode = ios_base::out,</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    <span class="keywordtype">int</span> prot = (<span class="keywordtype">int</span>)ios_base::_Openprot)</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;  {</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;    std::ofstream::open (<a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">utf8::widen</a> (filename), mode, prot);</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;  }</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;};</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160; </div>
+<div class="line"><a name="l00168"></a><span class="lineno"><a class="line" href="classutf8_1_1fstream.html">  168</a></span>&#160;<span class="keyword">class </span><a class="code" href="classutf8_1_1fstream.html">fstream</a> : <span class="keyword">public</span> std::fstream</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;{</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;  <a class="code" href="classutf8_1_1fstream.html">fstream</a> () : std::fstream () {};</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;  <a class="code" href="classutf8_1_1fstream.html">fstream</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* filename, std::ios_base::openmode mode = ios_base::in | ios_base::out)</div>
 <div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;    : std::fstream (<a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">utf8::widen</a> (filename), mode) {};</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;  <a class="code" href="classutf8_1_1fstream.html">fstream</a> (<a class="code" href="classutf8_1_1fstream.html">fstream</a>&amp;&amp; other) noexcept : std::fstream ((std::fstream&amp;&amp;)other) {};</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;  <a class="code" href="classutf8_1_1fstream.html">fstream</a> (<span class="keyword">const</span> <a class="code" href="classutf8_1_1fstream.html">fstream</a>&amp; rhs) = <span class="keyword">delete</span>;</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160; </div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;  <span class="keywordtype">void</span> open (<span class="keyword">const</span> <span class="keywordtype">char</span>* filename, ios_base::openmode mode = ios_base::in | ios_base::out,</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    <span class="keywordtype">int</span> prot = (<span class="keywordtype">int</span>)ios_base::_Openprot)</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;  {</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;    std::fstream::open (<a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">utf8::widen</a> (filename), mode, prot);</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;  }</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;  <span class="keywordtype">void</span> open (<span class="keyword">const</span> std::string&amp; filename, ios_base::openmode mode = ios_base::in | ios_base::out,</div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;    <span class="keywordtype">int</span> prot = (<span class="keywordtype">int</span>)ios_base::_Openprot)</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;  {</div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;    std::fstream::open (<a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">utf8::widen</a> (filename), mode, prot);</div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;  }</div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;};</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160; </div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160; </div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;<span class="comment">// INLINES --------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;  <a class="code" href="classutf8_1_1fstream.html">fstream</a> (<span class="keyword">const</span> std::string&amp; filename, std::ios_base::openmode mode = ios_base::in | ios_base::out)</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;    : std::fstream (<a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">utf8::widen</a> (filename), mode) {};</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;  <a class="code" href="classutf8_1_1fstream.html">fstream</a> (<a class="code" href="classutf8_1_1fstream.html">fstream</a>&amp;&amp; other) noexcept : std::fstream ((std::fstream&amp;&amp;)other) {};</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;  <a class="code" href="classutf8_1_1fstream.html">fstream</a> (<span class="keyword">const</span> <a class="code" href="classutf8_1_1fstream.html">fstream</a>&amp; rhs) = <span class="keyword">delete</span>;</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160; </div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;  <span class="keywordtype">void</span> open (<span class="keyword">const</span> <span class="keywordtype">char</span>* filename, ios_base::openmode mode = ios_base::in | ios_base::out,</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;    <span class="keywordtype">int</span> prot = (<span class="keywordtype">int</span>)ios_base::_Openprot)</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;  {</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;    std::fstream::open (<a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">utf8::widen</a> (filename), mode, prot);</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;  }</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;  <span class="keywordtype">void</span> open (<span class="keyword">const</span> std::string&amp; filename, ios_base::openmode mode = ios_base::in | ios_base::out,</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;    <span class="keywordtype">int</span> prot = (<span class="keywordtype">int</span>)ios_base::_Openprot)</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;  {</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;    std::fstream::open (<a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">utf8::widen</a> (filename), mode, prot);</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;  }</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;};</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160; </div>
 <div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160; </div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;<span class="keyword">inline</span></div>
-<div class="line"><a name="l00199"></a><span class="lineno"><a class="line" href="utf8_8h.html#aa6aefa08998a55dca4ba75312126e353">  199</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8h.html#aa6aefa08998a55dca4ba75312126e353">mkdir</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* dirname)</div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;{</div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;  <span class="keywordflow">return</span> (_wmkdir (<a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">widen</a> (dirname).c_str ()) == 0);</div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;}</div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160; </div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;<span class="keyword">inline</span></div>
-<div class="line"><a name="l00206"></a><span class="lineno"><a class="line" href="utf8_8h.html#afde36b3fabc92ff53124bc81d91db646">  206</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8h.html#aa6aefa08998a55dca4ba75312126e353">mkdir</a> (<span class="keyword">const</span> std::string&amp; dirname)</div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;{</div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;  <span class="keywordflow">return</span> (_wmkdir (<a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">widen</a> (dirname).c_str ()) == 0);</div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;}</div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160; </div>
-<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;<span class="keyword">inline</span></div>
-<div class="line"><a name="l00218"></a><span class="lineno"><a class="line" href="utf8_8h.html#a42637c506240d2a9bfb1d69dcd083645">  218</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8h.html#a42637c506240d2a9bfb1d69dcd083645">rmdir</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* dirname)</div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;{</div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;  <span class="keywordflow">return</span> (_wrmdir (<a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">widen</a> (dirname).c_str ()) == 0);</div>
-<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;}</div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160; </div>
-<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;<span class="keyword">inline</span></div>
-<div class="line"><a name="l00225"></a><span class="lineno"><a class="line" href="utf8_8h.html#aff322efb8a22d9d5ce871e259d60a6e7">  225</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8h.html#a42637c506240d2a9bfb1d69dcd083645">rmdir</a> (<span class="keyword">const</span> std::string&amp; dirname)</div>
-<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;{</div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;  <span class="keywordflow">return</span> (_wrmdir (<a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">widen</a> (dirname).c_str ()) == 0);</div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;}</div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160; </div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160; </div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;<span class="keyword">inline</span></div>
-<div class="line"><a name="l00238"></a><span class="lineno"><a class="line" href="utf8_8h.html#aabb576878dd9ae12de2f0ed0f854f1a4">  238</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8h.html#aabb576878dd9ae12de2f0ed0f854f1a4">chdir</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* dirname)</div>
-<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;{</div>
-<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;  <span class="keywordflow">return</span> (_wchdir (<a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">widen</a> (dirname).c_str ()) == 0);</div>
-<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;}</div>
-<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160; </div>
-<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;<span class="keyword">inline</span></div>
-<div class="line"><a name="l00245"></a><span class="lineno"><a class="line" href="utf8_8h.html#a8d1e251e0c7ff195f4391432184b5183">  245</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8h.html#aabb576878dd9ae12de2f0ed0f854f1a4">chdir</a> (<span class="keyword">const</span> std::string&amp; dirname)</div>
-<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;{</div>
-<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;  <span class="keywordflow">return</span> (_wchdir (<a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">widen</a> (dirname).c_str ()) == 0);</div>
-<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;}</div>
-<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160; </div>
-<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;<span class="keyword">inline</span></div>
-<div class="line"><a name="l00261"></a><span class="lineno"><a class="line" href="utf8_8h.html#a9a6a50a870135177fb98e9f2e0fb12d4">  261</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8h.html#a9a6a50a870135177fb98e9f2e0fb12d4">chmod</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* filename, <span class="keywordtype">int</span> mode)</div>
-<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;{</div>
-<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;  <span class="keywordflow">return</span> (_wchmod (<a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">widen</a> (filename).c_str (), mode) == 0);</div>
-<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;}</div>
-<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160; </div>
-<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;<span class="keyword">inline</span></div>
-<div class="line"><a name="l00268"></a><span class="lineno"><a class="line" href="utf8_8h.html#ad90dc517c53a5c83029449263417ad06">  268</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8h.html#a9a6a50a870135177fb98e9f2e0fb12d4">chmod</a> (<span class="keyword">const</span> std::string&amp; filename, <span class="keywordtype">int</span> mode)</div>
-<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;{</div>
-<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;  <span class="keywordflow">return</span> (_wchmod (<a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">widen</a> (filename).c_str (), mode) == 0);</div>
-<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;}</div>
-<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160; </div>
-<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160; </div>
-<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;<span class="keyword">inline</span></div>
-<div class="line"><a name="l00288"></a><span class="lineno"><a class="line" href="utf8_8h.html#af3ebab9439377a6a3f13542dbab4337c">  288</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8h.html#af3ebab9439377a6a3f13542dbab4337c">access</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* filename, <span class="keywordtype">int</span> mode)</div>
-<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;{</div>
-<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;  <span class="keywordflow">return</span> (_waccess (<a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">widen</a> (filename).c_str (), mode) == 0);</div>
-<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;}</div>
-<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160; </div>
-<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;<span class="keyword">inline</span></div>
-<div class="line"><a name="l00295"></a><span class="lineno"><a class="line" href="utf8_8h.html#ae4ef0e398c1342f47c8deaf12a449a67">  295</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8h.html#af3ebab9439377a6a3f13542dbab4337c">access</a> (<span class="keyword">const</span> std::string&amp; filename, <span class="keywordtype">int</span> mode)</div>
-<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;{</div>
-<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;  <span class="keywordflow">return</span> (_waccess (<a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">widen</a> (filename).c_str (), mode) == 0);</div>
-<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;}</div>
-<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160; </div>
-<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160; </div>
-<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;<span class="keyword">inline</span></div>
-<div class="line"><a name="l00308"></a><span class="lineno"><a class="line" href="utf8_8h.html#a5f0eb1fee50553ad4e55671f52c7f2ec">  308</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8h.html#a5f0eb1fee50553ad4e55671f52c7f2ec">remove</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* filename)</div>
-<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;{</div>
-<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;  <span class="keywordflow">return</span> (_wremove (<a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">widen</a> (filename).c_str ()) == 0);</div>
-<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;}</div>
-<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160; </div>
-<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;<span class="keyword">inline</span></div>
-<div class="line"><a name="l00315"></a><span class="lineno"><a class="line" href="utf8_8h.html#ac5b06bf0060adccc6b102268fc7cf4a0">  315</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8h.html#a5f0eb1fee50553ad4e55671f52c7f2ec">remove</a> (<span class="keyword">const</span> std::string&amp; filename)</div>
-<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;{</div>
-<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;  <span class="keywordflow">return</span> (_wremove (<a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">widen</a> (filename).c_str ()) == 0);</div>
-<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;}</div>
-<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160; </div>
-<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;<span class="keyword">inline</span></div>
-<div class="line"><a name="l00328"></a><span class="lineno"><a class="line" href="utf8_8h.html#a1d0245cbb42146a80be6b62c718f61a6">  328</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8h.html#a1d0245cbb42146a80be6b62c718f61a6">rename</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* oldname, <span class="keyword">const</span> <span class="keywordtype">char</span>* newname)</div>
-<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;{</div>
-<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;  <span class="keywordflow">return</span> (_wrename (<a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">widen</a> (oldname).c_str (), <a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">widen</a> (newname).c_str ()) == 0);</div>
-<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;}</div>
-<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160; </div>
-<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;<span class="keyword">inline</span></div>
-<div class="line"><a name="l00335"></a><span class="lineno"><a class="line" href="utf8_8h.html#abf5baede52d0081d7f471ba7a62ac52f">  335</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8h.html#a1d0245cbb42146a80be6b62c718f61a6">rename</a> (<span class="keyword">const</span> std::string&amp; oldname, <span class="keyword">const</span> std::string&amp; newname)</div>
-<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;{</div>
-<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;  <span class="keywordflow">return</span> (_wrename (<a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">widen</a> (oldname).c_str (), <a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">widen</a> (newname).c_str ()) == 0);</div>
-<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;}</div>
-<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160; </div>
-<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;<span class="keyword">inline</span></div>
-<div class="line"><a name="l00348"></a><span class="lineno"><a class="line" href="utf8_8h.html#a17111250dd542f9ed080a96cab913936">  348</a></span>&#160;FILE* <a class="code" href="utf8_8h.html#a17111250dd542f9ed080a96cab913936">fopen</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* filename, <span class="keyword">const</span> <span class="keywordtype">char</span>* mode)</div>
-<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;{</div>
-<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;  FILE* h = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;  _wfopen_s (&amp;h, <a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">widen</a> (filename).c_str (), <a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">widen</a> (mode).c_str ());</div>
-<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;  <span class="keywordflow">return</span> h;</div>
-<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;}</div>
-<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160; </div>
-<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;<span class="keyword">inline</span></div>
-<div class="line"><a name="l00357"></a><span class="lineno"><a class="line" href="utf8_8h.html#af52d36c6cd5519362893a68808fad0fc">  357</a></span>&#160;FILE* <a class="code" href="utf8_8h.html#a17111250dd542f9ed080a96cab913936">fopen</a> (<span class="keyword">const</span> std::string&amp; filename, <span class="keyword">const</span> std::string&amp; mode)</div>
-<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;{</div>
-<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;  FILE* h = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;  _wfopen_s (&amp;h, <a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">widen</a> (filename).c_str (), <a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">widen</a> (mode).c_str ());</div>
-<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;  <span class="keywordflow">return</span> h;</div>
-<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;}</div>
-<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160; </div>
-<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;<span class="keyword">inline</span></div>
-<div class="line"><a name="l00370"></a><span class="lineno"><a class="line" href="utf8_8h.html#a2521532e5f84a299e835bf606fadd08b">  370</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8cpp.html#ab630a55b877a77ba64550357d0f387a3">valid</a> (<span class="keyword">const</span> std::string&amp; s)</div>
-<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;{</div>
-<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="utf8_8cpp.html#ab630a55b877a77ba64550357d0f387a3">valid</a> (s.c_str (), s.size());</div>
-<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;}</div>
-<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160; </div>
-<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;<span class="keyword">inline</span></div>
-<div class="line"><a name="l00377"></a><span class="lineno"><a class="line" href="group__basecvt.html#ga99123c395e1291a759b3d2abb6adbc8d">  377</a></span>&#160;char32_t <a class="code" href="group__basecvt.html#ga99123c395e1291a759b3d2abb6adbc8d">rune</a> (<span class="keyword">const</span> std::string::const_iterator&amp; p)</div>
-<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;{</div>
-<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="group__basecvt.html#ga99123c395e1291a759b3d2abb6adbc8d">rune</a> (&amp;(*p));</div>
-<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;}</div>
-<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160; </div>
-<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160; </div>
-<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;<span class="keyword">inline</span></div>
-<div class="line"><a name="l00389"></a><span class="lineno"><a class="line" href="group__charclass.html#ga7976e253667c24d0e7027298eb39d939">  389</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#ga67d7a7bf8769c5cf3c09760b1cb63d7e">isspace</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* p)</div>
-<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;{</div>
-<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;  <span class="keywordflow">return</span> (*p &amp;&amp; (strchr (<span class="stringliteral">&quot; \t\n\r\f\v&quot;</span>, *p) != <span class="keyword">nullptr</span>));</div>
-<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;}</div>
-<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160; </div>
-<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;<span class="keyword">inline</span></div>
-<div class="line"><a name="l00396"></a><span class="lineno"><a class="line" href="group__charclass.html#ga67d7a7bf8769c5cf3c09760b1cb63d7e">  396</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#ga67d7a7bf8769c5cf3c09760b1cb63d7e">isspace</a> (std::string::const_iterator p)</div>
-<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;{</div>
-<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="group__charclass.html#ga67d7a7bf8769c5cf3c09760b1cb63d7e">isspace</a> (&amp;*p);</div>
-<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;}</div>
-<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160; </div>
-<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160; </div>
-<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;<span class="keyword">inline</span></div>
-<div class="line"><a name="l00408"></a><span class="lineno"><a class="line" href="group__charclass.html#gad027d49e136b37181017f4cd092f2dcb">  408</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#gafbef7ae59c2532df07c855a639ee0fe1">isblank</a> (<span class="keyword">const</span> <span class="keywordtype">char</span> *p)</div>
-<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;{</div>
-<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;  <span class="keywordflow">return</span> (*p == <span class="charliteral">&#39; &#39;</span> || *p == <span class="charliteral">&#39;\t&#39;</span>);</div>
-<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;}</div>
-<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160; </div>
-<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;<span class="keyword">inline</span></div>
-<div class="line"><a name="l00415"></a><span class="lineno"><a class="line" href="group__charclass.html#gafbef7ae59c2532df07c855a639ee0fe1">  415</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#gafbef7ae59c2532df07c855a639ee0fe1">isblank</a> (std::string::const_iterator p)</div>
-<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;{</div>
-<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="group__charclass.html#gafbef7ae59c2532df07c855a639ee0fe1">isblank</a> (&amp;*p);</div>
-<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;}</div>
-<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160; </div>
-<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;<span class="keyword">inline</span></div>
-<div class="line"><a name="l00426"></a><span class="lineno"><a class="line" href="group__charclass.html#ga7768e02a01309d80fc943daea89f9048">  426</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#ga271adbb9c025c72612a2da2fb5d7d304">isdigit</a> (<span class="keyword">const</span> <span class="keywordtype">char</span> *p)</div>
-<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;{</div>
-<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;  <span class="keywordtype">char</span> c = *p;</div>
-<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;  <span class="keywordflow">return</span> <span class="charliteral">&#39;0&#39;</span> &lt;= c &amp;&amp; c &lt;= <span class="charliteral">&#39;9&#39;</span>;</div>
-<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;}</div>
-<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160; </div>
-<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;<span class="keyword">inline</span></div>
-<div class="line"><a name="l00434"></a><span class="lineno"><a class="line" href="group__charclass.html#ga271adbb9c025c72612a2da2fb5d7d304">  434</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#ga271adbb9c025c72612a2da2fb5d7d304">isdigit</a> (std::string::const_iterator p)</div>
-<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;{</div>
-<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="group__charclass.html#ga271adbb9c025c72612a2da2fb5d7d304">isdigit</a> (&amp;*p);</div>
-<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;}</div>
-<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160; </div>
-<div class="line"><a name="l00444"></a><span class="lineno">  444</span>&#160;<span class="keyword">inline</span></div>
-<div class="line"><a name="l00445"></a><span class="lineno"><a class="line" href="group__charclass.html#ga30a655a5e7dd28e4d05ea9825ff32e73">  445</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#gae686cdfac97a3324193db0fae8214fd8">isalnum</a> (<span class="keyword">const</span> <span class="keywordtype">char</span> *p)</div>
-<div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160;{</div>
-<div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160;  <span class="keywordtype">char</span> c = *p;</div>
-<div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160;  <span class="keywordflow">return</span> (<span class="charliteral">&#39;0&#39;</span> &lt;= c &amp;&amp; c &lt;= <span class="charliteral">&#39;9&#39;</span>) || (<span class="charliteral">&#39;A&#39;</span> &lt;= c &amp;&amp; c &lt;= <span class="charliteral">&#39;Z&#39;</span>) || (<span class="charliteral">&#39;a&#39;</span> &lt;= c &amp;&amp; c &lt;= <span class="charliteral">&#39;z&#39;</span>) ;</div>
-<div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160;}</div>
-<div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160; </div>
-<div class="line"><a name="l00452"></a><span class="lineno">  452</span>&#160;<span class="keyword">inline</span></div>
-<div class="line"><a name="l00453"></a><span class="lineno"><a class="line" href="group__charclass.html#gae686cdfac97a3324193db0fae8214fd8">  453</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#gae686cdfac97a3324193db0fae8214fd8">isalnum</a> (std::string::const_iterator p)</div>
-<div class="line"><a name="l00454"></a><span class="lineno">  454</span>&#160;{</div>
-<div class="line"><a name="l00455"></a><span class="lineno">  455</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="group__charclass.html#gae686cdfac97a3324193db0fae8214fd8">isalnum</a> (&amp;*p);</div>
-<div class="line"><a name="l00456"></a><span class="lineno">  456</span>&#160;}</div>
-<div class="line"><a name="l00457"></a><span class="lineno">  457</span>&#160; </div>
-<div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160;<span class="keyword">inline</span></div>
-<div class="line"><a name="l00464"></a><span class="lineno"><a class="line" href="group__charclass.html#gab75591f2630047a637f9cf14a636c91e">  464</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#ga6bcbed4885bc561156d4481097ac6447">isalpha</a> (<span class="keyword">const</span> <span class="keywordtype">char</span> *p)</div>
-<div class="line"><a name="l00465"></a><span class="lineno">  465</span>&#160;{</div>
-<div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160;  <span class="keywordtype">char</span> c = *p;</div>
-<div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160;  <span class="keywordflow">return</span> (<span class="charliteral">&#39;A&#39;</span> &lt;= c &amp;&amp; c &lt;= <span class="charliteral">&#39;Z&#39;</span>) || (<span class="charliteral">&#39;a&#39;</span> &lt;= c &amp;&amp; c &lt;= <span class="charliteral">&#39;z&#39;</span>);</div>
-<div class="line"><a name="l00468"></a><span class="lineno">  468</span>&#160;}</div>
-<div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160; </div>
-<div class="line"><a name="l00471"></a><span class="lineno">  471</span>&#160;<span class="keyword">inline</span></div>
-<div class="line"><a name="l00472"></a><span class="lineno"><a class="line" href="group__charclass.html#ga6bcbed4885bc561156d4481097ac6447">  472</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#ga6bcbed4885bc561156d4481097ac6447">isalpha</a> (std::string::const_iterator p)</div>
-<div class="line"><a name="l00473"></a><span class="lineno">  473</span>&#160;{</div>
-<div class="line"><a name="l00474"></a><span class="lineno">  474</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="group__charclass.html#ga6bcbed4885bc561156d4481097ac6447">isalpha</a> (&amp;*p);</div>
-<div class="line"><a name="l00475"></a><span class="lineno">  475</span>&#160;}</div>
-<div class="line"><a name="l00476"></a><span class="lineno">  476</span>&#160; </div>
-<div class="line"><a name="l00482"></a><span class="lineno">  482</span>&#160;<span class="keyword">inline</span></div>
-<div class="line"><a name="l00483"></a><span class="lineno"><a class="line" href="group__charclass.html#gac02a4f9791c4d4f353869a0017cdb0d3">  483</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#ga5797323a87fdfdb9470804fa449e4ead">isxdigit</a> (<span class="keyword">const</span> <span class="keywordtype">char</span> *p)</div>
-<div class="line"><a name="l00484"></a><span class="lineno">  484</span>&#160;{</div>
-<div class="line"><a name="l00485"></a><span class="lineno">  485</span>&#160;  <span class="keywordtype">char</span> c = *p;</div>
-<div class="line"><a name="l00486"></a><span class="lineno">  486</span>&#160;  <span class="keywordflow">return</span> (<span class="charliteral">&#39;0&#39;</span> &lt;= c &amp;&amp; c &lt;= <span class="charliteral">&#39;9&#39;</span>) || (<span class="charliteral">&#39;A&#39;</span> &lt;= c &amp;&amp; c &lt;= <span class="charliteral">&#39;F&#39;</span>) || (<span class="charliteral">&#39;a&#39;</span> &lt;= c &amp;&amp; c &lt;= <span class="charliteral">&#39;f&#39;</span>);</div>
-<div class="line"><a name="l00487"></a><span class="lineno">  487</span>&#160;}</div>
-<div class="line"><a name="l00488"></a><span class="lineno">  488</span>&#160; </div>
-<div class="line"><a name="l00490"></a><span class="lineno">  490</span>&#160;<span class="keyword">inline</span></div>
-<div class="line"><a name="l00491"></a><span class="lineno"><a class="line" href="group__charclass.html#ga5797323a87fdfdb9470804fa449e4ead">  491</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#ga5797323a87fdfdb9470804fa449e4ead">isxdigit</a> (std::string::const_iterator p)</div>
-<div class="line"><a name="l00492"></a><span class="lineno">  492</span>&#160;{</div>
-<div class="line"><a name="l00493"></a><span class="lineno">  493</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="group__charclass.html#ga5797323a87fdfdb9470804fa449e4ead">isxdigit</a> (&amp;*p);</div>
-<div class="line"><a name="l00494"></a><span class="lineno">  494</span>&#160;}</div>
-<div class="line"><a name="l00495"></a><span class="lineno">  495</span>&#160; </div>
-<div class="line"><a name="l00497"></a><span class="lineno">  497</span>&#160;<span class="keyword">inline</span></div>
-<div class="line"><a name="l00498"></a><span class="lineno"><a class="line" href="group__charclass.html#gab5016c0cf5cfdfcbf462fe0b3071cb29">  498</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#gab5016c0cf5cfdfcbf462fe0b3071cb29">isupper</a> (std::string::const_iterator p)</div>
-<div class="line"><a name="l00499"></a><span class="lineno">  499</span>&#160;{</div>
-<div class="line"><a name="l00500"></a><span class="lineno">  500</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="group__charclass.html#gab5016c0cf5cfdfcbf462fe0b3071cb29">isupper</a> (&amp;*p);</div>
-<div class="line"><a name="l00501"></a><span class="lineno">  501</span>&#160;}</div>
-<div class="line"><a name="l00502"></a><span class="lineno">  502</span>&#160; </div>
-<div class="line"><a name="l00504"></a><span class="lineno">  504</span>&#160;<span class="keyword">inline</span></div>
-<div class="line"><a name="l00505"></a><span class="lineno"><a class="line" href="group__charclass.html#gaec411c7eea5fc3fcf20af0a5f66bf177">  505</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#gaec411c7eea5fc3fcf20af0a5f66bf177">islower</a> (std::string::const_iterator p)</div>
-<div class="line"><a name="l00506"></a><span class="lineno">  506</span>&#160;{</div>
-<div class="line"><a name="l00507"></a><span class="lineno">  507</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="group__charclass.html#gab5016c0cf5cfdfcbf462fe0b3071cb29">isupper</a> (&amp;*p);</div>
-<div class="line"><a name="l00508"></a><span class="lineno">  508</span>&#160;}</div>
-<div class="line"><a name="l00509"></a><span class="lineno">  509</span>&#160; </div>
-<div class="line"><a name="l00518"></a><span class="lineno">  518</span>&#160;<span class="keyword">inline</span></div>
-<div class="line"><a name="l00519"></a><span class="lineno"><a class="line" href="utf8_8h.html#a7efd70545eb2d60d5ec8136dfc3b37db">  519</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8h.html#a7efd70545eb2d60d5ec8136dfc3b37db">putenv</a> (<span class="keyword">const</span> std::string&amp; str)</div>
-<div class="line"><a name="l00520"></a><span class="lineno">  520</span>&#160;{</div>
-<div class="line"><a name="l00521"></a><span class="lineno">  521</span>&#160;  <span class="keywordflow">return</span> (_wputenv (<a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">utf8::widen</a> (str).c_str ()) == 0);</div>
-<div class="line"><a name="l00522"></a><span class="lineno">  522</span>&#160;}</div>
-<div class="line"><a name="l00523"></a><span class="lineno">  523</span>&#160; </div>
-<div class="line"><a name="l00534"></a><span class="lineno">  534</span>&#160;<span class="keyword">inline</span></div>
-<div class="line"><a name="l00535"></a><span class="lineno"><a class="line" href="utf8_8h.html#af5b9fd7fd9c1d5e90a29bdfce6428b1c">  535</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8h.html#a7efd70545eb2d60d5ec8136dfc3b37db">putenv</a> (<span class="keyword">const</span> std::string&amp; var, <span class="keyword">const</span> std::string&amp; val)</div>
-<div class="line"><a name="l00536"></a><span class="lineno">  536</span>&#160;{</div>
-<div class="line"><a name="l00537"></a><span class="lineno">  537</span>&#160;  <span class="keywordflow">return</span> (_wputenv_s (<a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">widen</a> (var).c_str (),</div>
-<div class="line"><a name="l00538"></a><span class="lineno">  538</span>&#160;    <a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">widen</a> (val).c_str ()) == 0);</div>
-<div class="line"><a name="l00539"></a><span class="lineno">  539</span>&#160;}</div>
-<div class="line"><a name="l00540"></a><span class="lineno">  540</span>&#160; </div>
-<div class="line"><a name="l00541"></a><span class="lineno">  541</span>&#160;}; <span class="comment">//namespace utf8</span></div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;<span class="comment">// INLINES --------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160; </div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;<span class="keyword">inline</span></div>
+<div class="line"><a name="l00201"></a><span class="lineno"><a class="line" href="utf8_8h.html#aa6aefa08998a55dca4ba75312126e353">  201</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8h.html#aa6aefa08998a55dca4ba75312126e353">mkdir</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* dirname)</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;{</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;  <span class="keywordflow">return</span> (_wmkdir (<a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">widen</a> (dirname).c_str ()) == 0);</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;}</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160; </div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;<span class="keyword">inline</span></div>
+<div class="line"><a name="l00208"></a><span class="lineno"><a class="line" href="utf8_8h.html#afde36b3fabc92ff53124bc81d91db646">  208</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8h.html#aa6aefa08998a55dca4ba75312126e353">mkdir</a> (<span class="keyword">const</span> std::string&amp; dirname)</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;{</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;  <span class="keywordflow">return</span> (_wmkdir (<a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">widen</a> (dirname).c_str ()) == 0);</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;}</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160; </div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;<span class="keyword">inline</span></div>
+<div class="line"><a name="l00220"></a><span class="lineno"><a class="line" href="utf8_8h.html#a42637c506240d2a9bfb1d69dcd083645">  220</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8h.html#a42637c506240d2a9bfb1d69dcd083645">rmdir</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* dirname)</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;{</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;  <span class="keywordflow">return</span> (_wrmdir (<a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">widen</a> (dirname).c_str ()) == 0);</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;}</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160; </div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;<span class="keyword">inline</span></div>
+<div class="line"><a name="l00227"></a><span class="lineno"><a class="line" href="utf8_8h.html#aff322efb8a22d9d5ce871e259d60a6e7">  227</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8h.html#a42637c506240d2a9bfb1d69dcd083645">rmdir</a> (<span class="keyword">const</span> std::string&amp; dirname)</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;{</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;  <span class="keywordflow">return</span> (_wrmdir (<a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">widen</a> (dirname).c_str ()) == 0);</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;}</div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160; </div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160; </div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;<span class="keyword">inline</span></div>
+<div class="line"><a name="l00240"></a><span class="lineno"><a class="line" href="utf8_8h.html#aabb576878dd9ae12de2f0ed0f854f1a4">  240</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8h.html#aabb576878dd9ae12de2f0ed0f854f1a4">chdir</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* dirname)</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;{</div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;  <span class="keywordflow">return</span> (_wchdir (<a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">widen</a> (dirname).c_str ()) == 0);</div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;}</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160; </div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;<span class="keyword">inline</span></div>
+<div class="line"><a name="l00247"></a><span class="lineno"><a class="line" href="utf8_8h.html#a8d1e251e0c7ff195f4391432184b5183">  247</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8h.html#aabb576878dd9ae12de2f0ed0f854f1a4">chdir</a> (<span class="keyword">const</span> std::string&amp; dirname)</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;{</div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;  <span class="keywordflow">return</span> (_wchdir (<a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">widen</a> (dirname).c_str ()) == 0);</div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;}</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160; </div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;<span class="keyword">inline</span></div>
+<div class="line"><a name="l00263"></a><span class="lineno"><a class="line" href="utf8_8h.html#a9a6a50a870135177fb98e9f2e0fb12d4">  263</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8h.html#a9a6a50a870135177fb98e9f2e0fb12d4">chmod</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* filename, <span class="keywordtype">int</span> mode)</div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;{</div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;  <span class="keywordflow">return</span> (_wchmod (<a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">widen</a> (filename).c_str (), mode) == 0);</div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;}</div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160; </div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;<span class="keyword">inline</span></div>
+<div class="line"><a name="l00270"></a><span class="lineno"><a class="line" href="utf8_8h.html#ad90dc517c53a5c83029449263417ad06">  270</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8h.html#a9a6a50a870135177fb98e9f2e0fb12d4">chmod</a> (<span class="keyword">const</span> std::string&amp; filename, <span class="keywordtype">int</span> mode)</div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;{</div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;  <span class="keywordflow">return</span> (_wchmod (<a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">widen</a> (filename).c_str (), mode) == 0);</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;}</div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160; </div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160; </div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;<span class="keyword">inline</span></div>
+<div class="line"><a name="l00290"></a><span class="lineno"><a class="line" href="utf8_8h.html#af3ebab9439377a6a3f13542dbab4337c">  290</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8h.html#af3ebab9439377a6a3f13542dbab4337c">access</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* filename, <span class="keywordtype">int</span> mode)</div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;{</div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;  <span class="keywordflow">return</span> (_waccess (<a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">widen</a> (filename).c_str (), mode) == 0);</div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;}</div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160; </div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;<span class="keyword">inline</span></div>
+<div class="line"><a name="l00297"></a><span class="lineno"><a class="line" href="utf8_8h.html#ae4ef0e398c1342f47c8deaf12a449a67">  297</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8h.html#af3ebab9439377a6a3f13542dbab4337c">access</a> (<span class="keyword">const</span> std::string&amp; filename, <span class="keywordtype">int</span> mode)</div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;{</div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;  <span class="keywordflow">return</span> (_waccess (<a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">widen</a> (filename).c_str (), mode) == 0);</div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;}</div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160; </div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160; </div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;<span class="keyword">inline</span></div>
+<div class="line"><a name="l00310"></a><span class="lineno"><a class="line" href="utf8_8h.html#a5f0eb1fee50553ad4e55671f52c7f2ec">  310</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8h.html#a5f0eb1fee50553ad4e55671f52c7f2ec">remove</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* filename)</div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;{</div>
+<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;  <span class="keywordflow">return</span> (_wremove (<a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">widen</a> (filename).c_str ()) == 0);</div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;}</div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160; </div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;<span class="keyword">inline</span></div>
+<div class="line"><a name="l00317"></a><span class="lineno"><a class="line" href="utf8_8h.html#ac5b06bf0060adccc6b102268fc7cf4a0">  317</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8h.html#a5f0eb1fee50553ad4e55671f52c7f2ec">remove</a> (<span class="keyword">const</span> std::string&amp; filename)</div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;{</div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;  <span class="keywordflow">return</span> (_wremove (<a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">widen</a> (filename).c_str ()) == 0);</div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;}</div>
+<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160; </div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;<span class="keyword">inline</span></div>
+<div class="line"><a name="l00330"></a><span class="lineno"><a class="line" href="utf8_8h.html#a1d0245cbb42146a80be6b62c718f61a6">  330</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8h.html#a1d0245cbb42146a80be6b62c718f61a6">rename</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* oldname, <span class="keyword">const</span> <span class="keywordtype">char</span>* newname)</div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;{</div>
+<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;  <span class="keywordflow">return</span> (_wrename (<a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">widen</a> (oldname).c_str (), <a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">widen</a> (newname).c_str ()) == 0);</div>
+<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;}</div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160; </div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;<span class="keyword">inline</span></div>
+<div class="line"><a name="l00337"></a><span class="lineno"><a class="line" href="utf8_8h.html#abf5baede52d0081d7f471ba7a62ac52f">  337</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8h.html#a1d0245cbb42146a80be6b62c718f61a6">rename</a> (<span class="keyword">const</span> std::string&amp; oldname, <span class="keyword">const</span> std::string&amp; newname)</div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;{</div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;  <span class="keywordflow">return</span> (_wrename (<a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">widen</a> (oldname).c_str (), <a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">widen</a> (newname).c_str ()) == 0);</div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;}</div>
+<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160; </div>
+<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;<span class="keyword">inline</span></div>
+<div class="line"><a name="l00350"></a><span class="lineno"><a class="line" href="utf8_8h.html#a17111250dd542f9ed080a96cab913936">  350</a></span>&#160;FILE* <a class="code" href="utf8_8h.html#a17111250dd542f9ed080a96cab913936">fopen</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* filename, <span class="keyword">const</span> <span class="keywordtype">char</span>* mode)</div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;{</div>
+<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;  FILE* h = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;  _wfopen_s (&amp;h, <a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">widen</a> (filename).c_str (), <a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">widen</a> (mode).c_str ());</div>
+<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;  <span class="keywordflow">return</span> h;</div>
+<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;}</div>
+<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160; </div>
+<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;<span class="keyword">inline</span></div>
+<div class="line"><a name="l00359"></a><span class="lineno"><a class="line" href="utf8_8h.html#af52d36c6cd5519362893a68808fad0fc">  359</a></span>&#160;FILE* <a class="code" href="utf8_8h.html#a17111250dd542f9ed080a96cab913936">fopen</a> (<span class="keyword">const</span> std::string&amp; filename, <span class="keyword">const</span> std::string&amp; mode)</div>
+<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;{</div>
+<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;  FILE* h = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;  _wfopen_s (&amp;h, <a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">widen</a> (filename).c_str (), <a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">widen</a> (mode).c_str ());</div>
+<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;  <span class="keywordflow">return</span> h;</div>
+<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;}</div>
+<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160; </div>
+<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;<span class="keyword">inline</span></div>
+<div class="line"><a name="l00372"></a><span class="lineno"><a class="line" href="utf8_8h.html#a2521532e5f84a299e835bf606fadd08b">  372</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8cpp.html#ab630a55b877a77ba64550357d0f387a3">valid</a> (<span class="keyword">const</span> std::string&amp; s)</div>
+<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;{</div>
+<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="utf8_8cpp.html#ab630a55b877a77ba64550357d0f387a3">valid</a> (s.c_str (), s.size());</div>
+<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;}</div>
+<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160; </div>
+<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;<span class="keyword">inline</span></div>
+<div class="line"><a name="l00379"></a><span class="lineno"><a class="line" href="group__basecvt.html#ga99123c395e1291a759b3d2abb6adbc8d">  379</a></span>&#160;char32_t <a class="code" href="group__basecvt.html#ga99123c395e1291a759b3d2abb6adbc8d">rune</a> (<span class="keyword">const</span> std::string::const_iterator&amp; p)</div>
+<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;{</div>
+<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="group__basecvt.html#ga99123c395e1291a759b3d2abb6adbc8d">rune</a> (&amp;(*p));</div>
+<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;}</div>
+<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160; </div>
+<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160; </div>
+<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;<span class="keyword">inline</span></div>
+<div class="line"><a name="l00391"></a><span class="lineno"><a class="line" href="group__charclass.html#ga7976e253667c24d0e7027298eb39d939">  391</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#ga67d7a7bf8769c5cf3c09760b1cb63d7e">isspace</a> (<span class="keyword">const</span> <span class="keywordtype">char</span>* p)</div>
+<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;{</div>
+<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;  <span class="keywordflow">return</span> (*p &amp;&amp; (strchr (<span class="stringliteral">&quot; \t\n\r\f\v&quot;</span>, *p) != <span class="keyword">nullptr</span>));</div>
+<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;}</div>
+<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160; </div>
+<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;<span class="keyword">inline</span></div>
+<div class="line"><a name="l00398"></a><span class="lineno"><a class="line" href="group__charclass.html#ga67d7a7bf8769c5cf3c09760b1cb63d7e">  398</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#ga67d7a7bf8769c5cf3c09760b1cb63d7e">isspace</a> (std::string::const_iterator p)</div>
+<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;{</div>
+<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="group__charclass.html#ga67d7a7bf8769c5cf3c09760b1cb63d7e">isspace</a> (&amp;*p);</div>
+<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;}</div>
+<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160; </div>
+<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160; </div>
+<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;<span class="keyword">inline</span></div>
+<div class="line"><a name="l00410"></a><span class="lineno"><a class="line" href="group__charclass.html#gad027d49e136b37181017f4cd092f2dcb">  410</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#gafbef7ae59c2532df07c855a639ee0fe1">isblank</a> (<span class="keyword">const</span> <span class="keywordtype">char</span> *p)</div>
+<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;{</div>
+<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;  <span class="keywordflow">return</span> (*p == <span class="charliteral">&#39; &#39;</span> || *p == <span class="charliteral">&#39;\t&#39;</span>);</div>
+<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;}</div>
+<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160; </div>
+<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;<span class="keyword">inline</span></div>
+<div class="line"><a name="l00417"></a><span class="lineno"><a class="line" href="group__charclass.html#gafbef7ae59c2532df07c855a639ee0fe1">  417</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#gafbef7ae59c2532df07c855a639ee0fe1">isblank</a> (std::string::const_iterator p)</div>
+<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;{</div>
+<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="group__charclass.html#gafbef7ae59c2532df07c855a639ee0fe1">isblank</a> (&amp;*p);</div>
+<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;}</div>
+<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160; </div>
+<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;<span class="keyword">inline</span></div>
+<div class="line"><a name="l00428"></a><span class="lineno"><a class="line" href="group__charclass.html#ga7768e02a01309d80fc943daea89f9048">  428</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#ga271adbb9c025c72612a2da2fb5d7d304">isdigit</a> (<span class="keyword">const</span> <span class="keywordtype">char</span> *p)</div>
+<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;{</div>
+<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;  <span class="keywordtype">char</span> c = *p;</div>
+<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;  <span class="keywordflow">return</span> <span class="charliteral">&#39;0&#39;</span> &lt;= c &amp;&amp; c &lt;= <span class="charliteral">&#39;9&#39;</span>;</div>
+<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;}</div>
+<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160; </div>
+<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;<span class="keyword">inline</span></div>
+<div class="line"><a name="l00436"></a><span class="lineno"><a class="line" href="group__charclass.html#ga271adbb9c025c72612a2da2fb5d7d304">  436</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#ga271adbb9c025c72612a2da2fb5d7d304">isdigit</a> (std::string::const_iterator p)</div>
+<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;{</div>
+<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="group__charclass.html#ga271adbb9c025c72612a2da2fb5d7d304">isdigit</a> (&amp;*p);</div>
+<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;}</div>
+<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160; </div>
+<div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160;<span class="keyword">inline</span></div>
+<div class="line"><a name="l00447"></a><span class="lineno"><a class="line" href="group__charclass.html#ga30a655a5e7dd28e4d05ea9825ff32e73">  447</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#gae686cdfac97a3324193db0fae8214fd8">isalnum</a> (<span class="keyword">const</span> <span class="keywordtype">char</span> *p)</div>
+<div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160;{</div>
+<div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160;  <span class="keywordtype">char</span> c = *p;</div>
+<div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160;  <span class="keywordflow">return</span> (<span class="charliteral">&#39;0&#39;</span> &lt;= c &amp;&amp; c &lt;= <span class="charliteral">&#39;9&#39;</span>) || (<span class="charliteral">&#39;A&#39;</span> &lt;= c &amp;&amp; c &lt;= <span class="charliteral">&#39;Z&#39;</span>) || (<span class="charliteral">&#39;a&#39;</span> &lt;= c &amp;&amp; c &lt;= <span class="charliteral">&#39;z&#39;</span>) ;</div>
+<div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160;}</div>
+<div class="line"><a name="l00452"></a><span class="lineno">  452</span>&#160; </div>
+<div class="line"><a name="l00454"></a><span class="lineno">  454</span>&#160;<span class="keyword">inline</span></div>
+<div class="line"><a name="l00455"></a><span class="lineno"><a class="line" href="group__charclass.html#gae686cdfac97a3324193db0fae8214fd8">  455</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#gae686cdfac97a3324193db0fae8214fd8">isalnum</a> (std::string::const_iterator p)</div>
+<div class="line"><a name="l00456"></a><span class="lineno">  456</span>&#160;{</div>
+<div class="line"><a name="l00457"></a><span class="lineno">  457</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="group__charclass.html#gae686cdfac97a3324193db0fae8214fd8">isalnum</a> (&amp;*p);</div>
+<div class="line"><a name="l00458"></a><span class="lineno">  458</span>&#160;}</div>
+<div class="line"><a name="l00459"></a><span class="lineno">  459</span>&#160; </div>
+<div class="line"><a name="l00465"></a><span class="lineno">  465</span>&#160;<span class="keyword">inline</span></div>
+<div class="line"><a name="l00466"></a><span class="lineno"><a class="line" href="group__charclass.html#gab75591f2630047a637f9cf14a636c91e">  466</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#ga6bcbed4885bc561156d4481097ac6447">isalpha</a> (<span class="keyword">const</span> <span class="keywordtype">char</span> *p)</div>
+<div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160;{</div>
+<div class="line"><a name="l00468"></a><span class="lineno">  468</span>&#160;  <span class="keywordtype">char</span> c = *p;</div>
+<div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160;  <span class="keywordflow">return</span> (<span class="charliteral">&#39;A&#39;</span> &lt;= c &amp;&amp; c &lt;= <span class="charliteral">&#39;Z&#39;</span>) || (<span class="charliteral">&#39;a&#39;</span> &lt;= c &amp;&amp; c &lt;= <span class="charliteral">&#39;z&#39;</span>);</div>
+<div class="line"><a name="l00470"></a><span class="lineno">  470</span>&#160;}</div>
+<div class="line"><a name="l00471"></a><span class="lineno">  471</span>&#160; </div>
+<div class="line"><a name="l00473"></a><span class="lineno">  473</span>&#160;<span class="keyword">inline</span></div>
+<div class="line"><a name="l00474"></a><span class="lineno"><a class="line" href="group__charclass.html#ga6bcbed4885bc561156d4481097ac6447">  474</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#ga6bcbed4885bc561156d4481097ac6447">isalpha</a> (std::string::const_iterator p)</div>
+<div class="line"><a name="l00475"></a><span class="lineno">  475</span>&#160;{</div>
+<div class="line"><a name="l00476"></a><span class="lineno">  476</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="group__charclass.html#ga6bcbed4885bc561156d4481097ac6447">isalpha</a> (&amp;*p);</div>
+<div class="line"><a name="l00477"></a><span class="lineno">  477</span>&#160;}</div>
+<div class="line"><a name="l00478"></a><span class="lineno">  478</span>&#160; </div>
+<div class="line"><a name="l00484"></a><span class="lineno">  484</span>&#160;<span class="keyword">inline</span></div>
+<div class="line"><a name="l00485"></a><span class="lineno"><a class="line" href="group__charclass.html#gac02a4f9791c4d4f353869a0017cdb0d3">  485</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#ga5797323a87fdfdb9470804fa449e4ead">isxdigit</a> (<span class="keyword">const</span> <span class="keywordtype">char</span> *p)</div>
+<div class="line"><a name="l00486"></a><span class="lineno">  486</span>&#160;{</div>
+<div class="line"><a name="l00487"></a><span class="lineno">  487</span>&#160;  <span class="keywordtype">char</span> c = *p;</div>
+<div class="line"><a name="l00488"></a><span class="lineno">  488</span>&#160;  <span class="keywordflow">return</span> (<span class="charliteral">&#39;0&#39;</span> &lt;= c &amp;&amp; c &lt;= <span class="charliteral">&#39;9&#39;</span>) || (<span class="charliteral">&#39;A&#39;</span> &lt;= c &amp;&amp; c &lt;= <span class="charliteral">&#39;F&#39;</span>) || (<span class="charliteral">&#39;a&#39;</span> &lt;= c &amp;&amp; c &lt;= <span class="charliteral">&#39;f&#39;</span>);</div>
+<div class="line"><a name="l00489"></a><span class="lineno">  489</span>&#160;}</div>
+<div class="line"><a name="l00490"></a><span class="lineno">  490</span>&#160; </div>
+<div class="line"><a name="l00492"></a><span class="lineno">  492</span>&#160;<span class="keyword">inline</span></div>
+<div class="line"><a name="l00493"></a><span class="lineno"><a class="line" href="group__charclass.html#ga5797323a87fdfdb9470804fa449e4ead">  493</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#ga5797323a87fdfdb9470804fa449e4ead">isxdigit</a> (std::string::const_iterator p)</div>
+<div class="line"><a name="l00494"></a><span class="lineno">  494</span>&#160;{</div>
+<div class="line"><a name="l00495"></a><span class="lineno">  495</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="group__charclass.html#ga5797323a87fdfdb9470804fa449e4ead">isxdigit</a> (&amp;*p);</div>
+<div class="line"><a name="l00496"></a><span class="lineno">  496</span>&#160;}</div>
+<div class="line"><a name="l00497"></a><span class="lineno">  497</span>&#160; </div>
+<div class="line"><a name="l00499"></a><span class="lineno">  499</span>&#160;<span class="keyword">inline</span></div>
+<div class="line"><a name="l00500"></a><span class="lineno"><a class="line" href="group__charclass.html#gab5016c0cf5cfdfcbf462fe0b3071cb29">  500</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#gab5016c0cf5cfdfcbf462fe0b3071cb29">isupper</a> (std::string::const_iterator p)</div>
+<div class="line"><a name="l00501"></a><span class="lineno">  501</span>&#160;{</div>
+<div class="line"><a name="l00502"></a><span class="lineno">  502</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="group__charclass.html#gab5016c0cf5cfdfcbf462fe0b3071cb29">isupper</a> (&amp;*p);</div>
+<div class="line"><a name="l00503"></a><span class="lineno">  503</span>&#160;}</div>
+<div class="line"><a name="l00504"></a><span class="lineno">  504</span>&#160; </div>
+<div class="line"><a name="l00506"></a><span class="lineno">  506</span>&#160;<span class="keyword">inline</span></div>
+<div class="line"><a name="l00507"></a><span class="lineno"><a class="line" href="group__charclass.html#gaec411c7eea5fc3fcf20af0a5f66bf177">  507</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group__charclass.html#gaec411c7eea5fc3fcf20af0a5f66bf177">islower</a> (std::string::const_iterator p)</div>
+<div class="line"><a name="l00508"></a><span class="lineno">  508</span>&#160;{</div>
+<div class="line"><a name="l00509"></a><span class="lineno">  509</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="group__charclass.html#gab5016c0cf5cfdfcbf462fe0b3071cb29">isupper</a> (&amp;*p);</div>
+<div class="line"><a name="l00510"></a><span class="lineno">  510</span>&#160;}</div>
+<div class="line"><a name="l00511"></a><span class="lineno">  511</span>&#160; </div>
+<div class="line"><a name="l00520"></a><span class="lineno">  520</span>&#160;<span class="keyword">inline</span></div>
+<div class="line"><a name="l00521"></a><span class="lineno"><a class="line" href="utf8_8h.html#a7efd70545eb2d60d5ec8136dfc3b37db">  521</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8h.html#a7efd70545eb2d60d5ec8136dfc3b37db">putenv</a> (<span class="keyword">const</span> std::string&amp; str)</div>
+<div class="line"><a name="l00522"></a><span class="lineno">  522</span>&#160;{</div>
+<div class="line"><a name="l00523"></a><span class="lineno">  523</span>&#160;  <span class="keywordflow">return</span> (_wputenv (<a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">utf8::widen</a> (str).c_str ()) == 0);</div>
+<div class="line"><a name="l00524"></a><span class="lineno">  524</span>&#160;}</div>
+<div class="line"><a name="l00525"></a><span class="lineno">  525</span>&#160; </div>
+<div class="line"><a name="l00536"></a><span class="lineno">  536</span>&#160;<span class="keyword">inline</span></div>
+<div class="line"><a name="l00537"></a><span class="lineno"><a class="line" href="utf8_8h.html#af5b9fd7fd9c1d5e90a29bdfce6428b1c">  537</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="utf8_8h.html#a7efd70545eb2d60d5ec8136dfc3b37db">putenv</a> (<span class="keyword">const</span> std::string&amp; var, <span class="keyword">const</span> std::string&amp; val)</div>
+<div class="line"><a name="l00538"></a><span class="lineno">  538</span>&#160;{</div>
+<div class="line"><a name="l00539"></a><span class="lineno">  539</span>&#160;  <span class="keywordflow">return</span> (_wputenv_s (<a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">widen</a> (var).c_str (),</div>
+<div class="line"><a name="l00540"></a><span class="lineno">  540</span>&#160;    <a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">widen</a> (val).c_str ()) == 0);</div>
+<div class="line"><a name="l00541"></a><span class="lineno">  541</span>&#160;}</div>
 <div class="line"><a name="l00542"></a><span class="lineno">  542</span>&#160; </div>
-<div class="line"><a name="l00543"></a><span class="lineno">  543</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="winutf8_8h.html">utf8/winutf8.h</a>&gt;</span></div>
-<div class="line"><a name="l00544"></a><span class="lineno">  544</span>&#160;<span class="preprocessor">#include &lt;utf8/ini.h&gt;</span></div>
-<div class="line"><a name="l00545"></a><span class="lineno">  545</span>&#160; </div>
-<div class="line"><a name="l00546"></a><span class="lineno">  546</span>&#160; </div>
-<div class="line"><a name="l00547"></a><span class="lineno">  547</span>&#160;<span class="preprocessor">#pragma comment (lib, &quot;utf8&quot;</span>)</div>
+<div class="line"><a name="l00543"></a><span class="lineno">  543</span>&#160;}; <span class="comment">//namespace utf8</span></div>
+<div class="line"><a name="l00544"></a><span class="lineno">  544</span>&#160; </div>
+<div class="line"><a name="l00545"></a><span class="lineno">  545</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="winutf8_8h.html">utf8/winutf8.h</a>&gt;</span></div>
+<div class="line"><a name="l00546"></a><span class="lineno">  546</span>&#160;<span class="preprocessor">#include &lt;utf8/ini.h&gt;</span></div>
+<div class="line"><a name="l00547"></a><span class="lineno">  547</span>&#160; </div>
 <div class="line"><a name="l00548"></a><span class="lineno">  548</span>&#160; </div>
-<div class="ttc" id="aclassutf8_1_1fstream_html"><div class="ttname"><a href="classutf8_1_1fstream.html">utf8::fstream</a></div><div class="ttdoc">Bidirectional stream class using UTF-8 filename.</div><div class="ttdef"><b>Definition:</b> utf8.h:167</div></div>
-<div class="ttc" id="aclassutf8_1_1ifstream_html"><div class="ttname"><a href="classutf8_1_1ifstream.html">utf8::ifstream</a></div><div class="ttdoc">Input stream class using UTF-8 filename.</div><div class="ttdef"><b>Definition:</b> utf8.h:119</div></div>
-<div class="ttc" id="aclassutf8_1_1ofstream_html"><div class="ttname"><a href="classutf8_1_1ofstream.html">utf8::ofstream</a></div><div class="ttdoc">Output stream class using UTF-8 filename.</div><div class="ttdef"><b>Definition:</b> utf8.h:143</div></div>
-<div class="ttc" id="agroup__basecvt_html_ga40b8ab32b0b76d1f1df0b590e22e6283"><div class="ttname"><a href="group__basecvt.html#ga40b8ab32b0b76d1f1df0b590e22e6283">utf8::runes</a></div><div class="ttdeci">std::u32string runes(const char *s, size_t nch)</div><div class="ttdoc">Conversion from UTF-8 to UTF-32.</div><div class="ttdef"><b>Definition:</b> utf8.cpp:213</div></div>
+<div class="line"><a name="l00549"></a><span class="lineno">  549</span>&#160;<span class="preprocessor">#pragma comment (lib, &quot;utf8&quot;</span>)</div>
+<div class="line"><a name="l00550"></a><span class="lineno">  550</span>&#160; </div>
+<div class="ttc" id="aclassutf8_1_1fstream_html"><div class="ttname"><a href="classutf8_1_1fstream.html">utf8::fstream</a></div><div class="ttdoc">Bidirectional stream class using UTF-8 filename.</div><div class="ttdef"><b>Definition:</b> utf8.h:169</div></div>
+<div class="ttc" id="aclassutf8_1_1ifstream_html"><div class="ttname"><a href="classutf8_1_1ifstream.html">utf8::ifstream</a></div><div class="ttdoc">Input stream class using UTF-8 filename.</div><div class="ttdef"><b>Definition:</b> utf8.h:121</div></div>
+<div class="ttc" id="aclassutf8_1_1ofstream_html"><div class="ttname"><a href="classutf8_1_1ofstream.html">utf8::ofstream</a></div><div class="ttdoc">Output stream class using UTF-8 filename.</div><div class="ttdef"><b>Definition:</b> utf8.h:145</div></div>
+<div class="ttc" id="agroup__basecvt_html_ga40b8ab32b0b76d1f1df0b590e22e6283"><div class="ttname"><a href="group__basecvt.html#ga40b8ab32b0b76d1f1df0b590e22e6283">utf8::runes</a></div><div class="ttdeci">std::u32string runes(const char *s, size_t nch)</div><div class="ttdoc">Conversion from UTF-8 to UTF-32.</div><div class="ttdef"><b>Definition:</b> utf8.cpp:250</div></div>
 <div class="ttc" id="agroup__basecvt_html_ga7421a066f15d7f13f7ba6e237301ba76"><div class="ttname"><a href="group__basecvt.html#ga7421a066f15d7f13f7ba6e237301ba76">utf8::narrow</a></div><div class="ttdeci">std::string narrow(const wchar_t *s, size_t nch)</div><div class="ttdoc">Conversion from wide character to UTF-8.</div><div class="ttdef"><b>Definition:</b> utf8.cpp:51</div></div>
-<div class="ttc" id="agroup__basecvt_html_ga99123c395e1291a759b3d2abb6adbc8d"><div class="ttname"><a href="group__basecvt.html#ga99123c395e1291a759b3d2abb6adbc8d">utf8::rune</a></div><div class="ttdeci">char32_t rune(const std::string::const_iterator &amp;p)</div><div class="ttdoc">Return current Unicode code point.</div><div class="ttdef"><b>Definition:</b> utf8.h:377</div></div>
-<div class="ttc" id="agroup__basecvt_html_gade5f928144a0219a3725921de8cf8188"><div class="ttname"><a href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">utf8::widen</a></div><div class="ttdeci">std::wstring widen(const char *s, size_t nch)</div><div class="ttdoc">Conversion from UTF-8 to wide character.</div><div class="ttdef"><b>Definition:</b> utf8.cpp:176</div></div>
-<div class="ttc" id="agroup__charclass_html_ga271adbb9c025c72612a2da2fb5d7d304"><div class="ttname"><a href="group__charclass.html#ga271adbb9c025c72612a2da2fb5d7d304">utf8::isdigit</a></div><div class="ttdeci">bool isdigit(std::string::const_iterator p)</div><div class="ttdoc">Return true if character is a decimal digit (0-9)</div><div class="ttdef"><b>Definition:</b> utf8.h:434</div></div>
-<div class="ttc" id="agroup__charclass_html_ga5797323a87fdfdb9470804fa449e4ead"><div class="ttname"><a href="group__charclass.html#ga5797323a87fdfdb9470804fa449e4ead">utf8::isxdigit</a></div><div class="ttdeci">bool isxdigit(std::string::const_iterator p)</div><div class="ttdoc">Return true if character is a hexadecimal digit (0-9 or A-F or a-f)</div><div class="ttdef"><b>Definition:</b> utf8.h:491</div></div>
-<div class="ttc" id="agroup__charclass_html_ga67d7a7bf8769c5cf3c09760b1cb63d7e"><div class="ttname"><a href="group__charclass.html#ga67d7a7bf8769c5cf3c09760b1cb63d7e">utf8::isspace</a></div><div class="ttdeci">bool isspace(std::string::const_iterator p)</div><div class="ttdoc">Return true if character is blank(-ish)</div><div class="ttdef"><b>Definition:</b> utf8.h:396</div></div>
-<div class="ttc" id="agroup__charclass_html_ga6bcbed4885bc561156d4481097ac6447"><div class="ttname"><a href="group__charclass.html#ga6bcbed4885bc561156d4481097ac6447">utf8::isalpha</a></div><div class="ttdeci">bool isalpha(std::string::const_iterator p)</div><div class="ttdoc">Return true if character is an alphabetic character (A-Z or a-z)</div><div class="ttdef"><b>Definition:</b> utf8.h:472</div></div>
-<div class="ttc" id="agroup__charclass_html_gab5016c0cf5cfdfcbf462fe0b3071cb29"><div class="ttname"><a href="group__charclass.html#gab5016c0cf5cfdfcbf462fe0b3071cb29">utf8::isupper</a></div><div class="ttdeci">bool isupper(std::string::const_iterator p)</div><div class="ttdef"><b>Definition:</b> utf8.h:498</div></div>
-<div class="ttc" id="agroup__charclass_html_gae686cdfac97a3324193db0fae8214fd8"><div class="ttname"><a href="group__charclass.html#gae686cdfac97a3324193db0fae8214fd8">utf8::isalnum</a></div><div class="ttdeci">bool isalnum(std::string::const_iterator p)</div><div class="ttdoc">Return true if character is an alphanumeric character (0-9 or A-Z or a-z)</div><div class="ttdef"><b>Definition:</b> utf8.h:453</div></div>
-<div class="ttc" id="agroup__charclass_html_gaec411c7eea5fc3fcf20af0a5f66bf177"><div class="ttname"><a href="group__charclass.html#gaec411c7eea5fc3fcf20af0a5f66bf177">utf8::islower</a></div><div class="ttdeci">bool islower(std::string::const_iterator p)</div><div class="ttdef"><b>Definition:</b> utf8.h:505</div></div>
-<div class="ttc" id="agroup__charclass_html_gafbef7ae59c2532df07c855a639ee0fe1"><div class="ttname"><a href="group__charclass.html#gafbef7ae59c2532df07c855a639ee0fe1">utf8::isblank</a></div><div class="ttdeci">bool isblank(std::string::const_iterator p)</div><div class="ttdoc">Return true if character is blank or tab.</div><div class="ttdef"><b>Definition:</b> utf8.h:415</div></div>
+<div class="ttc" id="agroup__basecvt_html_ga99123c395e1291a759b3d2abb6adbc8d"><div class="ttname"><a href="group__basecvt.html#ga99123c395e1291a759b3d2abb6adbc8d">utf8::rune</a></div><div class="ttdeci">char32_t rune(const std::string::const_iterator &amp;p)</div><div class="ttdoc">Return current Unicode code point.</div><div class="ttdef"><b>Definition:</b> utf8.h:379</div></div>
+<div class="ttc" id="agroup__basecvt_html_gade5f928144a0219a3725921de8cf8188"><div class="ttname"><a href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">utf8::widen</a></div><div class="ttdeci">std::wstring widen(const char *s, size_t nch)</div><div class="ttdoc">Conversion from UTF-8 to wide character.</div><div class="ttdef"><b>Definition:</b> utf8.cpp:213</div></div>
+<div class="ttc" id="agroup__charclass_html_ga271adbb9c025c72612a2da2fb5d7d304"><div class="ttname"><a href="group__charclass.html#ga271adbb9c025c72612a2da2fb5d7d304">utf8::isdigit</a></div><div class="ttdeci">bool isdigit(std::string::const_iterator p)</div><div class="ttdoc">Return true if character is a decimal digit (0-9)</div><div class="ttdef"><b>Definition:</b> utf8.h:436</div></div>
+<div class="ttc" id="agroup__charclass_html_ga5797323a87fdfdb9470804fa449e4ead"><div class="ttname"><a href="group__charclass.html#ga5797323a87fdfdb9470804fa449e4ead">utf8::isxdigit</a></div><div class="ttdeci">bool isxdigit(std::string::const_iterator p)</div><div class="ttdoc">Return true if character is a hexadecimal digit (0-9 or A-F or a-f)</div><div class="ttdef"><b>Definition:</b> utf8.h:493</div></div>
+<div class="ttc" id="agroup__charclass_html_ga67d7a7bf8769c5cf3c09760b1cb63d7e"><div class="ttname"><a href="group__charclass.html#ga67d7a7bf8769c5cf3c09760b1cb63d7e">utf8::isspace</a></div><div class="ttdeci">bool isspace(std::string::const_iterator p)</div><div class="ttdoc">Return true if character is blank(-ish)</div><div class="ttdef"><b>Definition:</b> utf8.h:398</div></div>
+<div class="ttc" id="agroup__charclass_html_ga6bcbed4885bc561156d4481097ac6447"><div class="ttname"><a href="group__charclass.html#ga6bcbed4885bc561156d4481097ac6447">utf8::isalpha</a></div><div class="ttdeci">bool isalpha(std::string::const_iterator p)</div><div class="ttdoc">Return true if character is an alphabetic character (A-Z or a-z)</div><div class="ttdef"><b>Definition:</b> utf8.h:474</div></div>
+<div class="ttc" id="agroup__charclass_html_gab5016c0cf5cfdfcbf462fe0b3071cb29"><div class="ttname"><a href="group__charclass.html#gab5016c0cf5cfdfcbf462fe0b3071cb29">utf8::isupper</a></div><div class="ttdeci">bool isupper(std::string::const_iterator p)</div><div class="ttdef"><b>Definition:</b> utf8.h:500</div></div>
+<div class="ttc" id="agroup__charclass_html_gae686cdfac97a3324193db0fae8214fd8"><div class="ttname"><a href="group__charclass.html#gae686cdfac97a3324193db0fae8214fd8">utf8::isalnum</a></div><div class="ttdeci">bool isalnum(std::string::const_iterator p)</div><div class="ttdoc">Return true if character is an alphanumeric character (0-9 or A-Z or a-z)</div><div class="ttdef"><b>Definition:</b> utf8.h:455</div></div>
+<div class="ttc" id="agroup__charclass_html_gaec411c7eea5fc3fcf20af0a5f66bf177"><div class="ttname"><a href="group__charclass.html#gaec411c7eea5fc3fcf20af0a5f66bf177">utf8::islower</a></div><div class="ttdeci">bool islower(std::string::const_iterator p)</div><div class="ttdef"><b>Definition:</b> utf8.h:507</div></div>
+<div class="ttc" id="agroup__charclass_html_gafbef7ae59c2532df07c855a639ee0fe1"><div class="ttname"><a href="group__charclass.html#gafbef7ae59c2532df07c855a639ee0fe1">utf8::isblank</a></div><div class="ttdeci">bool isblank(std::string::const_iterator p)</div><div class="ttdoc">Return true if character is blank or tab.</div><div class="ttdef"><b>Definition:</b> utf8.h:417</div></div>
 <div class="ttc" id="agroup__folding_html_ga894cab0cb787243c4b12527548878f83"><div class="ttname"><a href="group__folding.html#ga894cab0cb787243c4b12527548878f83">utf8::tolower</a></div><div class="ttdeci">std::string tolower(const std::string &amp;str)</div><div class="ttdoc">Convert UTF-8 string to lower case using case folding table published by Unicode Consortium.</div><div class="ttdef"><b>Definition:</b> casecvt.cpp:64</div></div>
 <div class="ttc" id="agroup__folding_html_ga91b3da502eef20834b49c946ff821b79"><div class="ttname"><a href="group__folding.html#ga91b3da502eef20834b49c946ff821b79">utf8::toupper</a></div><div class="ttdeci">std::string toupper(const std::string &amp;str)</div><div class="ttdoc">Convert UTF-8 string to upper case using case folding table published by Unicode Consortium.</div><div class="ttdef"><b>Definition:</b> casecvt.cpp:103</div></div>
 <div class="ttc" id="agroup__folding_html_gaa65352f672803529414aaba45c30763f"><div class="ttname"><a href="group__folding.html#gaa65352f672803529414aaba45c30763f">utf8::icompare</a></div><div class="ttdeci">int icompare(const std::string &amp;s1, const std::string &amp;s2)</div><div class="ttdoc">Compare two strings in a case-insensitive way.</div><div class="ttdef"><b>Definition:</b> casecvt.cpp:132</div></div>
-<div class="ttc" id="autf8_8cpp_html_a07eb0dcaf69e2d9cbcd7d7b6f203f20a"><div class="ttname"><a href="utf8_8cpp.html#a07eb0dcaf69e2d9cbcd7d7b6f203f20a">utf8::makepath</a></div><div class="ttdeci">bool makepath(std::string &amp;path, const std::string &amp;drive, const std::string &amp;dir, const std::string &amp;fname, const std::string &amp;ext)</div><div class="ttdoc">Creates a path from UTF-8 encoded components.</div><div class="ttdef"><b>Definition:</b> utf8.cpp:535</div></div>
-<div class="ttc" id="autf8_8cpp_html_a1c7f8749f24103988795c22575f1c99e"><div class="ttname"><a href="utf8_8cpp.html#a1c7f8749f24103988795c22575f1c99e">utf8::next</a></div><div class="ttdeci">bool next(const std::string &amp;s, std::string::const_iterator &amp;p)</div><div class="ttdoc">Advances a string iterator to next UTF-8 character.</div><div class="ttdef"><b>Definition:</b> utf8.cpp:325</div></div>
-<div class="ttc" id="autf8_8cpp_html_a445530e19aefad1fde92232c09f37a4f"><div class="ttname"><a href="utf8_8cpp.html#a445530e19aefad1fde92232c09f37a4f">utf8::getenv</a></div><div class="ttdeci">std::string getenv(const std::string &amp;var)</div><div class="ttdoc">Retrieves the value of an environment variable.</div><div class="ttdef"><b>Definition:</b> utf8.cpp:552</div></div>
-<div class="ttc" id="autf8_8cpp_html_a5d0ef62a8f148b006b9c6fb6562446e0"><div class="ttname"><a href="utf8_8cpp.html#a5d0ef62a8f148b006b9c6fb6562446e0">utf8::splitpath</a></div><div class="ttdeci">bool splitpath(const std::string &amp;path, char *drive, char *dir, char *fname, char *ext)</div><div class="ttdoc">Breaks a path name into components.</div><div class="ttdef"><b>Definition:</b> utf8.cpp:471</div></div>
-<div class="ttc" id="autf8_8cpp_html_a611de942130d7b70ff9cfaaa79a1f005"><div class="ttname"><a href="utf8_8cpp.html#a611de942130d7b70ff9cfaaa79a1f005">utf8::free_argv</a></div><div class="ttdeci">void free_argv(int argc, char **argv)</div><div class="ttdoc">Frees the memory allocated by get_argv(int *argc)</div><div class="ttdef"><b>Definition:</b> utf8.cpp:601</div></div>
-<div class="ttc" id="autf8_8cpp_html_a86847074de33ea4eec2aa91ba500119b"><div class="ttname"><a href="utf8_8cpp.html#a86847074de33ea4eec2aa91ba500119b">utf8::get_argv</a></div><div class="ttdeci">char ** get_argv(int *argc)</div><div class="ttdoc">Converts wide byte command arguments to an array of pointers to UTF-8 strings.</div><div class="ttdef"><b>Definition:</b> utf8.cpp:577</div></div>
-<div class="ttc" id="autf8_8cpp_html_ab630a55b877a77ba64550357d0f387a3"><div class="ttname"><a href="utf8_8cpp.html#ab630a55b877a77ba64550357d0f387a3">utf8::valid</a></div><div class="ttdeci">bool valid(const char *s, size_t nch)</div><div class="ttdoc">Verifies if string is a valid UTF-8 string.</div><div class="ttdef"><b>Definition:</b> utf8.cpp:288</div></div>
-<div class="ttc" id="autf8_8cpp_html_ad489d686670dff8206a2c45a7b237ef1"><div class="ttname"><a href="utf8_8cpp.html#ad489d686670dff8206a2c45a7b237ef1">utf8::getcwd</a></div><div class="ttdeci">std::string getcwd()</div><div class="ttdoc">Gets the current working directory.</div><div class="ttdef"><b>Definition:</b> utf8.cpp:450</div></div>
-<div class="ttc" id="autf8_8cpp_html_afbcb53fd241b51ed4744eef1d7400a23"><div class="ttname"><a href="utf8_8cpp.html#afbcb53fd241b51ed4744eef1d7400a23">utf8::length</a></div><div class="ttdeci">size_t length(const std::string &amp;s)</div><div class="ttdoc">Counts number of characters in an UTF8 encoded string.</div><div class="ttdef"><b>Definition:</b> utf8.cpp:422</div></div>
-<div class="ttc" id="autf8_8h_html_a17111250dd542f9ed080a96cab913936"><div class="ttname"><a href="utf8_8h.html#a17111250dd542f9ed080a96cab913936">utf8::fopen</a></div><div class="ttdeci">FILE * fopen(const char *filename, const char *mode)</div><div class="ttdoc">Open a file.</div><div class="ttdef"><b>Definition:</b> utf8.h:348</div></div>
-<div class="ttc" id="autf8_8h_html_a1d0245cbb42146a80be6b62c718f61a6"><div class="ttname"><a href="utf8_8h.html#a1d0245cbb42146a80be6b62c718f61a6">utf8::rename</a></div><div class="ttdeci">bool rename(const char *oldname, const char *newname)</div><div class="ttdoc">Rename a file or directory.</div><div class="ttdef"><b>Definition:</b> utf8.h:328</div></div>
-<div class="ttc" id="autf8_8h_html_a42637c506240d2a9bfb1d69dcd083645"><div class="ttname"><a href="utf8_8h.html#a42637c506240d2a9bfb1d69dcd083645">utf8::rmdir</a></div><div class="ttdeci">bool rmdir(const char *dirname)</div><div class="ttdoc">Deletes a directory.</div><div class="ttdef"><b>Definition:</b> utf8.h:218</div></div>
-<div class="ttc" id="autf8_8h_html_a5f0eb1fee50553ad4e55671f52c7f2ec"><div class="ttname"><a href="utf8_8h.html#a5f0eb1fee50553ad4e55671f52c7f2ec">utf8::remove</a></div><div class="ttdeci">bool remove(const char *filename)</div><div class="ttdoc">Delete a file.</div><div class="ttdef"><b>Definition:</b> utf8.h:308</div></div>
-<div class="ttc" id="autf8_8h_html_a7efd70545eb2d60d5ec8136dfc3b37db"><div class="ttname"><a href="utf8_8h.html#a7efd70545eb2d60d5ec8136dfc3b37db">utf8::putenv</a></div><div class="ttdeci">bool putenv(const std::string &amp;str)</div><div class="ttdoc">Creates, modifies, or removes environment variables.</div><div class="ttdef"><b>Definition:</b> utf8.h:519</div></div>
-<div class="ttc" id="autf8_8h_html_a9a6a50a870135177fb98e9f2e0fb12d4"><div class="ttname"><a href="utf8_8h.html#a9a6a50a870135177fb98e9f2e0fb12d4">utf8::chmod</a></div><div class="ttdeci">bool chmod(const char *filename, int mode)</div><div class="ttdoc">Changes the file access permissions.</div><div class="ttdef"><b>Definition:</b> utf8.h:261</div></div>
-<div class="ttc" id="autf8_8h_html_aa6aefa08998a55dca4ba75312126e353"><div class="ttname"><a href="utf8_8h.html#aa6aefa08998a55dca4ba75312126e353">utf8::mkdir</a></div><div class="ttdeci">bool mkdir(const char *dirname)</div><div class="ttdoc">Creates a new directory.</div><div class="ttdef"><b>Definition:</b> utf8.h:199</div></div>
-<div class="ttc" id="autf8_8h_html_aabb576878dd9ae12de2f0ed0f854f1a4"><div class="ttname"><a href="utf8_8h.html#aabb576878dd9ae12de2f0ed0f854f1a4">utf8::chdir</a></div><div class="ttdeci">bool chdir(const char *dirname)</div><div class="ttdoc">Changes the current working directory.</div><div class="ttdef"><b>Definition:</b> utf8.h:238</div></div>
-<div class="ttc" id="autf8_8h_html_af3ebab9439377a6a3f13542dbab4337c"><div class="ttname"><a href="utf8_8h.html#af3ebab9439377a6a3f13542dbab4337c">utf8::access</a></div><div class="ttdeci">bool access(const char *filename, int mode)</div><div class="ttdoc">Determines if a file has the requested access permissions.</div><div class="ttdef"><b>Definition:</b> utf8.h:288</div></div>
-<div class="ttc" id="awin_8cpp_html_ac1275556865f307d60296437899bcdef"><div class="ttname"><a href="win_8cpp.html#ac1275556865f307d60296437899bcdef">utf8::symlink</a></div><div class="ttdeci">bool symlink(const char *path, const char *link, bool directory)</div><div class="ttdoc">Create a symbolic link.</div><div class="ttdef"><b>Definition:</b> win.cpp:168</div></div>
+<div class="ttc" id="autf8_8cpp_html_a07eb0dcaf69e2d9cbcd7d7b6f203f20a"><div class="ttname"><a href="utf8_8cpp.html#a07eb0dcaf69e2d9cbcd7d7b6f203f20a">utf8::makepath</a></div><div class="ttdeci">bool makepath(std::string &amp;path, const std::string &amp;drive, const std::string &amp;dir, const std::string &amp;fname, const std::string &amp;ext)</div><div class="ttdoc">Creates a path from UTF-8 encoded components.</div><div class="ttdef"><b>Definition:</b> utf8.cpp:572</div></div>
+<div class="ttc" id="autf8_8cpp_html_a113b05b70ac281735a112606a18bc687"><div class="ttname"><a href="utf8_8cpp.html#a113b05b70ac281735a112606a18bc687">utf8::fullpath</a></div><div class="ttdeci">std::string fullpath(const std::string &amp;relpath)</div><div class="ttdoc">Returns the absolute (full) path of a filename.</div><div class="ttdef"><b>Definition:</b> utf8.cpp:587</div></div>
+<div class="ttc" id="autf8_8cpp_html_a1c7f8749f24103988795c22575f1c99e"><div class="ttname"><a href="utf8_8cpp.html#a1c7f8749f24103988795c22575f1c99e">utf8::next</a></div><div class="ttdeci">bool next(const std::string &amp;s, std::string::const_iterator &amp;p)</div><div class="ttdoc">Advances a string iterator to next UTF-8 character.</div><div class="ttdef"><b>Definition:</b> utf8.cpp:362</div></div>
+<div class="ttc" id="autf8_8cpp_html_a445530e19aefad1fde92232c09f37a4f"><div class="ttname"><a href="utf8_8cpp.html#a445530e19aefad1fde92232c09f37a4f">utf8::getenv</a></div><div class="ttdeci">std::string getenv(const std::string &amp;var)</div><div class="ttdoc">Retrieves the value of an environment variable.</div><div class="ttdef"><b>Definition:</b> utf8.cpp:602</div></div>
+<div class="ttc" id="autf8_8cpp_html_a5d0ef62a8f148b006b9c6fb6562446e0"><div class="ttname"><a href="utf8_8cpp.html#a5d0ef62a8f148b006b9c6fb6562446e0">utf8::splitpath</a></div><div class="ttdeci">bool splitpath(const std::string &amp;path, char *drive, char *dir, char *fname, char *ext)</div><div class="ttdoc">Breaks a path name into components.</div><div class="ttdef"><b>Definition:</b> utf8.cpp:508</div></div>
+<div class="ttc" id="autf8_8cpp_html_a611de942130d7b70ff9cfaaa79a1f005"><div class="ttname"><a href="utf8_8cpp.html#a611de942130d7b70ff9cfaaa79a1f005">utf8::free_argv</a></div><div class="ttdeci">void free_argv(int argc, char **argv)</div><div class="ttdoc">Frees the memory allocated by get_argv(int *argc)</div><div class="ttdef"><b>Definition:</b> utf8.cpp:651</div></div>
+<div class="ttc" id="autf8_8cpp_html_a86847074de33ea4eec2aa91ba500119b"><div class="ttname"><a href="utf8_8cpp.html#a86847074de33ea4eec2aa91ba500119b">utf8::get_argv</a></div><div class="ttdeci">char ** get_argv(int *argc)</div><div class="ttdoc">Converts wide byte command arguments to an array of pointers to UTF-8 strings.</div><div class="ttdef"><b>Definition:</b> utf8.cpp:627</div></div>
+<div class="ttc" id="autf8_8cpp_html_ab630a55b877a77ba64550357d0f387a3"><div class="ttname"><a href="utf8_8cpp.html#ab630a55b877a77ba64550357d0f387a3">utf8::valid</a></div><div class="ttdeci">bool valid(const char *s, size_t nch)</div><div class="ttdoc">Verifies if string is a valid UTF-8 string.</div><div class="ttdef"><b>Definition:</b> utf8.cpp:325</div></div>
+<div class="ttc" id="autf8_8cpp_html_ad489d686670dff8206a2c45a7b237ef1"><div class="ttname"><a href="utf8_8cpp.html#ad489d686670dff8206a2c45a7b237ef1">utf8::getcwd</a></div><div class="ttdeci">std::string getcwd()</div><div class="ttdoc">Gets the current working directory.</div><div class="ttdef"><b>Definition:</b> utf8.cpp:487</div></div>
+<div class="ttc" id="autf8_8cpp_html_afbcb53fd241b51ed4744eef1d7400a23"><div class="ttname"><a href="utf8_8cpp.html#afbcb53fd241b51ed4744eef1d7400a23">utf8::length</a></div><div class="ttdeci">size_t length(const std::string &amp;s)</div><div class="ttdoc">Counts number of characters in an UTF8 encoded string.</div><div class="ttdef"><b>Definition:</b> utf8.cpp:459</div></div>
+<div class="ttc" id="autf8_8h_html_a17111250dd542f9ed080a96cab913936"><div class="ttname"><a href="utf8_8h.html#a17111250dd542f9ed080a96cab913936">utf8::fopen</a></div><div class="ttdeci">FILE * fopen(const char *filename, const char *mode)</div><div class="ttdoc">Open a file.</div><div class="ttdef"><b>Definition:</b> utf8.h:350</div></div>
+<div class="ttc" id="autf8_8h_html_a1d0245cbb42146a80be6b62c718f61a6"><div class="ttname"><a href="utf8_8h.html#a1d0245cbb42146a80be6b62c718f61a6">utf8::rename</a></div><div class="ttdeci">bool rename(const char *oldname, const char *newname)</div><div class="ttdoc">Rename a file or directory.</div><div class="ttdef"><b>Definition:</b> utf8.h:330</div></div>
+<div class="ttc" id="autf8_8h_html_a42637c506240d2a9bfb1d69dcd083645"><div class="ttname"><a href="utf8_8h.html#a42637c506240d2a9bfb1d69dcd083645">utf8::rmdir</a></div><div class="ttdeci">bool rmdir(const char *dirname)</div><div class="ttdoc">Deletes a directory.</div><div class="ttdef"><b>Definition:</b> utf8.h:220</div></div>
+<div class="ttc" id="autf8_8h_html_a5f0eb1fee50553ad4e55671f52c7f2ec"><div class="ttname"><a href="utf8_8h.html#a5f0eb1fee50553ad4e55671f52c7f2ec">utf8::remove</a></div><div class="ttdeci">bool remove(const char *filename)</div><div class="ttdoc">Delete a file.</div><div class="ttdef"><b>Definition:</b> utf8.h:310</div></div>
+<div class="ttc" id="autf8_8h_html_a7efd70545eb2d60d5ec8136dfc3b37db"><div class="ttname"><a href="utf8_8h.html#a7efd70545eb2d60d5ec8136dfc3b37db">utf8::putenv</a></div><div class="ttdeci">bool putenv(const std::string &amp;str)</div><div class="ttdoc">Creates, modifies, or removes environment variables.</div><div class="ttdef"><b>Definition:</b> utf8.h:521</div></div>
+<div class="ttc" id="autf8_8h_html_a9a6a50a870135177fb98e9f2e0fb12d4"><div class="ttname"><a href="utf8_8h.html#a9a6a50a870135177fb98e9f2e0fb12d4">utf8::chmod</a></div><div class="ttdeci">bool chmod(const char *filename, int mode)</div><div class="ttdoc">Changes the file access permissions.</div><div class="ttdef"><b>Definition:</b> utf8.h:263</div></div>
+<div class="ttc" id="autf8_8h_html_aa6aefa08998a55dca4ba75312126e353"><div class="ttname"><a href="utf8_8h.html#aa6aefa08998a55dca4ba75312126e353">utf8::mkdir</a></div><div class="ttdeci">bool mkdir(const char *dirname)</div><div class="ttdoc">Creates a new directory.</div><div class="ttdef"><b>Definition:</b> utf8.h:201</div></div>
+<div class="ttc" id="autf8_8h_html_aabb576878dd9ae12de2f0ed0f854f1a4"><div class="ttname"><a href="utf8_8h.html#aabb576878dd9ae12de2f0ed0f854f1a4">utf8::chdir</a></div><div class="ttdeci">bool chdir(const char *dirname)</div><div class="ttdoc">Changes the current working directory.</div><div class="ttdef"><b>Definition:</b> utf8.h:240</div></div>
+<div class="ttc" id="autf8_8h_html_af3ebab9439377a6a3f13542dbab4337c"><div class="ttname"><a href="utf8_8h.html#af3ebab9439377a6a3f13542dbab4337c">utf8::access</a></div><div class="ttdeci">bool access(const char *filename, int mode)</div><div class="ttdoc">Determines if a file has the requested access permissions.</div><div class="ttdef"><b>Definition:</b> utf8.h:290</div></div>
+<div class="ttc" id="awin_8cpp_html_ac1275556865f307d60296437899bcdef"><div class="ttname"><a href="win_8cpp.html#ac1275556865f307d60296437899bcdef">utf8::symlink</a></div><div class="ttdeci">bool symlink(const char *path, const char *link, bool directory)</div><div class="ttdoc">Create a symbolic link.</div><div class="ttdef"><b>Definition:</b> win.cpp:222</div></div>
 <div class="ttc" id="awinutf8_8h_html"><div class="ttname"><a href="winutf8_8h.html">winutf8.h</a></div><div class="ttdoc">Wrapper for popular Windows API functions</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

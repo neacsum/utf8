@@ -9,5 +9,6 @@ var searchData=
   ['find_5fnext_21',['find_next',['../win_8cpp.html#a62db79c86ab71f2fa7cc10dbd6a77e52',1,'utf8']]],
   ['fopen_22',['fopen',['../utf8_8h.html#a17111250dd542f9ed080a96cab913936',1,'utf8::fopen(const char *filename, const char *mode)'],['../utf8_8h.html#af52d36c6cd5519362893a68808fad0fc',1,'utf8::fopen(const std::string &amp;filename, const std::string &amp;mode)']]],
   ['free_5fargv_23',['free_argv',['../utf8_8cpp.html#a611de942130d7b70ff9cfaaa79a1f005',1,'utf8']]],
-  ['fstream_24',['fstream',['../classutf8_1_1fstream.html',1,'utf8']]]
+  ['fstream_24',['fstream',['../classutf8_1_1fstream.html',1,'utf8']]],
+  ['fullpath_25',['fullpath',['../utf8_8cpp.html#a113b05b70ac281735a112606a18bc687',1,'utf8']]]
 ];

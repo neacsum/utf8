@@ -86,6 +86,9 @@ Functions</h2></td></tr>
 <tr class="memitem:gaf7d4d20b4193ac40e77a97012bbfdc3b"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__basecvt.html#gaf7d4d20b4193ac40e77a97012bbfdc3b">utf8::narrow</a> (const std::u32string &amp;s)</td></tr>
 <tr class="memdesc:gaf7d4d20b4193ac40e77a97012bbfdc3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Conversion from UTF32 to UTF8.  <a href="group__basecvt.html#gaf7d4d20b4193ac40e77a97012bbfdc3b">More...</a><br /></td></tr>
 <tr class="separator:gaf7d4d20b4193ac40e77a97012bbfdc3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1a33e30c93403893d3cb25a7cd6eec12"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__basecvt.html#ga1a33e30c93403893d3cb25a7cd6eec12">utf8::narrow</a> (char32_t r)</td></tr>
+<tr class="memdesc:ga1a33e30c93403893d3cb25a7cd6eec12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Conversion from UTF32 to UTF8.  <a href="group__basecvt.html#ga1a33e30c93403893d3cb25a7cd6eec12">More...</a><br /></td></tr>
+<tr class="separator:ga1a33e30c93403893d3cb25a7cd6eec12"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gade5f928144a0219a3725921de8cf8188"><td class="memItemLeft" align="right" valign="top">std::wstring&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">utf8::widen</a> (const char *s, size_t nch)</td></tr>
 <tr class="memdesc:gade5f928144a0219a3725921de8cf8188"><td class="mdescLeft">&#160;</td><td class="mdescRight">Conversion from UTF-8 to wide character.  <a href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">More...</a><br /></td></tr>
 <tr class="separator:gade5f928144a0219a3725921de8cf8188"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -107,8 +110,34 @@ Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="ga1a33e30c93403893d3cb25a7cd6eec12"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga1a33e30c93403893d3cb25a7cd6eec12">&#9670;&nbsp;</a></span>narrow() <span class="overload">[1/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string utf8::narrow </td>
+          <td>(</td>
+          <td class="paramtype">char32_t&#160;</td>
+          <td class="paramname"><em>r</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">r</td><td>UTF-32 encoded character </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>UTF-8 encoded string</dd></dl>
+<p>Input parameter must be a valid UTF-32 code point ( &lt;0x10FFFF) </p>
+
+</div>
+</div>
 <a id="ga19652d960bcca27b6911ddf61fd7e253"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga19652d960bcca27b6911ddf61fd7e253">&#9670;&nbsp;</a></span>narrow() <span class="overload">[1/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ga19652d960bcca27b6911ddf61fd7e253">&#9670;&nbsp;</a></span>narrow() <span class="overload">[2/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -145,7 +174,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="gaf7d4d20b4193ac40e77a97012bbfdc3b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaf7d4d20b4193ac40e77a97012bbfdc3b">&#9670;&nbsp;</a></span>narrow() <span class="overload">[2/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf7d4d20b4193ac40e77a97012bbfdc3b">&#9670;&nbsp;</a></span>narrow() <span class="overload">[3/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -171,7 +200,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ga970ba3fbd79879d727137f70685ba126"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga970ba3fbd79879d727137f70685ba126">&#9670;&nbsp;</a></span>narrow() <span class="overload">[3/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ga970ba3fbd79879d727137f70685ba126">&#9670;&nbsp;</a></span>narrow() <span class="overload">[4/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -196,7 +225,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ga7421a066f15d7f13f7ba6e237301ba76"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga7421a066f15d7f13f7ba6e237301ba76">&#9670;&nbsp;</a></span>narrow() <span class="overload">[4/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7421a066f15d7f13f7ba6e237301ba76">&#9670;&nbsp;</a></span>narrow() <span class="overload">[5/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
