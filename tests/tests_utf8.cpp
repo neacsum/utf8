@@ -145,23 +145,23 @@ TEST (wemoji)
 
 TEST (rune)
 {
-  string smiley{ u8"😀" };
+  string smiley{ "😀" };
   int rune_smiley = rune (smiley.begin ());
   CHECK_EQUAL (0x1f600, rune_smiley);
 }
 
 TEST (rune2)
 {
-  const char* smiley{ u8"😀" };
+  const char* smiley{ "😀" };
   char32_t rune_smiley = rune (smiley);
-  CHECK_EQUAL (U'😀', rune_smiley);
+  CHECK_EQUAL ((int)U'😀', (int)rune_smiley);
 }
 
 
 //check that next function advances with one UTF8 character (rune)
 TEST (next)
 {
-  string emojis{ u8"😃😎😛" };
+  string emojis{ "😃😎😛" };
   int i = 0;
   auto ptr = emojis.begin ();
   while (ptr != emojis.end ())
@@ -176,7 +176,7 @@ TEST (next)
 // same test but using a character pointer instead of a string iterator
 TEST (next_ptr)
 {
-  string emojis{ u8"😃😎😛" };
+  string emojis{ "😃😎😛" };
   int i = 0;
   const char *ptr = emojis.c_str ();
   while (*ptr)
@@ -190,7 +190,7 @@ TEST (next_ptr)
 
 TEST (valid_funcs)
 {
-  string emojis{ u8"😃😎😛" };
+  string emojis{ "😃😎😛" };
   CHECK (utf8::valid (emojis));
   CHECK (utf8::valid (emojis.c_str ()));
   CHECK (utf8::valid (emojis.c_str (), emojis.length()));
@@ -205,10 +205,10 @@ TEST (valid_funcs)
 // test for runes function (conversion from UTF8 to UTF32)
 TEST (runes)
 {
-  string emojis{ u8"😃😎😛" };
+  string emojis{ "😃😎😛" };
   u32string emojis32 = runes (emojis);
   CHECK_EQUAL (3, emojis32.size ());
-  CHECK_EQUAL (0x1f603, emojis32[0]);
+  CHECK_EQUAL (0x1f603, (int)emojis32[0]);
 }
 
 
@@ -218,7 +218,7 @@ TEST (dir)
   obtain the current working directory and verify that it matches the name
   of the newly created folder */
 
-  string dirname = u8"ελληνικό";
+  string dirname = "ελληνικό";
   CHECK (mkdir (dirname));   //mkdir returns true  for success
 
   //enter newly created directory
@@ -242,20 +242,20 @@ TEST (symlink)
   created in the first directory is visible through the symlink.*/
 
   //make first directory
-  CHECK (mkdir (u8"ελληνικό"));
-  chdir (u8"ελληνικό");
+  CHECK (mkdir ("ελληνικό"));
+  chdir ("ελληνικό");
   //and a file in it
   utf8::ofstream out ("f.txt");
   out << "text" << endl;
   out.close ();
   chdir ("..");
   //make 2nd directory
-  CHECK (mkdir (u8"Հայերեն"));
-  chdir (u8"Հայերեն");
+  CHECK (mkdir ("Հայերեն"));
+  chdir ("Հայերեն");
   //and symlink to first
-  CHECK (symlink (u8"..\\ελληνικό", u8"पंजाबी", true));
+  CHECK (symlink (u8"..\\ελληνικό", "पंजाबी", true));
   //change into symlink
-  chdir (u8"पंजाबी");
+  chdir ("पंजाबी");
   utf8::ifstream in ("f.txt");
   string str;
   in >> str;
@@ -264,11 +264,11 @@ TEST (symlink)
 
   //cleanup
   utf8::remove ("f.txt");
-  chdir (u8"..");
-  rmdir (u8"पंजाबी");
   chdir ("..");
-  rmdir (u8"Հայերեն");
-  rmdir (u8"ελληνικό");
+  rmdir ("पंजाबी");
+  chdir ("..");
+  rmdir ("Հայերեն");
+  rmdir ("ελληνικό");
 }
 
 TEST (out_stream)
@@ -276,8 +276,8 @@ TEST (out_stream)
   /* Write some text in a file with a UTF8 encoded filename. Verifies using
   standard Windows file reading that content was written. */
 
-  string filename = u8"ελληνικό";
-  string filetext{ u8"😃😎😛" };
+  string filename = "ελληνικό";
+  string filetext{ "😃😎😛" };
 
   utf8::ofstream u8strm(filename);
 
@@ -305,8 +305,8 @@ TEST (in_stream)
   /* write some stuff in file using utf8::ofstream object and read it
   back using utf8::ifstream. Verify read back matches original.*/
 
-  string filetext{ u8"ελληνικό" };
-  string filename{ u8"😃😎😛" };
+  string filetext{ "ελληνικό" };
+  string filename{ "😃😎😛" };
 
   utf8::ofstream u8out (filename);
 
@@ -330,8 +330,8 @@ TEST (fopen_write)
   /* Write some text in a file with a UTF8 encoded filename. Verifies using
   standard Windows file reading that content was written. */
 
-  string filename = u8"ελληνικό";
-  string filetext{ u8"😃😎😛" };
+  string filename = "ελληνικό";
+  string filetext{ "😃😎😛" };
   FILE *u8file = utf8::fopen (filename, "w");
   ABORT_EX (u8file, "Failed to create output file");
 
@@ -369,12 +369,12 @@ TEST (full_path)
 
 TEST (make_splitpath)
 {
-  const string dir{ u8"ελληνικό αλφάβητο" },
-    fname{ u8"😃😎😛" };
+  const string dir{ "ελληνικό αλφάβητο" },
+    fname{ "😃😎😛" };
   string path;
   CHECK (utf8::makepath (path, "C", dir, fname, ".txt"));
   wstring wpath = widen (path);
-  CHECK_EQUAL (u8"C:ελληνικό αλφάβητο\\😃😎😛.txt", path);
+  CHECK_EQUAL ("C:ελληνικό αλφάβητο\\😃😎😛.txt", path);
   string drv1, dir1, fname1, ext1;
   CHECK (splitpath (path, drv1, dir1, fname1, ext1));
 
@@ -390,18 +390,18 @@ TEST (get_putenv)
   string path = utf8::getenv ("PATH");
   CHECK (!path.empty ());
 
-  utf8::putenv (u8"ελληνικό=😃😎😛");
-  CHECK_EQUAL (u8"😃😎😛", utf8::getenv (u8"ελληνικό"));
+  utf8::putenv ("ελληνικό=😃😎😛");
+  CHECK_EQUAL ("😃😎😛", utf8::getenv ("ελληνικό"));
 
-  utf8::putenv (u8"ελληνικό", string ());
-  CHECK (utf8::getenv (u8"ελληνικό").empty ());
+  utf8::putenv ("ελληνικό", string ());
+  CHECK (utf8::getenv ("ελληνικό").empty ());
 }
 
 TEST (msgbox)
 {
 #if 0
   //requires user's intervention
-  utf8::MessageBox (NULL, u8"ελληνικό", u8"😃😎😛", MB_ICONINFORMATION);
+  utf8::MessageBox (NULL, "ελληνικό", "😃😎😛", MB_ICONINFORMATION);
 #endif
 }
 
@@ -444,7 +444,7 @@ TEST (Temp_FileName)
 
 
   //Do the same thing with utf8::GetTempPath and utf8::GetTempFileName
-  auto fname =  utf8::GetTempFileName (utf8::GetTempPath (), u8"ÄñΩ", 1);
+  auto fname =  utf8::GetTempFileName (utf8::GetTempPath (), "ÄñΩ", 1);
 
   //see that we get the same result
   CHECK_EQUAL (narrow (wfname.c_str()), fname);
@@ -453,8 +453,8 @@ TEST (Temp_FileName)
 //check in-place versions of case folding functions
 TEST (case_conversion_inplace)
 {
-  string lc{ u8"mircea neacșu ăâățî" };
-  string uc{ u8"MIRCEA NEACȘU ĂÂĂȚÎ" };
+  string lc{ "mircea neacșu ăâățî" };
+  string uc{ "MIRCEA NEACȘU ĂÂĂȚÎ" };
   string t = lc;
   utf8::toupper (t);
   CHECK_EQUAL (uc, t);
@@ -466,30 +466,30 @@ TEST (case_conversion_inplace)
 //check string-returning versions of case folding functions
 TEST (case_conversion_ret)
 {
-  string uc = utf8::toupper (u8"αλφάβητο");
-  CHECK_EQUAL (u8"ΑΛΦΆΒΗΤΟ", uc);
-  CHECK_EQUAL (u8"αλφάβητο", utf8::tolower (u8"ΑΛΦΆΒΗΤΟ"));
+  string uc = utf8::toupper ("αλφάβητο");
+  CHECK_EQUAL ("ΑΛΦΆΒΗΤΟ", uc);
+  CHECK_EQUAL ("αλφάβητο", utf8::tolower ("ΑΛΦΆΒΗΤΟ"));
 }
 
 //check case-insensitive comparison
 TEST (icompare_equal)
 {
-  string lc{ u8"mircea neacșu ăâățî" };
-  string uc{ u8"MIRCEA NEACȘU ĂÂĂȚÎ" };
+  string lc{ "mircea neacșu ăâățî" };
+  string uc{ "MIRCEA NEACȘU ĂÂĂȚÎ" };
   CHECK (utf8::icompare (lc, uc) == 0);
 }
 
 TEST (icompare_less)
 {
-  string lc{ u8"mircea neacșu ăâățî" };
-  string uc{ u8"MIRCEA NEACȘU ĂÂĂȚÎ " };
+  string lc{ "mircea neacșu ăâățî" };
+  string uc{ "MIRCEA NEACȘU ĂÂĂȚÎ " };
   CHECK (utf8::icompare (lc, uc) < 0);
 }
 
 TEST (icompare_greater)
 {
-  string lc{ u8"mircea neacșu ăâățî" };
-  string uc{ u8"MIRCEA NEACȘU ĂÂ2ȚÎ" };
+  string lc{ "mircea neacșu ăâățî" };
+  string uc{ "MIRCEA NEACȘU ĂÂ2ȚÎ" };
   CHECK (utf8::icompare (lc, uc) > 0);
 }
 
@@ -563,8 +563,8 @@ TEST (char_class)
 // test character classes outside the 0-127 range
 TEST (is_upper_lower)
 {
-  const char* uc{ u8"MIRCEANEACȘUĂÂȚÎ" };
-  const char* lc{ u8"mirceaneacșuăâțî" };
+  const char* uc{ "MIRCEANEACȘUĂÂȚÎ" };
+  const char* lc{ "mirceaneacșuăâțî" };
 
   for (auto p = uc; *p; next (p))
     CHECK (isupper (p));
@@ -576,8 +576,8 @@ TEST (is_upper_lower)
 
 TEST (lower_substring)
 {
-  const string uc{ u8"ȚEPUȘ nicolae" };
-  const string lc{ u8"Țepuș nicolae" };
+  const string uc{ "ȚEPUȘ nicolae" };
+  const string lc{ "Țepuș nicolae" };
 
   auto p = uc.begin ();
   string s = utf8::narrow (utf8::rune (p));

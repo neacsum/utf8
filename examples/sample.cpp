@@ -44,66 +44,66 @@ int main (int /*unused*/, char ** /*unused*/)
   out << endl;
 
   //Create an INI file where we can store settings
-  utf8::IniFile ini(u8"Ελληνικός.ini");
+  utf8::IniFile ini("Ελληνικός.ini");
 
   //create a (sub)folder
   printf ("Creating Arabic folder. ");
-  utf8::mkdir (u8"اللغة العربي");
-  out << u8"Created Arabic folder اللغة العربي" << endl;
+  utf8::mkdir ("اللغة العربي");
+  out << "Created Arabic folder اللغة العربي" << endl;
   confirm ();
-  ini.PutString ("Folder", u8"اللغة العربي", "Settings");
+  ini.PutString ("Folder", "اللغة العربي", "Settings");
 
   //Change working directory to this new folder and create a file using fopen
-  utf8::chdir (u8"اللغة العربي");
+  utf8::chdir ("اللغة العربي");
   out << "Working folder is " << utf8::getcwd () << endl;
   printf ("Creating Aramaic file. ");
-  FILE *f = utf8::fopen (u8"ܐܪܡܝܐ.txt", "w");
+  FILE *f = utf8::fopen ("ܐܪܡܝܐ.txt", "w");
 
   /* Basic I/O functions are 'agnostic' to the actual encoding that's why there
   are no special versions for fread and fwrite functions. String I/O functions
   however need to know where the string ends and you have narrow version like
   fputs and wide version fputws. Here we work with UTF-8 strings so we use the
   narrow versions of them.*/
-  fputs (u8"This text is in Aramaic ܐܪܡܝܐ", f);
+  fputs ("This text is in Aramaic ܐܪܡܝܐ", f);
   fclose (f);
-  ini.PutString ("Aramaic", u8"ܐܪܡܝܐ", "Settings");
+  ini.PutString ("Aramaic", "ܐܪܡܝܐ", "Settings");
 
-  out << u8"Created Aramaic file ܐܪܡܝܐ.txt\n";
+  out << "Created Aramaic file ܐܪܡܝܐ.txt\n";
   confirm ();
 
   //How about a file with stream I/O
   printf ("Using streams to create an Armenian file. ");
-  utf8::ofstream os (u8"Հայերեն.txt");
-  os << u8"Text in Armenian Հայերեն" << std::endl;
+  utf8::ofstream os ("Հայերեն.txt");
+  os << "Text in Armenian Հայերեն" << std::endl;
   os.close ();
-  out << u8"Created Armenian file Հայերեն.txt" << endl;
+  out << "Created Armenian file Հայերեն.txt" << endl;
   confirm ();
-  ini.PutString (u8"Հայերեն", "Armenian", "Settings");
+  ini.PutString ("Հայերեն", "Armenian", "Settings");
 
   //Let's read some data using streams
   printf ("Reading data from Aramaic file. ");
-  utf8::ifstream is (u8"ܐܪܡܝܐ.txt");
+  utf8::ifstream is ("ܐܪܡܝܐ.txt");
   string s;
   getline (is, s);
-  out << u8"The first line in file Aramaic ܐܪܡܝܐ.txt is: " << s << endl;
+  out << "The first line in file Aramaic ܐܪܡܝܐ.txt is: " << s << endl;
   is.close ();
   confirm ();
 
   //Renaming a file
-  utf8::rename (u8"Հայերեն.txt", u8"Japanese 日本語.txt");
-  out << u8"New file name is Japanese 日本語.txt" << endl;
+  utf8::rename ("Հայերեն.txt", u8"Japanese 日本語.txt");
+  out << "New file name is Japanese 日本語.txt" << endl;
 
   //Set an environment variable and retrieve its value
-  utf8::putenv (u8"Punjabi=पंजाबी");
+  utf8::putenv ("Punjabi=पंजाबी");
   out << "The environment variable Punjabi is " 
       << utf8::getenv ("Punjabi") << endl;
 
   //convert a string to uppercase
-  string all_caps = utf8::toupper (u8"Neacșu"); // all_caps should be "NEACȘU"
+  string all_caps = utf8::toupper ("Neacșu"); // all_caps should be "NEACȘU"
   out << "The author's name is " << all_caps << endl;
 
   //convert a string to lowercase
-  string greek{ u8"ΑΛΦΆΒΗΤΟ"};
+  string greek{ "ΑΛΦΆΒΗΤΟ"};
   utf8::tolower (greek); //string should be  u8"αλφάβητο"
   out << "This is how Greeks say 'alphabet': " << greek << endl;
 
@@ -120,7 +120,7 @@ int main (int /*unused*/, char ** /*unused*/)
   //retrieve settings from INI file
   out << "INI setting: Folder=" << ini.GetString ("Folder", "Settings") << endl;
   out << "INI setting: Aramaic=" << ini.GetString ("Aramaic", "Settings") << endl;
-  out << "INI setting: Armenian=" << ini.GetString (u8"Հայերեն", "Settings") << endl;
+  out << "INI setting: Armenian=" << ini.GetString ("Հայերեն", "Settings") << endl;
 
   //delete INI file
   utf8::remove (u8"Ελληνικός.ini");
