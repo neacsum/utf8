@@ -150,8 +150,8 @@ int icompare (const std::string& s1, const std::string& s2)
     if ((lc1 != lc2))
       return (lc1 < lc2)? -1 : 1;
 
-    next (s1, p1);
-    next (s2, p2);
+    next (p1, s1.end ());
+    next (p2, s2.end ());
   }
   if (p1 != s1.end ())
     return 1;

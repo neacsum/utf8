@@ -79,7 +79,7 @@ $(function() {
 </ul>
 <p>There are also functions for:</p><ul>
 <li>character counting - <a class="el" href="utf8_8cpp.html#afbcb53fd241b51ed4744eef1d7400a23" title="Counts number of characters in an UTF8 encoded string.">length()</a></li>
-<li>string traversal - <a class="el" href="utf8_8cpp.html#a1c7f8749f24103988795c22575f1c99e" title="Advances a string iterator to next UTF-8 character.">next()</a></li>
+<li>string traversal - <a class="el" href="utf8_8cpp.html#ae08a17423808965292d597898aa7cfd3" title="Advances a string iterator to next code point.">next()</a></li>
 <li>validity checking - <a class="el" href="utf8_8cpp.html#ab630a55b877a77ba64550357d0f387a3" title="Verifies if string is a valid UTF-8 string.">valid()</a></li>
 </ul>
 <p>In addition to those, there are wrappings commonly used C and C++ functions:</p><ul>
@@ -101,26 +101,29 @@ $(function() {
 <p>Before using this library you might want to review the guidelines from the <a href="http://utf8everywhere.org/">UTF-8 Everywhere Manifesto</a>. In particular:</p><ul>
 <li>define UNICODE or _UNICODE in your program</li>
 <li>for Visual Studio users, make sure "Use Unicode Character Set" option is defined under "General" &gt; "Project Defaults" tab.</li>
-<li>for Visual Studio users, add "/utf-8" option under "C/C++" &gt; "All Options" &gt; "Additional Options" (see <a href="https://docs.microsoft.com/en-us/cpp/build/reference/utf-8-set-source-and-executable-character-sets-to-utf-8">https://docs.microsoft.com/en-us/cpp/build/reference/utf-8-set-source-and-executable-character-sets-to-utf-8</a>)</li>
-<li>use only <em>std::string</em> and <em>char*</em> variables. Assume they all contain UTF-8 encoded strings.</li>
+<li>for Visual Studio users, add <a href="https://docs.microsoft.com/en-us/cpp/build/reference/utf-8-set-source-and-executable-character-sets-to-utf-8"><code>/utf-8</code></a> option under "C/C++" &gt; "All Options" &gt; "Additional Options".</li>
+<li>use only <code>std::string</code> and <code>char\*</code> variables. Assume they all contain UTF-8 encoded strings.</li>
 <li>use UTF-16 strings only in arguments to Windows API calls.</li>
 </ul>
 <p>All functions and classes in this library are included in the <em>utf8</em> namespace. It is a good idea not to have a using directive for this namespace. That makes it more evident in the code where UTF8-aware functions are used.</p>
-<p>This is an example of a function call: </p><div class="fragment"><div class="line">string dirname = u8&quot;ελληνικό&quot;;</div>
-<div class="line">utf8::mkdir (dirname);   //create a directory with a UTF8-encoded name</div>
+<p>This is an example of a function call: </p><div class="fragment"><div class="line">std::string dirname = <span class="stringliteral">&quot;ελληνικό&quot;</span>;</div>
+<div class="line"><a class="code" href="utf8_8h.html#aa6aefa08998a55dca4ba75312126e353">utf8::mkdir</a> (dirname);   <span class="comment">//create a directory with a UTF8-encoded name</span></div>
+<div class="ttc" id="autf8_8h_html_aa6aefa08998a55dca4ba75312126e353"><div class="ttname"><a href="utf8_8h.html#aa6aefa08998a55dca4ba75312126e353">utf8::mkdir</a></div><div class="ttdeci">bool mkdir(const char *dirname)</div><div class="ttdoc">Creates a new directory.</div><div class="ttdef"><b>Definition:</b> utf8.h:201</div></div>
 </div><!-- fragment --><p> Most functions mimic the behavior of standard C functions. A notable exception is the <a class="el" href="utf8_8h.html#af3ebab9439377a6a3f13542dbab4337c" title="Determines if a file has the requested access permissions.">access()</a> function. The <a class="el" href="utf8_8h.html#af3ebab9439377a6a3f13542dbab4337c" title="Determines if a file has the requested access permissions.">utf8::access()</a> function returns a bool value while the standard library function returns 0 if the file can be accessed.</p>
 <h2>I/O Streams</h2>
-<p>Wrappers for C++ I/O streams can be used for file streams with UTF-8 encoded filenames. This is an example of a C++ stream with a weird name and content: </p><div class="fragment"><div class="line">string filename = u8&quot;ελληνικό&quot;;</div>
-<div class="line">string filetext{ u8&quot;😃😎😛&quot; };</div>
+<p>Wrappers for C++ I/O streams can be used for file streams with UTF-8 encoded filenames. This is an example of a C++ stream with a weird name and content: </p><div class="fragment"><div class="line">std::string filename = <span class="stringliteral">&quot;ελληνικό&quot;</span>;</div>
+<div class="line">std::string filetext{ <span class="stringliteral">&quot;😃😎😛&quot;</span> };</div>
 <div class="line"> </div>
-<div class="line">utf8::ofstream u8strm(filename);</div>
+<div class="line"><a class="code" href="classutf8_1_1ofstream.html">utf8::ofstream</a> u8strm(filename);</div>
 <div class="line"> </div>
 <div class="line">u8strm &lt;&lt; filetext &lt;&lt; endl;</div>
 <div class="line">u8strm.close ();</div>
+<div class="ttc" id="aclassutf8_1_1ofstream_html"><div class="ttname"><a href="classutf8_1_1ofstream.html">utf8::ofstream</a></div><div class="ttdoc">Output stream class using UTF-8 filename.</div><div class="ttdef"><b>Definition:</b> utf8.h:145</div></div>
 </div><!-- fragment --><p> Translation from UTF-16 to UTF-8 applies only to file names. C++ streams are agnostic about their content.</p>
-<p>Calling Windows API functions can be handled using the generic widening and narrowing functions like this example: </p><div class="fragment"><div class="line">string filename = u8&quot;ελληνικό&quot;;</div>
-<div class="line">HANDLE f = CreateFile (utf8::widen (filename).c_str (), GENERIC_READ, 0,</div>
+<p>Calling Windows API functions can be handled using the generic widening and narrowing functions like this example: </p><div class="fragment"><div class="line">std::string filename = <span class="stringliteral">&quot;ελληνικό&quot;</span>;</div>
+<div class="line">HANDLE f = CreateFile (<a class="code" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">utf8::widen</a> (filename).c_str (), GENERIC_READ, 0,</div>
 <div class="line">  NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);</div>
+<div class="ttc" id="agroup__basecvt_html_gade5f928144a0219a3725921de8cf8188"><div class="ttname"><a href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">utf8::widen</a></div><div class="ttdeci">std::wstring widen(const char *s, size_t nch)</div><div class="ttdoc">Conversion from UTF-8 to wide character.</div><div class="ttdef"><b>Definition:</b> utf8.cpp:192</div></div>
 </div><!-- fragment --><h2>INI File Handling</h2>
 <p>INI files, also called "profile files" in Microsoft parlance are still widely for storing application settings used either for compatibility reasons or because they are simple to work with.</p>
 <p>The problem is that the basic Windows API calls for reading and writing INI files, <code>GetPrivateProfileString</code> and <code>PutPrivateProfileString</code>, combine both the file name and the information to be read or written in one API call. As an example, here is the signature of the <code>GetPrivateProfileStringW</code> function: </p><div class="fragment"><div class="line">DWORD GetPrivateProfileStringW(</div>
@@ -141,9 +144,12 @@ $(function() {
 <p>Case conversion in Unicode is a much more complicated issue than ASCII case conversion. This library uses standard tables published by Unicode Consortium to perform upper case to lower case conversions. There is also a function <a class="el" href="group__folding.html#gaa65352f672803529414aaba45c30763f" title="Compare two strings in a case-insensitive way.">icompare()</a> that performs string comparison ignoring the case.</p>
 <h1>Building</h1>
 <p>The UTF8 library doesn't have any dependencies. The test programs however uses the <a href="https://github.com/neacsum/utpp">UTTP library</a>.</p>
+<p>You can use the <a href="https://github.com/neacsum/cpm">CPM - C/C++ Package Manager</a> to fetch all dependent packages and build them. Just issue the <code>cpm</code> command.</p>
+<p>The Visual C++ projects are set to compile under C++14 rules and they also compiles fine under C++17 rules. If you are using C++20 rules, you have to add the <a href="https://learn.microsoft.com/en-us/cpp/build/reference/zc-char8-t?view=msvc-170"><code>Zc:char8_t-</code></a> option.</p>
+<p>Alternatively, <code>BUILD.bat</code> script will build the libraries and test programs.</p>
 <h1>License</h1>
 <p>The MIT License (MIT)</p>
-<p>Copyright (c) 2014-2021 Mircea Neacsu</p>
+<p>Copyright (c) 2014-2022 Mircea Neacsu</p>
 <p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
 <p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
 <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. </p>

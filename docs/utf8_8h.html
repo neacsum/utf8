@@ -137,9 +137,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a2521532e5f84a299e835bf606fadd08b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utf8_8h.html#a2521532e5f84a299e835bf606fadd08b">utf8::valid</a> (const std::string &amp;s)</td></tr>
 <tr class="memdesc:a2521532e5f84a299e835bf606fadd08b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Verifies if string is a valid UTF-8 string.  <a href="utf8_8h.html#a2521532e5f84a299e835bf606fadd08b">More...</a><br /></td></tr>
 <tr class="separator:a2521532e5f84a299e835bf606fadd08b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1c7f8749f24103988795c22575f1c99e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utf8_8cpp.html#a1c7f8749f24103988795c22575f1c99e">utf8::next</a> (const std::string &amp;s, std::string::const_iterator &amp;p)</td></tr>
-<tr class="memdesc:a1c7f8749f24103988795c22575f1c99e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Advances a string iterator to next UTF-8 character.  <a href="utf8_8cpp.html#a1c7f8749f24103988795c22575f1c99e">More...</a><br /></td></tr>
-<tr class="separator:a1c7f8749f24103988795c22575f1c99e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae08a17423808965292d597898aa7cfd3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utf8_8cpp.html#ae08a17423808965292d597898aa7cfd3">utf8::next</a> (std::string::const_iterator &amp;p, const std::string::const_iterator &amp;last)</td></tr>
+<tr class="memdesc:ae08a17423808965292d597898aa7cfd3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Advances a string iterator to next code point.  <a href="utf8_8cpp.html#ae08a17423808965292d597898aa7cfd3">More...</a><br /></td></tr>
+<tr class="separator:ae08a17423808965292d597898aa7cfd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a90dba94eb3f754f886553035abdb3113"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utf8_8cpp.html#a90dba94eb3f754f886553035abdb3113">utf8::next</a> (const char *&amp;p)</td></tr>
 <tr class="memdesc:a90dba94eb3f754f886553035abdb3113"><td class="mdescLeft">&#160;</td><td class="mdescRight">Advances a character pointer to next UTF-8 character.  <a href="utf8_8cpp.html#a90dba94eb3f754f886553035abdb3113">More...</a><br /></td></tr>
 <tr class="separator:a90dba94eb3f754f886553035abdb3113"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -257,10 +257,10 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
 <tr class="memdesc:gaa65352f672803529414aaba45c30763f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compare two strings in a case-insensitive way.  <a href="group__folding.html#gaa65352f672803529414aaba45c30763f">More...</a><br /></td></tr>
 <tr class="separator:gaa65352f672803529414aaba45c30763f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga7976e253667c24d0e7027298eb39d939"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__charclass.html#ga7976e253667c24d0e7027298eb39d939">utf8::isspace</a> (const char *p)</td></tr>
-<tr class="memdesc:ga7976e253667c24d0e7027298eb39d939"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return true if character is blank(-ish)  <a href="group__charclass.html#ga7976e253667c24d0e7027298eb39d939">More...</a><br /></td></tr>
+<tr class="memdesc:ga7976e253667c24d0e7027298eb39d939"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return true if character is blank(-ish).  <a href="group__charclass.html#ga7976e253667c24d0e7027298eb39d939">More...</a><br /></td></tr>
 <tr class="separator:ga7976e253667c24d0e7027298eb39d939"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga67d7a7bf8769c5cf3c09760b1cb63d7e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__charclass.html#ga67d7a7bf8769c5cf3c09760b1cb63d7e">utf8::isspace</a> (std::string::const_iterator p)</td></tr>
-<tr class="memdesc:ga67d7a7bf8769c5cf3c09760b1cb63d7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return true if character is blank(-ish)  <a href="group__charclass.html#ga67d7a7bf8769c5cf3c09760b1cb63d7e">More...</a><br /></td></tr>
+<tr class="memdesc:ga67d7a7bf8769c5cf3c09760b1cb63d7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return true if character is blank(-ish).  <a href="group__charclass.html#ga67d7a7bf8769c5cf3c09760b1cb63d7e">More...</a><br /></td></tr>
 <tr class="separator:ga67d7a7bf8769c5cf3c09760b1cb63d7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gad027d49e136b37181017f4cd092f2dcb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__charclass.html#gad027d49e136b37181017f4cd092f2dcb">utf8::isblank</a> (const char *p)</td></tr>
 <tr class="memdesc:gad027d49e136b37181017f4cd092f2dcb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return true if character is blank or tab.  <a href="group__charclass.html#gad027d49e136b37181017f4cd092f2dcb">More...</a><br /></td></tr>
@@ -999,8 +999,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
 
 </div>
 </div>
-<a id="a1c7f8749f24103988795c22575f1c99e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1c7f8749f24103988795c22575f1c99e">&#9670;&nbsp;</a></span>next() <span class="overload">[2/2]</span></h2>
+<a id="ae08a17423808965292d597898aa7cfd3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae08a17423808965292d597898aa7cfd3">&#9670;&nbsp;</a></span>next() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1008,14 +1008,14 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
         <tr>
           <td class="memname">bool utf8::next </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>s</em>, </td>
+          <td class="paramtype">std::string::const_iterator &amp;&#160;</td>
+          <td class="paramname"><em>p</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::string::const_iterator &amp;&#160;</td>
-          <td class="paramname"><em>p</em>&#160;</td>
+          <td class="paramtype">const std::string::const_iterator &amp;&#160;</td>
+          <td class="paramname"><em>last</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -1026,12 +1026,13 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grou
 </div><div class="memdoc">
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">s</td><td>UTF-8 string </td></tr>
-    <tr><td class="paramname">p</td><td>Iterator on s string to be advanced </td></tr>
+    <tr><td class="paramname">p</td><td>Iterator to be advanced </td></tr>
+    <tr><td class="paramname">last</td><td>Iterator pointing to the end of range <br  />
+ </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>True if iterator can be advanced or is already at end; false if string contains an invalid UTF-8 encoding at iterator's position. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>True if iterator can be advanced or is already at end of range; false if string contains an invalid UTF-8 encoding at iterator's position. </dd></dl>
 
 </div>
 </div>

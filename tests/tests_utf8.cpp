@@ -158,7 +158,7 @@ TEST (rune2)
 }
 
 
-//check that next function advances with one UTF8 character (rune)
+//check that next function advances with one code point
 TEST (next)
 {
   string emojis{ "😃😎😛" };
@@ -167,7 +167,7 @@ TEST (next)
   while (ptr != emojis.end ())
   {
     i++;
-    CHECK (next (emojis, ptr));
+    CHECK (next (ptr, emojis.end()));
   }
 
   CHECK_EQUAL (3, i);
@@ -560,6 +560,22 @@ TEST (char_class)
   }
 }
 
+//skip spaces in UTF-8 string
+TEST (skip_spaces)
+{
+  string s{ " \xC2\xA0日本語" };
+  auto p = s.begin ();
+  int blanks = 0;
+  while (p != s.end () && utf8::isspace (p))
+  {
+    blanks++;
+    CHECK (utf8::next (p, s.end ()));
+  }
+
+  CHECK_EQUAL (2, blanks); //both space and "no-break space" are space characters
+}
+
+
 // test character classes outside the 0-127 range
 TEST (is_upper_lower)
 {
@@ -571,7 +587,6 @@ TEST (is_upper_lower)
 
   for (auto p = lc; *p; next (p))
     CHECK (islower (p));
-
 }
 
 TEST (lower_substring)
@@ -581,7 +596,7 @@ TEST (lower_substring)
 
   auto p = uc.begin ();
   string s = utf8::narrow (utf8::rune (p));
-  utf8::next (uc, p);
+  utf8::next (p, uc.end());
   s += utf8::tolower (string (p, uc.end ()));
 
   CHECK_EQUAL (lc, s);

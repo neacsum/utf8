@@ -30,7 +30,7 @@ char32_t rune (const std::string::const_iterator& p);
 
 bool valid (const char* s, size_t nch = 0);
 bool valid (const std::string& s);
-bool next (const std::string& s, std::string::const_iterator& p);
+bool next (std::string::const_iterator& p, const std::string::const_iterator& last);
 bool next (const char*& p);
 bool next (char*& p);
 
@@ -381,17 +381,6 @@ char32_t rune (const std::string::const_iterator& p)
   return rune (&(*p));
 }
 
-
-/*!
-  Return true if character is blank(-ish)
-  \param p pointer to character to check
-  \return true if character is blank, false otherwise
-*/
-inline
-bool isspace (const char* p)
-{
-  return (*p && (strchr (" \t\n\r\f\v", *p) != nullptr));
-}
 
 /// \copydoc isspace()
 inline

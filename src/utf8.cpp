@@ -17,27 +17,6 @@ namespace utf8 {
 /*!
   \defgroup basecvt Narowing/Widening Functions
   Basic conversion functions between UTF-8, UTF-16 and UTF-32
-
-  \defgroup charclass Character Classification Functions
-  Replacements for character classification functions.
-
-  According to C standard, the [is...](https://en.cppreference.com/w/cpp/header/cctype)
-  family of functions have undefined behavior if the argument is outside the
-  range of printable characters. These replacement functions are well-behaved
-  for any input string.
-
-  The argument is a character pointer or a string iterator. Use them as in the
-  following example:
-\code
-  //skip blanks in UTF-8 string
-  string s{ u8"  日本語" };
-  auto p = s.begin ();
-  while (p != s.end () && utf8::isblank (p))
-    utf8::next (p);
-
-  //...
-\endcode
-
 */
 
 
@@ -272,7 +251,7 @@ std::u32string runes (const char* s, size_t nch)
 std::u32string runes (const std::string& s)
 {
   u32string str;
-  for (auto p = s.begin (); p != s.end (); next (s, p))
+  for (auto p = s.begin (); p != s.end (); next (p, s.end()))
     str.push_back (rune (p));
   return str;
 }
@@ -351,18 +330,18 @@ bool valid (const char *s, size_t nch)
 }
 
 /*!
-  Advances a string iterator to next UTF-8 character
+  Advances a string iterator to next code point
 
-  \param s    UTF-8 string
-  \param p    Iterator on s string to be advanced
-  \return     True if iterator can be advanced or is already at end;
+  \param p    Iterator to be advanced
+  \param last Iterator pointing to the end of range  
+  \return     True if iterator can be advanced or is already at end of range;
               false if string contains an invalid UTF-8 encoding at iterator's
               position.
 */
-bool next (const std::string& s, std::string::const_iterator& p)
+bool next (std::string::const_iterator& p, const std::string::const_iterator& last)
 {
   int rem = 0;
-  if (p == s.end ())
+  if (p == last)
     return true;    //don't advance past end
 
   do
@@ -381,7 +360,7 @@ bool next (const std::string& s, std::string::const_iterator& p)
     else if ((*p & 0xF8) == 0xF0)
       rem = 3;
     p++;
-  } while (rem && p != s.end ());
+  } while (rem && p != last);
 
   return !rem; // rem == 0 if sequence is complete
 }
@@ -674,5 +653,55 @@ std::vector<std::string> get_argv ()
   }
   return uargv;
 }
+
+/*!
+  \defgroup charclass Character Classification Functions
+  Replacements for character classification functions.
+
+  According to C standard, the [is...](https://en.cppreference.com/w/cpp/header/cctype)
+  family of functions have undefined behavior if the argument is outside the
+  range of printable characters. These replacement functions are well-behaved
+  for any input string.
+
+  The argument is a character pointer or a string iterator. Use them as in the
+  following example:
+\code
+  //skip spaces in UTF-8 string
+  string s{ u8" \xA0日本語" };
+  auto p = s.begin ();
+  int blanks = 0;
+  while (p != s.end () && utf8::isspace (p))
+  {
+    blanks++;
+    utf8::next (p, s.end ());
+  }
+  assert (blanks == 2); //both space and "no-break space" are space characters
+  //...
+\endcode
+
+*/
+
+/*!
+  Return true if character is blank(-ish).
+  \param p pointer to character to check
+  \return `true` if character is blank, `false` otherwise
+
+  Returns `true` if Unicode character has the "White_Space=yes" property in the
+  [Unicode Character Database](https://www.unicode.org/Public/UCD/latest/ucd/PropList.txt)
+*/
+bool isspace (const char* p)
+{
+  const char32_t spacetab[] {0x20, 0x09, 0x0d, 0x0a, 0x0b, 0x0c, 0x85, 0xA0, 0x1680,
+    0x2000, 0x2001, 0x2002, 0x2004, 0x2005, 0x2006, 0x2007, 0x2008, 0x2009, 0x200A,
+    0x2028, 0x2020, 0x202f, 0x205f, 0x3000};
+
+  char32_t c = rune (p);
+  for (auto i = 0; i < _countof (spacetab); i++)
+    if (c == spacetab[i])
+      return true;
+
+  return false;
+}
+
 
 } //end namespace

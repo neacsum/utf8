@@ -75,10 +75,10 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ga7976e253667c24d0e7027298eb39d939"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__charclass.html#ga7976e253667c24d0e7027298eb39d939">utf8::isspace</a> (const char *p)</td></tr>
-<tr class="memdesc:ga7976e253667c24d0e7027298eb39d939"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return true if character is blank(-ish)  <a href="group__charclass.html#ga7976e253667c24d0e7027298eb39d939">More...</a><br /></td></tr>
+<tr class="memdesc:ga7976e253667c24d0e7027298eb39d939"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return true if character is blank(-ish).  <a href="group__charclass.html#ga7976e253667c24d0e7027298eb39d939">More...</a><br /></td></tr>
 <tr class="separator:ga7976e253667c24d0e7027298eb39d939"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga67d7a7bf8769c5cf3c09760b1cb63d7e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__charclass.html#ga67d7a7bf8769c5cf3c09760b1cb63d7e">utf8::isspace</a> (std::string::const_iterator p)</td></tr>
-<tr class="memdesc:ga67d7a7bf8769c5cf3c09760b1cb63d7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return true if character is blank(-ish)  <a href="group__charclass.html#ga67d7a7bf8769c5cf3c09760b1cb63d7e">More...</a><br /></td></tr>
+<tr class="memdesc:ga67d7a7bf8769c5cf3c09760b1cb63d7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return true if character is blank(-ish).  <a href="group__charclass.html#ga67d7a7bf8769c5cf3c09760b1cb63d7e">More...</a><br /></td></tr>
 <tr class="separator:ga67d7a7bf8769c5cf3c09760b1cb63d7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gad027d49e136b37181017f4cd092f2dcb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__charclass.html#gad027d49e136b37181017f4cd092f2dcb">utf8::isblank</a> (const char *p)</td></tr>
 <tr class="memdesc:gad027d49e136b37181017f4cd092f2dcb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return true if character is blank or tab.  <a href="group__charclass.html#gad027d49e136b37181017f4cd092f2dcb">More...</a><br /></td></tr>
@@ -121,15 +121,19 @@ Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>According to C standard, the <a href="https://en.cppreference.com/w/cpp/header/cctype">is...</a> family of functions have undefined behavior if the argument is outside the range of printable characters. These replacement functions are well-behaved for any input string.</p>
-<p>The argument is a character pointer or a string iterator. Use them as in the following example: </p><div class="fragment"><div class="line"><span class="comment">//skip blanks in UTF-8 string</span></div>
-<div class="line"><span class="keywordtype">string</span> s{ u8<span class="stringliteral">&quot;  日本語&quot;</span> };</div>
+<p>The argument is a character pointer or a string iterator. Use them as in the following example: </p><div class="fragment"><div class="line"><span class="comment">//skip spaces in UTF-8 string</span></div>
+<div class="line"><span class="keywordtype">string</span> s{ u8<span class="stringliteral">&quot; \xA0日本語&quot;</span> };</div>
 <div class="line"><span class="keyword">auto</span> p = s.begin ();</div>
-<div class="line"><span class="keywordflow">while</span> (p != s.end () &amp;&amp; <a class="code" href="group__charclass.html#gad027d49e136b37181017f4cd092f2dcb">utf8::isblank</a> (p))</div>
-<div class="line">  <a class="code" href="utf8_8cpp.html#a1c7f8749f24103988795c22575f1c99e">utf8::next</a> (p);</div>
-<div class="line"> </div>
+<div class="line"><span class="keywordtype">int</span> blanks = 0;</div>
+<div class="line"><span class="keywordflow">while</span> (p != s.end () &amp;&amp; <a class="code" href="group__charclass.html#ga7976e253667c24d0e7027298eb39d939">utf8::isspace</a> (p))</div>
+<div class="line">{</div>
+<div class="line">  blanks++;</div>
+<div class="line">  <a class="code" href="utf8_8cpp.html#ae08a17423808965292d597898aa7cfd3">utf8::next</a> (p, s.end ());</div>
+<div class="line">}</div>
+<div class="line">assert (blanks == 2); <span class="comment">//both space and &quot;no-break space&quot; are space characters</span></div>
 <div class="line"><span class="comment">//...</span></div>
-<div class="ttc" id="agroup__charclass_html_gad027d49e136b37181017f4cd092f2dcb"><div class="ttname"><a href="group__charclass.html#gad027d49e136b37181017f4cd092f2dcb">utf8::isblank</a></div><div class="ttdeci">bool isblank(const char *p)</div><div class="ttdoc">Return true if character is blank or tab.</div><div class="ttdef"><b>Definition:</b> utf8.h:410</div></div>
-<div class="ttc" id="autf8_8cpp_html_a1c7f8749f24103988795c22575f1c99e"><div class="ttname"><a href="utf8_8cpp.html#a1c7f8749f24103988795c22575f1c99e">utf8::next</a></div><div class="ttdeci">bool next(const std::string &amp;s, std::string::const_iterator &amp;p)</div><div class="ttdoc">Advances a string iterator to next UTF-8 character.</div><div class="ttdef"><b>Definition:</b> utf8.cpp:362</div></div>
+<div class="ttc" id="agroup__charclass_html_ga7976e253667c24d0e7027298eb39d939"><div class="ttname"><a href="group__charclass.html#ga7976e253667c24d0e7027298eb39d939">utf8::isspace</a></div><div class="ttdeci">bool isspace(const char *p)</div><div class="ttdoc">Return true if character is blank(-ish).</div><div class="ttdef"><b>Definition:</b> utf8.cpp:692</div></div>
+<div class="ttc" id="autf8_8cpp_html_ae08a17423808965292d597898aa7cfd3"><div class="ttname"><a href="utf8_8cpp.html#ae08a17423808965292d597898aa7cfd3">utf8::next</a></div><div class="ttdeci">bool next(std::string::const_iterator &amp;p, const std::string::const_iterator &amp;last)</div><div class="ttdoc">Advances a string iterator to next code point.</div><div class="ttdef"><b>Definition:</b> utf8.cpp:341</div></div>
 </div><!-- fragment --> <h2 class="groupheader">Function Documentation</h2>
 <a id="ga30a655a5e7dd28e4d05ea9825ff32e73"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga30a655a5e7dd28e4d05ea9825ff32e73">&#9670;&nbsp;</a></span>isalnum() <span class="overload">[1/2]</span></h2>
@@ -456,9 +460,6 @@ Functions</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">bool utf8::isspace </td>
@@ -468,11 +469,6 @@ Functions</h2></td></tr>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -480,7 +476,8 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>true if character is blank, false otherwise </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if character is blank, <code>false</code> otherwise</dd></dl>
+<p>Returns <code>true</code> if Unicode character has the "White_Space=yes" property in the <a href="https://www.unicode.org/Public/UCD/latest/ucd/PropList.txt">Unicode Character Database</a> </p>
 
 </div>
 </div>
@@ -513,7 +510,8 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>true if character is blank, false otherwise </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if character is blank, <code>false</code> otherwise</dd></dl>
+<p>Returns <code>true</code> if Unicode character has the "White_Space=yes" property in the <a href="https://www.unicode.org/Public/UCD/latest/ucd/PropList.txt">Unicode Character Database</a> </p>
 
 </div>
 </div>
