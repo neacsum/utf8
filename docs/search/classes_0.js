@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['buffer_101',['buffer',['../classutf8_1_1buffer.html',1,'utf8']]]
+  ['buffer_105',['buffer',['../classutf8_1_1buffer.html',1,'utf8']]]
 ];

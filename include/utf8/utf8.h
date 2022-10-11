@@ -10,6 +10,20 @@
 
 namespace utf8 {
 
+/// Exception thrown on encoding/decoding failure
+struct exception : public std::exception
+{
+  enum reason { invalid_utf8, invalid_char32 };
+  exception (reason c)
+    : std::exception (
+      c == reason::invalid_utf8 ? "Invalid UTF-8 encoding" :
+      c == reason::invalid_char32 ? "Invalid code-point value" :
+      "Other UTF-8 exception")
+    , cause (c)
+  {}
+  reason cause;
+};
+
 /// \addtogroup basecvt
 /// @{
 std::string narrow (const wchar_t* s, size_t nch=0);
@@ -27,10 +41,12 @@ char32_t rune (const char* p);
 char32_t rune (const std::string::const_iterator& p);
 /// @}
 
+bool is_valid (const char* p);
+bool is_valid (std::string::const_iterator p, const std::string::const_iterator last);
+bool valid_str (const char* s, size_t nch = 0);
+bool valid_str (const std::string& s);
 
-bool valid (const char* s, size_t nch = 0);
-bool valid (const std::string& s);
-bool next (std::string::const_iterator& p, const std::string::const_iterator& last);
+bool next (std::string::const_iterator& p, const std::string::const_iterator last);
 bool next (const char*& p);
 bool next (char*& p);
 
@@ -190,6 +206,21 @@ public:
 
 
 // INLINES --------------------------------------------------------------------
+
+/*!
+  Advances a character pointer to next UTF-8 character
+
+  \param p    <b>Reference</b> to character pointer to be advanced
+  \return     `true` if pointer was advanced or `false` otherwise.
+
+  The function throws an exception if iterator points to an invalid UTF-8 encoding.
+*/
+inline
+bool next (char*& p)
+{
+  return next (const_cast<const char*&>(p));
+}
+
 
 /*!
   Creates a new directory
@@ -364,14 +395,14 @@ FILE* fopen (const std::string& filename, const std::string& mode)
 }
 
 /*!
-  Verifies if string is a valid UTF-8 string
+  Verifies if string is a valid UTF-8 encoded string
   \param s character string to verify
-  \return true if string is a valid UTF-8 encoded string, false otherwise
+  \return `true` if string is a valid UTF-8 encoded string, `false` otherwise
 */
 inline
-bool valid (const std::string& s)
+bool valid_str (const std::string& s)
 {
-  return valid (s.c_str (), s.size());
+  return valid_str (s.c_str (), s.size());
 }
 
 /// @copydoc rune()

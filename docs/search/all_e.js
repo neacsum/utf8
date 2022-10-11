@@ -1,8 +1,9 @@
 var searchData=
 [
-  ['shellexecute_83',['ShellExecute',['../win_8cpp.html#a3a9118219f196710e4ee8f90e94264fc',1,'utf8']]],
-  ['short_5fname_84',['short_name',['../structutf8_1_1find__data.html#ab57e8b00e7bda123399680582cd2b948',1,'utf8::find_data']]],
-  ['size_85',['size',['../structutf8_1_1find__data.html#a0c3e04203610ddb1fc4cf476751d0e91',1,'utf8::find_data::size()'],['../classutf8_1_1buffer.html#abb9310190676e5fccba04d31f70bf3ac',1,'utf8::buffer::size()']]],
-  ['splitpath_86',['splitpath',['../utf8_8cpp.html#a5d0ef62a8f148b006b9c6fb6562446e0',1,'utf8::splitpath(const std::string &amp;path, char *drive, char *dir, char *fname, char *ext)'],['../utf8_8cpp.html#aa968ecec5b5c628747b386636bf271ae',1,'utf8::splitpath(const std::string &amp;path, std::string &amp;drive, std::string &amp;dir, std::string &amp;fname, std::string &amp;ext)']]],
-  ['symlink_87',['symlink',['../win_8cpp.html#ac1275556865f307d60296437899bcdef',1,'utf8::symlink(const char *path, const char *link, bool directory)'],['../win_8cpp.html#ad421be5a76e30b85acb42ca25c286cba',1,'utf8::symlink(const std::string &amp;path, const std::string &amp;link, bool directory)']]]
+  ['remove_81',['remove',['../utf8_8h.html#a5f0eb1fee50553ad4e55671f52c7f2ec',1,'utf8::remove(const char *filename)'],['../utf8_8h.html#ac5b06bf0060adccc6b102268fc7cf4a0',1,'utf8::remove(const std::string &amp;filename)']]],
+  ['rename_82',['rename',['../utf8_8h.html#a1d0245cbb42146a80be6b62c718f61a6',1,'utf8::rename(const char *oldname, const char *newname)'],['../utf8_8h.html#abf5baede52d0081d7f471ba7a62ac52f',1,'utf8::rename(const std::string &amp;oldname, const std::string &amp;newname)']]],
+  ['replacement_5fcharacter_83',['REPLACEMENT_CHARACTER',['../utf8_8cpp.html#a3e7ba3734643219da540c6488accf39f',1,'utf8']]],
+  ['rmdir_84',['rmdir',['../utf8_8h.html#a42637c506240d2a9bfb1d69dcd083645',1,'utf8::rmdir(const char *dirname)'],['../utf8_8h.html#aff322efb8a22d9d5ce871e259d60a6e7',1,'utf8::rmdir(const std::string &amp;dirname)']]],
+  ['rune_85',['rune',['../group__basecvt.html#ga7c43141140402bf66979c6571760cbbe',1,'utf8::rune(const char *p)'],['../group__basecvt.html#ga99123c395e1291a759b3d2abb6adbc8d',1,'utf8::rune(const std::string::const_iterator &amp;p)']]],
+  ['runes_86',['runes',['../group__basecvt.html#ga40b8ab32b0b76d1f1df0b590e22e6283',1,'utf8::runes(const char *s, size_t nch)'],['../group__basecvt.html#ga29b32af36ac8088c622fe1d42f13f702',1,'utf8::runes(const std::string &amp;s)']]]
 ];

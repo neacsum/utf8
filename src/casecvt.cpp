@@ -54,11 +54,16 @@ bool islower (const char* p)
 }
 
 /*!
-  Convert UTF-8 string to lower case using case folding table published by
-  Unicode Consortium. (http://www.unicode.org/Public/12.1.0/ucd/CaseFolding.txt)
+  Convert UTF-8 string to lower case.
 
   \param str UTF-8 string to convert to lowercase.
   \return lower case UTF-8 string
+  
+  Uses case folding table published by Unicode Consortium
+  (https://www.unicode.org/Public/UCD/latest/ucd/CaseFolding.txt)
+
+  Note that in general the size of the returned string will be different from that of the
+  input string.
 */
 
 std::string tolower (const std::string& str)
@@ -73,7 +78,13 @@ std::string tolower (const std::string& str)
   return narrow (wstr);
 }
 
-/// In place version converts a UTF-8 encoded string to lowercase
+/*!
+  In place version converts a UTF-8 encoded string to lowercase
+  \param str  UTF-8 encoded string to be converted
+
+  Note that in general the size of the returned string will be different from that of the
+  input string.
+*/
 void tolower (std::string& str)
 {
   str = tolower (const_cast<const string&>(str));
@@ -94,11 +105,16 @@ bool isupper (const char* p)
 }
 
 /*!
-  Convert UTF-8 string to upper case using case folding table published by
-  Unicode Consortium. (http://www.unicode.org/Public/12.1.0/ucd/CaseFolding.txt)
+  Convert a UTF-8 string to upper case.
 
   \param str UTF-8 string to convert to uppercase.
   \return upper case UTF-8 string
+
+  Uses case folding table published by Unicode Consortium
+  (http://www.unicode.org/Public/UCD/latest/ucd/CaseFolding.txt)
+
+  Note that in general the size of the returned string will be different from that of the
+  input string.
 */
 std::string toupper (const std::string& str)
 {
@@ -112,7 +128,13 @@ std::string toupper (const std::string& str)
   return narrow (wstr);
 }
 
-/// In place version converts a UTF-8 encoded string to lowercase
+/*!
+  In place version converts a UTF-8 encoded string to lowercase.
+  \param str  string to be converted
+
+  Note that in general the size of the returned string will be different from that of the
+  input string.
+*/
 void toupper (std::string& str)
 {
   str = toupper (const_cast<const string&>(str));
@@ -127,11 +149,11 @@ void toupper (std::string& str)
   \return >0 if first string is lexicographically after the second string
   \return =0 if the two strings are equal
 
-  Strings must be valid UTF8 strings.
+  Strings must be valid UTF-8 strings.
 */
 int icompare (const std::string& s1, const std::string& s2)
 {
-  assert (valid (s1) && valid (s2));
+  assert (valid_str (s1) && valid_str (s2));
 
   auto p1 = s1.begin (), p2 = s2.begin ();
   while (p1 < s1.end () && p2 < s2.end())

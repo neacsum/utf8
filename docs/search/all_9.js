@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['makepath_59',['makepath',['../utf8_8cpp.html#a07eb0dcaf69e2d9cbcd7d7b6f203f20a',1,'utf8']]],
-  ['messagebox_60',['MessageBox',['../win_8cpp.html#a5c8bfa90bb0ba20781ec286f6c446d62',1,'utf8']]],
-  ['mkdir_61',['mkdir',['../utf8_8h.html#aa6aefa08998a55dca4ba75312126e353',1,'utf8::mkdir(const char *dirname)'],['../utf8_8h.html#afde36b3fabc92ff53124bc81d91db646',1,'utf8::mkdir(const std::string &amp;dirname)']]]
+  ['length_60',['length',['../utf8_8cpp.html#afbcb53fd241b51ed4744eef1d7400a23',1,'utf8::length(const std::string &amp;s)'],['../utf8_8cpp.html#a23f4cd3fe9e32f8bc56b6198681b6256',1,'utf8::length(const char *s)']]],
+  ['loadstring_61',['LoadString',['../win_8cpp.html#a05568d44a6186ba5f0c7295bb60e3be6',1,'utf8']]]
 ];

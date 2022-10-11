@@ -67,7 +67,8 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">utf8.cpp File Reference</div>  </div>
 </div><!--header-->
@@ -108,23 +109,26 @@ Functions</h2></td></tr>
 <tr class="memdesc:ga40b8ab32b0b76d1f1df0b590e22e6283"><td class="mdescLeft">&#160;</td><td class="mdescRight">Conversion from UTF-8 to UTF-32.  <a href="group__basecvt.html#ga40b8ab32b0b76d1f1df0b590e22e6283">More...</a><br /></td></tr>
 <tr class="separator:ga40b8ab32b0b76d1f1df0b590e22e6283"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga29b32af36ac8088c622fe1d42f13f702"><td class="memItemLeft" align="right" valign="top">std::u32string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__basecvt.html#ga29b32af36ac8088c622fe1d42f13f702">utf8::runes</a> (const std::string &amp;s)</td></tr>
-<tr class="memdesc:ga29b32af36ac8088c622fe1d42f13f702"><td class="mdescLeft">&#160;</td><td class="mdescRight">Conversion from UTF-8 to UTF-32.  <a href="group__basecvt.html#ga29b32af36ac8088c622fe1d42f13f702">More...</a><br /></td></tr>
+<tr class="memdesc:ga29b32af36ac8088c622fe1d42f13f702"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a string of characters from UTF-8 to UTF-32.  <a href="group__basecvt.html#ga29b32af36ac8088c622fe1d42f13f702">More...</a><br /></td></tr>
 <tr class="separator:ga29b32af36ac8088c622fe1d42f13f702"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga7c43141140402bf66979c6571760cbbe"><td class="memItemLeft" align="right" valign="top">char32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__basecvt.html#ga7c43141140402bf66979c6571760cbbe">utf8::rune</a> (const char *p)</td></tr>
-<tr class="memdesc:ga7c43141140402bf66979c6571760cbbe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return current Unicode code point.  <a href="group__basecvt.html#ga7c43141140402bf66979c6571760cbbe">More...</a><br /></td></tr>
+<tr class="memdesc:ga7c43141140402bf66979c6571760cbbe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Conversion from UTF-8 to UTF-32.  <a href="group__basecvt.html#ga7c43141140402bf66979c6571760cbbe">More...</a><br /></td></tr>
 <tr class="separator:ga7c43141140402bf66979c6571760cbbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab630a55b877a77ba64550357d0f387a3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utf8_8cpp.html#ab630a55b877a77ba64550357d0f387a3">utf8::valid</a> (const char *s, size_t nch)</td></tr>
-<tr class="memdesc:ab630a55b877a77ba64550357d0f387a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Verifies if string is a valid UTF-8 string.  <a href="utf8_8cpp.html#ab630a55b877a77ba64550357d0f387a3">More...</a><br /></td></tr>
-<tr class="separator:ab630a55b877a77ba64550357d0f387a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae08a17423808965292d597898aa7cfd3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utf8_8cpp.html#ae08a17423808965292d597898aa7cfd3">utf8::next</a> (std::string::const_iterator &amp;p, const std::string::const_iterator &amp;last)</td></tr>
-<tr class="memdesc:ae08a17423808965292d597898aa7cfd3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Advances a string iterator to next code point.  <a href="utf8_8cpp.html#ae08a17423808965292d597898aa7cfd3">More...</a><br /></td></tr>
-<tr class="separator:ae08a17423808965292d597898aa7cfd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a238dc5c8639ec737dd06c9857089fedc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utf8_8cpp.html#a238dc5c8639ec737dd06c9857089fedc">utf8::is_valid</a> (const char *p)</td></tr>
+<tr class="memdesc:a238dc5c8639ec737dd06c9857089fedc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if pointer points to a valid UTF-8 encoding.  <a href="utf8_8cpp.html#a238dc5c8639ec737dd06c9857089fedc">More...</a><br /></td></tr>
+<tr class="separator:a238dc5c8639ec737dd06c9857089fedc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad23818014fba8438d41705cec13d698"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utf8_8cpp.html#aad23818014fba8438d41705cec13d698">utf8::is_valid</a> (std::string::const_iterator p, const std::string::const_iterator last)</td></tr>
+<tr class="memdesc:aad23818014fba8438d41705cec13d698"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if iterator points to a valid UTF-8 encoding.  <a href="utf8_8cpp.html#aad23818014fba8438d41705cec13d698">More...</a><br /></td></tr>
+<tr class="separator:aad23818014fba8438d41705cec13d698"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5efdfa2bb7a6e4d21005f97f79f44bba"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utf8_8cpp.html#a5efdfa2bb7a6e4d21005f97f79f44bba">utf8::valid_str</a> (const char *s, size_t nch)</td></tr>
+<tr class="memdesc:a5efdfa2bb7a6e4d21005f97f79f44bba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Verifies if string is a valid UTF-8 string.  <a href="utf8_8cpp.html#a5efdfa2bb7a6e4d21005f97f79f44bba">More...</a><br /></td></tr>
+<tr class="separator:a5efdfa2bb7a6e4d21005f97f79f44bba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18d96acd3fe88012740e79857d05b109"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utf8_8cpp.html#a18d96acd3fe88012740e79857d05b109">utf8::next</a> (std::string::const_iterator &amp;p, const std::string::const_iterator last)</td></tr>
+<tr class="memdesc:a18d96acd3fe88012740e79857d05b109"><td class="mdescLeft">&#160;</td><td class="mdescRight">Advances a string iterator to next code point.  <a href="utf8_8cpp.html#a18d96acd3fe88012740e79857d05b109">More...</a><br /></td></tr>
+<tr class="separator:a18d96acd3fe88012740e79857d05b109"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a90dba94eb3f754f886553035abdb3113"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utf8_8cpp.html#a90dba94eb3f754f886553035abdb3113">utf8::next</a> (const char *&amp;p)</td></tr>
 <tr class="memdesc:a90dba94eb3f754f886553035abdb3113"><td class="mdescLeft">&#160;</td><td class="mdescRight">Advances a character pointer to next UTF-8 character.  <a href="utf8_8cpp.html#a90dba94eb3f754f886553035abdb3113">More...</a><br /></td></tr>
 <tr class="separator:a90dba94eb3f754f886553035abdb3113"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a33c723d6a9f1fb9d07c676802160af7d"><td class="memItemLeft" align="right" valign="top"><a id="a33c723d6a9f1fb9d07c676802160af7d"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>utf8::next</b> (char *&amp;p)</td></tr>
-<tr class="separator:a33c723d6a9f1fb9d07c676802160af7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afbcb53fd241b51ed4744eef1d7400a23"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utf8_8cpp.html#afbcb53fd241b51ed4744eef1d7400a23">utf8::length</a> (const std::string &amp;s)</td></tr>
 <tr class="memdesc:afbcb53fd241b51ed4744eef1d7400a23"><td class="mdescLeft">&#160;</td><td class="mdescRight">Counts number of characters in an UTF8 encoded string.  <a href="utf8_8cpp.html#afbcb53fd241b51ed4744eef1d7400a23">More...</a><br /></td></tr>
 <tr class="separator:afbcb53fd241b51ed4744eef1d7400a23"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -161,6 +165,13 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>utf8::next</b> (char 
 <tr class="memitem:ga7976e253667c24d0e7027298eb39d939"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__charclass.html#ga7976e253667c24d0e7027298eb39d939">utf8::isspace</a> (const char *p)</td></tr>
 <tr class="memdesc:ga7976e253667c24d0e7027298eb39d939"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return true if character is blank(-ish).  <a href="group__charclass.html#ga7976e253667c24d0e7027298eb39d939">More...</a><br /></td></tr>
 <tr class="separator:ga7976e253667c24d0e7027298eb39d939"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a3e7ba3734643219da540c6488accf39f"><td class="memItemLeft" align="right" valign="top"><a id="a3e7ba3734643219da540c6488accf39f"></a>
+const char32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utf8_8cpp.html#a3e7ba3734643219da540c6488accf39f">utf8::REPLACEMENT_CHARACTER</a> = 0xfffd</td></tr>
+<tr class="memdesc:a3e7ba3734643219da540c6488accf39f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Replacement character used for invalid encodings. <br /></td></tr>
+<tr class="separator:a3e7ba3734643219da540c6488accf39f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="a611de942130d7b70ff9cfaaa79a1f005"></a>
@@ -309,6 +320,67 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>utf8::next</b> (char 
 
 </div>
 </div>
+<a id="a238dc5c8639ec737dd06c9857089fedc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a238dc5c8639ec737dd06c9857089fedc">&#9670;&nbsp;</a></span>is_valid() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool utf8::is_valid </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>p</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">p</td><td>pointer to string </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if there is a valid UTF-8 encoding at the current pointer position, <code>false</code> otherwise. </dd></dl>
+
+</div>
+</div>
+<a id="aad23818014fba8438d41705cec13d698"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad23818014fba8438d41705cec13d698">&#9670;&nbsp;</a></span>is_valid() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool utf8::is_valid </td>
+          <td>(</td>
+          <td class="paramtype">std::string::const_iterator&#160;</td>
+          <td class="paramname"><em>p</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string::const_iterator&#160;</td>
+          <td class="paramname"><em>last</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">p</td><td>Iterator </td></tr>
+    <tr><td class="paramname">last</td><td>Iterator pointing to end of range </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if there is a valid UTF-8 encoding at the current iterator position, <code>false</code> otherwise. </dd></dl>
+
+</div>
+</div>
 <a id="a23f4cd3fe9e32f8bc56b6198681b6256"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a23f4cd3fe9e32f8bc56b6198681b6256">&#9670;&nbsp;</a></span>length() <span class="overload">[1/2]</span></h2>
 
@@ -440,12 +512,13 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>utf8::next</b> (char 
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>True if pointer can be advanced or is already at end; false if string contains an invalid UTF-8 encoding at current position. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if pointer was advanced or <code>false</code> otherwise.</dd></dl>
+<p>The function throws an exception if iterator points to an invalid UTF-8 encoding. </p>
 
 </div>
 </div>
-<a id="ae08a17423808965292d597898aa7cfd3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae08a17423808965292d597898aa7cfd3">&#9670;&nbsp;</a></span>next() <span class="overload">[2/2]</span></h2>
+<a id="a18d96acd3fe88012740e79857d05b109"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a18d96acd3fe88012740e79857d05b109">&#9670;&nbsp;</a></span>next() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -459,7 +532,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>utf8::next</b> (char 
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::string::const_iterator &amp;&#160;</td>
+          <td class="paramtype">const std::string::const_iterator&#160;</td>
           <td class="paramname"><em>last</em>&#160;</td>
         </tr>
         <tr>
@@ -477,7 +550,8 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>utf8::next</b> (char 
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>True if iterator can be advanced or is already at end of range; false if string contains an invalid UTF-8 encoding at iterator's position. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if iterator was advanced or <code>false</code> otherwise.</dd></dl>
+<p>The function throws an exception if iterator points to an invalid UTF-8 encoding. </p>
 
 </div>
 </div>
@@ -595,14 +669,14 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>utf8::next</b> (char 
 
 </div>
 </div>
-<a id="ab630a55b877a77ba64550357d0f387a3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab630a55b877a77ba64550357d0f387a3">&#9670;&nbsp;</a></span>valid()</h2>
+<a id="a5efdfa2bb7a6e4d21005f97f79f44bba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5efdfa2bb7a6e4d21005f97f79f44bba">&#9670;&nbsp;</a></span>valid_str()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool utf8::valid </td>
+          <td class="memname">bool utf8::valid_str </td>
           <td>(</td>
           <td class="paramtype">const char *&#160;</td>
           <td class="paramname"><em>s</em>, </td>
@@ -627,7 +701,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>utf8::next</b> (char 
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>true if string is a valid UTF-8 encoded string, false otherwise </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if string is a valid UTF-8 encoded string, <code>false</code> otherwise </dd></dl>
 
 </div>
 </div>

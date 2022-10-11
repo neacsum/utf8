@@ -20,7 +20,7 @@ The main function groups are:
 There are also functions for:
 - character counting - length()
 - string traversal - next()
-- validity checking - valid()
+- validity checking - valid_str()
 
 In addition to those, there are wrappings commonly used C and C++ functions:
 - file access operations: fopen(), access(), remove(), chmod(), rename()

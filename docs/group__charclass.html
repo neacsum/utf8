@@ -128,12 +128,12 @@ Functions</h2></td></tr>
 <div class="line"><span class="keywordflow">while</span> (p != s.end () &amp;&amp; <a class="code" href="group__charclass.html#ga7976e253667c24d0e7027298eb39d939">utf8::isspace</a> (p))</div>
 <div class="line">{</div>
 <div class="line">  blanks++;</div>
-<div class="line">  <a class="code" href="utf8_8cpp.html#ae08a17423808965292d597898aa7cfd3">utf8::next</a> (p, s.end ());</div>
+<div class="line">  <a class="code" href="utf8_8cpp.html#a18d96acd3fe88012740e79857d05b109">utf8::next</a> (p, s.end ());</div>
 <div class="line">}</div>
 <div class="line">assert (blanks == 2); <span class="comment">//both space and &quot;no-break space&quot; are space characters</span></div>
 <div class="line"><span class="comment">//...</span></div>
-<div class="ttc" id="agroup__charclass_html_ga7976e253667c24d0e7027298eb39d939"><div class="ttname"><a href="group__charclass.html#ga7976e253667c24d0e7027298eb39d939">utf8::isspace</a></div><div class="ttdeci">bool isspace(const char *p)</div><div class="ttdoc">Return true if character is blank(-ish).</div><div class="ttdef"><b>Definition:</b> utf8.cpp:692</div></div>
-<div class="ttc" id="autf8_8cpp_html_ae08a17423808965292d597898aa7cfd3"><div class="ttname"><a href="utf8_8cpp.html#ae08a17423808965292d597898aa7cfd3">utf8::next</a></div><div class="ttdeci">bool next(std::string::const_iterator &amp;p, const std::string::const_iterator &amp;last)</div><div class="ttdoc">Advances a string iterator to next code point.</div><div class="ttdef"><b>Definition:</b> utf8.cpp:341</div></div>
+<div class="ttc" id="agroup__charclass_html_ga7976e253667c24d0e7027298eb39d939"><div class="ttname"><a href="group__charclass.html#ga7976e253667c24d0e7027298eb39d939">utf8::isspace</a></div><div class="ttdeci">bool isspace(const char *p)</div><div class="ttdoc">Return true if character is blank(-ish).</div><div class="ttdef"><b>Definition:</b> utf8.cpp:576</div></div>
+<div class="ttc" id="autf8_8cpp_html_a18d96acd3fe88012740e79857d05b109"><div class="ttname"><a href="utf8_8cpp.html#a18d96acd3fe88012740e79857d05b109">utf8::next</a></div><div class="ttdeci">bool next(std::string::const_iterator &amp;p, const std::string::const_iterator last)</div><div class="ttdoc">Advances a string iterator to next code point.</div><div class="ttdef"><b>Definition:</b> utf8.cpp:281</div></div>
 </div><!-- fragment --> <h2 class="groupheader">Function Documentation</h2>
 <a id="ga30a655a5e7dd28e4d05ea9825ff32e73"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga30a655a5e7dd28e4d05ea9825ff32e73">&#9670;&nbsp;</a></span>isalnum() <span class="overload">[1/2]</span></h2>

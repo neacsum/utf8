@@ -1,10 +1,9 @@
 var searchData=
 [
-  ['putbool_71',['PutBool',['../classutf8_1_1_ini_file.html#a0b64b3e29e48044dcae1c6b1d9c6deb5',1,'utf8::IniFile']]],
-  ['putcolor_72',['PutColor',['../classutf8_1_1_ini_file.html#ae7e677514fe28a991ce5b601182b4739',1,'utf8::IniFile']]],
-  ['putdouble_73',['PutDouble',['../classutf8_1_1_ini_file.html#a2197c3eeff5c0a7054aa208a7a5e2ce7',1,'utf8::IniFile']]],
-  ['putenv_74',['putenv',['../utf8_8h.html#a7efd70545eb2d60d5ec8136dfc3b37db',1,'utf8::putenv(const std::string &amp;str)'],['../utf8_8h.html#af5b9fd7fd9c1d5e90a29bdfce6428b1c',1,'utf8::putenv(const std::string &amp;var, const std::string &amp;val)']]],
-  ['putfont_75',['PutFont',['../classutf8_1_1_ini_file.html#a6010d4f1a89e4703473d6c341f08a5fd',1,'utf8::IniFile']]],
-  ['putint_76',['PutInt',['../classutf8_1_1_ini_file.html#aac5c2f7535e857fbdb94504dd6d5677f',1,'utf8::IniFile']]],
-  ['putstring_77',['PutString',['../classutf8_1_1_ini_file.html#ab50dce28a94a0876a7d30bdd2c86a99b',1,'utf8::IniFile']]]
+  ['ofstream_68',['ofstream',['../classutf8_1_1ofstream.html',1,'utf8']]],
+  ['ok_69',['ok',['../classutf8_1_1file__enumerator.html#aa0eb3308b72c45e3a7bf51ae33cf1ed7',1,'utf8::file_enumerator']]],
+  ['operator_20bool_70',['operator bool',['../classutf8_1_1file__enumerator.html#a795eb0d70bb021a31c566370b0766b22',1,'utf8::file_enumerator']]],
+  ['operator_20wchar_5ft_20_2a_71',['operator wchar_t *',['../classutf8_1_1buffer.html#a866cbb11c94e263cb1ded6ed236d23e1',1,'utf8::buffer']]],
+  ['operator_3d_72',['operator=',['../classutf8_1_1_ini_file.html#a2876e3a1943f0718356cb5256316e119',1,'utf8::IniFile::operator=()'],['../classutf8_1_1buffer.html#ab134738ba994b76df79226948d9b47ac',1,'utf8::buffer::operator=(const buffer &amp;rhs)'],['../classutf8_1_1buffer.html#adab00750962dbd42742b56f27ad8e4d6',1,'utf8::buffer::operator=(const std::string &amp;rhs)']]],
+  ['string_73',['string',['../classutf8_1_1buffer.html#adefb45810cb72a5a3fa6b69684b7da83',1,'utf8::buffer']]]
 ];

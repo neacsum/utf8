@@ -164,10 +164,9 @@ TEST (next)
   string emojis{ "😃😎😛" };
   int i = 0;
   auto ptr = emojis.begin ();
-  while (ptr != emojis.end ())
+  while (next (ptr, emojis.end ()))
   {
     i++;
-    CHECK (next (ptr, emojis.end()));
   }
 
   CHECK_EQUAL (3, i);
@@ -179,27 +178,74 @@ TEST (next_ptr)
   string emojis{ "😃😎😛" };
   int i = 0;
   const char *ptr = emojis.c_str ();
-  while (*ptr)
+  while (utf8::next (ptr))
   {
     i++;
-    CHECK (utf8::next (ptr));
   }
 
+  CHECK (*ptr == 0);
   CHECK_EQUAL (3, i);
 }
 
-TEST (valid_funcs)
+TEST (next_non_const)
+{
+  char emojis[20];
+  strcpy (emojis, "😃😎😛" );
+  int i = 0;
+  char* ptr = emojis;
+  while (utf8::next (ptr))
+  {
+    i++;
+  }
+
+  CHECK (*ptr == 0);
+  CHECK_EQUAL (3, i);
+}
+
+TEST (valid_str_funcs)
 {
   string emojis{ "😃😎😛" };
-  CHECK (utf8::valid (emojis));
-  CHECK (utf8::valid (emojis.c_str ()));
-  CHECK (utf8::valid (emojis.c_str (), emojis.length()));
+  CHECK (utf8::valid_str (emojis));
+  CHECK (utf8::valid_str (emojis.c_str ()));
+  CHECK (utf8::valid_str (emojis.c_str (), emojis.length()));
 
-  CHECK (!utf8::valid (emojis.c_str (), emojis.length () - 1));
+  CHECK (!utf8::valid_str (emojis.c_str (), emojis.length () - 1));
   emojis[8] = 0;
-  CHECK (utf8::valid (emojis.c_str ()));
+  CHECK (utf8::valid_str (emojis.c_str ()));
   emojis[6] = 0;
-  CHECK (!utf8::valid (emojis.c_str (), emojis.length ()));
+  CHECK (!utf8::valid_str (emojis.c_str (), emojis.length ()));
+}
+
+TEST (is_valid_yes)
+{
+  string s1 = "a";
+  string s2 = "°";
+  string s3 = "€";
+  string s4 = "😃";
+
+  CHECK (is_valid (s1.c_str()));
+  CHECK (is_valid (s2.c_str ()));
+  CHECK (is_valid (s3.c_str ()));
+  CHECK (is_valid (s4.c_str ()));
+
+  // same tests with string iterators
+  CHECK (is_valid (s1.begin (), s1.end ()));
+  CHECK (is_valid (s2.begin (), s2.end ()));
+  CHECK (is_valid (s3.begin (), s3.end ()));
+  CHECK (is_valid (s4.begin (), s4.end ()));
+
+  CHECK (is_valid ("\xEF\xBB\xBF")); //BOM
+  CHECK (is_valid ("")); //empty string
+}
+
+TEST (is_valid_no)
+{
+  CHECK (!is_valid ("\xC1\xA1")); //overlong 'a'
+  CHECK (!is_valid ("\xE0\x82\xB0")); //overlong '°'
+  CHECK (!is_valid ("\xF0\x82\x82\xAC")); //overlong '€'
+  CHECK (!is_valid ("\xFE\xFF")); //UTF-16 BOM BE
+  CHECK (!is_valid ("\xFF\xFE")); //UTF-16 BOM LE
+  CHECK (!is_valid ("\xED\xA0\x80")); // 0xD800 surrogate code point
 }
 
 // test for runes function (conversion from UTF8 to UTF32)
