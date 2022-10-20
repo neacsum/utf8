@@ -26,8 +26,8 @@ jobs:
       - name: Clone
         run: git clone https://github.com/neacsum/utf8.git .\utf8
 
-      - name: Build
+      - name: Build libraries
         run: cpm -v --proto https -r . utf8
         
-#      - name: Run tests
-#        run: .\utf8\build\exe\x64\Debug\tests.exe
+      - name: Build and run tests
+        run: utf8/build.bat tests      
