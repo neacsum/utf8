@@ -1,0 +1,33 @@
+name: Build
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+
+env:
+  # This is the destination directory for CPM tool
+  USERPROFILE: .
+  
+jobs:
+  build:
+    runs-on: windows-latest
+    
+    steps:      
+      - name: Get CPM
+        uses: engineerd/configurator@v0.0.8
+        with:
+          name: cpm.exe
+          url: https://github.com/neacsum/cpm/releases/latest/download/cpm.exe
+      
+      - name: Clone
+        run: git clone https://github.com/neacsum/utf8.git .\utf8
+
+      - name: Build
+        run: cpm -v --proto https -r . utf8
+        
+#      - name: Run tests
+#        run: .\utf8\build\exe\x64\Debug\tests.exe
