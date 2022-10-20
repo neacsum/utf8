@@ -1,13 +1,15 @@
 {
     "name": "utf8",
     "git": "git@github.com:neacsum/utf8.git",
+    "https": "https://github.com/neacsum/utf8.git",
     "build": [
         {"cmd": "build.bat", "args": ["lib"]}
     ], 
     "depends": [
         {
             "name": "utpp",
-            "git": "git@github.com:neacsum/utpp.git"
+            "git": "git@github.com:neacsum/utpp.git",
+            "https": "https://github.com/neacsum/utpp.git"
         }
     ]
 }
