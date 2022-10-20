@@ -30,5 +30,4 @@ jobs:
         run: cpm -v --proto https -r . utf8
         
       - name: Build and run tests
-        run: msbuild t:tests utf8\build.proj
-      
+        run: utf8/build.bat tests      
