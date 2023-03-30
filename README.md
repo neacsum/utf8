@@ -88,7 +88,8 @@ with names that are encoded using UTF-8. Because UTF-8 strings are character str
 ### Windows-Specific Functions
 - path management: `splitpath`, `makepath`
 - conversion of command-line arguments: `get_argv` and `free_argv`
-- popular Windows API functions: `MessageBox`, `LoadString`
+- popular Windows API functions: `MessageBox`, `LoadString`, `ShellExecute`, `CopyFile`, etc.
+- Registry API (`RegCreateKey`, `RegOpenKey`, `RegSetValue`, `RegGetValue`, etc.)
 
 The API for Windows profile files (also called INI files) was replaced with an object `utf8::IniFile`.
 

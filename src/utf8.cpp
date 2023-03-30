@@ -331,7 +331,7 @@ size_t length (const std::string& s)
   return nc;
 }
 
-/// \copydoc length()
+/// \copydoc utf8::length()
 size_t length (const char* s)
 {
   size_t nc = 0;

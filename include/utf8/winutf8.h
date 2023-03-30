@@ -16,6 +16,16 @@
 #undef GetTempPath
 #undef GetTempFileName
 #undef GetFullPathName
+#undef RegCreateKey
+#undef RegDeleteKey
+#undef RegOpenKey
+#undef RegSetValue
+#undef RegQueryValue
+#undef RegGetValue
+#undef RegDeleteTree
+#undef RegEnumKey
+#undef RegDeleteValue
+#undef RegEnumValue
 
 namespace utf8 {
 
@@ -24,13 +34,35 @@ int MessageBox (HWND hWnd, const std::string& text, const std::string& caption,
 bool CopyFile (const std::string& from, const std::string& to, bool fail_exist);
 std::string LoadString (HINSTANCE hInst, UINT id);
 
-HINSTANCE ShellExecute (const std::string& file,
-  const std::string& verb = std::string (),
-  const std::string& parameters = std::string (),
-  const std::string& directory = std::string ("."),
-  HWND hWnd = NULL,
-  int show = SW_SHOW);
+//registry functions
+LSTATUS RegCreateKey (HKEY key, const std::string& subkey, HKEY& result,
+  DWORD options = REG_OPTION_NON_VOLATILE, REGSAM sam = KEY_ALL_ACCESS,
+  const SECURITY_ATTRIBUTES* psa = nullptr, DWORD* disp = nullptr);
+LSTATUS RegOpenKey (HKEY key, const std::string& subkey, HKEY& result,
+  REGSAM sam = KEY_ALL_ACCESS, bool link = false);
+LSTATUS RegDeleteKey (HKEY key, const std::string& subkey, REGSAM sam = 0);
+LSTATUS RegDeleteValue (HKEY key, const std::string& value);
+LSTATUS RegDeleteTree (HKEY key, const std::string& subkey = std::string ());
+LSTATUS RegRenameKey (HKEY key, const std::string& subkey, const std::string& new_name);
+LSTATUS RegSetValue (HKEY key, const std::string& value, DWORD type, const void* data, DWORD size);
+LSTATUS RegSetValue (HKEY key, const std::string& value, const std::string& data);
+LSTATUS RegSetValue (HKEY key, const std::string& value, const std::vector<std::string>& data);
+LSTATUS RegQueryValue (HKEY key, const std::string& value, DWORD* type, void* data, DWORD* size);
+LSTATUS RegGetValue (HKEY key, const std::string& subkey, const std::string& value,
+  DWORD flags, void* data, DWORD* size, DWORD* type = NULL);
+LSTATUS RegGetValue (HKEY key, const std::string& subkey, const std::string& value,
+  std::string& data, bool expand = false);
+LSTATUS RegGetValue (HKEY key, const std::string& subkey, const std::string& value,
+  std::vector<std::string>& data);
+LSTATUS RegEnumKey (HKEY key, DWORD index, std::string& name, DWORD maxlen = 0, FILETIME* last_write_time = NULL);
+LSTATUS RegEnumKey (HKEY key, std::vector<std::string>& names);
+LSTATUS RegEnumValue (HKEY key, DWORD index, std::string& value, DWORD maxlen = 0, DWORD* type = 0, void* data = 0, DWORD* data_len = 0);
+LSTATUS RegEnumValue (HKEY key, std::vector<std::string>& values);
 
+HINSTANCE ShellExecute (const std::string& file, const std::string& verb = std::string (),
+                        const std::string& parameters = std::string (),
+                        const std::string& directory = std::string ("."),
+                        HWND hWnd = NULL, int show = SW_SHOW);
 std::string GetTempPath ();
 std::string GetTempFileName (const std::string& path, const std::string& prefix, UINT unique=0);
 std::string GetFullPathName (const std::string& rel_path);
@@ -59,7 +91,22 @@ bool find_first (const std::string& name, find_data& fdat);
 bool find_next (find_data& fdat);
 void find_close (find_data& fdat);
 
-/// An object-oriented wrapper for find_... functions
+/*!
+  An object - oriented wrapper for find_... functions
+
+  This object wraps a Windows search handle used in find_first/find_next
+  functions.
+
+  Use like in the following example:
+  \code
+  utf8::file_enumerator collection("sample.*");
+  while (collection.ok())
+  {
+    cout << collection.filename () << endl;
+    collection.next ();
+  }
+  \endcode
+*/
 class file_enumerator : protected find_data
 {
 public:

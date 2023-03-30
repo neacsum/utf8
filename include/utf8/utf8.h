@@ -234,7 +234,7 @@ bool mkdir (const char* dirname)
   return (_wmkdir (widen (dirname).c_str ()) == 0);
 }
 
-/// \copydoc mkdir()
+/// \copydoc utf8::mkdir()
 inline
 bool mkdir (const std::string& dirname)
 {
@@ -253,7 +253,7 @@ bool rmdir (const char* dirname)
   return (_wrmdir (widen (dirname).c_str ()) == 0);
 }
 
-/// \copydoc rmdir()
+/// \copydoc utf8::rmdir()
 inline
 bool rmdir (const std::string& dirname)
 {
@@ -273,7 +273,7 @@ bool chdir (const char* dirname)
   return (_wchdir (widen (dirname).c_str ()) == 0);
 }
 
-/// \copydoc chdir()
+/// \copydoc utf8::chdir()
 inline
 bool chdir (const std::string& dirname)
 {
@@ -296,7 +296,7 @@ bool chmod (const char* filename, int mode)
   return (_wchmod (widen (filename).c_str (), mode) == 0);
 }
 
-/// \copydoc chmod()
+/// \copydoc utf8::chmod()
 inline
 bool chmod (const std::string& filename, int mode)
 {
@@ -323,7 +323,7 @@ bool access (const char* filename, int mode)
   return (_waccess (widen (filename).c_str (), mode) == 0);
 }
 
-/// \copydoc access()
+/// \copydoc utf8::access()
 inline
 bool access (const std::string& filename, int mode)
 {
@@ -343,7 +343,7 @@ bool remove (const char* filename)
   return (_wremove (widen (filename).c_str ()) == 0);
 }
 
-/// \copydoc remove()
+/// \copydoc utf8::remove()
 inline
 bool remove (const std::string& filename)
 {
@@ -363,7 +363,7 @@ bool rename (const char* oldname, const char* newname)
   return (_wrename (widen (oldname).c_str (), widen (newname).c_str ()) == 0);
 }
 
-/// \copydoc rename()
+/// \copydoc utf8::rename()
 inline
 bool rename (const std::string& oldname, const std::string& newname)
 {
@@ -385,7 +385,7 @@ FILE* fopen (const char* filename, const char* mode)
   return h;
 }
 
-/// \copydoc fopen()
+/// \copydoc utf8::fopen()
 inline
 FILE* fopen (const std::string& filename, const std::string& mode)
 {

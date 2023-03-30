@@ -16,26 +16,31 @@ The main function groups are:
 - \ref charclass "Character classification functions"
 - \ref folding  "Case folding and case-insensitive comparison" 
 - \ref inifile "INI file replacement API"
+- \ref reg "Registry functions"
 
 There are also functions for:
-- character counting - length()
-- string traversal - next()
-- validity checking - valid_str()
+- character counting - \ref utf8::length() "length"
+- string traversal - \ref utf8::next() "next"
+- validity checking - \ref utf8::valid_str() "valid_str"
 
-In addition to those, there are wrappings commonly used C and C++ functions:
-- file access operations: fopen(), access(), remove(), chmod(), rename()
-- directory operations: mkdir(), rmdir(), chdir(), getcwd()
-- symbolic link creation: symlink()
-- path management: splitpath(), makepath()
-- environment functions: getenv(), putenv()
-- conversion of command-line arguments: get_argv() and free_argv()
-- C++ I/O streams: \ref utf8::ifstream, \ref utf8::ofstream, \ref utf8::fstream
-- File enumerating functions: find_first(), find_next()
+In addition to those, there are wrappings for commonly used C and C++ functions:
+- file access operations: \ref utf8::fopen() "fopen", \ref utf8::access() "access", 
+\ref utf8::remove() "remove", \ref utf8::chmod() "chmod", \ref utf8::rename() "rename"
+- directory operations: \ref utf8::mkdir() "mkdir", \ref utf8::rmdir() "rmdir", 
+\ref utf8::chdir() "chdir", \ref utf8::getcwd() "getcwd"
+- symbolic link creation: \ref utf8::symlink() "symlink"
+- path management: \ref utf8::splitpath() "splitpath", \ref utf8::makepath() "makepath"
+- environment functions: \ref utf8::getenv() "getenv", \ref utf8::putenv() "putenv"
+- conversion of command-line arguments: \ref utf8::get_argv() "getargv" and \ref utf8::free_argv() "freeargv"
+- C++ I/O streams: \ref utf8::ifstream "ifstream", \ref utf8::ofstream "ofstream", \ref utf8::fstream "fstream"
+- File enumerating functions: \ref utf8::find_first() "find_first", \ref utf8::find_next() "find_next"
 - A \ref utf8::file_enumerator "file enumerator" object wrapping find_first/find_next functions.
 - A simple \ref utf8::buffer "buffer class" for handling Windows API parameters. 
 - \ref utf8::IniFile "IniFile" - a class for handling Windows "profile files" API.
-- Frequently used Windows functions like \ref utf8::MessageBox() "MessageBox" and 
-\ref utf8::LoadString() "LoadString".
+- Some frequently used Windows functions like \ref utf8::MessageBox() "MessageBox", 
+\ref utf8::LoadString() "LoadString", \ref utf8::ShellExecute "ShellExecute", 
+\ref utf8::GetTempPath "GetTempPath", \ref utf8::GetTempFileName "GetTempFileName", 
+\ref utf8::GetFullPathName "GetFullPathName", \ref utf8::CopyFile "CopyFile"
 
 ## Usage
 ### General
@@ -128,7 +133,7 @@ Alternatively, `BUILD.bat` script will build the libraries and test programs.
 
 The MIT License (MIT)
  
-Copyright (c) 2014-2022 Mircea Neacsu
+Copyright (c) 2014-2023 Mircea Neacsu
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

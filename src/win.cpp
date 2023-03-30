@@ -5,6 +5,7 @@
   See README file for full license terms.
 */
 #include <utf8/utf8.h>
+#include <cassert>
 
 using namespace std;
 namespace utf8 {
@@ -34,7 +35,7 @@ static void copy_fdat (WIN32_FIND_DATAW& wfd, find_data& fdat)
   If successful, the function opens a "search handle" stored in the fdat
   structure. The handle has to be closed using find_close() function.
 */
-bool find_first (const string& name, find_data& fdat)
+bool find_first (const std::string& name, find_data& fdat)
 {
   WIN32_FIND_DATAW wfd;
   memset (&wfd, 0, sizeof (wfd));
@@ -79,7 +80,9 @@ bool find_next (find_data& fdat)
   return false;
 }
 
-/// Closes a "search handle" opened by find_first() function
+/*!
+   Closes a "search handle" opened by find_first() function
+*/
 void find_close (find_data& fdat)
 {
   if (fdat.handle != INVALID_HANDLE_VALUE)
@@ -91,8 +94,8 @@ void find_close (find_data& fdat)
 
 
 /*!
-  Convenience wrapper for Windows [MessageBox]
-  (https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-messagebox)
+  Convenience wrapper for Windows
+  [MessageBox](https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-messagebox)
   function.
   \param hWnd handle to the owner window
   \param text UTF-8 encoded message to be displayed
@@ -106,8 +109,8 @@ int MessageBox (HWND hWnd, const std::string& text, const std::string& caption,
 }
 
 /*!
-  Convenience wrapper for Windows [CopyFile]
-  (https://docs.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-copyfile)
+  Convenience wrapper for Windows
+  [CopyFile](https://docs.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-copyfile)
   function.
   \param from Name of the existing file
   \param to Name of the new file
@@ -119,8 +122,8 @@ bool CopyFile (const std::string& from, const std::string& to, bool fail_exist)
 }
 
 /*!
-  Convenience wrapper for Windows [LoadString]
-  (https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-loadstringw)
+  Convenience wrapper for Windows
+  [LoadString](https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-loadstringw)
   function.
   \param hInst module handle of the module containing the string resource
   \param id String identifier
@@ -135,14 +138,14 @@ std::string LoadString (HINSTANCE hInst, UINT id)
 
 
 /*!
-  Convenience wrapper for Windows [ShellExecute]
-  (https://docs.microsoft.com/en-us/windows/win32/api/shellapi/nf-shellapi-shellexecutew)
+  Convenience wrapper for Windows
+  [ShellExecute](https://docs.microsoft.com/en-us/windows/win32/api/shellapi/nf-shellapi-shellexecutew)
   function.
   \param file file or object on which to execute the specified verb
   \param verb action to be performed
   \param parameters parameters to be passed to the application
   \param directory default (working) directory
-  \param hwnd handle to the parent window
+  \param hWnd handle to the parent window
   \param show parameter for the ShowWindow function
 
   \return pseudo instance handle >32 if function succeeds.
@@ -158,8 +161,8 @@ HINSTANCE ShellExecute (const std::string& file, const std::string& verb, const 
 }
 
 /*!
-  Convenience wrapper for [GetTempPath]
-  (https://docs.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-gettemppathw)
+  Convenience wrapper for
+  [GetTempPath](https://docs.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-gettemppathw)
 
   \return path of the directory designated for temporary files.
 */
@@ -171,8 +174,8 @@ std::string GetTempPath ()
 }
 
 /*!
-  Convenience wrapper for [GetTempFileName]
-  (https://docs.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-gettempfilenamew)
+  Convenience wrapper for
+  [GetTempFileName](https://docs.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-gettempfilenamew)
 
   \param path directory path
   \param prefix filename prefix (up to 3 characters)
@@ -191,8 +194,8 @@ std::string GetTempFileName (const std::string& path, const std::string& prefix,
 }
 
 /*!
-  Convenience wrapper for [GetFullPathName]
-  (https://docs.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-getfullpathnamew)
+  Convenience wrapper for
+  [GetFullPathName](https://docs.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-getfullpathnamew)
 
   \param rel_path relative path name
   \return full pathname or empty string if there is an error
@@ -225,28 +228,451 @@ bool symlink (const char* path, const char* link, bool directory)
     (directory ? SYMBOLIC_LINK_FLAG_DIRECTORY : 0) | SYMBOLIC_LINK_FLAG_ALLOW_UNPRIVILEGED_CREATE) != 0;
 }
 
-/// \copydoc symlink()
+/// \copydoc utf8::symlink()
 bool symlink (const std::string& path, const std::string& link, bool directory)
 {
   return CreateSymbolicLinkW (widen (link).c_str (), widen (path).c_str (),
     (directory ? SYMBOLIC_LINK_FLAG_DIRECTORY : 0) | SYMBOLIC_LINK_FLAG_ALLOW_UNPRIVILEGED_CREATE) != 0;
 }
 
+//=============================================================================
+/*! 
+  \defgroup reg Registry Functions
+  Wrappers for Windows registry functions.
 
-/*!
-  \class file_enumerator
-  This object wraps a Windows search handle used in find_first/find_next
-  functions.
-  Use like in the following example:
-  \code
-  utf8::file_enumerator collection("sample.*");
-  while (collection.ok())
-  {
-    cout << collection.filename () << endl;
-    collection.next ();
-  }
-  \endcode
+  For all these functions wide character strings arguments are replaced
+  with UTF-8 encoded C++ strings.
+@{ 
 */
 
+/*!
+  Convenience wrapper for
+  [RegCreateKeyEx](https://learn.microsoft.com/en-us/windows/win32/api/winreg/nf-winreg-regcreatekeyexw)
 
+  \param key    handle to an open registry key
+  \param subkey name of a subkey that this function opens or creates
+  \param result newly created key handle
+  \param options option flags
+  \param sam    access rights for the new key
+  \param psa    pointer to SECURITY_ATTRIBUTES structure (can be NULL)
+  \param disp   pointer to a flag showing if key was created (REG_CREATED_NEW_KEY)
+                or opened (REG_OPENED_EXISTING_KEY). Can be NULL.
+*/
+LSTATUS RegCreateKey (HKEY key, const std::string& subkey, HKEY& result, DWORD options, REGSAM sam, const SECURITY_ATTRIBUTES* psa, DWORD* disp)
+{
+  auto wsubkey = widen (subkey);
+  return RegCreateKeyExW (key, wsubkey.c_str (), 0, NULL, options, sam, (LPSECURITY_ATTRIBUTES)psa, &result, disp);
 }
+
+/*!
+  Wrapper for
+  [RegOpenKeyEx](https://learn.microsoft.com/en-us/windows/win32/api/winreg/nf-winreg-regopenkeyexw)
+
+  \param key    handle to an open registry key
+  \param subkey name of a subkey that this function opens
+  \param result opened key handle
+  \param sam    access rights for opened key
+  \param link   set to `true` if key is a symbolic link
+*/
+LSTATUS RegOpenKey (HKEY key, const std::string& subkey, HKEY& result, REGSAM sam, bool link)
+{
+  auto wsubkey = widen (subkey);
+  return RegOpenKeyExW (key, wsubkey.c_str (), (link? REG_OPTION_OPEN_LINK : 0), sam, &result);
+}
+
+/*!
+  Wrapper for
+  [RegDeleteKeyEx](https://learn.microsoft.com/en-us/windows/win32/api/winreg/nf-winreg-regdeletekeyexa)
+  or [RegDeleteKey](https://learn.microsoft.com/en-us/windows/win32/api/winreg/nf-winreg-regdeletekeyw)
+  \param key    handle to an open registry key
+  \param subkey name of a subkey to delete
+  \param sam    access mask specifies the platform-specific view of the registry:
+    - `KEY_WOW64_32KEY` - Delete from 32-bit view of the registry
+    - `KEY_WOW64_64KEY` - Delete from 64-bit view of the registry
+
+  If `sam` is 0, this function invokes
+  [RegDeleteKey](https://learn.microsoft.com/en-us/windows/win32/api/winreg/nf-winreg-regdeletekeyw)
+  function, deleting the 32-bit key if the invoking application is 32-bit, or
+  the 64-bit key if the invoking application is 64-bit. Otherwise it invokes the
+  [RegDeleteKeyEx](https://learn.microsoft.com/en-us/windows/win32/api/winreg/nf-winreg-regdeletekeyexa)
+  function.
+*/
+LSTATUS RegDeleteKey (HKEY key, const std::string& subkey, REGSAM sam)
+{
+  auto wsubkey = widen (subkey);
+  if (!sam)
+    return RegDeleteKeyW (key, wsubkey.c_str ());
+  else
+    return RegDeleteKeyExW (key, wsubkey.c_str (), sam, 0);
+}
+
+/*!
+  Wrapper for
+  [RegDeleteValue](https://learn.microsoft.com/en-us/windows/win32/api/winreg/nf-winreg-regdeletevaluew)
+
+  \param key    handle to an opened registry key
+  \param value  name of the value to delete.
+
+  If `value` is the empty string, the function removes the default key value.
+*/
+LSTATUS RegDeleteValue (HKEY key, const std::string& value)
+{
+  auto wvalue = widen (value);
+  return RegDeleteValueW (key, wvalue.c_str ());
+}
+
+/*!
+  Wrapper for
+  [RegDeleteTree](https://learn.microsoft.com/en-us/windows/win32/api/winreg/nf-winreg-regdeletetreew)
+
+  \param key    handle to an open registry key
+  \param subkey name of a subkey to delete
+
+  If `subkey` is empty, the key and all subkeys and values are deleted.
+*/
+LSTATUS RegDeleteTree (HKEY key, const std::string& subkey)
+{
+  if (subkey.empty ())
+    return RegDeleteTreeW (key, NULL);
+
+  auto wsubkey = widen (subkey);
+  return RegDeleteTreeW (key, wsubkey.c_str ());
+}
+
+/*!
+  Wrapper for 
+  [RegRenameKey](https://learn.microsoft.com/en-us/windows/win32/api/winreg/nf-winreg-regrenamekey)
+
+  \param key    handle to an open registry key
+  \param subkey name of a subkey to rename
+  \param new_name new subkey name
+*/
+LSTATUS RegRenameKey (HKEY key, const std::string& subkey, const std::string& new_name)
+{
+  auto wold = widen (subkey);
+  auto wnew = widen (new_name);
+  return ::RegRenameKey (key, wold.c_str(), wnew.c_str());
+}
+
+/*!
+  Wrapper for
+  [RegSetValueEx](https://learn.microsoft.com/en-us/windows/win32/api/winreg/nf-winreg-regsetvalueexw)
+
+  \param key    handle to an open registry key
+  \param value  name of the value to be set.  If empty, the function sets the
+                type and data for the key's unnamed or default value
+  \param type   the type of data
+  \param data   pointer to data
+  \param size   data size (in bytes)
+*/
+LSTATUS RegSetValue (HKEY key, const std::string& value, DWORD type, const void* data, DWORD size)
+{
+  auto wvalue = widen (value);
+  return RegSetValueExW (key, wvalue.c_str (), 0, type, (const BYTE*)data, size);
+}
+
+
+/*!
+  Convenience Wrapper for
+  [RegSetValueEx](https://learn.microsoft.com/en-us/windows/win32/api/winreg/nf-winreg-regsetvalueexw)
+  for string data.
+
+  \param key    handle to an open registry key
+  \param value  name of the value to be set.  If empty, the function sets the
+                type and data for the key's unnamed or default value
+  \param data   value to be set
+
+  Value type is set to `REG_SZ` and data is appended a terminating NULL character.
+*/
+LSTATUS RegSetValue (HKEY key, const std::string& value, const std::string& data)
+{
+  auto wdata = widen (data);
+  return RegSetValue (key, value, REG_SZ, wdata.c_str(), (DWORD)(wdata.size()+1)*sizeof(wchar_t));
+}
+
+
+/*!
+  Convenience Wrapper for
+  [RegSetValueEx](https://learn.microsoft.com/en-us/windows/win32/api/winreg/nf-winreg-regsetvalueexw)
+  for vector of string data.
+
+  \param key    handle to an open registry key
+  \param value  name of the value to be set. If empty, the function sets the
+                type and data for the key's unnamed or default value.
+  \param data   value to be set
+
+  Value type is set to `REG_MULTI_SZ` and formatted accordingly, with two
+  terminating NULL characters.
+*/
+LSTATUS RegSetValue (HKEY key, const std::string& value, const std::vector<std::string>& data)
+{
+  size_t key_size = 0;
+  for (auto& s : data)
+    key_size += widen(s).size() + 1;
+
+  key_size++; //one last NULL char
+  wchar_t *buf = new wchar_t[key_size];
+  wchar_t* ptr = buf;
+  for (auto& s : data)
+  {
+    auto ws = widen (s);
+    auto sz = ws.size ();
+    memcpy (ptr, ws.c_str (), sz*sizeof (wchar_t));
+    ptr += sz;
+    *ptr++ = 0;
+  }
+  *ptr++ = 0;
+  assert (ptr - buf == key_size);
+  auto ret = RegSetValue (key, value, REG_MULTI_SZ, buf, (DWORD)key_size*sizeof(wchar_t));
+  delete []buf;
+  return ret;
+}
+
+/*!
+  Wrapper for
+  [RegQueryValueEx](https://learn.microsoft.com/en-us/windows/win32/api/winreg/nf-winreg-regqueryvalueexw)
+
+  \param key    handle to an open registry key
+  \param value  name of the value to be retrieved. If empty, the function retrieves
+                the type and data for the key's unnamed or default value
+  \param type   pointer to type of data
+  \param data   pointer to data
+  \param size   pointer to size data size (in bytes)
+*/
+LSTATUS RegQueryValue (HKEY key, const std::string& value, DWORD* type, void* data, DWORD* size)
+{
+  auto wvalue = widen (value);
+  return RegQueryValueExW (key, wvalue.c_str (), 0, type, (BYTE*)data, size);
+}
+
+/*!
+  Wrapper for
+  [RegGetValue](https://learn.microsoft.com/en-us/windows/win32/api/winreg/nf-winreg-reggetvaluew)
+
+  \param key    handle to an open registry key
+  \param subkey path of the subkey from which the function retrieves the value
+  \param value  name of the value to be retrieved.  If empty, the function retrieves the
+                type and data for the key's unnamed or default value
+  \param flags  the flags that restrict the data type of value to be queried.
+  \param data   pointer to data
+  \param size   pointer to size data size (in bytes)
+  \param type   pointer to type of data
+*/
+LSTATUS RegGetValue (HKEY key, const std::string& subkey, const std::string& value, 
+  DWORD flags, void* data, DWORD* size, DWORD* type)
+{
+  auto wsubkey = widen (subkey);
+  auto wvalue = widen (value);
+
+  return RegGetValueW (key, wsubkey.c_str (), wvalue.c_str (), flags, type, data, size);
+}
+
+/*!
+  Retrieves a string from a registry key value using the
+  [RegGetValue](https://learn.microsoft.com/en-us/windows/win32/api/winreg/nf-winreg-reggetvaluew)
+  function.
+
+  \param key    handle to an open registry key
+  \param subkey path of the subkey from which the function retrieves the value
+  \param value  name of the value to be retrieved.  If empty, the function retrieves the
+                type and data for the key's unnamed or default value
+  \param data   retrieved registry data
+  \param expand if false, the function does not expand the REG_EXPAND_SZ strings
+*/
+LSTATUS RegGetValue (HKEY key, const std::string& subkey, const std::string& value, std::string& data, bool expand)
+{
+  auto wsubkey = widen (subkey);
+  auto wvalue = widen (value);
+  DWORD sz;
+  const DWORD flags = RRF_RT_REG_SZ | RRF_RT_REG_EXPAND_SZ | (expand ? 0 :RRF_NOEXPAND);
+  auto ret = RegGetValueW (key, wsubkey.c_str (), wvalue.c_str (), 
+    flags, NULL, NULL, &sz);
+  if (ret == ERROR_SUCCESS)
+  {
+    /* Cannot use a wstring as RegGetValueW seems to return a size one larger
+    than the actual data size (maybe to account for a terminating NULL). See also:
+    https://stackoverflow.com/questions/29223180/successive-calls-to-reggetvalue-return-two-different-sizes-for-the-same-string
+    */
+    wchar_t *wdat  = new wchar_t[sz / sizeof (wchar_t)];
+    ret = RegGetValueW (key, wsubkey.c_str (), wvalue.c_str (), flags, NULL, 
+      wdat, &sz);
+    if (ret == ERROR_SUCCESS)
+      data = narrow (wdat);
+    delete[] wdat;
+  }
+  return ret;
+}
+
+/*!
+  Retrieves a vector of strings from a registry key value using the
+  [RegGetValue](https://learn.microsoft.com/en-us/windows/win32/api/winreg/nf-winreg-reggetvaluew)
+  function.
+
+  \param key    handle to an open registry key
+  \param subkey path of the subkey from which the function retrieves the value
+  \param value  name of the value to be retrieved.  If empty, the function retrieves the
+                type and data for the key's unnamed or default value
+  \param data   retrieved vector of strings
+*/
+LSTATUS RegGetValue (HKEY key, const std::string& subkey, const std::string& value, std::vector<std::string>& data)
+{
+  auto wsubkey = widen (subkey);
+  auto wvalue = widen (value);
+  DWORD sz;
+  auto ret = RegGetValueW (key, wsubkey.c_str (), wvalue.c_str (),
+    RRF_RT_REG_MULTI_SZ, NULL, NULL, &sz);
+  if (ret == ERROR_SUCCESS)
+  {
+    wchar_t *wdat = new wchar_t[sz/ sizeof (wchar_t)];
+    ret = RegGetValueW (key, wsubkey.c_str (), wvalue.c_str (), RRF_RT_REG_MULTI_SZ,
+      NULL, wdat, &sz);
+    if (ret == ERROR_SUCCESS)
+    {
+      wchar_t* ptr = wdat;
+      while (*ptr)
+      {
+        data.push_back (narrow (ptr));
+        ptr += wcslen (ptr)+1;
+      }
+    }
+    delete []wdat;
+  }
+  return ret;
+}
+
+/*!
+  Wrapper for [RegEnumKeyEx](https://learn.microsoft.com/en-us/windows/win32/api/winreg/nf-winreg-regenumkeyexw)
+
+  \param key  handle of an opened registry key
+  \param index enumeration index. Set to 0 for first subkey.
+  \param name name of enumerated subkey
+  \param maxlen maximum length (in characters) of subkey name
+  \param last_write_time pointer to variable that receives the last time the
+                         subkey was written.
+
+  If `maxlen` parameter is 0, the function uses
+  [RegQueryInfoKey](https://learn.microsoft.com/en-us/windows/win32/api/winreg/nf-winreg-regqueryinfokeyw)
+  function to determine the maximum length.
+*/
+LSTATUS RegEnumKey (HKEY key, DWORD index, std::string& name, DWORD maxlen, FILETIME* last_write_time)
+{
+  LSTATUS ret;
+  if (maxlen == 0)
+  {
+    ret = RegQueryInfoKeyW (key, 0, 0, 0, 0, &maxlen, 0, 0, 0, 0, 0, 0);
+    if (ret != ERROR_SUCCESS)
+      return ret;
+    maxlen++; //for terminating NULL
+  }
+  wchar_t* wnam = new wchar_t[maxlen];
+  ret = RegEnumKeyExW (key, index, wnam, &maxlen, 0, 0, 0, last_write_time);
+  if (ret == ERROR_SUCCESS)
+    name = narrow (wnam);
+  delete[] wnam;
+  return ret;
+}
+
+/*!
+  Enumerate all subkeys of a key
+
+  \param key  handle of an opened registry key
+  \param names vector of strings containing names of all enumerated subkeys
+  \return ERROR_SUCCESS or a non-zero error code
+*/
+LSTATUS RegEnumKey (HKEY key, std::vector<std::string>& names)
+{
+  DWORD maxlen;
+  LSTATUS ret = RegQueryInfoKeyW (key, 0, 0, 0, 0, &maxlen, 0, 0, 0, 0, 0, 0);
+  if (ret != ERROR_SUCCESS)
+    return ret;
+  maxlen++; //for terminating NULL
+  
+  wchar_t* wnam = new wchar_t[maxlen];
+  DWORD index = 0;
+  names.clear ();
+  while (ret == ERROR_SUCCESS)
+  {
+    DWORD len = maxlen;
+    ret = RegEnumKeyExW (key, index++, wnam, &len, 0, 0, 0, 0);
+    if (ret)
+      break;
+    names.push_back (narrow (wnam));
+  }
+  delete[] wnam;
+  if (ret == ERROR_NO_MORE_ITEMS)
+    ret= ERROR_SUCCESS;
+
+  return ret;
+}
+
+/*!
+  Wrapper for [RegEnumValue](https://learn.microsoft.com/en-us/windows/win32/api/winreg/nf-winreg-regenumvaluew)
+
+  \param key  handle of an opened registry key
+  \param index enumeration index. Set to 0 for first subkey.
+  \param value name of enumerated value
+  \param maxlen maximum length (in characters) of value name
+  \param type pointer to type of data stored in the value
+  \param data pointer to data stored in that value
+  \param data_len pointer to size of data buffer in bytes
+
+  If `maxlen` parameter is 0, the function uses
+  [RegQueryInfoKey](https://learn.microsoft.com/en-us/windows/win32/api/winreg/nf-winreg-regqueryinfokeyw)
+  function to determine the maximum length of value name.
+
+  `data_len` parameter can be NULL only if `data` parameter is also NULL.
+*/
+LSTATUS RegEnumValue (HKEY key, DWORD index, std::string& value, DWORD maxlen,
+  DWORD* type, void* data, DWORD* data_len)
+{
+  LSTATUS ret;
+  if (maxlen == 0)
+  {
+    ret = RegQueryInfoKeyW (key, 0, 0, 0, 0, 0, 0, 0, &maxlen, 0, 0, 0);
+    if (ret != ERROR_SUCCESS)
+      return ret;
+    maxlen++; //for terminating NULL
+  }
+  wchar_t* wval = new wchar_t[maxlen];
+  ret = RegEnumValueW (key, index, wval, &maxlen, 0, type, (BYTE*)data, data_len);
+  if (ret == ERROR_SUCCESS)
+    value = narrow (wval);
+  delete[] wval;
+  return ret;
+}
+
+/*!
+  Enumerate all values of a key
+
+  \param key  handle of an opened registry key
+  \param values vector of strings containing the names of all enumerated values
+  \return ERROR_SUCCESS or a non-zero error code
+*/
+LSTATUS RegEnumValue (HKEY key, std::vector<std::string>& values)
+{
+  DWORD maxlen;
+  LSTATUS ret = RegQueryInfoKeyW (key, 0, 0, 0, 0, 0, 0, 0, &maxlen, 0, 0, 0);
+  if (ret != ERROR_SUCCESS)
+    return ret;
+  maxlen++; //for terminating NULL
+
+  wchar_t* wval = new wchar_t[maxlen];
+  DWORD index = 0;
+  values.clear ();
+  while (ret == ERROR_SUCCESS)
+  {
+    DWORD len = maxlen;
+    ret = RegEnumValueW (key, index++, wval, &len, 0, 0, 0, 0);
+    if (ret != ERROR_SUCCESS)
+      break;
+    values.push_back (narrow (wval));
+  }
+
+  delete[] wval;
+  if (ret == ERROR_NO_MORE_ITEMS)
+    ret = ERROR_SUCCESS;
+
+  return ret;
+}
+
+} //end namespace utf8
