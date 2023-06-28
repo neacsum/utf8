@@ -69,12 +69,15 @@ buffer::buffer (const buffer& other)
 buffer&
 buffer::operator =(const buffer& rhs)
 {
-  delete ptr;
-  sz = rhs.sz;
-  if (sz)
-    memcpy ((ptr = new wchar_t[sz]), rhs.ptr, sz * sizeof (wchar_t));
-  else
-    ptr = nullptr;
+  if (&rhs != this)
+  {
+    delete ptr;
+    sz = rhs.sz;
+    if (sz)
+      memcpy ((ptr = new wchar_t[sz]), rhs.ptr, sz * sizeof (wchar_t));
+    else
+      ptr = nullptr;
+  }
 
   return *this;
 }

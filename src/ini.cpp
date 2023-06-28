@@ -542,7 +542,8 @@ bool IniFile::CopySection (const IniFile& from_file, const std::string& from_sec
     f_out = openwrite (tempname (filename));
     if (!f_out)
     {
-      fclose (f_out);
+      fclose (f_from);
+      fclose (f_to);
       return false;
     }
     //copy everything up to destination section

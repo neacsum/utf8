@@ -3,6 +3,8 @@
 #include <utf8/utf8.h>
 #include <iostream>
 
+#include "resource.h"
+
 #pragma warning (disable : 4566)
 
 using namespace std;
@@ -502,10 +504,10 @@ TEST (case_conversion_inplace)
   string lc{ "mircea neacșu ăâățî" };
   string uc{ "MIRCEA NEACȘU ĂÂĂȚÎ" };
   string t = lc;
-  utf8::toupper (t);
+  utf8::make_upper (t);
   CHECK_EQUAL (uc, t);
   t = uc;
-  utf8::tolower (t);
+  utf8::make_lower (t);
   CHECK_EQUAL (lc, t);
 }
 
@@ -646,5 +648,12 @@ TEST (lower_substring)
   s += utf8::tolower (string (p, uc.end ()));
 
   CHECK_EQUAL (lc, s);
+}
 
+TEST (func_load_string)
+{
+  auto uc = utf8::LoadString (IDS_UC);
+  auto lc = utf8::LoadString (IDS_LC);
+
+  CHECK_EQUAL (lc, utf8::tolower (uc));
 }

@@ -32,7 +32,7 @@ namespace utf8 {
 int MessageBox (HWND hWnd, const std::string& text, const std::string& caption,
   unsigned int type);
 bool CopyFile (const std::string& from, const std::string& to, bool fail_exist);
-std::string LoadString (HINSTANCE hInst, UINT id);
+std::string LoadString (UINT id, HINSTANCE hInst = NULL);
 
 //registry functions
 LSTATUS RegCreateKey (HKEY key, const std::string& subkey, HKEY& result,

@@ -85,7 +85,7 @@ std::string tolower (const std::string& str)
   Note that in general the size of the returned string will be different from that of the
   input string.
 */
-void tolower (std::string& str)
+void make_lower (std::string& str)
 {
   str = tolower (const_cast<const string&>(str));
 }
@@ -135,7 +135,7 @@ std::string toupper (const std::string& str)
   Note that in general the size of the returned string will be different from that of the
   input string.
 */
-void toupper (std::string& str)
+void make_upper (std::string& str)
 {
   str = toupper (const_cast<const string&>(str));
 }

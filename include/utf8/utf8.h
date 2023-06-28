@@ -102,8 +102,8 @@ bool symlink (const std::string& path, const std::string& target, bool directory
   \addtogroup folding
   @{
 */
-void tolower (std::string& str);
-void toupper (std::string& str);
+void make_lower (std::string& str);
+void make_upper (std::string& str);
 std::string tolower (const std::string& str);
 std::string toupper (const std::string& str);
 int icompare (const std::string& s1, const std::string& s2);

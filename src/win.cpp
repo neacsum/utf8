@@ -125,11 +125,11 @@ bool CopyFile (const std::string& from, const std::string& to, bool fail_exist)
   Convenience wrapper for Windows
   [LoadString](https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-loadstringw)
   function.
-  \param hInst module handle of the module containing the string resource
   \param id String identifier
+  \param hInst module handle of the module containing the string resource
   \return UTF-8 resource string or an empty string if resource doesn't exist
 */
-std::string LoadString (HINSTANCE hInst, UINT id)
+std::string LoadString (UINT id, HINSTANCE hInst)
 {
   wchar_t *wptr;
   int ret = ::LoadStringW (hInst, id, (LPWSTR)&wptr, 0);
