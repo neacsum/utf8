@@ -81,22 +81,23 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>UTF-8 Conversion functions (c) Mircea Neacsu 2014-2020.  
+<p>UTF-8 Conversion functions.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;string&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
 <code>#include &lt;fstream&gt;</code><br />
 <code>#include &lt;<a class="el" href="winutf8_8h_source.html">utf8/winutf8.h</a>&gt;</code><br />
-<code>#include &lt;utf8/ini.h&gt;</code><br />
+<code>#include &lt;<a class="el" href="ini_8h_source.html">utf8/ini.h</a>&gt;</code><br />
 </div>
 <p><a href="utf8_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Data Structures</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structutf8_1_1exception.html">utf8::exception</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structutf8_1_1exception.html">utf8::exception</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exception thrown on encoding/decoding failure.  <a href="structutf8_1_1exception.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">exception &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="exceptionutf8_1_1exception_1_1c.html">utf8::exception::c</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="exceptionutf8_1_1exception_1_1c.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classutf8_1_1ifstream.html">utf8::ifstream</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Input stream class using UTF-8 filename.  <a href="classutf8_1_1ifstream.html#details">More...</a><br /></td></tr>
@@ -257,12 +258,12 @@ Functions</h2></td></tr>
 <tr class="memitem:ad421be5a76e30b85acb42ca25c286cba"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="win_8cpp.html#ad421be5a76e30b85acb42ca25c286cba">utf8::symlink</a> (const std::string &amp;path, const std::string &amp;link, bool directory)</td></tr>
 <tr class="memdesc:ad421be5a76e30b85acb42ca25c286cba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a symbolic link.   <a href="win_8cpp.html#ad421be5a76e30b85acb42ca25c286cba">More...</a><br /></td></tr>
 <tr class="separator:ad421be5a76e30b85acb42ca25c286cba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga1cc1cac155b73072b92722be1d48e69b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__folding.html#ga1cc1cac155b73072b92722be1d48e69b">utf8::tolower</a> (std::string &amp;str)</td></tr>
-<tr class="memdesc:ga1cc1cac155b73072b92722be1d48e69b"><td class="mdescLeft">&#160;</td><td class="mdescRight">In place version converts a UTF-8 encoded string to lowercase.  <a href="group__folding.html#ga1cc1cac155b73072b92722be1d48e69b">More...</a><br /></td></tr>
-<tr class="separator:ga1cc1cac155b73072b92722be1d48e69b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga325bae2a5780a75b50ad1f9bfda2af09"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__folding.html#ga325bae2a5780a75b50ad1f9bfda2af09">utf8::toupper</a> (std::string &amp;str)</td></tr>
-<tr class="memdesc:ga325bae2a5780a75b50ad1f9bfda2af09"><td class="mdescLeft">&#160;</td><td class="mdescRight">In place version converts a UTF-8 encoded string to lowercase.  <a href="group__folding.html#ga325bae2a5780a75b50ad1f9bfda2af09">More...</a><br /></td></tr>
-<tr class="separator:ga325bae2a5780a75b50ad1f9bfda2af09"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga67ebbd67162a69d8b07c7df200613c7a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__folding.html#ga67ebbd67162a69d8b07c7df200613c7a">utf8::make_lower</a> (std::string &amp;str)</td></tr>
+<tr class="memdesc:ga67ebbd67162a69d8b07c7df200613c7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">In place version converts a UTF-8 encoded string to lowercase.  <a href="group__folding.html#ga67ebbd67162a69d8b07c7df200613c7a">More...</a><br /></td></tr>
+<tr class="separator:ga67ebbd67162a69d8b07c7df200613c7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadd7c5bc7f42691cb535b5919cded3424"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__folding.html#gadd7c5bc7f42691cb535b5919cded3424">utf8::make_upper</a> (std::string &amp;str)</td></tr>
+<tr class="memdesc:gadd7c5bc7f42691cb535b5919cded3424"><td class="mdescLeft">&#160;</td><td class="mdescRight">In place version converts a UTF-8 encoded string to lowercase.  <a href="group__folding.html#gadd7c5bc7f42691cb535b5919cded3424">More...</a><br /></td></tr>
+<tr class="separator:gadd7c5bc7f42691cb535b5919cded3424"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga894cab0cb787243c4b12527548878f83"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__folding.html#ga894cab0cb787243c4b12527548878f83">utf8::tolower</a> (const std::string &amp;str)</td></tr>
 <tr class="memdesc:ga894cab0cb787243c4b12527548878f83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert UTF-8 string to lower case.  <a href="group__folding.html#ga894cab0cb787243c4b12527548878f83">More...</a><br /></td></tr>
 <tr class="separator:ga894cab0cb787243c4b12527548878f83"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -318,7 +319,7 @@ Functions</h2></td></tr>
 <tr class="separator:gaec411c7eea5fc3fcf20af0a5f66bf177"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p >UTF-8 Conversion functions (c) Mircea Neacsu 2014-2020. </p>
+<div class="textblock"><p >UTF-8 Conversion functions. </p>
 </div><h2 class="groupheader">Function Documentation</h2>
 <a id="af3ebab9439377a6a3f13542dbab4337c" name="af3ebab9439377a6a3f13542dbab4337c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af3ebab9439377a6a3f13542dbab4337c">&#9670;&#160;</a></span>access() <span class="overload">[1/2]</span></h2>

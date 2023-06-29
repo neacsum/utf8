@@ -1,9 +1,10 @@
-/// \file win.cpp Wrappers for common Windows functions 
-
 /*
-  (c) Mircea Neacsu 2014-2019. Licensed under MIT License.
+  (c) Mircea Neacsu 2014-2023. Licensed under MIT License.
   See README file for full license terms.
 */
+
+/// \file win.cpp Wrappers for common Windows functions 
+
 #include <utf8/utf8.h>
 #include <cassert>
 

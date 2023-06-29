@@ -1,10 +1,9 @@
-/*!
-  \file casecvt.cpp Implementation case folding functions
-*/
 /*
-  (c) Mircea Neacsu 2014-2020. Licensed under MIT License.
+  (c) Mircea Neacsu 2014-2023. Licensed under MIT License.
   See README file for full license terms.
 */
+
+///  \file casecvt.cpp Implementation case folding functions
 
 #include <utf8/utf8.h>
 #include <algorithm>
@@ -13,16 +12,20 @@
 
 using namespace std;
 
-
 namespace utf8 {
 
 /*!
   \defgroup folding Character Folding Functions
   Conversion between upper case and lower case letters.
   
-  toupper() and tolower() functions use standard tables published by Unicode
+  toupper() and tolower() functions and their in-place counterparts
+  make_upper() and make_lower(), use standard tables published by Unicode
   Consortium to perform case folding.
-  There is also a function icompare() that performs string comparison ignoring the case.
+  There is also a function, icompare(), that performs string comparison ignoring
+  the case.
+
+  If input strings are not valid UTF-8 encoded strings, these function will
+  throw a utf8::exception.
 
   A small ancillary program (gen_casetab) converts the original table
   in two tables of equal size, one with the upper case letters and the other
@@ -61,9 +64,6 @@ bool islower (const char* p)
   
   Uses case folding table published by Unicode Consortium
   (https://www.unicode.org/Public/UCD/latest/ucd/CaseFolding.txt)
-
-  Note that in general the size of the returned string will be different from that of the
-  input string.
 */
 
 std::string tolower (const std::string& str)
@@ -82,12 +82,12 @@ std::string tolower (const std::string& str)
   In place version converts a UTF-8 encoded string to lowercase
   \param str  UTF-8 encoded string to be converted
 
-  Note that in general the size of the returned string will be different from that of the
-  input string.
+  Note that, in general, the size of the resulting string will be different from
+  that of the original string.
 */
 void make_lower (std::string& str)
 {
-  str = tolower (const_cast<const string&>(str));
+  str = tolower (str);
 }
 
 /// Return `true` if character is an uppercase character
@@ -112,9 +112,6 @@ bool isupper (const char* p)
 
   Uses case folding table published by Unicode Consortium
   (http://www.unicode.org/Public/UCD/latest/ucd/CaseFolding.txt)
-
-  Note that in general the size of the returned string will be different from that of the
-  input string.
 */
 std::string toupper (const std::string& str)
 {
@@ -132,12 +129,12 @@ std::string toupper (const std::string& str)
   In place version converts a UTF-8 encoded string to lowercase.
   \param str  string to be converted
 
-  Note that in general the size of the returned string will be different from that of the
-  input string.
+  Note that, in general, the size of the resulting string will be different from
+  that of the original string.
 */
 void make_upper (std::string& str)
 {
-  str = toupper (const_cast<const string&>(str));
+  str = toupper (str);
 }
 
 /*!

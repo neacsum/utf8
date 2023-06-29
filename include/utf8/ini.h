@@ -1,8 +1,9 @@
 /*
-  \file INI.H Definition of IniFile
-
-  (c) Mircea Neacsu 2017-2020
+  (c) Mircea Neacsu 2014-2023. Licensed under MIT License.
+  See README file for full license terms.
 */
+
+/// \file ini.h Definition of IniFile class
 #pragma once
 
 #include <Windows.h>

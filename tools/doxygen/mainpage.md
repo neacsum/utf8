@@ -92,7 +92,7 @@ narrowing functions like this example:
 ```
 
 ### INI File Handling
-INI files, also called "profile files" in Microsoft parlance are still widely for storing application settings used either for compatibility reasons or because they are simple to work with.
+INI files, also called "profile files" in Microsoft parlance are still widely used for storing application settings used either for compatibility reasons or because they are simple to work with.
 
 The problem is that the basic Windows API calls for reading and writing INI files, `GetPrivateProfileString` and `PutPrivateProfileString`, combine both the file name and the information to be read or written in one API call. As an example, here is the signature of the `GetPrivateProfileStringW` function:
 ```cpp
@@ -116,7 +116,7 @@ The only changes compared to the Windows API are:
 ### Case Conversion
 Case conversion in Unicode is a much more complicated issue than ASCII case conversion.
 This library uses standard tables published by Unicode Consortium to perform upper case
-to lower case conversions. There is also a function icompare() that performs string
+to lower case conversions. There is also a function `icompare()` that performs string
 comparison ignoring the case.
 
 

@@ -103,9 +103,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>utf8::find_close</b> 
 <tr class="memitem:a685832fc48fb24f2a711f047e110db11"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="win_8cpp.html#a685832fc48fb24f2a711f047e110db11">utf8::CopyFile</a> (const std::string &amp;from, const std::string &amp;to, bool fail_exist)</td></tr>
 <tr class="memdesc:a685832fc48fb24f2a711f047e110db11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience wrapper for Windows <a href="https://docs.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-copyfile">CopyFile</a> function.  <a href="win_8cpp.html#a685832fc48fb24f2a711f047e110db11">More...</a><br /></td></tr>
 <tr class="separator:a685832fc48fb24f2a711f047e110db11"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a05568d44a6186ba5f0c7295bb60e3be6"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="win_8cpp.html#a05568d44a6186ba5f0c7295bb60e3be6">utf8::LoadString</a> (HINSTANCE hInst, UINT id)</td></tr>
-<tr class="memdesc:a05568d44a6186ba5f0c7295bb60e3be6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience wrapper for Windows <a href="https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-loadstringw">LoadString</a> function.  <a href="win_8cpp.html#a05568d44a6186ba5f0c7295bb60e3be6">More...</a><br /></td></tr>
-<tr class="separator:a05568d44a6186ba5f0c7295bb60e3be6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c8d2b8afd76d940d81562e5d72cadf4"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="win_8cpp.html#a1c8d2b8afd76d940d81562e5d72cadf4">utf8::LoadString</a> (UINT id, HINSTANCE hInst)</td></tr>
+<tr class="memdesc:a1c8d2b8afd76d940d81562e5d72cadf4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience wrapper for Windows <a href="https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-loadstringw">LoadString</a> function.  <a href="win_8cpp.html#a1c8d2b8afd76d940d81562e5d72cadf4">More...</a><br /></td></tr>
+<tr class="separator:a1c8d2b8afd76d940d81562e5d72cadf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3a9118219f196710e4ee8f90e94264fc"><td class="memItemLeft" align="right" valign="top">HINSTANCE&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="win_8cpp.html#a3a9118219f196710e4ee8f90e94264fc">utf8::ShellExecute</a> (const std::string &amp;file, const std::string &amp;verb, const std::string &amp;parameters, const std::string &amp;directory, HWND hWnd, int show)</td></tr>
 <tr class="memdesc:a3a9118219f196710e4ee8f90e94264fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience wrapper for Windows <a href="https://docs.microsoft.com/en-us/windows/win32/api/shellapi/nf-shellapi-shellexecutew">ShellExecute</a> function.  <a href="win_8cpp.html#a3a9118219f196710e4ee8f90e94264fc">More...</a><br /></td></tr>
 <tr class="separator:a3a9118219f196710e4ee8f90e94264fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -384,8 +384,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>utf8::find_close</b> 
 
 </div>
 </div>
-<a id="a05568d44a6186ba5f0c7295bb60e3be6" name="a05568d44a6186ba5f0c7295bb60e3be6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a05568d44a6186ba5f0c7295bb60e3be6">&#9670;&#160;</a></span>LoadString()</h2>
+<a id="a1c8d2b8afd76d940d81562e5d72cadf4" name="a1c8d2b8afd76d940d81562e5d72cadf4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c8d2b8afd76d940d81562e5d72cadf4">&#9670;&#160;</a></span>LoadString()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -393,14 +393,14 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>utf8::find_close</b> 
         <tr>
           <td class="memname">std::string utf8::LoadString </td>
           <td>(</td>
-          <td class="paramtype">HINSTANCE&#160;</td>
-          <td class="paramname"><em>hInst</em>, </td>
+          <td class="paramtype">UINT&#160;</td>
+          <td class="paramname"><em>id</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">UINT&#160;</td>
-          <td class="paramname"><em>id</em>&#160;</td>
+          <td class="paramtype">HINSTANCE&#160;</td>
+          <td class="paramname"><em>hInst</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -413,8 +413,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>utf8::find_close</b> 
 <p>Convenience wrapper for Windows <a href="https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-loadstringw">LoadString</a> function. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">hInst</td><td>module handle of the module containing the string resource </td></tr>
     <tr><td class="paramname">id</td><td>String identifier </td></tr>
+    <tr><td class="paramname">hInst</td><td>module handle of the module containing the string resource </td></tr>
   </table>
   </dd>
 </dl>

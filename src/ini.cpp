@@ -1,10 +1,9 @@
-/*!
-  \file ini.cpp Implementation of IniFile
-
-  (c) Mircea Neacsu 2017-2020
-
-  A UTF-8 implementation of MS INI file functions.
+/*
+  (c) Mircea Neacsu 2014-2023. Licensed under MIT License.
+  See README file for full license terms.
 */
+
+/// \file ini.cpp Implementation of IniFile class.
 
 #include <stdio.h>
 #include <string.h>

@@ -1,9 +1,11 @@
-﻿/*!
-  \file utf8.h UTF-8 Conversion functions
-  (c) Mircea Neacsu 2014-2020
-
+﻿/*
+  (c) Mircea Neacsu 2014-2023. Licensed under MIT License.
+  See README file for full license terms.
 */
+
+/// \file utf8.h UTF-8 Conversion functions
 #pragma once
+
 #include <string>
 #include <vector>
 #include <fstream>
@@ -13,7 +15,10 @@ namespace utf8 {
 /// Exception thrown on encoding/decoding failure
 struct exception : public std::exception
 {
+  /// Possible causes
   enum reason { invalid_utf8, invalid_char32 };
+
+  /// Constructor
   exception (reason c)
     : std::exception (
       c == reason::invalid_utf8 ? "Invalid UTF-8 encoding" :
@@ -21,6 +26,8 @@ struct exception : public std::exception
       "Other UTF-8 exception")
     , cause (c)
   {}
+
+  /// What triggered the exception
   reason cause;
 };
 

@@ -1,9 +1,11 @@
-#pragma once
-/*!
-  \file winutf8.h - Wrapper for popular Windows API functions
-
-  (c) Mircea Neacsu 2019-2022. All rights reserved.
+/*
+  (c) Mircea Neacsu 2014-2023. Licensed under MIT License.
+  See README file for full license terms.
 */
+
+/// \file winutf8.h Wrapper for popular Windows API functions
+#pragma once
+
 #include <Windows.h>
 #include <string>
 #include <ostream>

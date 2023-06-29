@@ -1,9 +1,10 @@
-/// \file buffer.cpp Implementation of utf8::buffer class 
-
 /*
-  (c) Mircea Neacsu 2014-2019. Licensed under MIT License.
+  (c) Mircea Neacsu 2014-2023. Licensed under MIT License.
   See README file for full license terms.
 */
+
+/// \file buffer.cpp Implementation of utf8::buffer class 
+
 #include <utf8/utf8.h>
 
 using namespace std;

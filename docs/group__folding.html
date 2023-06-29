@@ -81,12 +81,12 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga1cc1cac155b73072b92722be1d48e69b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__folding.html#ga1cc1cac155b73072b92722be1d48e69b">utf8::tolower</a> (std::string &amp;str)</td></tr>
-<tr class="memdesc:ga1cc1cac155b73072b92722be1d48e69b"><td class="mdescLeft">&#160;</td><td class="mdescRight">In place version converts a UTF-8 encoded string to lowercase.  <a href="group__folding.html#ga1cc1cac155b73072b92722be1d48e69b">More...</a><br /></td></tr>
-<tr class="separator:ga1cc1cac155b73072b92722be1d48e69b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga325bae2a5780a75b50ad1f9bfda2af09"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__folding.html#ga325bae2a5780a75b50ad1f9bfda2af09">utf8::toupper</a> (std::string &amp;str)</td></tr>
-<tr class="memdesc:ga325bae2a5780a75b50ad1f9bfda2af09"><td class="mdescLeft">&#160;</td><td class="mdescRight">In place version converts a UTF-8 encoded string to lowercase.  <a href="group__folding.html#ga325bae2a5780a75b50ad1f9bfda2af09">More...</a><br /></td></tr>
-<tr class="separator:ga325bae2a5780a75b50ad1f9bfda2af09"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga67ebbd67162a69d8b07c7df200613c7a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__folding.html#ga67ebbd67162a69d8b07c7df200613c7a">utf8::make_lower</a> (std::string &amp;str)</td></tr>
+<tr class="memdesc:ga67ebbd67162a69d8b07c7df200613c7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">In place version converts a UTF-8 encoded string to lowercase.  <a href="group__folding.html#ga67ebbd67162a69d8b07c7df200613c7a">More...</a><br /></td></tr>
+<tr class="separator:ga67ebbd67162a69d8b07c7df200613c7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadd7c5bc7f42691cb535b5919cded3424"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__folding.html#gadd7c5bc7f42691cb535b5919cded3424">utf8::make_upper</a> (std::string &amp;str)</td></tr>
+<tr class="memdesc:gadd7c5bc7f42691cb535b5919cded3424"><td class="mdescLeft">&#160;</td><td class="mdescRight">In place version converts a UTF-8 encoded string to lowercase.  <a href="group__folding.html#gadd7c5bc7f42691cb535b5919cded3424">More...</a><br /></td></tr>
+<tr class="separator:gadd7c5bc7f42691cb535b5919cded3424"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga894cab0cb787243c4b12527548878f83"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__folding.html#ga894cab0cb787243c4b12527548878f83">utf8::tolower</a> (const std::string &amp;str)</td></tr>
 <tr class="memdesc:ga894cab0cb787243c4b12527548878f83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert UTF-8 string to lower case.  <a href="group__folding.html#ga894cab0cb787243c4b12527548878f83">More...</a><br /></td></tr>
 <tr class="separator:ga894cab0cb787243c4b12527548878f83"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -99,7 +99,8 @@ Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p >Conversion between upper case and lower case letters. </p>
-<p ><a class="el" href="group__folding.html#ga91b3da502eef20834b49c946ff821b79" title="Convert a UTF-8 string to upper case.">toupper()</a> and <a class="el" href="group__folding.html#ga894cab0cb787243c4b12527548878f83" title="Convert UTF-8 string to lower case.">tolower()</a> functions use standard tables published by Unicode Consortium to perform case folding. There is also a function <a class="el" href="group__folding.html#gaa65352f672803529414aaba45c30763f" title="Compare two strings in a case-insensitive way.">icompare()</a> that performs string comparison ignoring the case.</p>
+<p ><a class="el" href="group__folding.html#ga91b3da502eef20834b49c946ff821b79" title="Convert a UTF-8 string to upper case.">toupper()</a> and <a class="el" href="group__folding.html#ga894cab0cb787243c4b12527548878f83" title="Convert UTF-8 string to lower case.">tolower()</a> functions and their in-place counterparts <a class="el" href="group__folding.html#gadd7c5bc7f42691cb535b5919cded3424" title="In place version converts a UTF-8 encoded string to lowercase.">make_upper()</a> and <a class="el" href="group__folding.html#ga67ebbd67162a69d8b07c7df200613c7a" title="In place version converts a UTF-8 encoded string to lowercase.">make_lower()</a>, use standard tables published by Unicode Consortium to perform case folding. There is also a function, <a class="el" href="group__folding.html#gaa65352f672803529414aaba45c30763f" title="Compare two strings in a case-insensitive way.">icompare()</a>, that performs string comparison ignoring the case.</p>
+<p >If input strings are not valid UTF-8 encoded strings, these function will throw a <a class="el" href="structutf8_1_1exception.html" title="Exception thrown on encoding/decoding failure.">utf8::exception</a>.</p>
 <p >A small ancillary program (gen_casetab) converts the original table in two tables of equal size, one with the upper case letters and the other with the lower case ones. The upper case table is sorted to allow for binary searching. If a code is found in the upper case table, it is replaced with the matching code from the lower case.</p>
 <p >Case folding tables take about 22k. Finding a code takes at most 11 comparisons. </p>
 <h2 class="groupheader">Function Documentation</h2>
@@ -146,8 +147,62 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ga67ebbd67162a69d8b07c7df200613c7a" name="ga67ebbd67162a69d8b07c7df200613c7a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga67ebbd67162a69d8b07c7df200613c7a">&#9670;&#160;</a></span>make_lower()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void utf8::make_lower </td>
+          <td>(</td>
+          <td class="paramtype">std::string &amp;&#160;</td>
+          <td class="paramname"><em>str</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>In place version converts a UTF-8 encoded string to lowercase. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">str</td><td>UTF-8 encoded string to be converted</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>Note that, in general, the size of the resulting string will be different from that of the original string. </p>
+
+</div>
+</div>
+<a id="gadd7c5bc7f42691cb535b5919cded3424" name="gadd7c5bc7f42691cb535b5919cded3424"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gadd7c5bc7f42691cb535b5919cded3424">&#9670;&#160;</a></span>make_upper()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void utf8::make_upper </td>
+          <td>(</td>
+          <td class="paramtype">std::string &amp;&#160;</td>
+          <td class="paramname"><em>str</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>In place version converts a UTF-8 encoded string to lowercase. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">str</td><td>string to be converted</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>Note that, in general, the size of the resulting string will be different from that of the original string. </p>
+
+</div>
+</div>
 <a id="ga894cab0cb787243c4b12527548878f83" name="ga894cab0cb787243c4b12527548878f83"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga894cab0cb787243c4b12527548878f83">&#9670;&#160;</a></span>tolower() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ga894cab0cb787243c4b12527548878f83">&#9670;&#160;</a></span>tolower()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -170,40 +225,12 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>lower case UTF-8 string</dd></dl>
-<p>Uses case folding table published by Unicode Consortium (<a href="https://www.unicode.org/Public/UCD/latest/ucd/CaseFolding.txt">https://www.unicode.org/Public/UCD/latest/ucd/CaseFolding.txt</a>)</p>
-<p >Note that in general the size of the returned string will be different from that of the input string. </p>
-
-</div>
-</div>
-<a id="ga1cc1cac155b73072b92722be1d48e69b" name="ga1cc1cac155b73072b92722be1d48e69b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga1cc1cac155b73072b92722be1d48e69b">&#9670;&#160;</a></span>tolower() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void utf8::tolower </td>
-          <td>(</td>
-          <td class="paramtype">std::string &amp;&#160;</td>
-          <td class="paramname"><em>str</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>In place version converts a UTF-8 encoded string to lowercase. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">str</td><td>UTF-8 encoded string to be converted</td></tr>
-  </table>
-  </dd>
-</dl>
-<p>Note that in general the size of the returned string will be different from that of the input string. </p>
+<p>Uses case folding table published by Unicode Consortium (<a href="https://www.unicode.org/Public/UCD/latest/ucd/CaseFolding.txt">https://www.unicode.org/Public/UCD/latest/ucd/CaseFolding.txt</a>) </p>
 
 </div>
 </div>
 <a id="ga91b3da502eef20834b49c946ff821b79" name="ga91b3da502eef20834b49c946ff821b79"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga91b3da502eef20834b49c946ff821b79">&#9670;&#160;</a></span>toupper() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ga91b3da502eef20834b49c946ff821b79">&#9670;&#160;</a></span>toupper()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -226,35 +253,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>upper case UTF-8 string</dd></dl>
-<p>Uses case folding table published by Unicode Consortium (<a href="http://www.unicode.org/Public/UCD/latest/ucd/CaseFolding.txt">http://www.unicode.org/Public/UCD/latest/ucd/CaseFolding.txt</a>)</p>
-<p >Note that in general the size of the returned string will be different from that of the input string. </p>
-
-</div>
-</div>
-<a id="ga325bae2a5780a75b50ad1f9bfda2af09" name="ga325bae2a5780a75b50ad1f9bfda2af09"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga325bae2a5780a75b50ad1f9bfda2af09">&#9670;&#160;</a></span>toupper() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void utf8::toupper </td>
-          <td>(</td>
-          <td class="paramtype">std::string &amp;&#160;</td>
-          <td class="paramname"><em>str</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>In place version converts a UTF-8 encoded string to lowercase. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">str</td><td>string to be converted</td></tr>
-  </table>
-  </dd>
-</dl>
-<p>Note that in general the size of the returned string will be different from that of the input string. </p>
+<p>Uses case folding table published by Unicode Consortium (<a href="http://www.unicode.org/Public/UCD/latest/ucd/CaseFolding.txt">http://www.unicode.org/Public/UCD/latest/ucd/CaseFolding.txt</a>) </p>
 
 </div>
 </div>

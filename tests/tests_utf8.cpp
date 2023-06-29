@@ -250,6 +250,36 @@ TEST (is_valid_no)
   CHECK (!is_valid ("\xED\xA0\x80")); // 0xD800 surrogate code point
 }
 
+TEST (throw_invalid_utf8)
+{
+  const char invalid[] { "\xFE\xFF\xFF\xFE" }; //UTF-16 BOM markers
+  const char *ptr = invalid;
+  bool thrown = false;
+  try {
+    next(ptr);
+  }
+  catch (utf8::exception& e) {
+    CHECK_EQUAL (utf8::exception::invalid_utf8, e.cause);
+    thrown = true;
+    cout << "Exception caught: " << e.what () << endl;
+  }
+  CHECK (thrown);
+}
+
+TEST (throw_invalid_char32)
+{
+  bool thrown = false;
+  try {
+    narrow (0xd800);
+  }
+  catch (utf8::exception& e) {
+    CHECK_EQUAL (utf8::exception::invalid_char32, e.cause);
+    thrown = true;
+    cout << "Exception caught: " << e.what () << endl;
+  }
+  CHECK (thrown);
+}
+
 // test for runes function (conversion from UTF8 to UTF32)
 TEST (runes)
 {

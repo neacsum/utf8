@@ -1,9 +1,9 @@
-﻿/// \file utf8.cpp Basic UTF-8 Conversion functions
-
-/*
-  (c) Mircea Neacsu 2014-2019. Licensed under MIT License.
+﻿/*
+  (c) Mircea Neacsu 2014-2023. Licensed under MIT License.
   See README file for full license terms.
 */
+
+/// \file utf8.cpp Basic UTF-8 Conversion functions
 
 #include <windows.h>
 #include <sys/stat.h>
@@ -180,7 +180,7 @@ std::u32string runes (const char* s, size_t nch)
   while (nch)
   {
     char32_t  r = decode (s, &nch);
-    if (r == 0xFFFD)
+    if (r == REPLACEMENT_CHARACTER)
       throw exception (exception::reason::invalid_utf8);
     str.push_back (r);
   }
@@ -201,7 +201,7 @@ std::u32string runes (const std::string& s)
   while (len)
   {
     char32_t r = decode (p, &len);
-    if (r == 0xFFFD)
+    if (r == REPLACEMENT_CHARACTER)
       throw exception (exception::reason::invalid_utf8);
     str.push_back (r);
   }
@@ -217,7 +217,7 @@ std::u32string runes (const std::string& s)
 char32_t rune (const char* p)
 {
   char32_t r = decode (p, nullptr);
-  if (r == 0xfffd)
+  if (r == REPLACEMENT_CHARACTER)
     throw exception (exception::reason::invalid_utf8);
   return r;
 }
@@ -627,20 +627,27 @@ int cont_bytes (char c)
          (c & 0xF8) == 0xF0 ? 3 : 0;
 }
 
-/// Decode a UTF-8 codepoint to a UTF-32
-/// Return error replacement character (0xfffd) if invalid
-char32_t decode (char const*& p, size_t* len)
+/*!
+  Decode a UTF-8 codepoint to a UTF-32
+  \param ptr reference to UTF-8 character(s). On return, `ptr` points to next
+             UTF-8 character
+  \param len pointer to length of UTF-8 string. Can be NULL
+
+  \return UTF-32 character or error replacement character (0xfffd) if input
+          string is invalid
+*/
+char32_t decode (char const*& ptr, size_t* len)
 {
-  char c = *p;
+  char c = *ptr;
   if (!(c & 0x80))
   {
     if (len)
     {
       (*len)--;
-      p++;
+      ptr++;
     }
     else if (c)
-      p++; //for null terminated strings don't advance past end
+      ptr++; //for null terminated strings don't advance past end
     return c;
   }
   if ((c & 0xC0) == 0x80)
@@ -665,7 +672,7 @@ char32_t decode (char const*& p, size_t* len)
   }
   else
     return REPLACEMENT_CHARACTER; //code points > U+0x10FFFF are invalid
-  p++;
+  ptr++;
   if (len && --(*len) < cont)
     return REPLACEMENT_CHARACTER; //missing bytes
 
@@ -674,16 +681,16 @@ char32_t decode (char const*& p, size_t* len)
     if (len)
       --(*len);
 
-    if ((*p & 0x80) != 0x80)
+    if ((*ptr & 0x80) != 0x80)
       return REPLACEMENT_CHARACTER; //missing continuation byte(s)
     rune <<= 6;
-    rune += *p++ & 0x3f;
+    rune += *ptr++ & 0x3f;
   }
   if (rune > 0x10ffff)
     return REPLACEMENT_CHARACTER; //code points > U+0x10FFFF or iterator at end
 
   if (0xD800 <= rune && rune <= 0xdfff)
-    return 0xFFFD; //surrogates (U+D000 to U+DFFF) are invalid
+    return REPLACEMENT_CHARACTER; //surrogates (U+D000 to U+DFFF) are invalid
 
   if (rune < 0x80
     || (cont > 1 && rune < 0x800)
@@ -693,6 +700,32 @@ char32_t decode (char const*& p, size_t* len)
   return rune;
 }
 
+/*!
+  \class exception
 
+  Most UTF8 functions will throw an exception if input string is not a valid
+  encoding. So far there are two possible causes:
+  - `invalid_utf8` if the string is not a valid UTF-8 encoding
+  - `invalid_char32` if the string is not a valid UTF-32 codepoint.
+
+  You can handle a utf8::exception using code like this:
+\code
+
+  //...
+  catch (utf8::exception& e) {
+    if (e.cause == utf8::exception::invalid_utf8) {
+      // do something
+    }
+  }
+\endcode
+  or you can simply use the exception message:
+\code
+  //...
+  catch (utf8::exception& e) {
+    cout << e.what() << endl;
+  }
+\endcode
+
+*/
 
 } //end namespace
