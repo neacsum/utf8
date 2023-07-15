@@ -18,6 +18,7 @@
 #undef GetTempPath
 #undef GetTempFileName
 #undef GetFullPathName
+#undef GetModuleFileName
 #undef RegCreateKey
 #undef RegDeleteKey
 #undef RegOpenKey
@@ -68,6 +69,7 @@ HINSTANCE ShellExecute (const std::string& file, const std::string& verb = std::
 std::string GetTempPath ();
 std::string GetTempFileName (const std::string& path, const std::string& prefix, UINT unique=0);
 std::string GetFullPathName (const std::string& rel_path);
+bool GetModuleFileName (HMODULE hModule, std::string& filename);
 
 /// File enumeration structure used by find_first() and find_next() functions 
 struct find_data {

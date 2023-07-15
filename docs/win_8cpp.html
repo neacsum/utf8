@@ -118,6 +118,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>utf8::find_close</b> 
 <tr class="memitem:a7f638a67f8042af6ed041b7135bf54c6"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="win_8cpp.html#a7f638a67f8042af6ed041b7135bf54c6">utf8::GetFullPathName</a> (const std::string &amp;rel_path)</td></tr>
 <tr class="memdesc:a7f638a67f8042af6ed041b7135bf54c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience wrapper for <a href="https://docs.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-getfullpathnamew">GetFullPathName</a>  <a href="win_8cpp.html#a7f638a67f8042af6ed041b7135bf54c6">More...</a><br /></td></tr>
 <tr class="separator:a7f638a67f8042af6ed041b7135bf54c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a125b7833a8f4977c30e7621e61ae1c76"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="win_8cpp.html#a125b7833a8f4977c30e7621e61ae1c76">utf8::GetModuleFileName</a> (HMODULE hModule, std::string &amp;filename)</td></tr>
+<tr class="memdesc:a125b7833a8f4977c30e7621e61ae1c76"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience wrapper for <a href="https://learn.microsoft.com/en-us/windows/win32/api/libloaderapi/nf-libloaderapi-getmodulefilenamew">GetModuleFileName</a>  <a href="win_8cpp.html#a125b7833a8f4977c30e7621e61ae1c76">More...</a><br /></td></tr>
+<tr class="separator:a125b7833a8f4977c30e7621e61ae1c76"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac1275556865f307d60296437899bcdef"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="win_8cpp.html#ac1275556865f307d60296437899bcdef">utf8::symlink</a> (const char *path, const char *link, bool directory)</td></tr>
 <tr class="memdesc:ac1275556865f307d60296437899bcdef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a symbolic link.  <a href="win_8cpp.html#ac1275556865f307d60296437899bcdef">More...</a><br /></td></tr>
 <tr class="separator:ac1275556865f307d60296437899bcdef"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -319,6 +322,44 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>utf8::find_close</b> 
 
 </div>
 </div>
+<a id="a125b7833a8f4977c30e7621e61ae1c76" name="a125b7833a8f4977c30e7621e61ae1c76"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a125b7833a8f4977c30e7621e61ae1c76">&#9670;&#160;</a></span>GetModuleFileName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool utf8::GetModuleFileName </td>
+          <td>(</td>
+          <td class="paramtype">HMODULE&#160;</td>
+          <td class="paramname"><em>hModule</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string &amp;&#160;</td>
+          <td class="paramname"><em>filename</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Convenience wrapper for <a href="https://learn.microsoft.com/en-us/windows/win32/api/libloaderapi/nf-libloaderapi-getmodulefilenamew">GetModuleFileName</a> </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">hModule</td><td>module handle for which path will be retrieved or NULL to retrieve path of current executable. </td></tr>
+    <tr><td class="paramname">filename</td><td>UTF-8 encoded module file name </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if successful <code>false</code> otherwise </dd></dl>
+
+</div>
+</div>
 <a id="aa80797b33793b653187807c3efcc3df7" name="aa80797b33793b653187807c3efcc3df7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa80797b33793b653187807c3efcc3df7">&#9670;&#160;</a></span>GetTempFileName()</h2>
 
@@ -356,7 +397,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>utf8::find_close</b> 
   <table class="params">
     <tr><td class="paramname">path</td><td>directory path </td></tr>
     <tr><td class="paramname">prefix</td><td>filename prefix (up to 3 characters) </td></tr>
-    <tr><td class="paramname">unique</td><td>integer value used to crate filename</td></tr>
+    <tr><td class="paramname">unique</td><td>integer value used to create filename</td></tr>
   </table>
   </dd>
 </dl>

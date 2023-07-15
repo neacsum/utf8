@@ -180,7 +180,7 @@ std::string GetTempPath ()
 
   \param path directory path
   \param prefix filename prefix (up to 3 characters)
-  \param unique integer value used to crate filename
+  \param unique integer value used to create filename
 
   \return a filename with structure `<path>\<prefix>nnnnn.tmp`
 */
@@ -212,6 +212,26 @@ std::string GetFullPathName (const std::string& rel_path)
     return wfull;
   }
   return std::string ();
+}
+
+/*!
+  Convenience wrapper for
+  [GetModuleFileName](https://learn.microsoft.com/en-us/windows/win32/api/libloaderapi/nf-libloaderapi-getmodulefilenamew)
+
+  \param hModule module handle for which path will be retrieved or NULL to retrieve
+                 path of current executable.
+  \param filename UTF-8 encoded module file name
+  \return `true` if successful `false` otherwise
+*/
+bool GetModuleFileName (HMODULE hModule, std::string& filename)
+{
+  wchar_t wfile[_MAX_PATH];
+  if (GetModuleFileNameW (hModule, wfile, _countof (wfile)))
+  {
+    filename = narrow(wfile);
+    return true;
+  }
+  return false;
 }
 
 

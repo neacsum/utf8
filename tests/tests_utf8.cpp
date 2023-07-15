@@ -687,3 +687,12 @@ TEST (func_load_string)
 
   CHECK_EQUAL (lc, utf8::tolower (uc));
 }
+
+TEST (func_get_module_filename)
+{
+  string exe_name;
+  CHECK (utf8::GetModuleFileName (nullptr, exe_name));
+  exe_name.erase (exe_name.begin(), std::find_if (exe_name.rbegin (), exe_name.rend (),
+    [](char ch) {return ch == '\\'; }).base());
+  CHECK_EQUAL ("tests.exe", exe_name);
+}

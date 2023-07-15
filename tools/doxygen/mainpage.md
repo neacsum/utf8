@@ -40,7 +40,8 @@ In addition to those, there are wrappings for commonly used C and C++ functions:
 - Some frequently used Windows functions like \ref utf8::MessageBox() "MessageBox", 
 \ref utf8::LoadString() "LoadString", \ref utf8::ShellExecute "ShellExecute", 
 \ref utf8::GetTempPath "GetTempPath", \ref utf8::GetTempFileName "GetTempFileName", 
-\ref utf8::GetFullPathName "GetFullPathName", \ref utf8::CopyFile "CopyFile"
+\ref utf8::GetFullPathName "GetFullPathName", \ref utf8::CopyFile "CopyFile",
+\ref utf8::GetModuleFileName "GetModuleFileName"
 
 ## Usage
 ### General
