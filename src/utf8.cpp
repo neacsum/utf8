@@ -676,7 +676,7 @@ char32_t decode (char const*& ptr, size_t* len)
   if (len && --(*len) < cont)
     return REPLACEMENT_CHARACTER; //missing bytes
 
-  for (int i = 0; i < cont; ++i)
+  for (size_t i = 0; i < cont; ++i)
   {
     if (len)
       --(*len);

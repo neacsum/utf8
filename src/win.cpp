@@ -234,6 +234,23 @@ bool GetModuleFileName (HMODULE hModule, std::string& filename)
   return false;
 }
 
+/*!
+  Convenience wrapper for
+  [GetModuleFileName](https://learn.microsoft.com/en-us/windows/win32/api/libloaderapi/nf-libloaderapi-getmodulefilenamew)
+
+  \param hModule module handle for which path will be retrieved or NULL to retrieve
+                 path of current executable.
+  \return UTF-8 encoded module file name or empty string if an error occurred
+*/
+std::string GetModuleFileName (HMODULE hModule)
+{
+  wchar_t wfile[_MAX_PATH];
+  if (GetModuleFileNameW (hModule, wfile, _countof (wfile)))
+    return narrow (wfile);
+
+  return std::string ();
+}
+
 
 /*!
   Create a symbolic link

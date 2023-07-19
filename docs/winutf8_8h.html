@@ -179,6 +179,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a125b7833a8f4977c30e7621e61ae1c76"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="win_8cpp.html#a125b7833a8f4977c30e7621e61ae1c76">utf8::GetModuleFileName</a> (HMODULE hModule, std::string &amp;filename)</td></tr>
 <tr class="memdesc:a125b7833a8f4977c30e7621e61ae1c76"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience wrapper for <a href="https://learn.microsoft.com/en-us/windows/win32/api/libloaderapi/nf-libloaderapi-getmodulefilenamew">GetModuleFileName</a>  <a href="win_8cpp.html#a125b7833a8f4977c30e7621e61ae1c76">More...</a><br /></td></tr>
 <tr class="separator:a125b7833a8f4977c30e7621e61ae1c76"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a626395dfb08919fb91c6934901347d80"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="win_8cpp.html#a626395dfb08919fb91c6934901347d80">utf8::GetModuleFileName</a> (HMODULE hModule)</td></tr>
+<tr class="memdesc:a626395dfb08919fb91c6934901347d80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience wrapper for <a href="https://learn.microsoft.com/en-us/windows/win32/api/libloaderapi/nf-libloaderapi-getmodulefilenamew">GetModuleFileName</a>  <a href="win_8cpp.html#a626395dfb08919fb91c6934901347d80">More...</a><br /></td></tr>
+<tr class="separator:a626395dfb08919fb91c6934901347d80"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0c90d5556940e211346573f6ad2b58a8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="win_8cpp.html#a0c90d5556940e211346573f6ad2b58a8">utf8::find_first</a> (const std::string &amp;name, find_data &amp;fdat)</td></tr>
 <tr class="memdesc:a0c90d5556940e211346573f6ad2b58a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Searches a directory for a file or subdirectory with a name that matches a name (that can have wildcards).  <a href="win_8cpp.html#a0c90d5556940e211346573f6ad2b58a8">More...</a><br /></td></tr>
 <tr class="separator:a0c90d5556940e211346573f6ad2b58a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -336,8 +339,35 @@ std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>utf8::o
 
 </div>
 </div>
+<a id="a626395dfb08919fb91c6934901347d80" name="a626395dfb08919fb91c6934901347d80"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a626395dfb08919fb91c6934901347d80">&#9670;&#160;</a></span>GetModuleFileName() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string utf8::GetModuleFileName </td>
+          <td>(</td>
+          <td class="paramtype">HMODULE&#160;</td>
+          <td class="paramname"><em>hModule</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Convenience wrapper for <a href="https://learn.microsoft.com/en-us/windows/win32/api/libloaderapi/nf-libloaderapi-getmodulefilenamew">GetModuleFileName</a> </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">hModule</td><td>module handle for which path will be retrieved or NULL to retrieve path of current executable. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>UTF-8 encoded module file name or empty string if an error occurred </dd></dl>
+
+</div>
+</div>
 <a id="a125b7833a8f4977c30e7621e61ae1c76" name="a125b7833a8f4977c30e7621e61ae1c76"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a125b7833a8f4977c30e7621e61ae1c76">&#9670;&#160;</a></span>GetModuleFileName()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a125b7833a8f4977c30e7621e61ae1c76">&#9670;&#160;</a></span>GetModuleFileName() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

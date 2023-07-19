@@ -70,6 +70,7 @@ std::string GetTempPath ();
 std::string GetTempFileName (const std::string& path, const std::string& prefix, UINT unique=0);
 std::string GetFullPathName (const std::string& rel_path);
 bool GetModuleFileName (HMODULE hModule, std::string& filename);
+std::string GetModuleFileName (HMODULE hModule = NULL);
 
 /// File enumeration structure used by find_first() and find_next() functions 
 struct find_data {
