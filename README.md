@@ -71,7 +71,7 @@ There are also functions for:
 ### Case Folding Functions
 Case folding (conversion between upper case and lower case) in Unicode is more complicated than traditional ASCII case conversion. This library uses standard tables published by Unicode Consortium to perform upper case to lower case conversions and case-insensitive string comparison.
 
-- case folding - `toupper()` and `tolower()`
+- case folding - `toupper()`, `tolower()`, `make_upper()`, `make_lower()`
 - case-insensitive string comparison - `icompare()`
 
 ### Common "C" Functions Wrappers
@@ -79,6 +79,7 @@ The library provides UTF-8 wrappings most frequently used C functions. Function 
 - Common file access operations: `utf8::fopen`, `utf8::access`, `utf8::remove`, `utf8::chmod`, `utf8::rename`
 - Directory operations: `utf8::mkdir`, `utf8::rmdir`, `utf8::chdir`, `utf8::getcwd`
 - Environment functions: `utf8::getenv`, `utf8::putenv`
+- Program execution: `utf8::system`
 - Character classification functions *is...* (`isalnum`, `isdigit`, etc.)
 
 ### C++ File I/O Streams

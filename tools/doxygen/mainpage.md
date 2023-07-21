@@ -32,6 +32,7 @@ In addition to those, there are wrappings for commonly used C and C++ functions:
 - path management: \ref utf8::splitpath() "splitpath", \ref utf8::makepath() "makepath"
 - environment functions: \ref utf8::getenv() "getenv", \ref utf8::putenv() "putenv"
 - conversion of command-line arguments: \ref utf8::get_argv() "getargv" and \ref utf8::free_argv() "freeargv"
+- program execution: \ref utf8::system() "system"
 - C++ I/O streams: \ref utf8::ifstream "ifstream", \ref utf8::ofstream "ofstream", \ref utf8::fstream "fstream"
 - File enumerating functions: \ref utf8::find_first() "find_first", \ref utf8::find_next() "find_next"
 - A \ref utf8::file_enumerator "file enumerator" object wrapping find_first/find_next functions.
