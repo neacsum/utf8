@@ -283,6 +283,9 @@ Functions</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">char32_t utf8::rune </td>
@@ -292,6 +295,11 @@ Functions</h2></td></tr>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Conversion from UTF-8 to UTF-32. </p>
@@ -301,7 +309,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>UTF-32 encoded character </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>UTF-32 encoded character or <a class="el" href="utf8_8h.html#a3e7ba3734643219da540c6488accf39f" title="Replacement character used for invalid encodings.">utf8::REPLACEMENT_CHARACTER</a> (0xfffd) if it is an invalid UTF-8 encoding </dd></dl>
 
 </div>
 </div>
@@ -336,7 +344,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>UTF-32 encoded character  </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>UTF-32 encoded character or <a class="el" href="utf8_8h.html#a3e7ba3734643219da540c6488accf39f" title="Replacement character used for invalid encodings.">utf8::REPLACEMENT_CHARACTER</a> (0xfffd) if it is an invalid UTF-8 encoding  </dd></dl>
 
 </div>
 </div>
@@ -374,7 +382,8 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>UTF-32 encoded string </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>UTF-32 encoded string</dd></dl>
+<p>The function throws an exception if it encounters an invalid UTF-8 encoding. </p>
 
 </div>
 </div>
@@ -401,7 +410,8 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>UTF-32 encoded string </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>UTF-32 encoded string</dd></dl>
+<p>The function throws an exception if it encounters an invalid UTF-8 encoding. </p>
 
 </div>
 </div>

@@ -166,7 +166,7 @@ TEST (next)
   string emojis{ "😃😎😛" };
   int i = 0;
   auto ptr = emojis.begin ();
-  while (next (ptr, emojis.end ()))
+  while (next (ptr, emojis.end ()) != REPLACEMENT_CHARACTER)
   {
     i++;
   }
@@ -185,7 +185,6 @@ TEST (next_ptr)
     i++;
   }
 
-  CHECK (*ptr == 0);
   CHECK_EQUAL (3, i);
 }
 
@@ -250,13 +249,65 @@ TEST (is_valid_no)
   CHECK (!is_valid ("\xED\xA0\x80")); // 0xD800 surrogate code point
 }
 
-TEST (throw_invalid_utf8)
+TEST (prev_ptr)
+{
+  const char* emojis{ u8"😃😎😛" };
+  auto ptr = emojis + strlen(emojis);
+
+  int count = 0;
+  while (ptr > emojis)
+  {
+    prev (ptr);
+    count++;
+  }
+  CHECK_EQUAL (3, count);
+}
+
+TEST (prev_string)
+{
+  const string emojis{ u8"😃😎😛" };
+  u32string runes;
+  auto ptr = emojis.end ();
+  int count = 0;
+  while (ptr > emojis.begin())
+  {
+    runes.insert (runes.begin(), prev (ptr, emojis.begin()));
+    count++;
+  }
+  CHECK_EQUAL (3, count);
+  CHECK_EQUAL (emojis, narrow (runes));
+}
+
+TEST (prev_invalid)
+{
+  const char *invalid_1 = "\xC1\xA1"; //overlong 'a'
+  const char *invalid_2 = "\xE0\x82\xB0"; //overlong '°'
+  const char *invalid_3 = "\xF0\x82\x82\xAC"; //overlong '€'
+  const char *invalid_4 = "\xFE\xFF"; //UTF-16 BOM BE
+  const char *invalid_5 = "\xFF\xFE"; //UTF-16 BOM LE
+  const char *invalid_6 = "\xED\xA0\x80"; // 0xD800 surrogate code point
+
+  const char* ptr = invalid_1 + strlen (invalid_1);
+  CHECK_EQUAL (utf8::REPLACEMENT_CHARACTER, prev (ptr));
+  ptr = invalid_2 + strlen (invalid_2);
+  CHECK_EQUAL (utf8::REPLACEMENT_CHARACTER, prev (ptr));
+  ptr = invalid_3 + strlen (invalid_3);
+  CHECK_EQUAL (utf8::REPLACEMENT_CHARACTER, prev (ptr));
+  ptr = invalid_4 + strlen (invalid_4);
+  CHECK_EQUAL (utf8::REPLACEMENT_CHARACTER, prev (ptr));
+  ptr = invalid_5 + strlen (invalid_5);
+  CHECK_EQUAL (utf8::REPLACEMENT_CHARACTER, prev (ptr));
+  ptr = invalid_6 + strlen (invalid_6);
+  CHECK_EQUAL (utf8::REPLACEMENT_CHARACTER, prev (ptr));
+}
+
+TEST (invalid_utf8)
 {
   const char invalid[] { "\xFE\xFF\xFF\xFE" }; //UTF-16 BOM markers
-  const char *ptr = invalid;
   bool thrown = false;
+
   try {
-    next(ptr);
+    auto s = runes(invalid);
   }
   catch (utf8::exception& e) {
     CHECK_EQUAL (utf8::exception::invalid_utf8, e.cause);

@@ -87,7 +87,7 @@ $(function() {
 </ul>
 <p >There are also functions for:</p><ul>
 <li>character counting - <a class="el" href="utf8_8cpp.html#afbcb53fd241b51ed4744eef1d7400a23">length</a></li>
-<li>string traversal - <a class="el" href="utf8_8cpp.html#a18d96acd3fe88012740e79857d05b109">next</a></li>
+<li>string traversal - <a class="el" href="utf8_8cpp.html#aa1c596428e8aa4467875223b583f0887">next</a></li>
 <li>validity checking - <a class="el" href="utf8_8cpp.html#a5efdfa2bb7a6e4d21005f97f79f44bba">valid_str</a></li>
 </ul>
 <p >In addition to those, there are wrappings for commonly used C and C++ functions:</p><ul>
@@ -125,12 +125,12 @@ $(function() {
 <div class="line"> </div>
 <div class="line">u8strm &lt;&lt; filetext &lt;&lt; endl;</div>
 <div class="line">u8strm.close ();</div>
-<div class="ttc" id="aclassutf8_1_1ofstream_html"><div class="ttname"><a href="classutf8_1_1ofstream.html">utf8::ofstream</a></div><div class="ttdoc">Output stream class using UTF-8 filename.</div><div class="ttdef"><b>Definition:</b> utf8.h:168</div></div>
+<div class="ttc" id="aclassutf8_1_1ofstream_html"><div class="ttname"><a href="classutf8_1_1ofstream.html">utf8::ofstream</a></div><div class="ttdoc">Output stream class using UTF-8 filename.</div><div class="ttdef"><b>Definition:</b> utf8.h:176</div></div>
 </div><!-- fragment --><p> Translation from UTF-16 to UTF-8 applies only to file names. C++ streams are agnostic about their content.</p>
 <p >Calling Windows API functions can be handled using the generic widening and narrowing functions like this example: </p><div class="fragment"><div class="line">std::string filename = <span class="stringliteral">&quot;ελληνικό&quot;</span>;</div>
 <div class="line">HANDLE f = CreateFile (<a class="code hl_function" href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">utf8::widen</a> (filename).c_str (), GENERIC_READ, 0,</div>
 <div class="line">  NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);</div>
-<div class="ttc" id="agroup__basecvt_html_gade5f928144a0219a3725921de8cf8188"><div class="ttname"><a href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">utf8::widen</a></div><div class="ttdeci">std::wstring widen(const char *s, size_t nch)</div><div class="ttdoc">Conversion from UTF-8 to wide character.</div><div class="ttdef"><b>Definition:</b> utf8.cpp:137</div></div>
+<div class="ttc" id="agroup__basecvt_html_gade5f928144a0219a3725921de8cf8188"><div class="ttname"><a href="group__basecvt.html#gade5f928144a0219a3725921de8cf8188">utf8::widen</a></div><div class="ttdeci">std::wstring widen(const char *s, size_t nch)</div><div class="ttdoc">Conversion from UTF-8 to wide character.</div><div class="ttdef"><b>Definition:</b> utf8.cpp:132</div></div>
 </div><!-- fragment --><h2>INI File Handling</h2>
 <p >INI files, also called "profile files" in Microsoft parlance are still widely used for storing application settings used either for compatibility reasons or because they are simple to work with.</p>
 <p >The problem is that the basic Windows API calls for reading and writing INI files, <code>GetPrivateProfileString</code> and <code>PutPrivateProfileString</code>, combine both the file name and the information to be read or written in one API call. As an example, here is the signature of the <code>GetPrivateProfileStringW</code> function: </p><div class="fragment"><div class="line">DWORD GetPrivateProfileStringW(</div>

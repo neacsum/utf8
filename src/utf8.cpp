@@ -15,11 +15,6 @@ using namespace std;
 namespace utf8 {
 
 static void encode (char32_t c, std::string& s);
-static char32_t decode (char const*& p, size_t* len);
-static int cont_bytes (char c);
-
-/// Replacement character used for invalid encodings
-const char32_t REPLACEMENT_CHARACTER = 0xfffd;
 
 /*!
   \defgroup basecvt Narowing/Widening Functions
@@ -170,6 +165,8 @@ std::wstring widen (const std::string& s)
   \param s UTF-8 encoded string
   \param nch number of characters to convert or 0 if string is null-terminated
   \return UTF-32 encoded string
+
+  The function throws an exception if it encounters an invalid UTF-8 encoding.
 */
 std::u32string runes (const char* s, size_t nch)
 {
@@ -177,9 +174,11 @@ std::u32string runes (const char* s, size_t nch)
   if (!nch)
     nch = strlen (s);
 
-  while (nch)
+  const char* end = s + nch;
+
+  while (s < end)
   {
-    char32_t  r = decode (s, &nch);
+    char32_t  r = next (s);
     if (r == REPLACEMENT_CHARACTER)
       throw exception (exception::reason::invalid_utf8);
     str.push_back (r);
@@ -192,61 +191,24 @@ std::u32string runes (const char* s, size_t nch)
 
   \param s UTF-8 encoded string
   \return UTF-32 encoded string
+
+  The function throws an exception if it encounters an invalid UTF-8 encoding.
 */
 std::u32string runes (const std::string& s)
 {
   u32string str;
-  size_t len = s.length ();
-  const char* p = s.data ();
-  while (len)
+  auto ptr = s.cbegin ();
+  while (ptr != s.cend())
   {
-    char32_t r = decode (p, &len);
-    if (r == REPLACEMENT_CHARACTER)
+    char32_t r = next (ptr, s.cend());
+    if (r != REPLACEMENT_CHARACTER)
+      str.push_back (r);
+    else
       throw exception (exception::reason::invalid_utf8);
-    str.push_back (r);
   }
   return str;
 }
 
-/*!
-  Conversion from UTF-8 to UTF-32
-
-  \param p pointer to character
-  \return UTF-32 encoded character
-*/
-char32_t rune (const char* p)
-{
-  char32_t r = decode (p, nullptr);
-  if (r == REPLACEMENT_CHARACTER)
-    throw exception (exception::reason::invalid_utf8);
-  return r;
-}
-
-/*!
-  Check if pointer points to a valid UTF-8 encoding
-  \param p pointer to string
-  \return `true` if there is a valid UTF-8 encoding at the current pointer position,
-          `false` otherwise.
-
-*/
-bool is_valid (const char* p)
-{
-  return decode (p, nullptr) != REPLACEMENT_CHARACTER;
-}
-
-/*!
-  Check if iterator points to a valid UTF-8 encoding
-  \param p    Iterator
-  \param last Iterator pointing to end of range
-  \return `true` if there is a valid UTF-8 encoding at the current iterator position,
-          `false` otherwise.
-*/
-bool is_valid (std::string::const_iterator p, const std::string::const_iterator last)
-{
-  size_t len = last - p;
-  const char* ptr = &(*p);
-  return decode (ptr, &len) != REPLACEMENT_CHARACTER;
-}
 
 /*!
   Verifies if string is a valid UTF-8 string
@@ -257,58 +219,250 @@ bool is_valid (std::string::const_iterator p, const std::string::const_iterator 
 */
 bool valid_str (const char *s, size_t nch)
 {
-  int cont = 0;
   if (!nch)
     nch = strlen (s);
 
-  while (nch)
+  const char* last = s + nch;
+  while (s < last)
   {
-    if (decode (s, &nch) == REPLACEMENT_CHARACTER)
+    if (next (s) == REPLACEMENT_CHARACTER)
       return false;
   }
-  return true;
+  return (s == last);
 }
 
 /*!
-  Advances a string iterator to next code point
+  Decodes a UTF-8 encoded character and advances iterator to next code point
 
-  \param p    Iterator to be advanced
-  \param last Iterator pointing to the end of range  
-  \return     `true` if iterator was advanced or `false` otherwise.
+  \param ptr    Reference to iterator to be advanced
+  \param last   Iterator pointing to the end of range  
+  \return       decoded character
 
-  The function throws an exception if iterator points to an invalid UTF-8 encoding.
+  If the string contains an invalid UTF-8 encoding, the function returns
+  REPLACEMENT_CHARACTER (0xfffd) and advances pointer to beginning of next
+  character or end of string.
 */
-bool next (std::string::const_iterator& p, const std::string::const_iterator last)
+char32_t next (std::string::const_iterator& ptr, const std::string::const_iterator last)
 {
-  int cont = 0;
-  if (p == last)
-    return false;    //don't advance past end
-  size_t len = last - p;
-  const char* ptr = &(*p);
-  if (decode (ptr, &len) == REPLACEMENT_CHARACTER)
-    throw exception (exception::reason::invalid_utf8);
-  p += ptr - &(*p);
-  return true;
+  char32_t rune = 0;
+  if (ptr == last)
+    return REPLACEMENT_CHARACTER;
+
+  if ((*ptr & 0x80) == 0)
+    return *ptr++;
+  else if ((*ptr & 0xC0) == 0x80)
+  {
+    rune = REPLACEMENT_CHARACTER;
+    do {
+      ++ptr;
+    } while (ptr != last && (*ptr & 0x80) == 0x80);
+  }
+  else
+  {
+    size_t cont = 0;
+    if ((*ptr & 0xE0) == 0xC0)
+    {
+      cont = 1;
+      rune = *ptr++ & 0x1f;
+    }
+    else if ((*ptr & 0xF0) == 0xE0)
+    {
+      cont = 2;
+      rune = *ptr++ & 0x0f;
+    }
+    else if ((*ptr & 0xF8) == 0xF0)
+    {
+      cont = 3;
+      rune = *ptr++ & 0x07;
+    }
+    else
+    {
+      do {
+        ++ptr;
+      } while (ptr != last && (*ptr & 0xC0) == 0x80);
+      return REPLACEMENT_CHARACTER; //code points > U+0x10FFFF are invalid
+    }
+    size_t i;
+    for (i=0; i<cont && ptr != last && (*ptr & 0xC0) == 0x80; i++)
+    {
+      rune <<= 6;
+      rune += *ptr++ & 0x3f;
+    }
+
+    //sanity checks
+    if (i != cont)
+      return REPLACEMENT_CHARACTER; //short encoding
+    if (0xD800 <= rune && rune <= 0xdfff)
+      return REPLACEMENT_CHARACTER; //surrogates (U+D000 to U+DFFF) are invalid
+
+    if (rune < 0x80
+      || (cont > 1 && rune < 0x800)
+      || (cont > 2 && rune < 0x10000))
+      return REPLACEMENT_CHARACTER; //overlong encoding
+  }
+  return rune;
 }
 
 /*!
-  Advances a character pointer to next UTF-8 character
+  Decodes a UTF-8 encoded character and Advances pointer to next character
 
-  \param p    <b>Reference</b> to character pointer to be advanced
-  \return     `true` if pointer was advanced or `false` otherwise.
+  \param ptr    <b>Reference</b> to character pointer to be advanced
+  \return       decoded character
 
-  The function throws an exception if iterator points to an invalid UTF-8 encoding.
+  If the string contains an invalid UTF-8 encoding, the function returns
+  REPLACEMENT_CHARACTER (0xfffd) and advances pointer to beginning of next
+  character or end of string.
 */
-bool next (const char*& p)
+char32_t next (const char*& ptr)
+{
+  char32_t rune = 0;
+  if ((*ptr & 0x80) == 0)
+  {
+    if ((rune = *ptr) != 0)
+      ++ptr;
+  }
+  else if ((*ptr & 0xC0) == 0x80)
+  {
+    rune = REPLACEMENT_CHARACTER;
+    do {
+      ptr++;
+    } while (*ptr && (*ptr & 0x80) == 0x80);
+  }
+  else
+  {
+    size_t cont = 0;
+    if ((*ptr & 0xE0) == 0xC0)
+    {
+      cont = 1;
+      rune = *ptr++ & 0x1f;
+    }
+    else if ((*ptr & 0xF0) == 0xE0)
+    {
+      cont = 2;
+      rune = *ptr++ & 0x0f;
+    }
+    else if ((*ptr & 0xF8) == 0xF0)
+    {
+      cont = 3;
+      rune = *ptr++ & 0x07;
+    }
+    else
+    {
+      do {
+        ptr++;
+      } while (*ptr && (*ptr & 0xC0) == 0x80);
+      return REPLACEMENT_CHARACTER; //code points > U+0x10FFFF are invalid
+    }
+    size_t i;
+    for (i = 0; i < cont && (*ptr & 0xC0) == 0x80; i++)
+    {
+      rune <<= 6;
+      rune += *ptr++ & 0x3f;
+    }
+
+    //sanity checks
+    if (i != cont)
+      return REPLACEMENT_CHARACTER; //short encoding
+    if (0xD800 <= rune && rune <= 0xdfff)
+      return REPLACEMENT_CHARACTER; //surrogates (U+D000 to U+DFFF) are invalid
+
+    if (rune < 0x80
+      || (cont > 1 && rune < 0x800)
+      || (cont > 2 && rune < 0x10000))
+      return REPLACEMENT_CHARACTER; //overlong encoding
+  }
+  return rune;
+}
+
+/*!
+  Decrements a character pointer to previous UTF-8 character
+
+  \param ptr    <b>Reference</b> to character pointer to be decremented
+  \return       previous UTF-8 encoded character
+
+  If the string contains an invalid UTF-8 encoding, the function returns
+  REPLACEMENT_CHARACTER (0xfffd) and pointer remains unchanged.
+*/
+char32_t prev (const char* & ptr)
 {
   int cont = 0;
-  if (*p == 0)
-    return false;    //don't advance past end
+  const char* in_ptr = ptr;
+  char32_t rune = 0;
+  unsigned char ch;
+  while (((ch = *--ptr) & 0xc0) == 0x80 && cont < 3)
+  {
+    rune += (char32_t)(ch & 0x3f) << cont++ * 6;
+  }
+  if (cont == 3 && (ch & 0xF0) == 0xF0)
+    rune += (char32_t)(ch & 0x0f) << 18;
+  else if (cont == 2 && (ch & 0xE0) == 0xE0)
+    rune += (char32_t)(ch & 0x1f) << 12;
+  else if (cont == 1 && (ch & 0xC0) == 0xC0)
+    rune += (char32_t)(ch & 0x3f) << 6;
+  else if (cont == 0 && ch < 0x7f)
+    rune += ch;
+  else
+  {
+    ptr = in_ptr;
+    return REPLACEMENT_CHARACTER;
+  }
 
-  if (decode (p, nullptr) == REPLACEMENT_CHARACTER)
-    throw exception (exception::reason::invalid_utf8);
+  if ((0xD800 <= rune && rune <= 0xdfff) //surrogate
+   || (cont >= 0 && rune < 0x80)
+   || (cont >= 1 && rune < 0x800)
+   || (cont >= 2 && rune < 0x10000))  //overlong encoding
+  {
+    ptr = in_ptr;
+    return REPLACEMENT_CHARACTER;
+  }
 
-  return true;
+  return rune;
+}
+
+/*!
+  Decrements an iterator to previous UTF-8 character
+
+  \param ptr    iterator to be decremented
+  \param first  iterator pointing to beginning of string
+  \return       previous UTF-8 encoded character
+
+  If the string contains an invalid UTF-8 encoding, the function returns
+  REPLACEMENT_CHARACTER (0xfffd) and iterator remains unchanged.
+*/
+char32_t prev (std::string::const_iterator& ptr, const std::string::const_iterator first)
+{
+  int cont = 0;
+  auto in_ptr = ptr;
+  char32_t rune = 0;
+  unsigned char ch;
+  while (((ch = *--ptr) & 0xc0) == 0x80 && cont < 3 && ptr > first)
+  {
+    rune += (char32_t)(ch & 0x3f) << cont++ * 6;
+  }
+  if (cont == 3 && (ch & 0xF0) == 0xF0)
+    rune += (char32_t)(ch & 0x0f) << 18;
+  else if (cont == 2 && (ch & 0xE0) == 0xE0)
+    rune += (char32_t)(ch & 0x1f) << 12;
+  else if (cont == 1 && (ch & 0xC0) == 0xC0)
+    rune += (char32_t)(ch & 0x3f) << 6;
+  else if (cont == 0 && ch < 0x7f)
+    rune += ch;
+  else
+  {
+    ptr = in_ptr;
+    return REPLACEMENT_CHARACTER;
+  }
+
+  if ((0xD800 <= rune && rune <= 0xdfff) //surrogate
+   || (cont >= 0 && rune < 0x80)
+   || (cont >= 1 && rune < 0x800)
+   || (cont >= 2 && rune < 0x10000))  //overlong encoding
+  {
+    ptr = in_ptr;
+    return REPLACEMENT_CHARACTER;
+  }
+
+  return rune;
 }
 
 /*!
@@ -619,86 +773,6 @@ void encode (char32_t c, std::string& s)
     throw exception (exception::reason::invalid_char32);
 }
 
-/// Return number of expected continuation bytes
-int cont_bytes (char c)
-{
-  return (c & 0xE0) == 0xC0 ? 1 :
-         (c & 0xF0) == 0xE0 ? 2 :
-         (c & 0xF8) == 0xF0 ? 3 : 0;
-}
-
-/*!
-  Decode a UTF-8 codepoint to a UTF-32
-  \param ptr reference to UTF-8 character(s). On return, `ptr` points to next
-             UTF-8 character
-  \param len pointer to length of UTF-8 string. Can be NULL
-
-  \return UTF-32 character or error replacement character (0xfffd) if input
-          string is invalid
-*/
-char32_t decode (char const*& ptr, size_t* len)
-{
-  char c = *ptr;
-  if (!(c & 0x80))
-  {
-    if (len)
-    {
-      (*len)--;
-      ptr++;
-    }
-    else if (c)
-      ptr++; //for null terminated strings don't advance past end
-    return c;
-  }
-  if ((c & 0xC0) == 0x80)
-    return REPLACEMENT_CHARACTER;
-
-  size_t cont;
-  char32_t rune = 0;
-  if ((c & 0xE0) == 0xC0)
-  {
-    cont = 1;
-    rune = c & 0x1f;
-  }
-  else if ((c & 0xF0) == 0xE0)
-  {
-    cont = 2;
-    rune = c & 0x0f;
-  }
-  else if ((c & 0xF8) == 0xf0)
-  {
-    cont = 3;
-    rune = c & 0x07;
-  }
-  else
-    return REPLACEMENT_CHARACTER; //code points > U+0x10FFFF are invalid
-  ptr++;
-  if (len && --(*len) < cont)
-    return REPLACEMENT_CHARACTER; //missing bytes
-
-  for (size_t i = 0; i < cont; ++i)
-  {
-    if (len)
-      --(*len);
-
-    if ((*ptr & 0x80) != 0x80)
-      return REPLACEMENT_CHARACTER; //missing continuation byte(s)
-    rune <<= 6;
-    rune += *ptr++ & 0x3f;
-  }
-  if (rune > 0x10ffff)
-    return REPLACEMENT_CHARACTER; //code points > U+0x10FFFF or iterator at end
-
-  if (0xD800 <= rune && rune <= 0xdfff)
-    return REPLACEMENT_CHARACTER; //surrogates (U+D000 to U+DFFF) are invalid
-
-  if (rune < 0x80
-    || (cont > 1 && rune < 0x800)
-    || (cont > 2 && rune < 0x10000))
-    return REPLACEMENT_CHARACTER; //overlong encoding
-
-  return rune;
-}
 
 /*!
   \class exception

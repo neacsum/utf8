@@ -72,7 +72,7 @@ buffer::operator =(const buffer& rhs)
 {
   if (&rhs != this)
   {
-    delete ptr;
+    delete[] ptr;
     sz = rhs.sz;
     if (sz)
       memcpy ((ptr = new wchar_t[sz]), rhs.ptr, sz * sizeof (wchar_t));
@@ -91,7 +91,7 @@ buffer::operator =(const std::string& rhs)
   size_t new_size = wrhs.size () + 1;
   if (new_size > sz)
   {
-    delete ptr;
+    delete[] ptr;
     sz = new_size;
     ptr = new wchar_t[sz];
   }

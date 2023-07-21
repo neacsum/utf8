@@ -17,7 +17,7 @@ class IniFile
 {
 public:
   /// Constructor based on an existing or new INI file.
-  IniFile (const std::string& name);
+  explicit IniFile (const std::string& name);
 
   /// Default constructor uses a temporary file.
   IniFile ();

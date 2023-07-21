@@ -115,7 +115,7 @@ void find_close (find_data& fdat);
 class file_enumerator : protected find_data
 {
 public:
-  file_enumerator (const std::string& name);
+  explicit file_enumerator (const std::string& name);
   ~file_enumerator ();
   bool ok () const;
   bool next ();
@@ -134,7 +134,7 @@ public:
 /// A simple buffer for caching values returned by Windows API 
 class buffer {
 public:
-  buffer (size_t size_);
+  explicit buffer (size_t size_);
   ~buffer ();
   buffer (const buffer& other);
   buffer& operator = (const buffer& rhs);

@@ -19,7 +19,7 @@ struct exception : public std::exception
   enum reason { invalid_utf8, invalid_char32 };
 
   /// Constructor
-  exception (reason c)
+  explicit exception (reason c)
     : std::exception (
       c == reason::invalid_utf8 ? "Invalid UTF-8 encoding" :
       c == reason::invalid_char32 ? "Invalid code-point value" :
@@ -30,6 +30,10 @@ struct exception : public std::exception
   /// What triggered the exception
   reason cause;
 };
+
+/// Replacement character used for invalid encodings
+const char32_t REPLACEMENT_CHARACTER = 0xfffd;
+
 
 /// \addtogroup basecvt
 /// @{
@@ -53,9 +57,13 @@ bool is_valid (std::string::const_iterator p, const std::string::const_iterator 
 bool valid_str (const char* s, size_t nch = 0);
 bool valid_str (const std::string& s);
 
-bool next (std::string::const_iterator& p, const std::string::const_iterator last);
-bool next (const char*& p);
-bool next (char*& p);
+char32_t next (std::string::const_iterator& ptr, const std::string::const_iterator last);
+char32_t next (const char*& ptr);
+char32_t next (char*& p);
+
+char32_t prev (const char*& ptr);
+char32_t prev (char*& ptr);
+char32_t prev (std::string::const_iterator& ptr, const std::string::const_iterator first);
 
 size_t length (const std::string& s);
 size_t length (const char* s);
@@ -144,9 +152,9 @@ class ifstream : public std::ifstream
 {
 public:
   ifstream () : std::ifstream () {};
-  ifstream (const char* filename, std::ios_base::openmode mode = ios_base::in)
+  explicit ifstream (const char* filename, std::ios_base::openmode mode = ios_base::in)
     : std::ifstream (utf8::widen (filename), mode) {};
-  ifstream (const std::string& filename, std::ios_base::openmode mode = ios_base::in)
+  explicit ifstream (const std::string& filename, std::ios_base::openmode mode = ios_base::in)
     : std::ifstream (utf8::widen (filename), mode) {};
   ifstream (ifstream&& other) noexcept : std::ifstream ((std::ifstream&&)other) {};
   ifstream (const ifstream& rhs) = delete;
@@ -168,9 +176,9 @@ class ofstream : public std::ofstream
 {
 public:
   ofstream () : std::ofstream () {};
-  ofstream (const char* filename, std::ios_base::openmode mode = ios_base::out)
+  explicit ofstream (const char* filename, std::ios_base::openmode mode = ios_base::out)
     : std::ofstream (utf8::widen (filename), mode) {};
-  ofstream (const std::string& filename, std::ios_base::openmode mode = ios_base::out)
+  explicit ofstream (const std::string& filename, std::ios_base::openmode mode = ios_base::out)
     : std::ofstream (utf8::widen (filename), mode) {};
   ofstream (ofstream&& other) noexcept : std::ofstream ((std::ofstream&&)other) {};
   ofstream (const ofstream& rhs) = delete;
@@ -192,9 +200,9 @@ class fstream : public std::fstream
 {
 public:
   fstream () : std::fstream () {};
-  fstream (const char* filename, std::ios_base::openmode mode = ios_base::in | ios_base::out)
+  explicit fstream (const char* filename, std::ios_base::openmode mode = ios_base::in | ios_base::out)
     : std::fstream (utf8::widen (filename), mode) {};
-  fstream (const std::string& filename, std::ios_base::openmode mode = ios_base::in | ios_base::out)
+  explicit fstream (const std::string& filename, std::ios_base::openmode mode = ios_base::in | ios_base::out)
     : std::fstream (utf8::widen (filename), mode) {};
   fstream (fstream&& other) noexcept : std::fstream ((std::fstream&&)other) {};
   fstream (const fstream& rhs) = delete;
@@ -215,19 +223,74 @@ public:
 // INLINES --------------------------------------------------------------------
 
 /*!
-  Advances a character pointer to next UTF-8 character
-
-  \param p    <b>Reference</b> to character pointer to be advanced
-  \return     `true` if pointer was advanced or `false` otherwise.
-
-  The function throws an exception if iterator points to an invalid UTF-8 encoding.
+  Check if pointer points to a valid UTF-8 encoding
+  \param p pointer to string
+  \return `true` if there is a valid UTF-8 encoding at the current pointer position,
+          `false` otherwise.
 */
 inline
-bool next (char*& p)
+bool is_valid (const char* p)
 {
-  return next (const_cast<const char*&>(p));
+  return next (p) != REPLACEMENT_CHARACTER;
 }
 
+/*!
+  Check if iterator points to a valid UTF-8 encoding
+  \param p    Iterator
+  \param last Iterator pointing to end of range
+  \return `true` if there is a valid UTF-8 encoding at the current iterator position,
+          `false` otherwise.
+*/
+inline
+bool is_valid (std::string::const_iterator p, const std::string::const_iterator last)
+{
+  return next (p, last) != REPLACEMENT_CHARACTER;
+}
+
+/*!
+  Conversion from UTF-8 to UTF-32
+
+  \param p pointer to character
+  \return UTF-32 encoded character or utf8::REPLACEMENT_CHARACTER (0xfffd)
+          if it is an invalid UTF-8 encoding
+*/
+inline
+char32_t rune (const char* p)
+{
+  return next (p);
+}
+
+
+/*!
+  Decodes a UTF-8 encoded character and advances pointer to next character
+
+  \param ptr    <b>Reference</b> to character pointer to be advanced
+  \return     decoded character
+
+  If the string contains an invalid UTF-8 encoding, the function returns
+  utf8::REPLACEMENT_CHARACTER (0xfffd) and advances pointer to beginning of
+  next character or end of string.
+*/
+inline
+char32_t next (char*& ptr)
+{
+  return next (const_cast<const char*&>(ptr));
+}
+
+/*!
+  Decrements a character pointer to previous UTF-8 character
+
+  \param ptr    <b>Reference</b> to character pointer to be decremented
+  \return       previous UTF-8 encoded character
+
+  If the string contains an invalid UTF-8 encoding, the function returns
+  REPLACEMENT_CHARACTER (0xfffd) and pointer remains unchanged.
+*/
+inline
+char32_t prev (char*& ptr)
+{
+  return prev (const_cast<const char*&>(ptr));
+}
 
 /*!
   Creates a new directory
