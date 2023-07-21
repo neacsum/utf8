@@ -105,6 +105,8 @@ bool putenv (const std::string& var, const std::string& val);
 bool symlink (const char* path, const char* link, bool directory);
 bool symlink (const std::string& path, const std::string& target, bool directory);
 
+int system (const std::string& cmd);
+
 /*!
   \addtogroup folding
   @{
@@ -538,8 +540,8 @@ bool islower (std::string::const_iterator p)
 
 /*!
   Creates, modifies, or removes environment variables.
-  This is a wrapper for [_wputenv function]
-  (https://docs.microsoft.com/en-us/cpp/c-runtime-library/reference/putenv-wputenv)
+  This is a wrapper for [_wputenv](https://docs.microsoft.com/en-us/cpp/c-runtime-library/reference/putenv-wputenv)
+  function.
 
   \param str environment string to modify
   \return true if successful, false otherwise.
@@ -552,8 +554,8 @@ bool putenv (const std::string& str)
 
 /*!
   Creates, modifies, or removes environment variables.
-  This is a wrapper for [_wputenv_s function]
-  https://docs.microsoft.com/en-us/cpp/c-runtime-library/reference/putenv-s-wputenv-s
+  This is a wrapper for [_wputenv_s](https://docs.microsoft.com/en-us/cpp/c-runtime-library/reference/putenv-s-wputenv-s)
+  function.
 
   \param var  name of environment variable
   \param val  new value of environment variable. If empty, the environment
@@ -567,7 +569,24 @@ bool putenv (const std::string& var, const std::string& val)
     widen (val).c_str ()) == 0);
 }
 
+/*!
+  Passes command to command interpreter
+
+  \param cmd UTF-8 encoded command to pass
+
+  This is a wrapper for [_wsystem](https://learn.microsoft.com/en-us/cpp/c-runtime-library/reference/system-wsystem)
+  function.
+*/
+inline
+int system (const std::string& cmd)
+{
+  std::wstring wcmd = utf8::widen (cmd);
+  return _wsystem (wcmd.c_str ());
+}
+
+
 }; //namespace utf8
+
 
 #include <utf8/winutf8.h>
 #include <utf8/ini.h>
