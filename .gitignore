@@ -11,3 +11,5 @@
 /build
 /.vs
 /lib
+/.editorconfig
+/utf8.cppcheck

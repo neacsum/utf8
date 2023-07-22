@@ -17,7 +17,7 @@ namespace utf8 {
 static void encode (char32_t c, std::string& s);
 
 /*!
-  \defgroup basecvt Narowing/Widening Functions
+  \defgroup basecvt Narrowing/Widening Functions
   Basic conversion functions between UTF-8, UTF-16 and UTF-32
 */
 
