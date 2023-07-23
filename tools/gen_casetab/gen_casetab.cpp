@@ -60,7 +60,7 @@ int main (int argc, char **argv)
 
   ofstream out (string(argv[2]) + "/uppertab.c");
   out << "//Upper case table" << endl
-    << "static char32_t u2l [" << tab.size() << "] = { " << endl;
+    << "static const char32_t u2l [" << tab.size() << "] = { " << endl;
   out << hex;
   for (size_t i=0; i<tab.size(); i++)
   {
@@ -73,7 +73,7 @@ int main (int argc, char **argv)
   }
   out << dec << endl;
   out << "//Lower case equivalents" << endl
-    << "static char32_t lc [" << tab.size () << "] = { ";
+    << "static const char32_t lc [" << tab.size () << "] = { ";
   out << hex;
   for (size_t i = 0; i < tab.size (); i++)
   {
@@ -106,7 +106,7 @@ int main (int argc, char **argv)
 
   out.open (string(argv[2]) + "/lowertab.c");
   out << "//Lower case table" << dec << endl
-    << "static char32_t l2u [" << tab.size () << "] = { ";
+    << "static const char32_t l2u [" << tab.size () << "] = { ";
   out << hex;
   for (size_t i = 0; i < tab.size (); i++)
   {
@@ -120,7 +120,7 @@ int main (int argc, char **argv)
   }
   out << dec << endl;
   out << "//Upper case equivalents" << endl
-    << "static char32_t uc [" << tab.size () << "] = { " << endl;
+    << "static const char32_t uc [" << tab.size () << "] = { " << endl;
   out << hex;
   for (size_t i = 0; i < tab.size (); i++)
   {

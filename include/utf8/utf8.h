@@ -643,7 +643,7 @@ bool putenv (const std::string& var, const std::string& val)
 inline
 int system (const std::string& cmd)
 {
-  wstring wcmd = utf8::widen (cmd);
+  std::wstring wcmd = utf8::widen (cmd);
   return _wsystem (wcmd.c_str ());
 }
 

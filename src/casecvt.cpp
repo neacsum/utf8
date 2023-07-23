@@ -51,8 +51,8 @@ bool islower (const char* p)
     return ::islower (*p);
 
   //search character in lowercase table
-  char32_t r = rune (p);
-  char32_t* f = lower_bound (begin (l2u), end (l2u), r);
+  auto r = rune (p);
+  auto f = lower_bound (begin (l2u), end (l2u), r);
   return (f != end (l2u) && *f == r);
 }
 
@@ -68,12 +68,16 @@ bool islower (const char* p)
 
 std::string tolower (const std::string& str)
 {
-  u32string wstr = runes (str);
-  for (auto ptr = wstr.begin (); ptr < wstr.end (); ptr++)
+  u32string wstr;
+  auto ptr = str.begin ();
+  while (ptr < str.end ())
   {
-    char32_t *f = lower_bound (begin (u2l), end (u2l), *ptr);
-    if (f != end (u2l) && *f == *ptr)
-      *ptr = lc[f - u2l];
+    auto c = next (ptr, str.end ());
+    auto f = lower_bound (begin (u2l), end (u2l), c);
+    if (f != end (u2l) && *f == c)
+      wstr.push_back (lc[f - u2l]);
+    else
+      wstr.push_back (c);
   }
   return narrow (wstr);
 }
@@ -99,8 +103,8 @@ bool isupper (const char* p)
     return ::isupper (*p);
 
   //search character in uppercase table
-  char32_t r = rune (p);
-  char32_t* f = lower_bound (begin (u2l), end (u2l), r);
+  auto r = rune (p);
+  auto f = lower_bound (begin (u2l), end (u2l), r);
   return (f != end (u2l) && *f == r);
 }
 
@@ -115,12 +119,16 @@ bool isupper (const char* p)
 */
 std::string toupper (const std::string& str)
 {
-  u32string wstr = runes (str);
-  for (auto ptr = wstr.begin(); ptr < wstr.end(); ptr++)
+  u32string wstr;
+  auto ptr = str.begin();
+  while (ptr < str.end())
   {
-    char32_t *f = lower_bound (begin (l2u), end (l2u), *ptr);
-    if (f != end(l2u) && *f == *ptr)
-      *ptr = uc[f - l2u];
+    auto c = next (ptr, str.end ());
+    auto f = lower_bound (begin (l2u), end (l2u), c);
+    if (f != end (l2u) && *f == c)
+      wstr.push_back (uc[f - l2u]);
+    else
+      wstr.push_back (c);
   }
   return narrow (wstr);
 }
@@ -152,11 +160,14 @@ int icompare (const std::string& s1, const std::string& s2)
 {
   assert (valid_str (s1) && valid_str (s2));
 
-  auto p1 = s1.begin (), p2 = s2.begin ();
-  while (p1 < s1.end () && p2 < s2.end())
+  auto p1 = begin (s1), p2 = begin (s2);
+  while (p1 < end (s1) && p2 < end (s2))
   {
-    char32_t lc1, lc2, c1 = rune(p1), c2 = rune(p2);
-    char32_t* f = lower_bound (begin (u2l), end (u2l), c1);
+    char32_t lc1, lc2, 
+      c1 = next (p1, end (s1)), 
+      c2 = next (p2, end (s2));
+
+    auto f = lower_bound (begin (u2l), end (u2l), c1);
     if (f != end (u2l) && *f == c1)
       lc1 = lc[f - u2l];
     else
@@ -168,13 +179,10 @@ int icompare (const std::string& s1, const std::string& s2)
       lc2 = c2;
     if ((lc1 != lc2))
       return (lc1 < lc2)? -1 : 1;
-
-    next (p1, s1.end ());
-    next (p2, s2.end ());
   }
-  if (p1 != s1.end ())
+  if (p1 != end (s1))
     return 1;
-  if (p2 != s2.end ())
+  if (p2 != end (s2))
     return -1;
   return 0;
 }

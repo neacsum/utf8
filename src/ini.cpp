@@ -137,21 +137,16 @@ static std::string tempname (const std::string& source)
 /// Constructor 
 IniFile::IniFile (const std::string& file)
   : temp_file {false}
+  , filename { utf8::fullpath (file) }  /* get the fully qualified path name in
+                                        case current directory changes after creation */
 {
-  /*get the fully qualified path name in case current directory changes after
-  creation */
-  utf8::buffer fullpath{ _MAX_PATH };
-  GetFullPathNameW (utf8::widen (file).c_str (), fullpath.size(), fullpath, NULL);
-  filename = fullpath;
 }
 
 ///  Creates a temporary file as filename.
 IniFile::IniFile ()
+  : temp_file {true}
+  , filename (utf8::GetTempFileName(".", "INI", 0))
 {
-  wchar_t tmp[_MAX_PATH];
-  GetTempFileNameW (L".", L"INI", 0, tmp);
-  filename = utf8::narrow(tmp);
-  temp_file = true;
 }
 
 /// Copy constructor
@@ -273,106 +268,105 @@ bool IniFile::PutDouble (const std::string& key, double value, const std::string
 HFONT IniFile::GetFont (const std::string& key, const std::string& section, HFONT defval) const
 {
   LOGFONTW lfont;
-  char value[255];
-  char *szptr = value;
+  auto value = GetString (key, section);
+  auto ptr = value.c_str();
 
-  GetString (value, sizeof(value), key, section);
-  if (*szptr)
+  if (*ptr)
   {
-    lfont.lfHeight = atoi (szptr);
-    szptr = strchr (szptr, ',');
+    lfont.lfHeight = atoi (ptr);
+    ptr = strchr (ptr, ',');
   }
   else if (defval)
     return defval;
   else
     return (HFONT)GetStockObject(SYSTEM_FONT);
 
-  if (szptr && *szptr)
+  if (ptr && *ptr)
   {
-    lfont.lfWidth = atoi (++szptr);
-    szptr = strchr (szptr, ',');
+    lfont.lfWidth = atoi (++ptr);
+    ptr = strchr (ptr, ',');
   }
   else
     lfont.lfWidth = 0;
-  if (szptr && *szptr)
+  if (ptr && *ptr)
   {
-    lfont.lfEscapement = atoi (++szptr);
-    szptr = strchr (szptr, ',');
+    lfont.lfEscapement = atoi (++ptr);
+    ptr = strchr (ptr, ',');
   }
   else
     lfont.lfEscapement = 0;
-  if (szptr && *szptr)
+  if (ptr && *ptr)
   {
-    lfont.lfOrientation = atoi (++szptr);
-    szptr = strchr (szptr, ',');
+    lfont.lfOrientation = atoi (++ptr);
+    ptr = strchr (ptr, ',');
   }
   else
     lfont.lfOrientation = 0;
-  if (szptr && *szptr)
+  if (ptr && *ptr)
   {
-    lfont.lfWeight = atoi (++szptr);
-    szptr = strchr (szptr, ',');
+    lfont.lfWeight = atoi (++ptr);
+    ptr = strchr (ptr, ',');
   }
   else
     lfont.lfWeight = FW_NORMAL;
-  if (szptr && *szptr)
+  if (ptr && *ptr)
   {
-    lfont.lfItalic = (BYTE)atoi (++szptr);
-    szptr = strchr (szptr, ',');
+    lfont.lfItalic = (BYTE)atoi (++ptr);
+    ptr = strchr (ptr, ',');
   }
   else
     lfont.lfItalic = 0;
-  if (szptr && *szptr)
+  if (ptr && *ptr)
   {
-    lfont.lfUnderline = (BYTE)atoi (++szptr);
-    szptr = strchr (szptr, ',');
+    lfont.lfUnderline = (BYTE)atoi (++ptr);
+    ptr = strchr (ptr, ',');
   }
   else
     lfont.lfUnderline = 0;
-  if (szptr && *szptr)
+  if (ptr && *ptr)
   {
-    lfont.lfStrikeOut = (BYTE)atoi (++szptr);
-    szptr = strchr (szptr, ',');
+    lfont.lfStrikeOut = (BYTE)atoi (++ptr);
+    ptr = strchr (ptr, ',');
   }
   else
     lfont.lfStrikeOut = 0;
-  if (szptr && *szptr)
+  if (ptr && *ptr)
   {
-    lfont.lfCharSet = (BYTE)atoi (++szptr);
-    szptr = strchr (szptr, ',');
+    lfont.lfCharSet = (BYTE)atoi (++ptr);
+    ptr = strchr (ptr, ',');
   }
   else
     lfont.lfCharSet = ANSI_CHARSET;
-  if (szptr && *szptr)
+  if (ptr && *ptr)
   {
-    lfont.lfOutPrecision = (BYTE)atoi (++szptr);
-    szptr = strchr (szptr, ',');
+    lfont.lfOutPrecision = (BYTE)atoi (++ptr);
+    ptr = strchr (ptr, ',');
   }
   else
     lfont.lfOutPrecision = OUT_DEFAULT_PRECIS;
-  if (szptr && *szptr)
+  if (ptr && *ptr)
   {
-    lfont.lfClipPrecision = (BYTE)atoi (++szptr);
-    szptr = strchr (szptr, ',');
+    lfont.lfClipPrecision = (BYTE)atoi (++ptr);
+    ptr = strchr (ptr, ',');
   }
   else
     lfont.lfClipPrecision = CLIP_DEFAULT_PRECIS;
-  if (szptr && *szptr)
+  if (ptr && *ptr)
   {
-    lfont.lfQuality = (BYTE)atoi (++szptr);
-    szptr = strchr (szptr, ',');
+    lfont.lfQuality = (BYTE)atoi (++ptr);
+    ptr = strchr (ptr, ',');
   }
   else
     lfont.lfQuality = DEFAULT_QUALITY;
-  if (szptr && *szptr)
+  if (ptr && *ptr)
   {
-    lfont.lfPitchAndFamily = (BYTE)atoi (++szptr);
-    szptr = strchr (szptr, ',');
+    lfont.lfPitchAndFamily = (BYTE)atoi (++ptr);
+    ptr = strchr (ptr, ',');
   }
   else
     lfont.lfPitchAndFamily = DEFAULT_PITCH | FF_DONTCARE;
-  if (szptr && *szptr)
-    wcscpy_s (lfont.lfFaceName, utf8::widen(++szptr).c_str() );
+  if (ptr && *ptr)
+    wcscpy_s (lfont.lfFaceName, utf8::widen(++ptr).c_str() );
   else
     wcscpy_s (lfont.lfFaceName, L"Courier");
   return CreateFontIndirectW (&lfont);
