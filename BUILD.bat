@@ -22,4 +22,4 @@ for /f "usebackq tokens=*" %%i in (`"%VSWHERE%" -latest -products * -requires Mi
 echo Visual studio installation folder is: %VSInstallDir%
 call "%VSInstallDir%\common7\tools\vsmsbuildcmd.bat"
 
-if "%~1"=="" (msbuild %~dp0\build.proj) else (msbuild -target:%1 %~dp0\build.proj)
+if "%~1"=="" (msbuild "%~dp0build.proj") else (msbuild -target:%1 "%~dp0build.proj")
