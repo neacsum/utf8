@@ -61,7 +61,7 @@
       <SubSystem>Console</SubSystem>
     </Link>
     <PostBuildEvent>
-      <Command>copy /y $(TargetPath) $(SolutionDir)build</Command>
+      <Command>copy /y "$(TargetPath)" "$(SolutionDir)build"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -80,7 +80,7 @@
     </Link>
     <PostBuildEvent />
     <PostBuildEvent>
-      <Command>copy /y $(TargetPath) $(SolutionDir)build</Command>
+      <Command>copy /y "$(TargetPath)" "$(SolutionDir)build"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
