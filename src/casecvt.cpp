@@ -52,7 +52,7 @@ bool islower (const char* p)
 
   //search character in lowercase table
   char32_t r = rune (p);
-  char32_t* f = lower_bound (begin (l2u), end (l2u), r);
+  const char32_t* f = lower_bound (begin (l2u), end (l2u), r);
   return (f != end (l2u) && *f == r);
 }
 
@@ -71,7 +71,7 @@ std::string tolower (const std::string& str)
   u32string wstr = runes (str);
   for (auto ptr = wstr.begin (); ptr < wstr.end (); ptr++)
   {
-    char32_t *f = lower_bound (begin (u2l), end (u2l), *ptr);
+    const char32_t *f = lower_bound (begin (u2l), end (u2l), *ptr);
     if (f != end (u2l) && *f == *ptr)
       *ptr = lc[f - u2l];
   }
@@ -100,7 +100,7 @@ bool isupper (const char* p)
 
   //search character in uppercase table
   char32_t r = rune (p);
-  char32_t* f = lower_bound (begin (u2l), end (u2l), r);
+  const char32_t* f = lower_bound (begin (u2l), end (u2l), r);
   return (f != end (u2l) && *f == r);
 }
 
@@ -118,7 +118,7 @@ std::string toupper (const std::string& str)
   u32string wstr = runes (str);
   for (auto ptr = wstr.begin(); ptr < wstr.end(); ptr++)
   {
-    char32_t *f = lower_bound (begin (l2u), end (l2u), *ptr);
+    const char32_t *f = lower_bound (begin (l2u), end (l2u), *ptr);
     if (f != end(l2u) && *f == *ptr)
       *ptr = uc[f - l2u];
   }
@@ -156,7 +156,7 @@ int icompare (const std::string& s1, const std::string& s2)
   while (p1 < s1.end () && p2 < s2.end())
   {
     char32_t lc1, lc2, c1 = rune(p1), c2 = rune(p2);
-    char32_t* f = lower_bound (begin (u2l), end (u2l), c1);
+    const char32_t* f = lower_bound (begin (u2l), end (u2l), c1);
     if (f != end (u2l) && *f == c1)
       lc1 = lc[f - u2l];
     else
