@@ -24,4 +24,6 @@ jobs:
         
       - name: Run tests
         shell: cmd
-        run: build/x64/Release/tests.exe
+        run: |
+          cd
+          build\x64\Release\tests.exe
