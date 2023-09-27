@@ -23,11 +23,8 @@ jobs:
           name: cpm.exe
           url: https://github.com/neacsum/cpm/releases/latest/download/cpm.exe
       
-      - name: Clone
-        run: git clone https://github.com/neacsum/utf8.git .\utf8
-
       - name: Build libraries
-        run: cpm -v --proto https -r . utf8
+        run: cpm -v --proto https -u https://github.com/neacsum/utf8 -r $HOME utf8
         
-      - name: Build and run tests
-        run: utf8/build.bat tests      
+      - name: Run tests
+        run: $HOME/build/x64/Release/tests.exe
