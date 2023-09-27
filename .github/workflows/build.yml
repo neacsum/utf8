@@ -8,17 +8,13 @@ on:
 permissions:
   contents: read
 
-env:
-  # This is the destination directory for CPM tool
-  USERPROFILE: .
-  
 jobs:
   build:
     runs-on: windows-latest
     
     steps:      
       - name: Get CPM
-        uses: engineerd/configurator@v0.0.9
+        uses: engineerd/configurator@v0.0.10
         with:
           name: cpm.exe
           url: https://github.com/neacsum/cpm/releases/latest/download/cpm.exe
