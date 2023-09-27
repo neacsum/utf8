@@ -24,4 +24,4 @@ jobs:
         
       - name: Run tests
         shell: cmd
-        run: $HOME/build/x64/Release/tests.exe
+        run: build/x64/Release/tests.exe
