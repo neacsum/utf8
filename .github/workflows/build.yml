@@ -23,4 +23,5 @@ jobs:
         run: cpm -v --proto https -u https://github.com/neacsum/utf8.git -r $HOME utf8
         
       - name: Run tests
+        shell: cmd
         run: $HOME/build/x64/Release/tests.exe
