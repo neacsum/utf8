@@ -3,7 +3,8 @@
     "git": "git@github.com:neacsum/utf8.git",
     "https": "https://github.com/neacsum/utf8.git",
     "build": [
-        {"cmd": "build.bat", "args": ["lib"]}
+      {"os": "windows", "cmd": "cmake", "args": ["--workflow", "--preset=x64"]},
+      {"os": "windows", "cmd": "cmake", "args": ["--workflow", "--preset=x86"]}
     ], 
     "depends": [
         {
