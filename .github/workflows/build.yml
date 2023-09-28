@@ -25,6 +25,4 @@ jobs:
       - name: Run tests
         shell: cmd
         run: |
-          cd
-          set
-          %HOMEPATH%\build\x64\Release\tests.exe
+          %HOMEPATH%\utf8\build\x64\tests\Release\tests.exe
