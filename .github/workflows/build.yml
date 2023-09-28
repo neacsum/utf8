@@ -25,14 +25,14 @@ jobs:
       - name: Run tests
         shell: cmd
         run: |
-          echo %HOMEPATH% 
-          dir %HOMEPATH%
-          echo %HOMEPATH%\utf8
-          dir %HOMEPATH%\utf8
-          echo %HOMEPATH%\utf8\build
-          dir %HOMEPATH%\utf8\build
-          echo %HOMEPATH%\utf8\build\x64\tests
-          dir %HOMEPATH%\utf8\build\x64\tests
-          dir %HOMEPATH%\utf8\build\x64\tests\Release
-          echo %HOMEPATH%\utf8\build\x64\tests\Release
-          %HOMEPATH%\utf8\build\x64\tests\Release\tests.exe
+          echo %USERPROFILE% 
+          dir %USERPROFILE%
+          echo %USERPROFILE%\utf8
+          dir %USERPROFILE%\utf8
+          echo %USERPROFILE%\utf8\build
+          dir %USERPROFILE%\utf8\build
+          echo %USERPROFILE%\utf8\build\x64\tests
+          dir %USERPROFILE%\utf8\build\x64\tests
+          dir %USERPROFILE%\utf8\build\x64\tests\Release
+          echo %USERPROFILE%\utf8\build\x64\tests\Release
+          %USERPROFILE%\utf8\build\x64\tests\Release\tests.exe
