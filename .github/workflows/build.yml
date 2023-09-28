@@ -26,4 +26,5 @@ jobs:
         shell: cmd
         run: |
           cd
-          %HOMEPTH%\build\x64\Release\tests.exe
+          set
+          %HOMEPATH%\build\x64\Release\tests.exe
