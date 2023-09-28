@@ -25,7 +25,9 @@ jobs:
       - name: Run tests
         shell: cmd
         run: |
-          %USERPROFILE%\utf8\build\x64\tests\Release\tests.exe
+          cd %USERPROFILE%\utf8\build\x64\tests\Release 
+          .\tests.exe
+          
       - name: Save tests result
         if: ${{ success() || failure() }}
         uses: actions/upload-artifact@v3
