@@ -572,11 +572,19 @@ TEST (icompare_greater)
   CHECK (utf8::icompare (lc, uc) > 0);
 }
 
+static std::string mydir ()
+{
+  auto fname = GetModuleFileName ();
+  std::string drive, dir, name, ext;
+  splitpath (fname, drive, dir, name, ext);
+  return drive+dir;
+}
+
 // find files named "test*" using find_first/find_next functions
 TEST (find)
 {
   find_data fd;
-  bool ret = find_first ("test*", fd);
+  bool ret = find_first (mydir()+"test*", fd);
   cout << "find_first: " << fd.filename << " - " << fd.size/1024 << "kb" << endl;
   CHECK (ret);
   while (ret)
@@ -593,7 +601,7 @@ TEST (find)
 // same thing as above using the file_enumerator class
 TEST (find_with_finder)
 {
-  file_enumerator f("test*");
+  file_enumerator f(mydir()+"test*");
   CHECK (f.ok());
   while (f.ok ())
   {
