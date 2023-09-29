@@ -25,12 +25,11 @@ jobs:
       - name: Run tests
         shell: cmd
         run: |
-          cd %USERPROFILE%\utf8\build\x64\tests\Release 
-          .\tests.exe
-          
+          %USERPROFILE%\utf8\build\x64\tests\Release\tests.exe
+
       - name: Save tests result
         if: ${{ success() || failure() }}
         uses: actions/upload-artifact@v3
         with:
-          path: $HOME/utf8/build/x64/tests/Release/utf8_tests.xml
+          path: utf8_tests.xml
 
