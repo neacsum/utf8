@@ -1,33 +1,35 @@
 name: Build
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "master", "version_3" ]
   pull_request:
-    branches: [ "master" ]
+    branches: [ "master", "version_3" ]
 
 permissions:
   contents: read
 
-env:
-  # This is the destination directory for CPM tool
-  USERPROFILE: .
-  
 jobs:
   build:
     runs-on: windows-latest
     
     steps:      
       - name: Get CPM
-        uses: engineerd/configurator@v0.0.8
+        uses: engineerd/configurator@v0.0.10
         with:
           name: cpm.exe
           url: https://github.com/neacsum/cpm/releases/latest/download/cpm.exe
       
-      - name: Clone
-        run: git clone https://github.com/neacsum/utf8.git .\utf8
-
       - name: Build libraries
-        run: cpm -v --proto https -r . utf8
+        run: cpm -v --proto https -u https://github.com/neacsum/utf8.git -r $HOME utf8
         
-      - name: Build and run tests
-        run: utf8/build.bat tests      
+      - name: Run tests
+        shell: cmd
+        run: |
+          %USERPROFILE%\utf8\build\x64\tests\Release\tests.exe
+
+      - name: Save tests result
+        if: ${{ success() || failure() }}
+        uses: actions/upload-artifact@v3
+        with:
+          path: utf8_tests.xml
+

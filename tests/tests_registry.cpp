@@ -28,7 +28,7 @@ TEST (rename_delete_tree)
 TEST (set_get_query_value)
 {
   HKEY key;
-  DWORD sz;
+  DWORD sz = sizeof(DWORD);
   DWORD data = 123, data1 = 0, data2 = 0;
   utf8::RegCreateKey (HKEY_CURRENT_USER, key_name, key);
 
