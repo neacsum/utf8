@@ -123,12 +123,21 @@ with the implied assumption that all `char` strings are UTF-8 encoded character 
 [Doxygen](http://www.doxygen.nl/) documentation can be found at https://neacsum.github.io/utf8/
  
 ## Building
-The UTF8 library doesn't have any dependencies. The test program however uses
-the [UTTP library](https://github.com/neacsum/utpp).
+The UTF8 library doesn't have any dependencies. The test program however uses the [UTTP library](https://github.com/neacsum/utpp).
 
-You can use the [CPM - C/C++ Package Manager](https://github.com/neacsum/cpm) to fetch all dependent packages and build them. Just issue the `cpm` command
+The preferred method is to use the [CPM - C/C++ Package Manager](https://github.com/neacsum/cpm) to fetch all dependent packages and build them. Download the [CPM program](https://github.com/neacsum/cpm/releases/latest/download/cpm.exe) and, from the root of the development tree, issue the `cpm` command:
+```
+  cpm -u https://github.com/neacsum/utf8.git utf8
+```
 
-The Visual C++ projects are set to compile under C++14 rules and they also compiles fine under C++17 rules. If you are using C++20 rules, you have to add the [`Zc:char8_t-`](https://learn.microsoft.com/en-us/cpp/build/reference/zc-char8-t?view=msvc-170) option. 
+The Visual C++ projects are set to compile under C++14 rules and they also compiles fine under C++17 rules. If you are using C++20 rules, you have to add the [`Zc:char8_t-`](https://learn.microsoft.com/en-us/cpp/build/reference/zc-char8-t?view=msvc-170) option.
+
+You can build the library using CMake. From the utf8 directory:
+```
+  cmake -S . -B build
+  cmake --build build
+```
+
 Alternatively, `BUILD.bat` script will build the libraries and test programs.
 
 ## License

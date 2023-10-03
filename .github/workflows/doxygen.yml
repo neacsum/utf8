@@ -9,7 +9,10 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      # Generate Doxygen documentation
+      # https://github.com/marketplace/actions/doxygen-github-pages-deploy-action
       - uses: DenverCoder1/doxygen-github-pages-action@v1.3.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           config_file: tools/doxygen/Doxyfile
+          folder: docs
