@@ -22,4 +22,7 @@ jobs:
       - name: Upload pages
         uses: actions/upload-pages-artifact@v2
         with:
-          path: docs/html
+          path: docs
+      
+      -name: Deploy pages
+        uses: actions/deploy-pages@v2
