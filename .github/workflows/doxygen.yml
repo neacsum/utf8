@@ -1,18 +1,20 @@
 name: Doxygen GitHub Pages Deploy Action
 
-on:
-  push:
-    branches:
-      - main
+on: wokflow-dispatch
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
+  make_docs:
+    runs-on: windows-latest
     steps:
-      # Generate Doxygen documentation
-      # https://github.com/marketplace/actions/doxygen-github-pages-deploy-action
-      - uses: DenverCoder1/doxygen-github-pages-action@v1.3.0
+      - name: Checkout
+        uses: action/checkout@v4
+
+      - name: Download Doxygen
+        uses: engineerd/configurator@v0.0.10
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          config_file: tools/doxygen/Doxyfile
-          folder: docs
+          name: doxygen.exe
+          url: https://github.com/doxygen/doxygen/releases/download/Release_1_9_8/doxygen-1.9.8.windows.x64.bin.zip
+          pathInArchive: doxygen.exe
+
+      - name: Generate Doxygen documentation
+        run: doxygen tools/doxygen/Doxyfile
