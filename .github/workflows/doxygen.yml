@@ -1,4 +1,4 @@
-name: Doxygen GitHub Pages Deploy Action
+name: Generate Doxygen Pages
 
 on: workflow_dispatch
 
@@ -7,7 +7,7 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Checkout
-        uses: action/checkout@v4
+        uses: actions/checkout@v4
 
       - name: Download Doxygen
         uses: engineerd/configurator@v0.0.10
