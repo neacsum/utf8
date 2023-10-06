@@ -1,6 +1,6 @@
 name: Doxygen GitHub Pages Deploy Action
 
-on: wokflow-dispatch
+on: wokflow_dispatch
 
 jobs:
   make_docs:
