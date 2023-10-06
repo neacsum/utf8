@@ -20,6 +20,6 @@ jobs:
         run: doxygen tools/doxygen/Doxyfile
       
       - name: Upload pages
-        uses: upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v2
         with:
           path: docs/html
