@@ -1,14 +1,9 @@
 ﻿# UTF8 - Simple Library for Internationalization # {#mainpage}
 
-Functions to facilitate Windows handling of I18N problems using
-the strategy advocated by [UTF-8 Everywhere Manifesto](http://utf8everywhere.org/).
+This is a library designed to simplify the usage of UTF-8 strings under Win32 using the strategy advocated by [UTF-8 Everywhere Manifesto](http://utf8everywhere.org/).
 
-## Purpose
-This is a library designed to simplify the usage of UTF-8 strings under Win32.
 While most of the (computing) world has standardized on using UTF-8 encoding,
 Win32 has remained stuck with wide character strings (also called UTF-16 encoding).
-
-The library uses the principles outlined in the [UTF-8 Everywhere Manifesto](http://utf8everywhere.org/) to make it easy to switch between the different character encodings.
 
 ## Content
 The main function groups are:
@@ -53,12 +48,12 @@ Before using this library you might want to review the guidelines from the
   under "General" > "Project Defaults" tab.
 - for Visual Studio users, add [`/utf-8`](https://docs.microsoft.com/en-us/cpp/build/reference/utf-8-set-source-and-executable-character-sets-to-utf-8) option under "C/C++" > "All Options" >
   "Additional Options".
-- use only `std::string` and `char\*` variables. Assume they all contain UTF-8
+- use only `std::string` and `char*` variables. Assume they all contain UTF-8
   encoded strings.
 - use UTF-16 strings only in arguments to Windows API calls.
 
 All functions and classes in this library are included in the *utf8* namespace.
-It is a good idea not to have a using directive for this namespace. That makes it
+It is a good idea __not__ to have a using directive for this namespace. That makes it
 more evident in the code where UTF8-aware functions are used.
 
 This is an example of a function call:
