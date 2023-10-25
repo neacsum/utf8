@@ -9,7 +9,6 @@
 #include <Windows.h>
 #include <string>
 #include <ostream>
-#include <utf8/utf8.h>
 
 #undef MessageBox
 #undef CopyFile
