@@ -22,9 +22,10 @@ jobs:
       - name: Build libraries
         run: cpm -v --proto https -u https://github.com/neacsum/utf8.git -r $HOME utf8
         
-      - name: Run tests
+      - name: Build and run tests
         shell: cmd
         run: |
+          %USERPROFILE%\utf8\build.bat tests
           %USERPROFILE%\utf8\build\x64\tests\Release\tests.exe
 
       - name: Save tests result
