@@ -598,7 +598,7 @@ bool isupper (std::string::const_iterator p)
 inline
 bool islower (std::string::const_iterator p)
 {
-  return isupper (&*p);
+  return islower (&*p);
 }
 
 /*!
