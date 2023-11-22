@@ -210,13 +210,19 @@ TEST (next_invalid)
   string s3 = "€";
   string s4 = "😃";
 
-  CHECK_EQUAL (utf8::REPLACEMENT_CHARACTER, next (s2.begin () + 1, s2.end ()));
-  CHECK_EQUAL (utf8::REPLACEMENT_CHARACTER, next (s3.begin () + 1, s3.end ()));
-  CHECK_EQUAL (utf8::REPLACEMENT_CHARACTER, next (s3.begin () + 1, s3.end ()));
+  auto p = s2.begin () + 1;
+  CHECK_EQUAL (utf8::REPLACEMENT_CHARACTER, next (p, s2.end ()));
+  p = s3.begin () + 1;
+  CHECK_EQUAL (utf8::REPLACEMENT_CHARACTER, next (p, s3.end ()));
+  p = s4.begin () + 1;
+  CHECK_EQUAL (utf8::REPLACEMENT_CHARACTER, next (p, s4.end ()));
 
-  CHECK_EQUAL (utf8::REPLACEMENT_CHARACTER, next (s2.begin (), s2.end () - 1));
-  CHECK_EQUAL (utf8::REPLACEMENT_CHARACTER, next (s3.begin (), s3.end () - 1));
-  CHECK_EQUAL (utf8::REPLACEMENT_CHARACTER, next (s3.begin (), s3.end () - 1));
+  p = s2.begin ();
+  CHECK_EQUAL (utf8::REPLACEMENT_CHARACTER, next (p, s2.end () - 1));
+  p = s3.begin ();
+  CHECK_EQUAL (utf8::REPLACEMENT_CHARACTER, next (p, s3.end () - 1));
+  p = s4.begin ();
+  CHECK_EQUAL (utf8::REPLACEMENT_CHARACTER, next (p, s4.end () - 1));
 }
 
 TEST (valid_str_funcs)
@@ -326,19 +332,28 @@ TEST (prev_invalid_str)
   std::string invalid_5{ "\xFF\xFE" }; //UTF-16 BOM LE
   std::string invalid_6{ "\xED\xA0\x80" }; // 0xD800 surrogate code point
 
-  CHECK_EQUAL (utf8::REPLACEMENT_CHARACTER, prev (end (invalid_1), begin (invalid_1)));
-  CHECK_EQUAL (utf8::REPLACEMENT_CHARACTER, prev (end (invalid_2), begin (invalid_2)));
-  CHECK_EQUAL (utf8::REPLACEMENT_CHARACTER, prev (end (invalid_3), begin (invalid_3)));
-  CHECK_EQUAL (utf8::REPLACEMENT_CHARACTER, prev (end (invalid_4), begin (invalid_4)));
-  CHECK_EQUAL (utf8::REPLACEMENT_CHARACTER, prev (end (invalid_5), begin (invalid_5)));
-  CHECK_EQUAL (utf8::REPLACEMENT_CHARACTER, prev (end (invalid_6), begin (invalid_6)));
+  auto p = end (invalid_1);
+  CHECK_EQUAL (utf8::REPLACEMENT_CHARACTER, prev (p, begin (invalid_1)));
+  p = end (invalid_2);
+  CHECK_EQUAL (utf8::REPLACEMENT_CHARACTER, prev (p, begin (invalid_2)));
+  p = end (invalid_3);
+  CHECK_EQUAL (utf8::REPLACEMENT_CHARACTER, prev (p, begin (invalid_3)));
+  p = end (invalid_4);
+  CHECK_EQUAL (utf8::REPLACEMENT_CHARACTER, prev (p, begin (invalid_4)));
+  p = end (invalid_5);
+  CHECK_EQUAL (utf8::REPLACEMENT_CHARACTER, prev (p, begin (invalid_5)));
+  p = end (invalid_6);
+  CHECK_EQUAL (utf8::REPLACEMENT_CHARACTER, prev (p, begin (invalid_6)));
 
   std::string s2 = "x°";
   std::string s3 = "x€";
   std::string s4 = "x😃";
-  CHECK_EQUAL (utf8::REPLACEMENT_CHARACTER, prev (end (s2)-1, begin (s2)));
-  CHECK_EQUAL (utf8::REPLACEMENT_CHARACTER, prev (end (s3) - 1, begin (s3)));
-  CHECK_EQUAL (utf8::REPLACEMENT_CHARACTER, prev (end (s4) - 1, begin (s4)));
+  p = s2.end ()-1;
+  CHECK_EQUAL (utf8::REPLACEMENT_CHARACTER, prev (p, begin (s2)));
+  p = end (s3) - 1;
+  CHECK_EQUAL (utf8::REPLACEMENT_CHARACTER, prev (p, begin (s3)));
+  p = end (s4) - 1;
+  CHECK_EQUAL (utf8::REPLACEMENT_CHARACTER, prev (p, begin (s4)));
 }
 
 TEST (invalid_utf8)
