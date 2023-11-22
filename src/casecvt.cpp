@@ -42,6 +42,16 @@ namespace utf8 {
 // definition of 'l2u' and 'uc' tables
 #include "lowertab.c"
 
+
+/// Return `true` if character is a lowercase character
+/// \param r character to check
+bool islower (char32_t r)
+{
+  //search character in lowercase table
+  auto f = lower_bound (begin (l2u), end (l2u), r);
+  return (f != end (l2u) && *f == r);
+}
+
 /// Return `true` if character is a lowercase character
 /// \param p pointer to character to check
 bool islower (const char* p)
@@ -50,10 +60,7 @@ bool islower (const char* p)
   if ((unsigned char)*p <= 0x7f)
     return ::islower (*p);
 
-  //search character in lowercase table
-  auto r = rune (p);
-  auto f = lower_bound (begin (l2u), end (l2u), r);
-  return (f != end (l2u) && *f == r);
+  return islower (rune (p));
 }
 
 /*!
@@ -95,6 +102,15 @@ void make_lower (std::string& str)
 }
 
 /// Return `true` if character is an uppercase character
+/// \param r character to check
+bool isupper (char32_t r)
+{
+  //search character in uppercase table
+  auto f = lower_bound (begin (u2l), end (u2l), r);
+  return (f != end (u2l) && *f == r);
+}
+
+/// Return `true` if character is an uppercase character
 /// \param p pointer to character to check
 bool isupper (const char* p)
 {
@@ -102,10 +118,7 @@ bool isupper (const char* p)
   if ((unsigned char)*p <= 0x7f)
     return ::isupper (*p);
 
-  //search character in uppercase table
-  auto r = rune (p);
-  auto f = lower_bound (begin (u2l), end (u2l), r);
-  return (f != end (u2l) && *f == r);
+  return isupper(rune (p));
 }
 
 /*!

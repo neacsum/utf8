@@ -131,20 +131,35 @@ int icompare (const std::string& s1, const std::string& s2);
   @{
 */
 
+bool isspace (char32_t r);
 bool isspace (const char* p);
 bool isspace (std::string::const_iterator p);
+
+bool isblank (char32_t r);
 bool isblank (const char* p);
 bool isblank (std::string::const_iterator p);
+
+bool isdigit (char32_t r);
 bool isdigit (const char* p);
 bool isdigit (std::string::const_iterator p);
+
+bool isalnum (char32_t r);
 bool isalnum (const char* p);
 bool isalnum (std::string::const_iterator p);
+
+bool isalpha (char32_t r);
 bool isalpha (const char* p);
 bool isalpha (std::string::const_iterator p);
+
+bool isxdigit (char32_t r);
 bool isxdigit (const char* p);
 bool isxdigit (std::string::const_iterator p);
+
+bool isupper (char32_t r);
 bool isupper (const char* p);
 bool isupper (std::string::const_iterator p);
+
+bool islower (char32_t r);
 bool islower (const char* p);
 bool islower (std::string::const_iterator p);
 /// @}
@@ -485,68 +500,120 @@ char32_t rune (const std::string::const_iterator& p)
 }
 
 
-/// \copydoc isspace()
+/*!
+  Return true if character is blank(-ish).
+  \param p pointer to character to check
+  \return `true` if character is blank, `false` otherwise
+
+  Returns `true` if Unicode character has the "White_Space=yes" property in the
+  [Unicode Character Database](https://www.unicode.org/Public/UCD/latest/ucd/PropList.txt)
+*/
+inline
+bool isspace (const char* p)
+{
+  return isspace (rune (p));
+}
+
+/// \copydoc isspace(const char* p)
 inline
 bool isspace (std::string::const_iterator p)
 {
-  return isspace (&*p);
+  return isspace (rune(p));
 }
 
 
 /*!
-  Return true if character is blank or tab
+  Check if character is space or tab
   \param p pointer to character to check
-  \return true if character is blank, false otherwise
+
+  \return `true` if character is `\t` (0x09) or is in the "Space_Separator" (Zs)
+          category, `false` otherwise.
+
+  See [Unicode Character Database](https://www.unicode.org/Public/UCD/latest/ucd/PropList.txt)
+  for a list of characters in the Zs (Space_Separator) category. The function adds
+  HORIZONTAL_TAB (0x09 or '\\t') to the space separator category for compatibility
+  with standard `isblank (char c)` C function.
 */
 inline
 bool isblank (const char *p)
 {
-  return (*p == ' ' || *p == '\t');
+  return isblank(rune(p));
 }
 
-/// \copydoc isblank()
+/// \copydoc isblank(const char* p)
 inline
 bool isblank (std::string::const_iterator p)
 {
-  return isblank (&*p);
+  return isblank (rune (p));
 }
 
 /*!
-  Return true if character is a decimal digit (0-9)
-  \param p pointer to character to check
+  Check if character is a decimal digit (0-9)
+  \param r character to check
   \return true if character is a digit, false otherwise
+*/
+inline
+bool isdigit (char32_t r)
+{
+  return '0' <= r && r <= '9';
+}
+
+/*!
+  Check if character is a decimal digit (0-9)
+  \param p pointer to character to check
+  \return `true` if character is a digit, `false` otherwise
 */
 inline
 bool isdigit (const char *p)
 {
-  char c = *p;
-  return '0' <= c && c <= '9';
+  return isdigit (rune (p));
 }
 
-/// \copydoc isdigit()
+/// \copydoc isdigit(const char* p)
 inline
 bool isdigit (std::string::const_iterator p)
 {
-  return isdigit (&*p);
+  return isdigit (rune (p));
 }
 
 /*!
-  Return true if character is an alphanumeric character (0-9 or A-Z or a-z)
+  Check if character is an alphanumeric character (0-9 or A-Z or a-z)
+  \param r character to check
+  \return `true` if character is alphanumeric, `false` otherwise
+*/
+inline
+bool isalnum (char32_t r)
+{
+  return ('0' <= r && r <= '9') || ('A' <= r && r <= 'Z') || ('a' <= r && r <= 'z');
+}
+
+/*!
+  Check if character is an alphanumeric character (0-9 or A-Z or a-z)
   \param p pointer to character to check
-  \return true if character is alphanumeric, false otherwise
+  \return `true` if character is alphanumeric, `false` otherwise
 */
 inline
 bool isalnum (const char *p)
 {
-  char c = *p;
-  return ('0' <= c && c <= '9') || ('A' <= c && c <= 'Z') || ('a' <= c && c <= 'z') ;
+  return isalnum (rune (p));
 }
 
-/// \copydoc isalnum()
+/// \copydoc isalnum(const char *p)
 inline
 bool isalnum (std::string::const_iterator p)
 {
-  return isalnum (&*p);
+  return isalnum (rune (p));
+}
+
+/*!
+  Check if character is an alphabetic character (A-Z or a-z)
+  \param r character to check
+  \return `true` if character is alphabetic, `false` otherwise
+*/
+inline
+bool isalpha (char32_t r)
+{
+  return ('A' <= r && r <= 'Z') || ('a' <= r && r <= 'z');
 }
 
 /*!
@@ -557,48 +624,58 @@ bool isalnum (std::string::const_iterator p)
 inline
 bool isalpha (const char *p)
 {
-  char c = *p;
-  return ('A' <= c && c <= 'Z') || ('a' <= c && c <= 'z');
+  return isalpha (rune (p));
 }
 
-/// \copydoc isalpha()
+/// \copydoc isalpha(const char *p)
 inline
 bool isalpha (std::string::const_iterator p)
 {
   return isalpha (&*p);
 }
 
+
 /*!
-  Return true if character is a hexadecimal digit (0-9 or A-F or a-f)
+  Check if character is a hexadecimal digit (0-9 or A-F or a-f)
+  \param r character to check
+  \return `true` if character is hexadecimal, `false` otherwise
+*/
+inline
+bool isxdigit (char32_t r)
+{
+  return ('0' <= r && r <= '9') || ('A' <= r && r <= 'F') || ('a' <= r && r <= 'f');
+}
+
+/*!
+  Check if character is a hexadecimal digit (0-9 or A-F or a-f)
   \param p pointer to character to check
-  \return true if character is hexadecimal, false otherwise
+  \return `true` if character is hexadecimal, `false` otherwise
 */
 inline
 bool isxdigit (const char *p)
 {
-  char c = *p;
-  return ('0' <= c && c <= '9') || ('A' <= c && c <= 'F') || ('a' <= c && c <= 'f');
+  return isxdigit(rune(p));
 }
 
-/// \copydoc isxdigit()
+/// \copydoc isxdigit(const char* p)
 inline
 bool isxdigit (std::string::const_iterator p)
 {
-  return isxdigit (&*p);
+  return isxdigit (rune(p));
 }
 
-/// \copydoc isupper()
+/// \copydoc isupper(const char* p)
 inline
 bool isupper (std::string::const_iterator p)
 {
-  return isupper (&*p);
+  return isupper (rune(p));
 }
 
-/// \copydoc islower()
+/// \copydoc islower(const char*p)
 inline
 bool islower (std::string::const_iterator p)
 {
-  return islower (&*p);
+  return islower (rune(p));
 }
 
 /*!

@@ -204,6 +204,21 @@ TEST (next_non_const)
   CHECK_EQUAL (3, i);
 }
 
+TEST (next_invalid)
+{
+  string s2 = "°";
+  string s3 = "€";
+  string s4 = "😃";
+
+  CHECK_EQUAL (utf8::REPLACEMENT_CHARACTER, next (s2.begin () + 1, s2.end ()));
+  CHECK_EQUAL (utf8::REPLACEMENT_CHARACTER, next (s3.begin () + 1, s3.end ()));
+  CHECK_EQUAL (utf8::REPLACEMENT_CHARACTER, next (s3.begin () + 1, s3.end ()));
+
+  CHECK_EQUAL (utf8::REPLACEMENT_CHARACTER, next (s2.begin (), s2.end () - 1));
+  CHECK_EQUAL (utf8::REPLACEMENT_CHARACTER, next (s3.begin (), s3.end () - 1));
+  CHECK_EQUAL (utf8::REPLACEMENT_CHARACTER, next (s3.begin (), s3.end () - 1));
+}
+
 TEST (valid_str_funcs)
 {
   string emojis{ "😃😎😛" };
@@ -300,6 +315,30 @@ TEST (prev_invalid)
   CHECK_EQUAL (utf8::REPLACEMENT_CHARACTER, prev (ptr));
   ptr = invalid_6 + strlen (invalid_6);
   CHECK_EQUAL (utf8::REPLACEMENT_CHARACTER, prev (ptr));
+}
+
+TEST (prev_invalid_str)
+{
+  std::string invalid_1{ "\xC1\xA1" }; //overlong 'a'
+  std::string invalid_2{ "\xE0\x82\xB0" }; //overlong '°'
+  std::string invalid_3{ "\xF0\x82\x82\xAC" }; //overlong '€'
+  std::string invalid_4{ "\xFE\xFF" }; //UTF-16 BOM BE
+  std::string invalid_5{ "\xFF\xFE" }; //UTF-16 BOM LE
+  std::string invalid_6{ "\xED\xA0\x80" }; // 0xD800 surrogate code point
+
+  CHECK_EQUAL (utf8::REPLACEMENT_CHARACTER, prev (end (invalid_1), begin (invalid_1)));
+  CHECK_EQUAL (utf8::REPLACEMENT_CHARACTER, prev (end (invalid_2), begin (invalid_2)));
+  CHECK_EQUAL (utf8::REPLACEMENT_CHARACTER, prev (end (invalid_3), begin (invalid_3)));
+  CHECK_EQUAL (utf8::REPLACEMENT_CHARACTER, prev (end (invalid_4), begin (invalid_4)));
+  CHECK_EQUAL (utf8::REPLACEMENT_CHARACTER, prev (end (invalid_5), begin (invalid_5)));
+  CHECK_EQUAL (utf8::REPLACEMENT_CHARACTER, prev (end (invalid_6), begin (invalid_6)));
+
+  std::string s2 = "x°";
+  std::string s3 = "x€";
+  std::string s4 = "x😃";
+  CHECK_EQUAL (utf8::REPLACEMENT_CHARACTER, prev (end (s2)-1, begin (s2)));
+  CHECK_EQUAL (utf8::REPLACEMENT_CHARACTER, prev (end (s3) - 1, begin (s3)));
+  CHECK_EQUAL (utf8::REPLACEMENT_CHARACTER, prev (end (s4) - 1, begin (s4)));
 }
 
 TEST (invalid_utf8)
@@ -727,6 +766,26 @@ TEST (is_upper_lower)
     CHECK (islower (p));
 }
 
+// test character classes outside the 0-127 range using string iterators
+TEST (is_upper_lower_str)
+{
+  const std::string uc{ "MIRCEANEACȘUĂÂȚÎ" };
+  const std::string lc{ "mirceaneacșuăâțî" };
+
+  auto it = uc.cbegin ();
+  while (it != uc.cend())
+  {
+    CHECK (isupper (it));
+    utf8::next (it, uc.cend ());
+  }
+
+  for (auto it = lc.cbegin (); it != lc.cend();)
+  {
+    CHECK (islower (it));
+    utf8::next (it, lc.cend ());
+  }
+}
+
 TEST (lower_substring)
 {
   const string uc{ "ȚEPUȘ nicolae" };
@@ -757,3 +816,65 @@ TEST (func_get_module_filename)
     [](char ch) {return ch == '\\'; }).base());
   CHECK_EQUAL ("tests.exe", exe_name);
 }
+
+/*
+  Trim white spaces at beginning and end of a string.
+  Similar to Excel function TRIM.
+*/
+std::string trim (const std::string& str)
+{
+  auto pb = cbegin (str);
+
+  //trim leading blanks
+  while (pb != cend (str) && utf8::isblank (pb))
+  {
+    auto c = utf8::next (pb, cend (str));
+    if (c == utf8::REPLACEMENT_CHARACTER)
+      throw utf8::exception (utf8::exception::reason::invalid_utf8);
+  }
+
+  //now trim trailing blanks
+  auto pe = cend (str);
+  auto pe1 = pe;
+  while (pe != pb)
+  {
+    auto c = utf8::prev (pe1, pb);
+    if (c == utf8::REPLACEMENT_CHARACTER)
+      throw utf8::exception (utf8::exception::reason::invalid_utf8);
+    if (!utf8::isblank (c))
+      break;
+    else
+      pe = pe1;
+  }
+  size_t pos = pb - begin (str);
+  size_t cnt = pe - pb;
+  return str.substr (pos, cnt);
+}
+
+TEST (trim)
+{
+  auto t = trim (u8" MIRCEA NEACȘU ĂÂȚÎ   ");
+  CHECK_EQUAL (t, u8"MIRCEA NEACȘU ĂÂȚÎ");
+
+  t = trim (u8"MIRCEA NEACȘU ĂÂȚÎ   ");
+  CHECK_EQUAL (t, u8"MIRCEA NEACȘU ĂÂȚÎ");
+
+  t = trim (u8"  MIRCEA NEACȘU ĂÂȚÎ");
+  CHECK_EQUAL (t, u8"MIRCEA NEACȘU ĂÂȚÎ");
+
+  t = trim ("");
+  CHECK_EQUAL (t, "");
+
+  t = trim (" ");
+  CHECK_EQUAL (t, "");
+
+  //these are all spaces
+  t = trim(u8"\u0009\u0020\u00A0\u1680\u2000\u2001\u2002\u2003\u2004\u2005"
+           u8"\u2006\u2007\u2008\u2009\u200A\u202f\u205f\u3000");
+  CHECK_EQUAL (t, "");
+
+  t = trim (u8"  MIRCEA NEACȘU ĂÂȚÎ"
+            u8"\u2006\u2007\u2008\u2009\u200A\u202f\u205f\u3000");
+  CHECK_EQUAL (t, u8"MIRCEA NEACȘU ĂÂȚÎ");
+}
+

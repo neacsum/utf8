@@ -393,11 +393,11 @@ char32_t prev (const char* & ptr)
   {
     rune += (char32_t)(ch & 0x3f) << cont++ * 6;
   }
-  if (cont == 3 && (ch & 0xF0) == 0xF0)
+  if (cont == 3 && (ch & 0xF8) == 0xF0)
     rune += (char32_t)(ch & 0x0f) << 18;
-  else if (cont == 2 && (ch & 0xE0) == 0xE0)
+  else if (cont == 2 && (ch & 0xF0) == 0xE0)
     rune += (char32_t)(ch & 0x1f) << 12;
-  else if (cont == 1 && (ch & 0xC0) == 0xC0)
+  else if (cont == 1 && (ch & 0xE0) == 0xC0)
     rune += (char32_t)(ch & 0x3f) << 6;
   else if (cont == 0 && ch < 0x7f)
     rune += ch;
@@ -408,9 +408,9 @@ char32_t prev (const char* & ptr)
   }
 
   if ((0xD800 <= rune && rune <= 0xdfff) //surrogate
-   || (cont >= 0 && rune < 0x80)
-   || (cont >= 1 && rune < 0x800)
-   || (cont >= 2 && rune < 0x10000))  //overlong encoding
+   || (cont > 0 && rune < 0x80)
+   || (cont > 1 && rune < 0x800)
+   || (cont > 2 && rune < 0x10000))  //overlong encoding
   {
     ptr = in_ptr;
     return REPLACEMENT_CHARACTER;
@@ -439,11 +439,11 @@ char32_t prev (std::string::const_iterator& ptr, const std::string::const_iterat
   {
     rune += (char32_t)(ch & 0x3f) << cont++ * 6;
   }
-  if (cont == 3 && (ch & 0xF0) == 0xF0)
+  if (cont == 3 && (ch & 0xF8) == 0xF0)
     rune += (char32_t)(ch & 0x0f) << 18;
-  else if (cont == 2 && (ch & 0xE0) == 0xE0)
+  else if (cont == 2 && (ch & 0xF0) == 0xE0)
     rune += (char32_t)(ch & 0x1f) << 12;
-  else if (cont == 1 && (ch & 0xC0) == 0xC0)
+  else if (cont == 1 && (ch & 0xE0) == 0xC0)
     rune += (char32_t)(ch & 0x3f) << 6;
   else if (cont == 0 && ch < 0x7f)
     rune += ch;
@@ -454,9 +454,9 @@ char32_t prev (std::string::const_iterator& ptr, const std::string::const_iterat
   }
 
   if ((0xD800 <= rune && rune <= 0xdfff) //surrogate
-   || (cont >= 0 && rune < 0x80)
-   || (cont >= 1 && rune < 0x800)
-   || (cont >= 2 && rune < 0x10000))  //overlong encoding
+   || (cont > 0 && rune < 0x80)
+   || (cont > 1 && rune < 0x800)
+   || (cont > 2 && rune < 0x10000))  //overlong encoding
   {
     ptr = in_ptr;
     return REPLACEMENT_CHARACTER;
@@ -701,8 +701,8 @@ std::vector<std::string> get_argv ()
   range of printable characters. These replacement functions are well-behaved
   for any input string.
 
-  The argument is a character pointer or a string iterator. Use them as in the
-  following example:
+  The argument can be a `char32_t` character (rune), or a character pointer or
+  a string iterator. Use them as in the following example:
 \code
   //skip spaces in UTF-8 string
   string s{ u8" \xA0日本語" };
@@ -720,26 +720,43 @@ std::vector<std::string> get_argv ()
 */
 
 /*!
-  Return true if character is blank(-ish).
-  \param p pointer to character to check
-  \return `true` if character is blank, `false` otherwise
+  Check if character is space or tab
+  \param r character to check
+  \return `true` if character is `\t` (0x09) or is in the "Space_Separator" (Zs)
+          category, `false` otherwise.
+
+  See [Unicode Character Database](https://www.unicode.org/Public/UCD/latest/ucd/PropList.txt)
+  for a list of characters in the Zs (Space_Separator) category. The function adds
+  HORIZONTAL_TAB (0x09 or '\\t') to the space separator category for compatibility
+  with standard `isblank (char c)` C function.
+*/
+bool isblank (char32_t r)
+{
+  const char32_t blanktab[]{ 0x09, 0x20, 0xA0, 0x1680, 0x2000, 0x2001, 0x2002,
+    0x2003, 0x2004, 0x2005, 0x2006, 0x2007, 0x2008, 0x2009, 0x200A, 0x202f, 0x205f, 0x3000 };
+
+  auto f = lower_bound (begin (blanktab), end (blanktab), r);
+  return (f != end (blanktab) && *f == r);
+}
+
+/*!
+  Check if character is white space.
+  \param r character to check
+  \return `true` if character is white space, `false` otherwise
 
   Returns `true` if Unicode character has the "White_Space=yes" property in the
   [Unicode Character Database](https://www.unicode.org/Public/UCD/latest/ucd/PropList.txt)
 */
-bool isspace (const char* p)
+bool isspace (char32_t r)
 {
-  const char32_t spacetab[] {0x20, 0x09, 0x0d, 0x0a, 0x0b, 0x0c, 0x85, 0xA0, 0x1680,
-    0x2000, 0x2001, 0x2002, 0x2004, 0x2005, 0x2006, 0x2007, 0x2008, 0x2009, 0x200A,
-    0x2028, 0x2020, 0x202f, 0x205f, 0x3000};
+  const char32_t spacetab[]{ 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x20, 0x85, 0xA0, 0x1680,
+    0x2000, 0x2001, 0x2002, 0x2003, 0x2004, 0x2005, 0x2006, 0x2007, 0x2008, 0x2009, 0x200A,
+    0x2028, 0x2029, 0x202f, 0x205f, 0x3000 };
 
-  char32_t c = rune (p);
-  for (auto i = 0; i < _countof (spacetab); i++)
-    if (c == spacetab[i])
-      return true;
-
-  return false;
+  auto f = lower_bound (begin (spacetab), end (spacetab), r);
+  return (f != end (spacetab) && *f == r);
 }
+
 
 // ----------------------- Low level internal functions -----------------------
 
