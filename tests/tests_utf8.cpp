@@ -2,6 +2,7 @@
 #include <windows.h>
 #include <utf8/utf8.h>
 #include <iostream>
+#include <tuple>
 
 #include "resource.h"
 
@@ -279,7 +280,7 @@ TEST (prev_ptr)
   int count = 0;
   while (ptr > emojis)
   {
-    prev (ptr);
+  std::ignore =  prev (ptr);
     count++;
   }
   CHECK_EQUAL (3, count);
@@ -477,7 +478,7 @@ TEST (out_stream)
 
   size_t len = filetext.size();
   DWORD nr;
-  ReadFile (f, read_back, (DWORD)len, &nr, NULL);
+  CHECK (ReadFile (f, read_back, (DWORD)len, &nr, NULL));
   CloseHandle (f);
   CHECK (remove (filename));
   CHECK_EQUAL (len, nr);
@@ -531,7 +532,7 @@ TEST (fopen_write)
 
   size_t len = filetext.size ();
   DWORD nr;
-  ReadFile (f, read_back, (DWORD)len, &nr, NULL);
+  CHECK (ReadFile (f, read_back, (DWORD)len, &nr, NULL));
   CloseHandle (f);
   CHECK (remove (filename));
   CHECK_EQUAL (len, nr);
@@ -794,7 +795,7 @@ TEST (is_upper_lower_str)
     utf8::next (it, uc.cend ());
   }
 
-  for (auto it = lc.cbegin (); it != lc.cend();)
+  for (it = lc.cbegin (); it != lc.cend();)
   {
     CHECK (islower (it));
     utf8::next (it, lc.cend ());

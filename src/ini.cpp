@@ -236,7 +236,7 @@ double IniFile::GetDouble (const std::string& key, const std::string& section, d
 bool IniFile::PutInt (const std::string& key, long value, const std::string& section)
 {
   char buffer[_MAX_ITOSTR_BASE10_COUNT];
-
+  buffer[_MAX_ITOSTR_BASE10_COUNT - 1] = 0;
   _itoa_s (value, buffer, 10);
   return PutString (key, buffer, section);
 }

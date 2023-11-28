@@ -521,7 +521,7 @@ LSTATUS RegGetValue (HKEY key, const std::string& subkey, const std::string& val
 {
   auto wsubkey = widen (subkey);
   auto wvalue = widen (value);
-  DWORD sz;
+  DWORD sz = 0;
   const DWORD flags = RRF_RT_REG_SZ | RRF_RT_REG_EXPAND_SZ | (expand ? 0 :RRF_NOEXPAND);
   auto ret = RegGetValueW (key, wsubkey.c_str (), wvalue.c_str (), 
     flags, NULL, NULL, &sz);
@@ -556,7 +556,7 @@ LSTATUS RegGetValue (HKEY key, const std::string& subkey, const std::string& val
 {
   auto wsubkey = widen (subkey);
   auto wvalue = widen (value);
-  DWORD sz;
+  DWORD sz = 0;
   auto ret = RegGetValueW (key, wsubkey.c_str (), wvalue.c_str (),
     RRF_RT_REG_MULTI_SZ, NULL, NULL, &sz);
   if (ret == ERROR_SUCCESS)

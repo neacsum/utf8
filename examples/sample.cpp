@@ -7,6 +7,7 @@
 #include <utf8/utf8.h>
 #include <utf8/ini.h>
 #include <iostream>
+#include <tuple>
 #include <conio.h>
 
 using namespace std;
@@ -23,7 +24,7 @@ void confirm ()
   printf ("Press any key to continue...");
   while (!_kbhit ())
     ;
-  _getch ();
+  std::ignore = _getch ();
   printf ("\n");
 }
 
