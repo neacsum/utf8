@@ -9,4 +9,3 @@ target_link_directories (tests PUBLIC ${PROJECT_SOURCE_DIR}/lib/${pfx}/$<CONFIG>
 # Add dependent libraries
 add_dependencies(tests utf8)
 target_link_libraries (tests PRIVATE utf8.lib)
-
