@@ -9,5 +9,5 @@ add_custom_command(
 )
 
 target_sources(${PROJECT_NAME} 
-	PRIVATE ${PROJECT_SOURCE_DIR}/src/uppertab.c ${PROJECT_SOURCE_DIR}/src/lowertab.c
+  PRIVATE ${PROJECT_SOURCE_DIR}/src/uppertab.c ${PROJECT_SOURCE_DIR}/src/lowertab.c
 )
