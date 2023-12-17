@@ -20,8 +20,8 @@ add_definitions(-DUNICODE -D_UNICODE)
 target_include_directories(${PROJECT_NAME} PUBLIC include)
 target_include_directories(${PROJECT_NAME} PRIVATE src)
 
-if (NOT EXISTS ${CMAKE_SOURCE_DIR}/src/uppertab.c OR 
-    NOT EXISTS ${CMAKE_SOURCE_DIR}/src/lowertab.c)
+if (NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/src/uppertab.c OR 
+    NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/src/lowertab.c)
   add_subdirectory(tools/gen_casetab)
 endif()
 
