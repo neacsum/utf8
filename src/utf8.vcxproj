@@ -108,7 +108,7 @@
     <PreBuildEvent />
     <PreBuildEvent />
     <PreBuildEvent>
-      <Command>if not exist "$(SolutionDir)src\uppertab.c" "$(SolutionDir)build\gen_casetab.exe" "$(SolutionDir)tools\gen_casetab\casefolding.txt" "$(SolutionDir)src" </Command>
+      <Command>if not exist "$(SolutionDir)src\.c" "$(SolutionDir)build\gen_casetab.exe" "$(SolutionDir)tools\gen_casetab\casefolding.txt" "$(SolutionDir)src" </Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -129,7 +129,7 @@
     <PreBuildEvent />
     <PreBuildEvent />
     <PreBuildEvent>
-      <Command>if not exist "$(SolutionDir)src\uppertab.c" "$(SolutionDir)build\gen_casetab.exe" "$(SolutionDir)tools\gen_casetab\casefolding.txt" "$(SolutionDir)src" </Command>
+      <Command>if not exist "$(SolutionDir)src\uppertab.h" "$(SolutionDir)build\gen_casetab.exe" "$(SolutionDir)tools\gen_casetab\casefolding.txt" "$(SolutionDir)src" </Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -154,7 +154,7 @@
     <PreBuildEvent />
     <PreBuildEvent />
     <PreBuildEvent>
-      <Command>if not exist "$(SolutionDir)src\uppertab.c" "$(SolutionDir)build\gen_casetab.exe" "$(SolutionDir)tools\gen_casetab\casefolding.txt" "$(SolutionDir)src" </Command>
+      <Command>if not exist "$(SolutionDir)src\uppertab.h" "$(SolutionDir)build\gen_casetab.exe" "$(SolutionDir)tools\gen_casetab\casefolding.txt" "$(SolutionDir)src" </Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -179,7 +179,7 @@
     <PreBuildEvent />
     <PreBuildEvent />
     <PreBuildEvent>
-      <Command>if not exist "$(SolutionDir)src\uppertab.c" "$(SolutionDir)build\gen_casetab.exe" "$(SolutionDir)tools\gen_casetab\casefolding.txt" "$(SolutionDir)src" </Command>
+      <Command>if not exist "$(SolutionDir)src\uppertab.h" "$(SolutionDir)build\gen_casetab.exe" "$(SolutionDir)tools\gen_casetab\casefolding.txt" "$(SolutionDir)src" </Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

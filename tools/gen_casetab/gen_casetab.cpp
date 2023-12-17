@@ -1,5 +1,5 @@
 /*
-  Generate case folding tables (UCASETAB.C and LCASETAB.C) from
+  Generate case folding tables (UCASETAB.H and LCASETAB.H) from
   CASEFOLDING.TXT file.
 
   Latest version of case folding table can be downloaed from:
@@ -58,7 +58,7 @@ int main (int argc, char **argv)
     tab.push_back (code);
   }
 
-  ofstream out (string(argv[2]) + "/uppertab.c");
+  ofstream out (string(argv[2]) + "/uppertab.h");
   out << "//Upper case table" << endl
     << "static const char32_t u2l [" << tab.size() << "] = { " << endl;
   out << hex;
@@ -104,7 +104,7 @@ int main (int argc, char **argv)
     }
   }
 
-  out.open (string(argv[2]) + "/lowertab.c");
+  out.open (string(argv[2]) + "/lowertab.h");
   out << "//Lower case table" << dec << endl
     << "static const char32_t l2u [" << tab.size () << "] = { ";
   out << hex;
