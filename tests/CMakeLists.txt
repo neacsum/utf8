@@ -4,7 +4,7 @@ add_executable(tests
 )
 
 # All link directories are subfolders of ./lib
-target_link_directories (tests PUBLIC ${CMAKE_SOURCE_DIR}/lib/${pfx}/$<CONFIG>)
+target_link_directories (tests PUBLIC ${PROJECT_SOURCE_DIR}/lib/${pfx}/$<CONFIG>)
 
 # Add dependent libraries
 add_dependencies(tests utf8)
