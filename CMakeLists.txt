@@ -13,7 +13,10 @@ add_definitions(-DUNICODE -D_UNICODE)
 
 add_subdirectory(tools/gen_casetab)
 add_subdirectory(src)
-add_subdirectory(tests)
+
+if (BUILD_TESTS)
+  add_subdirectory(tests)
+endif ()
 
 if (BUILD_EXAMPLES)
   add_subdirectory(examples)
