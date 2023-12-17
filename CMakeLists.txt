@@ -17,7 +17,8 @@ add_compile_options("$<$<C_COMPILER_ID:MSVC>:/utf-8>")
 add_compile_options("$<$<CXX_COMPILER_ID:MSVC>:/utf-8>")
 add_definitions(-DUNICODE -D_UNICODE)
 
-include_directories(include)
+target_include_directories(${PROJECT_NAME} PUBLIC include)
+target_include_directories(${PROJECT_NAME} PRIVATE src)
 
 if (NOT EXISTS ${CMAKE_SOURCE_DIR}/src/uppertab.c OR 
     NOT EXISTS ${CMAKE_SOURCE_DIR}/src/lowertab.c)
