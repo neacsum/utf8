@@ -10,7 +10,7 @@ set(pfx "")
 endif()
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
-	ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib/${pfx}/$<CONFIG>
+	ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib/${pfx}/$<CONFIG>
 )
 
 add_compile_options("$<$<C_COMPILER_ID:MSVC>:/utf-8>")
@@ -20,8 +20,8 @@ add_definitions(-DUNICODE -D_UNICODE)
 target_include_directories(${PROJECT_NAME} PUBLIC include)
 target_include_directories(${PROJECT_NAME} PRIVATE src)
 
-if (NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/src/uppertab.c OR 
-    NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/src/lowertab.c)
+if (NOT EXISTS ${PROJECT_SOURCE_DIR}/src/uppertab.c OR 
+    NOT EXISTS ${PROJECT_SOURCE_DIR}/src/lowertab.c)
   add_subdirectory(tools/gen_casetab)
 endif()
 
