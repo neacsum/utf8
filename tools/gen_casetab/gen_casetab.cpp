@@ -2,9 +2,11 @@
   Generate case folding tables (UCASETAB.C and LCASETAB.C) from
   CASEFOLDING.TXT file.
   
-  Latest version of case folding table can be downloaed from:
+  Latest version of case folding table can be downloaded from:
   https://www.unicode.org/Public/UCD/latest/ucd/CaseFolding.txt
 */
+
+
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <fstream>
@@ -15,7 +17,7 @@
 using namespace std;
 
 struct codept {
-  char32_t uc, lc;
+  int uc, lc;
   string descr;
 };
 
