@@ -2,9 +2,11 @@
   Generate case folding tables (UCASETAB.H and LCASETAB.H) from
   CASEFOLDING.TXT file.
 
-  Latest version of case folding table can be downloaed from:
+  Latest version of case folding table can be downloaded from:
   https://www.unicode.org/Public/UCD/latest/ucd/CaseFolding.txt
 */
+
+
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <fstream>
@@ -15,7 +17,7 @@
 using namespace std;
 
 struct codept {
-  char32_t uc, lc;
+  int uc, lc;
   string descr;
 };
 
@@ -64,7 +66,7 @@ int main (int argc, char **argv)
   out << hex;
   for (size_t i=0; i<tab.size(); i++)
   {
-    out << "  0x" << std::setfill ('0') << std::setw (5) << (int)tab[i].uc;
+    out << "  0x" << std::setfill ('0') << std::setw (5) << tab[i].uc;
     if (i == tab.size () - 1)
       out << "};";
     else
@@ -79,7 +81,7 @@ int main (int argc, char **argv)
   {
     if (i % 8 == 0)
       out << endl << "  ";
-    out << "0x" << std::setfill ('0') << std::setw (5) << (int)tab[i].lc;
+    out << "0x" << std::setfill ('0') << std::setw (5) << tab[i].lc;
     if (i == tab.size () - 1)
       out << "};";
     else
@@ -112,7 +114,7 @@ int main (int argc, char **argv)
   {
     if (i % 8 == 0)
       out << endl << "  ";
-    out << "0x" << std::setfill ('0') << std::setw (5) << (int)tab[i].lc;
+    out << "0x" << std::setfill ('0') << std::setw (5) << tab[i].lc;
     if (i == tab.size () - 1)
       out << "};";
     else
@@ -124,7 +126,7 @@ int main (int argc, char **argv)
   out << hex;
   for (size_t i = 0; i < tab.size (); i++)
   {
-    out << "  0x" << std::setfill ('0') << std::setw (5) << (int)tab[i].uc;
+    out << "  0x" << std::setfill ('0') << std::setw (5) << tab[i].uc;
     if (i == tab.size () - 1)
       out << "};";
     else
