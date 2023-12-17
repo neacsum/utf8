@@ -1,7 +1,7 @@
 /*
   Generate case folding tables (UCASETAB.C and LCASETAB.C) from
   CASEFOLDING.TXT file.
-  
+
   Latest version of case folding table can be downloaed from:
   https://www.unicode.org/Public/UCD/latest/ucd/CaseFolding.txt
 */
@@ -32,7 +32,7 @@ int main (int argc, char **argv)
     exit (1);
   }
   ifstream in (argv[1]);
-  
+
   if (!in.is_open ())
   {
     fprintf (stderr, "gen_casetab: cannot open input table: %s\n", argv[1]);
@@ -64,7 +64,7 @@ int main (int argc, char **argv)
   out << hex;
   for (size_t i=0; i<tab.size(); i++)
   {
-    out << "  0x" << std::setfill ('0') << std::setw (5) << tab[i].uc;
+    out << "  0x" << std::setfill ('0') << std::setw (5) << (int)tab[i].uc;
     if (i == tab.size () - 1)
       out << "};";
     else
@@ -79,7 +79,7 @@ int main (int argc, char **argv)
   {
     if (i % 8 == 0)
       out << endl << "  ";
-    out << "0x" << std::setfill ('0') << std::setw (5) << tab[i].lc;
+    out << "0x" << std::setfill ('0') << std::setw (5) << (int)tab[i].lc;
     if (i == tab.size () - 1)
       out << "};";
     else
@@ -112,7 +112,7 @@ int main (int argc, char **argv)
   {
     if (i % 8 == 0)
       out << endl << "  ";
-    out << "0x" << std::setfill ('0') << std::setw (5) << tab[i].lc;
+    out << "0x" << std::setfill ('0') << std::setw (5) << (int)tab[i].lc;
     if (i == tab.size () - 1)
       out << "};";
     else
@@ -124,7 +124,7 @@ int main (int argc, char **argv)
   out << hex;
   for (size_t i = 0; i < tab.size (); i++)
   {
-    out << "  0x" << std::setfill ('0') << std::setw (5) << tab[i].uc;
+    out << "  0x" << std::setfill ('0') << std::setw (5) << (int)tab[i].uc;
     if (i == tab.size () - 1)
       out << "};";
     else
