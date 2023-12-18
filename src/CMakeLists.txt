@@ -4,18 +4,17 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
 	ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib/${pfx}/$<CONFIG>
 )
 
-target_include_directories(${PROJECT_NAME} PUBLIC ../include)
-target_include_directories(${PROJECT_NAME} PRIVATE .)
+target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/include)
 
 add_custom_command(
-  OUTPUT ${PROJECT_SOURCE_DIR}/src/uppertab.h ${PROJECT_SOURCE_DIR}/src/lowertab.h
-  COMMAND $<TARGET_FILE:gen_casetab> ${PROJECT_SOURCE_DIR}/tools/gen_casetab/CaseFolding.txt ${PROJECT_SOURCE_DIR}/src
+  OUTPUT ${PROJECT_SOURCE_DIR}/include/uppertab.h ${PROJECT_SOURCE_DIR}/include/lowertab.h
+  COMMAND $<TARGET_FILE:gen_casetab> ${PROJECT_SOURCE_DIR}/tools/gen_casetab/CaseFolding.txt ${PROJECT_SOURCE_DIR}/include
   MAIN_DEPENDENCY ${PROJECT_SOURCE_DIR}/tools/gen_casetab/CaseFolding.txt
   DEPENDS gen_casetab
   VERBATIM
 )
 target_sources(${PROJECT_NAME}
-	PRIVATE uppertab.h lowertab.h
+	PRIVATE ${PROJECT_SOURCE_DIR}/include/uppertab.h ${PROJECT_SOURCE_DIR}/include/lowertab.h
 )
 
 target_sources(${PROJECT_NAME}
