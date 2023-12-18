@@ -17,7 +17,7 @@ namespace utf8 {
 /*!
   \defgroup folding Character Folding Functions
   Conversion between upper case and lower case letters.
-  
+
   toupper() and tolower() functions and their in-place counterparts
   make_upper() and make_lower(), use standard tables published by Unicode
   Consortium to perform case folding.
@@ -37,10 +37,10 @@ namespace utf8 {
 */
 
 //definition of 'u2l' and 'lc' tables
-#include "uppertab.c"
+#include "uppertab.h"
 
 // definition of 'l2u' and 'uc' tables
-#include "lowertab.c"
+#include "lowertab.h"
 
 
 /// Return `true` if character is a lowercase character
@@ -68,7 +68,7 @@ bool islower (const char* p)
 
   \param str UTF-8 string to convert to lowercase.
   \return lower case UTF-8 string
-  
+
   Uses case folding table published by Unicode Consortium
   (https://www.unicode.org/Public/UCD/latest/ucd/CaseFolding.txt)
 */
@@ -176,8 +176,8 @@ int icompare (const std::string& s1, const std::string& s2)
   auto p1 = begin (s1), p2 = begin (s2);
   while (p1 < end (s1) && p2 < end (s2))
   {
-    char32_t lc1, lc2, 
-      c1 = next (p1, end (s1)), 
+    char32_t lc1, lc2,
+      c1 = next (p1, end (s1)),
       c2 = next (p2, end (s2));
 
     auto f = lower_bound (begin (u2l), end (u2l), c1);
