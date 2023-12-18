@@ -3,6 +3,8 @@ add_executable(tests
   tests.rc
 )
 
+target_include_directories(tests PUBLIC ${PROJECT_SOURCE_DIR}/include)
+
 # All link directories are subfolders of ./lib
 target_link_directories (tests PUBLIC ${PROJECT_SOURCE_DIR}/lib/${pfx}/$<CONFIG>)
 
