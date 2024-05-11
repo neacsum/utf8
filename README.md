@@ -130,15 +130,17 @@ The preferred method is to use the [CPM - C/C++ Package Manager](https://github.
   cpm -u https://github.com/neacsum/utf8.git utf8
 ```
 
-The Visual C++ projects are set to compile under C++14 rules and they also compiles fine under C++17 rules. If you are using C++20 rules, you have to add the [`Zc:char8_t-`](https://learn.microsoft.com/en-us/cpp/build/reference/zc-char8-t?view=msvc-170) option.
+The Visual C++ projects are set to compile under C++17 rules and can also be compiled under C++20 rules. If you are using C++20 rules, you have to add the [`Zc:char8_t-`](https://learn.microsoft.com/en-us/cpp/build/reference/zc-char8-t?view=msvc-170) option as discussed above.
 
-You can build the library using CMake. From the utf8 directory:
+You can build the library using CMake. From the _utf8_ directory:
 ```
   cmake -S . -B build
   cmake --build build
 ```
-
 Alternatively, `BUILD.bat` script will build the libraries and test programs.
+
+While the library has been designed for Windows, some of the functions may be useful in a Linux environment. Under Linux, the library can be build using `CPM` as explained before, or with `cmake` using the same commands shown above.
+
 
 ## License
 [The MIT License](https://github.com/neacsum/utf8/blob/master/LICENSE)

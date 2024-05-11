@@ -5,13 +5,19 @@
 
 /// \file ini.cpp Implementation of IniFile class.
 
-#include <stdio.h>
-#include <string.h>
+//Stop Visual Studio from nagging
+#define _CRT_SECURE_NO_WARNINGS
+#define _CRT_NONSTDC_NO_WARNINGS
+
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
 #include <math.h>        // for atof
-#include <stdlib.h>      // for atoi
 #include <assert.h>
 #include <utf8/utf8.h>
 #include <functional>
+#include <filesystem>
+#include <thread>
 
 /// Maximum line length for a line in an INI file
 #define INI_BUFFERSIZE  1024
@@ -24,8 +30,10 @@ namespace utf8 {
   An object-oriented replacement for working with INI files
 
   The basic Windows API functions for reading and writing INI files, 
-  [GetPrivateProfileStringW](https://docs.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-getprivateprofilestringw)
-  and [WritePrivateProfileStringW](https://docs.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-writeprivateprofilestringw),
+  [GetPrivateProfileStringW]
+  (https://docs.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-getprivateprofilestringw)
+  and [WritePrivateProfileStringW]
+  (https://docs.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-writeprivateprofilestringw),
   combine both the file name and the information to be read or written in one API call.
 
   Using the utf8::widen() function to convert all strings passed to this API
@@ -58,6 +66,16 @@ static void writekey (const char* key, const char* value, FILE *fp);
 
 static bool tmp_rename (const std::string& filename);
 static bool same_file (const std::string& f1, const std::string& f2);
+
+//case insensitive compare functions have different names in VS and GCC
+#ifdef _WIN32
+#define icompare _stricmp
+#define icomparen _strnicmp
+#else
+#define icompare strcasecmp
+#define icomparen strncasecmp
+#endif
+
 
 //----------------------------------------------------------------------------
 //  Some string manipulation functions.
@@ -107,13 +125,22 @@ static char *trimtrailing (char *str)
 inline
 static FILE *openread (const std::string& fname)
 {
+#ifdef _WIN32
   return fopen (fname, "rb, ccs=UTF-8");
+#else
+  return fopen (fname.c_str (), "rb");
+#endif
 }
 
 inline
 static FILE *openwrite (const std::string& fname)
 {
+#ifdef _WIN32
   return fopen (fname, "wb, ccs=UTF-8");
+#else
+  return fopen (fname.c_str (), "wb");
+#endif
+
 }
 
 /*
@@ -137,15 +164,23 @@ static std::string tempname (const std::string& source)
 /// Constructor 
 IniFile::IniFile (const std::string& file)
   : temp_file {false}
+#if USE_WINDOWS_API
   , filename { utf8::fullpath (file) }  /* get the fully qualified path name in
                                         case current directory changes after creation */
+#else
+  , filename (std::filesystem::absolute(file).u8string())
+#endif
 {
 }
 
 ///  Creates a temporary file as filename.
 IniFile::IniFile ()
   : temp_file {true}
+#if USE_WINDOWS_API
   , filename (utf8::GetTempFileName(".", "INI", 0))
+#else
+  ,filename (tmpnam(NULL))
+#endif
 {
 }
 
@@ -160,7 +195,7 @@ IniFile::IniFile (const IniFile& p)
 IniFile::~IniFile()
 {
   if (temp_file)
-    remove (filename);
+    std::filesystem::remove (filename);
 }
 
 /*!
@@ -172,7 +207,7 @@ IniFile::~IniFile()
 void IniFile::File (const std::string& fname)
 {
   if (temp_file)
-    remove (filename);
+    std::filesystem::remove (filename);
 
   if (!fname.empty())
   {
@@ -181,9 +216,13 @@ void IniFile::File (const std::string& fname)
   }
   else
   {
+#if USE_WINDOWS_API
     wchar_t tmp[_MAX_PATH];
     GetTempFileNameW (L".", L"INI", 0, tmp);
     filename = utf8::narrow (tmp);
+#else
+    filename = tmpnam (NULL);
+#endif
     temp_file = true;
   }
 }
@@ -192,7 +231,11 @@ void IniFile::File (const std::string& fname)
 IniFile& IniFile::operator = (const IniFile& p)
 {
   // Copy the source file to the destination file.
+#if USE_WINDOWS_API
   CopyFile (p.filename, filename, false);
+#else
+  std::filesystem::copy (p.filename, filename, std::filesystem::copy_options::overwrite_existing);
+#endif
   return *this;
 }
 
@@ -235,10 +278,7 @@ double IniFile::GetDouble (const std::string& key, const std::string& section, d
 */
 bool IniFile::PutInt (const std::string& key, long value, const std::string& section)
 {
-  char buffer[_MAX_ITOSTR_BASE10_COUNT];
-  buffer[_MAX_ITOSTR_BASE10_COUNT - 1] = 0;
-  _itoa_s (value, buffer, 10);
-  return PutString (key, buffer, section);
+  return PutString (key, std::to_string (value), section);
 }
 
 
@@ -252,10 +292,11 @@ bool IniFile::PutInt (const std::string& key, long value, const std::string& sec
 bool IniFile::PutDouble (const std::string& key, double value, const std::string& section, int dec)
 {
   char buffer[80];
-  sprintf_s (buffer, "%.*lf", dec, value);
+  sprintf (buffer, "%.*lf", dec, value);
   return PutString (key, buffer, section);
 }
 
+#ifdef _WIN32
 /*!
   Font is specified by a string containing the following comma-separated values:
   height, width, escapement, orientation, weight, italic, underline, strikeout,
@@ -441,6 +482,7 @@ bool IniFile::PutFont (const std::string& key, HFONT font, const std::string& se
     utf8::narrow(lfont.lfFaceName).c_str());
   return PutString (key, buffer, section);
 }
+#endif
 
 /*!
   True values can be specified by any of "on", "yes", "true" or "1".
@@ -456,9 +498,9 @@ bool IniFile::GetBool (const std::string& key, const std::string& section, bool 
 
   if (!GetString (buffer, sizeof(buffer), key, section))
     return defval;
-  return (!_stricmp (buffer, "on") 
-       || !_stricmp (buffer, "yes") 
-       || !_stricmp (buffer, "true")
+  return (!icompare (buffer, "on") 
+       || !icompare (buffer, "yes") 
+       || !icompare (buffer, "true")
        || (atoi (buffer) == 1));
 }
 
@@ -512,7 +554,7 @@ bool IniFile::CopySection (const IniFile& from_file, const std::string& from_sec
     return true;
   }
 
-  if (!utf8::access (filename, 0))
+  if (!std::filesystem::exists (filename))
   {
     //if destination file doesn't exist create it now
     f_out = openwrite (filename);
@@ -629,7 +671,7 @@ int IniFile::GetKeys (char *keys, size_t sz, const std::string& section)
   auto f = [&keys, &sz] (const char *k) 
     {
       size_t l = min (strlen(k), sz);
-      strncpy_s (keys, sz, k, _TRUNCATE);
+      strncpy (keys, k, sz);
       keys += l;
       *keys++ = 0;
       sz -= l + 1;
@@ -685,7 +727,10 @@ size_t IniFile::GetString (char *value, size_t len, const std::string& key, cons
     fclose(fp);
   }
   if (!found)
-    strncpy_s (value, len, defval.c_str(), _TRUNCATE);
+  {
+    strncpy (value, defval.c_str (), len - 1);
+    value[len - 1] = 0;
+  }
   return strlen (value);
 }
 
@@ -746,9 +791,10 @@ size_t IniFile::GetSections (char *sects, size_t sz)
   {
     if (sz)
     {
-      size_t l = min (strlen (s)+1, sz);
-      strncpy_s (sects, sz, s, _TRUNCATE);
+      size_t l = min (strlen (s)+1, sz-1);
+      strncpy (sects, s, sz);
       sects += l;
+      *sects = 0;
       sz -= l;
     }
   };
@@ -864,7 +910,7 @@ static bool findsection (const char *section, FILE *rf, FILE *wf, char *buffer, 
     {
       sp = skipleading (sp + 1);
       
-      if (!_strnicmp (sp, section, len))
+      if (!icomparen (sp, section, len))
         return true;
     }
     if (wf)
@@ -951,7 +997,7 @@ static bool putkey (const char *key, const char *value, const char *section, con
       len = trimmed_len (key);
       while ( (sp=fgets (buffer, sizeof (buffer), rfp))  // not end of file
            && *(sp = skipleading (buffer)) != '['   // not end of section
-           && (!strchr (buffer, '=') || _strnicmp (key, sp, len))) //key not found
+           && (!strchr (buffer, '=') || icomparen (key, sp, len))) //key not found
         fputs (buffer, wfp);
 
       if (value)
@@ -981,7 +1027,7 @@ static bool putkey (const char *key, const char *value, const char *section, con
     //delete section or key for inexistent section
     fclose (rfp);
     fclose (wfp);
-    utf8::remove (tempname (filename));
+    std::filesystem::remove (tempname (filename));
     return true;
   }
   fclose (rfp);
@@ -1024,7 +1070,7 @@ static bool getkey(FILE *fp, const char *section, const char *key, char *val, si
       return false;
     if (*sp == ';' || !(vs = strchr (buffer, '=')))  //Ignore comment or malformed lines
       continue;
-    found = !_strnicmp (sp, key, len);
+    found = !icomparen (sp, key, len);
   } while (!found);
 
   // Copy up to 'size' chars to buffer
@@ -1032,7 +1078,8 @@ static bool getkey(FILE *fp, const char *section, const char *key, char *val, si
   vs = skipleading(vs + 1);
   ve = skiptrailing (vs);
   *ve = 0;
-  strncpy_s (val, size, vs, _TRUNCATE);
+  strncpy (val, vs, size-1);
+  val[size - 1] = 0;
   return true;
 }
 
@@ -1045,9 +1092,9 @@ static void writesection (const char* section, FILE *fp)
   if (strlen (section) > 0)
   {
     buffer[0] = '[';
-    strncpy_s (buffer + 1, sizeof (buffer) - 4, section, _TRUNCATE);
+    strncpy (buffer + 1, section, sizeof (buffer) - 5 );
     trimtrailing (buffer);
-    strcat_s (buffer, "]\r\n");
+    strcat (buffer, "]\r\n");
     fputs (buffer, fp);
   }
 }
@@ -1058,15 +1105,16 @@ static void writekey (const char* key, const char* value, FILE *fp)
   char buffer[INI_BUFFERSIZE];
   char *p;
   key = skipleading (key);
-  strncpy_s (buffer, sizeof (buffer) - 3, key, _TRUNCATE);
+  strncpy (buffer, key, sizeof (buffer) - 3);
   p = trimtrailing (buffer);
   *p++ = '=';
-  strncpy_s (p, sizeof (buffer) - (p - buffer) - 3, skipleading(value), _TRUNCATE);
+  strncpy (p, skipleading(value), sizeof (buffer) - (p - buffer) - 3);
   p = trimtrailing (p);
   *p++ = '\r';  *p++ = '\n';
   *p = 0;
   fputs (buffer, fp);
 }
+
 
 /// Renames the output (temporary) file to input file name.
 /// Previous input file is deleted.
@@ -1080,45 +1128,38 @@ static bool tmp_rename (const std::string& filename)
      input file making the rename operation to fail. Solved by adding a few
      retries before failing. */
   i = 0;
-  while (i++ < RETRIES && utf8::remove (filename))
-    Sleep (0);
-
+  while (i++ < RETRIES)
+  {
+    std::error_code ec;
+    if (std::filesystem::remove (filename, ec))
+      break;
+    std::this_thread::yield ();
+  }
   if (i >= RETRIES)
     return false;
 
   i = 0;
-  while (i++ < RETRIES && !utf8::rename (tmpname, filename))
-    Sleep (0);
+  while (i++ < RETRIES)
+  {
+    std::error_code ec;
+    std::filesystem::rename (tmpname, filename, ec);
+    if (!ec)
+      break;
+    std::this_thread::yield ();
+  } 
   return (i < RETRIES);
 }
 
 /// Return true if 2 file names refer to the same file
 static bool same_file (const std::string& f1, const std::string& f2)
 {
-  if (!access (f1, 0))
-    return !access (f2, 0); // both files don't exist
+  if (!std::filesystem::exists(f1))
+    return !std::filesystem::exists (f2); // both files don't exist
 
-  if (!access (f2, 0))
+  if (!std::filesystem::exists (f2))
     return false; //first file exists, 2nd doesn't
 
-  /* If both files exist, compare the unique FILE_ID_INFO for them.
-     This takes care of symlinks, hardlinks, etc. */
-  HANDLE h1 = CreateFileW (widen (f1).c_str (), GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
-  HANDLE h2 = CreateFileW (widen (f2).c_str (), GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
-  if (h1 == INVALID_HANDLE_VALUE || h2 == INVALID_HANDLE_VALUE)
-  {
-    CloseHandle (h1);
-    CloseHandle (h2);
-    return false;
-  }
-
-  FILE_ID_INFO fi1, fi2;
-  GetFileInformationByHandleEx (h1, FileIdInfo, &fi1, sizeof (fi1));
-  GetFileInformationByHandleEx (h2, FileIdInfo, &fi2, sizeof (fi2));
-
-  CloseHandle (h1);
-  CloseHandle (h2);
-  return !memcmp (&fi1, &fi2, sizeof (FILE_ID_INFO));
+  return std::filesystem::equivalent (f1, f2);
 }
 
 }

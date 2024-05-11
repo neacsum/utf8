@@ -7,6 +7,7 @@
 
 #include <utf8/utf8.h>
 #include <cassert>
+#include <windows.h>
 
 using namespace std;
 namespace utf8 {
@@ -272,6 +273,202 @@ bool symlink (const std::string& path, const std::string& link, bool directory)
   return CreateSymbolicLinkW (widen (link).c_str (), widen (path).c_str (),
     (directory ? SYMBOLIC_LINK_FLAG_DIRECTORY : 0) | SYMBOLIC_LINK_FLAG_ALLOW_UNPRIVILEGED_CREATE) != 0;
 }
+
+/*!
+  Gets the current working directory
+  \return UTF-8 encoded name of working directory
+*/
+std::string getcwd ()
+{
+  wchar_t tmp[_MAX_PATH];
+  if (_wgetcwd (tmp, _countof (tmp)))
+    return narrow (tmp);
+  else
+    return string ();
+}
+
+/*!
+  Breaks a path name into components
+
+  \param path   UTF-8 encoded full path
+  \param drive  drive letter followed by colon (or NULL if not needed)
+  \param dir    directory path (or NULL if not needed)
+  \param fname  base filename (or NULL if not needed)
+  \param ext    file extension including the leading period (.)
+                (or NULL if not needed)
+  \return       true if successful, false otherwise
+  Returned strings are converted to UTF-8.
+*/
+bool splitpath (const std::string& path, char* drive, char* dir, char* fname, char* ext)
+{
+  wstring wpath = widen (path);
+  wchar_t wdrive[_MAX_DRIVE];
+  wchar_t wdir[_MAX_DIR];
+  wchar_t wfname[_MAX_FNAME];
+  wchar_t wext[_MAX_EXT];
+  if (_wsplitpath_s (wpath.c_str (), wdrive, wdir, wfname, wext))
+    return false;
+
+  if (drive)
+    strncpy_s (drive, _MAX_DRIVE, narrow (wdrive).c_str (), _MAX_DRIVE - 1);
+  if (dir)
+    strncpy_s (dir, _MAX_DIR, narrow (wdir).c_str (), _MAX_DIR - 1);
+  if (fname)
+    strncpy_s (fname, _MAX_FNAME, narrow (wfname).c_str (), _MAX_FNAME - 1);
+  if (ext)
+    strncpy_s (ext, _MAX_EXT, narrow (wext).c_str (), _MAX_EXT - 1);
+
+  return true;
+}
+
+/*!
+  Breaks a path name into components
+
+  \param path   UTF-8 encoded full path
+  \param drive  drive letter followed by colon
+  \param dir    directory path
+  \param fname  base filename
+  \param ext    file extension including the leading period (.)
+
+  Returned strings are converted to UTF-8.
+*/
+bool splitpath (const std::string& path, std::string& drive, std::string& dir, std::string& fname, std::string& ext)
+{
+  wstring wpath = widen (path);
+  wchar_t wdrive[_MAX_DRIVE];
+  wchar_t wdir[_MAX_DIR];
+  wchar_t wfname[_MAX_FNAME];
+  wchar_t wext[_MAX_EXT];
+
+  if (_wsplitpath_s (wpath.c_str (), wdrive, wdir, wfname, wext))
+    return false;
+
+  drive = narrow (wdrive);
+  dir = narrow (wdir);
+  fname = narrow (wfname);
+  ext = narrow (wext);
+  return true;
+}
+
+/*!
+  Creates a path from UTF-8 encoded components.
+
+  \param path   Resulting path (UTF-8 encoded)
+  \param drive  drive letter
+  \param dir    directory path
+  \param fname  filename
+  \param ext    extension
+  \return       True if successful; false otherwise
+
+  If any required syntactic element (colon after drive letter, '\' at end of
+  directory path, colon before extension) is missing, it is automatically added.
+*/
+bool makepath (std::string& path, const std::string& drive, const std::string& dir,
+  const std::string& fname, const std::string& ext)
+{
+  wchar_t wpath[_MAX_PATH];
+  if (_wmakepath_s (wpath, widen (drive).c_str (), widen (dir).c_str (), widen (fname).c_str (), widen (ext).c_str ()))
+    return false;
+
+  path = narrow (wpath);
+  return true;
+}
+
+/*!
+  Returns the absolute (full) path of a filename
+  \param relpath relative path
+*/
+std::string fullpath (const std::string& relpath)
+{
+  wchar_t wpath[_MAX_PATH];
+  if (_wfullpath (wpath, widen (relpath).c_str (), _MAX_PATH))
+    return narrow (wpath);
+  else
+    return std::string ();
+}
+
+/*!
+  Retrieves the value of an environment variable
+  \param  var name of environment variable
+  \return value of environment variable or an empty string if there is no such
+          environment variable
+*/
+std::string getenv (const std::string& var)
+{
+  size_t nsz;
+  wstring wvar = widen (var);
+  _wgetenv_s (&nsz, 0, 0, wvar.c_str ());
+  if (!nsz)
+    return string ();
+
+  wstring wval (nsz, L'\0');
+  _wgetenv_s (&nsz, &wval[0], nsz, wvar.c_str ());
+  wval.resize (nsz - 1);
+  return narrow (wval);
+}
+
+/*!
+  Converts wide byte command arguments to an array of pointers
+  to UTF-8 strings.
+
+  \param  argc Pointer to an integer that contains number of parameters
+  \return array of pointers to each command line parameter or NULL if an error
+  occurred.
+
+  The space allocated for strings and array of pointers should be freed
+  by calling free_utf8argv()
+*/
+char** get_argv (int* argc)
+{
+  char** uargv = nullptr;
+  wchar_t** wargv = CommandLineToArgvW (GetCommandLineW (), argc);
+  if (wargv)
+  {
+    uargv = new char* [*argc];
+    for (int i = 0; i < *argc; i++)
+    {
+      int nc = WideCharToMultiByte (CP_UTF8, 0, wargv[i], -1, 0, 0, 0, 0);
+      uargv[i] = new char[nc + 1];
+      WideCharToMultiByte (CP_UTF8, 0, wargv[i], -1, uargv[i], nc, 0, 0);
+    }
+    LocalFree (wargv);
+  }
+  return uargv;
+}
+
+/*!
+  Frees the memory allocated by get_argv(int *argc)
+
+  \param  argc  number of arguments
+  \param  argv  array of pointers to arguments
+*/
+void free_argv (int argc, char** argv)
+{
+  for (int i = 0; i < argc; i++)
+    delete argv[i];
+  delete argv;
+}
+
+/*!
+  Converts wide byte command arguments to UTF-8 to a vector of UTF-8 strings.
+
+  \return vector of UTF-8 strings. The vector is empty if an error occurred.
+*/
+std::vector<std::string> get_argv ()
+{
+  int argc;
+  vector<string> uargv;
+
+  wchar_t** wargv = CommandLineToArgvW (GetCommandLineW (), &argc);
+  if (wargv)
+  {
+    for (int i = 0; i < argc; i++)
+      uargv.push_back (narrow (wargv[i]));
+    LocalFree (wargv);
+  }
+  return uargv;
+}
+
 
 //=============================================================================
 /*! 
@@ -712,5 +909,6 @@ LSTATUS RegEnumValue (HKEY key, std::vector<std::string>& values)
 
   return ret;
 }
+
 
 } //end namespace utf8

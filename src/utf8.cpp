@@ -5,11 +5,10 @@
 
 /// \file utf8.cpp Basic UTF-8 Conversion functions
 
-#include <windows.h>
-#include <sys/stat.h>
 #include <utf8/utf8.h>
 #include <vector>
-#include <assert.h>
+#include <cassert>
+#include <cstring>
 
 using namespace std;
 namespace utf8 {
@@ -30,6 +29,7 @@ static void encode (char32_t c, std::string& s);
 */
 std::string narrow (const wchar_t* s, size_t nch)
 {
+#if USE_WINDOWS_API
   int nsz;
   if (!s || !(nsz = WideCharToMultiByte (CP_UTF8, 0, s, (nch?(int)nch:-1), 0, 0, 0, 0)))
     return string ();
@@ -38,6 +38,36 @@ std::string narrow (const wchar_t* s, size_t nch)
   WideCharToMultiByte (CP_UTF8, 0, s, -1, &out[0], nsz, 0, 0);
   if (!nch)
     out.resize (nsz - 1); //output is null-terminated
+#else
+  std::string out;
+  if (!nch)
+    nch = wcslen (s);
+
+  while (nch)
+  {
+    unsigned int c = (unsigned int)*s++;
+    if (0xDBFF < c && c < 0xDFFF)
+      c = REPLACEMENT_CHARACTER;  //missing hi-surrogate
+    else if (c > 0xD7FF && c < 0xDC00)
+    {
+      //got high surrogate, get the low one now
+      if (!nch)
+        c = REPLACEMENT_CHARACTER; //missing lo-surrogate
+      else
+      {
+        c -= 0xD800;
+        unsigned int cl = (unsigned int)*s++;
+        --nch;
+        if (cl < 0xDC00 || cl > 0xDFFF)
+          c = REPLACEMENT_CHARACTER; //not a lo-surrogate
+        else
+          c = (c << 10) | (cl - 0xDC00) | 0x10000;
+      }
+    }
+    encode (c, out);
+    --nch;
+  }
+#endif
   return out;
 }
 
@@ -47,14 +77,41 @@ std::string narrow (const wchar_t* s, size_t nch)
   \param  s input string
   \return UTF-8 character string
 */
-std::string narrow (const std::wstring& s)
+std::string narrow (const std::wstring& ws)
 {
-  size_t nsz = WideCharToMultiByte (CP_UTF8, 0, s.c_str(), (int)s.size(), 0, 0, 0, 0);
+#if USE_WINDOWS_API
+  size_t nsz = WideCharToMultiByte (CP_UTF8, 0, ws.c_str(), (int)ws.size(), 0, 0, 0, 0);
   if (!nsz)
     return string ();
 
   string out (nsz, 0);
-  WideCharToMultiByte (CP_UTF8, 0, s.c_str (), (int)s.size(), &out[0], (int)nsz, 0, 0);
+  WideCharToMultiByte (CP_UTF8, 0, ws.c_str (), (int)ws.size(), &out[0], (int)nsz, 0, 0);
+#else
+  std::string out;
+  auto in = ws.cbegin ();
+  while (in != ws.end ())
+  {
+    unsigned int c = (unsigned int)*in++;
+    if (0xDBFF < c && c < 0xDFFF)
+      c = REPLACEMENT_CHARACTER; //missing hi-surrogate
+    else if (c > 0xD7FF && c < 0xDC00)
+    {
+      //got high surrogate, get the low one now
+      if (in == ws.end ())
+        c = REPLACEMENT_CHARACTER; //missing lo-surrogate
+      else
+      {
+        c -= 0xD800;
+        unsigned int cl = (unsigned int)*in++;
+        if (cl < 0xDC00 || cl > 0xDFFF)
+          c = REPLACEMENT_CHARACTER; //not a lo-surrogate
+        else
+          c = (c << 10) | (cl - 0xDC00) | 0x10000;
+      }
+    }
+    encode (c, out);
+  }
+#endif
   return out;
 }
 
@@ -81,7 +138,8 @@ std::string narrow (const char32_t* s, size_t nch)
 
   for (; nch; nch--, p++)
   {
-    assert (*p < 0x10ffff);
+    if (*p > 0x10ffff)
+      throw exception (exception::reason::invalid_char32);
     encode (*p, str);
   }
   return str;
@@ -100,7 +158,8 @@ std::string narrow (const std::u32string& s)
   string str;
   for (auto p = s.begin (); p != s.end (); p++)
   {
-    assert (*p < 0x10ffff);
+    if (*p >= 0x10ffff)
+      throw exception (exception::reason::invalid_char32);
     encode (*p, str);
   }
   return str;
@@ -116,7 +175,8 @@ std::string narrow (const std::u32string& s)
 */
 std::string narrow (char32_t r)
 {
-  assert (r < 0x10ffff);
+  if (r >= 0x10ffff)
+    throw exception (exception::reason::invalid_char32);
   string str;
   encode (r, str);
   return str;
@@ -131,6 +191,7 @@ std::string narrow (char32_t r)
 */
 std::wstring widen (const char* s, size_t nch)
 {
+#if USE_WINDOWS_API
   size_t wsz;
   if (!s || !(wsz = MultiByteToWideChar (CP_UTF8, 0, s, (nch?(int)nch:-1), 0, 0)))
     return wstring ();
@@ -139,6 +200,25 @@ std::wstring widen (const char* s, size_t nch)
   MultiByteToWideChar (CP_UTF8, 0, s, -1, &out[0], (int)wsz);
   if (!nch)
     out.resize (wsz - 1); //output is null-terminated
+#else
+  wstring out;
+
+  auto end = s + (nch ? nch : strlen (s));
+  while (s < end)
+  {
+    auto c = next (s);
+    if (c < 0x10000)
+      out.push_back ((wchar_t)c);
+    else
+    {
+      c -= 0x10000;
+      wchar_t sh = (wchar_t)((c >> 10) + 0xD800);
+      wchar_t sl = (wchar_t)((c & 0x3FF) + 0xDC00);
+      out.push_back (sh);
+      out.push_back (sl);
+    }
+  }
+#endif
   return out;
 }
 
@@ -150,12 +230,31 @@ std::wstring widen (const char* s, size_t nch)
 */
 std::wstring widen (const std::string& s)
 {
+#if USE_WINDOWS_API
   size_t wsz = MultiByteToWideChar (CP_UTF8, 0, s.c_str(), (int)s.size(), 0, 0);
   if (!wsz)
     return wstring ();
 
   wstring out (wsz, 0);
   MultiByteToWideChar (CP_UTF8, 0, s.c_str (), (int)s.size(), &out[0], (int)wsz);
+#else
+  wstring out;
+  auto in = s.cbegin ();
+  while (in != s.end ())
+  {
+    auto c = next (in, s.end());
+    if (c < 0x10000)
+      out.push_back ((wchar_t)c);
+    else
+    {
+      c -= 0x10000;
+      wchar_t sh = (wchar_t)((c >> 10) + 0xD800);
+      wchar_t sl = (wchar_t)((c & 0x3FF) + 0xDC00);
+      out.push_back (sh);
+      out.push_back (sl);
+    }
+  }
+#endif
   return out;
 }
 
@@ -498,201 +597,6 @@ size_t length (const char* s)
 }
 
 /*!
-  Gets the current working directory
-  \return UTF-8 encoded name of working directory
-*/
-std::string getcwd ()
-{
-  wchar_t tmp[_MAX_PATH];
-  if (_wgetcwd (tmp, _countof (tmp)))
-    return narrow (tmp);
-  else
-    return string ();
-}
-
-/*!
-  Breaks a path name into components
-
-  \param path   UTF-8 encoded full path
-  \param drive  drive letter followed by colon (or NULL if not needed)
-  \param dir    directory path (or NULL if not needed)
-  \param fname  base filename (or NULL if not needed)
-  \param ext    file extension including the leading period (.)
-                (or NULL if not needed)
-  \return       true if successful, false otherwise
-  Returned strings are converted to UTF-8.
-*/
-bool splitpath (const std::string& path, char* drive, char* dir, char* fname, char* ext)
-{
-  wstring wpath = widen (path);
-  wchar_t wdrive[_MAX_DRIVE];
-  wchar_t wdir[_MAX_DIR];
-  wchar_t wfname[_MAX_FNAME];
-  wchar_t wext[_MAX_EXT];
-  if (_wsplitpath_s (wpath.c_str (), wdrive, wdir, wfname, wext))
-    return false;
-
-  if (drive)
-    strncpy_s (drive, _MAX_DRIVE, narrow (wdrive).c_str (), _MAX_DRIVE - 1);
-  if (dir)
-    strncpy_s (dir, _MAX_DIR, narrow (wdir).c_str (), _MAX_DIR - 1);
-  if (fname)
-    strncpy_s (fname, _MAX_FNAME, narrow (wfname).c_str (), _MAX_FNAME - 1);
-  if (ext)
-    strncpy_s (ext, _MAX_EXT, narrow (wext).c_str (), _MAX_EXT - 1);
-
-  return true;
-}
-
-/*!
-  Breaks a path name into components
-
-  \param path   UTF-8 encoded full path
-  \param drive  drive letter followed by colon
-  \param dir    directory path
-  \param fname  base filename
-  \param ext    file extension including the leading period (.)
-
-  Returned strings are converted to UTF-8.
-*/
-bool splitpath (const std::string& path, std::string& drive, std::string& dir, std::string& fname, std::string& ext)
-{
-  wstring wpath = widen (path);
-  wchar_t wdrive[_MAX_DRIVE];
-  wchar_t wdir[_MAX_DIR];
-  wchar_t wfname[_MAX_FNAME];
-  wchar_t wext[_MAX_EXT];
-
-  if (_wsplitpath_s (wpath.c_str (), wdrive, wdir, wfname, wext))
-    return false;
-
-  drive = narrow (wdrive);
-  dir = narrow (wdir);
-  fname = narrow (wfname);
-  ext = narrow (wext);
-  return true;
-}
-
-/*!
-  Creates a path from UTF-8 encoded components.
-
-  \param path   Resulting path (UTF-8 encoded)
-  \param drive  drive letter
-  \param dir    directory path
-  \param fname  filename
-  \param ext    extension
-  \return       True if successful; false otherwise
-
-  If any required syntactic element (colon after drive letter, '\' at end of
-  directory path, colon before extension) is missing, it is automatically added.
-*/
-bool makepath (std::string& path, const std::string& drive, const std::string& dir,
-  const std::string& fname, const std::string& ext)
-{
-  wchar_t wpath[_MAX_PATH];
-  if (_wmakepath_s (wpath, widen (drive).c_str (), widen (dir).c_str (), widen (fname).c_str (), widen (ext).c_str ()))
-    return false;
-
-  path = narrow (wpath);
-  return true;
-}
-
-/*!
-  Returns the absolute (full) path of a filename
-  \param relpath relative path
-*/
-std::string fullpath (const std::string& relpath)
-{
-  wchar_t wpath[_MAX_PATH];
-  if (_wfullpath (wpath, widen (relpath).c_str (), _MAX_PATH))
-    return narrow (wpath);
-  else
-    return std::string ();
-}
-
-/*!
-  Retrieves the value of an environment variable
-  \param  var name of environment variable
-  \return value of environment variable or an empty string if there is no such
-          environment variable
-*/
-std::string getenv (const std::string& var)
-{
-  size_t nsz;
-  wstring wvar = widen (var);
-  _wgetenv_s (&nsz, 0, 0, wvar.c_str ());
-  if (!nsz)
-    return string ();
-
-  wstring wval (nsz, L'\0');
-  _wgetenv_s (&nsz, &wval[0], nsz, wvar.c_str ());
-  wval.resize (nsz - 1);
-  return narrow (wval);
-}
-
-/*!
-  Converts wide byte command arguments to an array of pointers
-  to UTF-8 strings.
-
-  \param  argc Pointer to an integer that contains number of parameters
-  \return array of pointers to each command line parameter or NULL if an error
-  occurred.
-
-  The space allocated for strings and array of pointers should be freed
-  by calling free_utf8argv()
-*/
-char** get_argv (int* argc)
-{
-  char** uargv = nullptr;
-  wchar_t** wargv = CommandLineToArgvW (GetCommandLineW (), argc);
-  if (wargv)
-  {
-    uargv = new char* [*argc];
-    for (int i = 0; i < *argc; i++)
-    {
-      int nc = WideCharToMultiByte (CP_UTF8, 0, wargv[i], -1, 0, 0, 0, 0);
-      uargv[i] = new char[nc + 1];
-      WideCharToMultiByte (CP_UTF8, 0, wargv[i], -1, uargv[i], nc, 0, 0);
-    }
-    LocalFree (wargv);
-  }
-  return uargv;
-}
-
-/*!
-  Frees the memory allocated by get_argv(int *argc)
-
-  \param  argc  number of arguments
-  \param  argv  array of pointers to arguments
-*/
-void free_argv (int argc, char** argv)
-{
-  for (int i = 0; i < argc; i++)
-    delete argv[i];
-  delete argv;
-}
-
-/*!
-  Converts wide byte command arguments to UTF-8 to a vector of UTF-8 strings.
-
-  \return vector of UTF-8 strings. The vector is empty if an error occurred.
-*/
-std::vector<std::string> get_argv ()
-{
-  int argc;
-  vector<string> uargv;
-
-  wchar_t** wargv = CommandLineToArgvW (GetCommandLineW (), &argc);
-  if (wargv)
-  {
-    for (int i = 0; i < argc; i++)
-      uargv.push_back (narrow (wargv[i]));
-    LocalFree (wargv);
-  }
-  return uargv;
-}
-
-/*!
   \defgroup charclass Character Classification Functions
   Replacements for character classification functions.
 
@@ -804,7 +708,7 @@ void encode (char32_t c, std::string& s)
 
   //...
   catch (utf8::exception& e) {
-    if (e.cause == utf8::exception::invalid_utf8) {
+    if (e.why == utf8::exception::invalid_utf8) {
       // do something
     }
   }

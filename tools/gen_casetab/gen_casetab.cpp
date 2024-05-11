@@ -13,6 +13,7 @@
 #include <iomanip>
 #include <vector>
 #include <algorithm>
+#include <cstring>
 
 using namespace std;
 
@@ -28,6 +29,13 @@ int main (int argc, char **argv)
   char line[1024];
   char *ptr;
   codept code;
+  printf ("gen_casetab running. Command line is:\n");
+  for (int i = 0; i < argc; i++)
+  {
+    printf ("`%s` ", argv[i]);
+  }
+  printf ("\n");
+
   if (argc < 2)
   {
     fprintf (stderr, "Usage: gen_casetab <input table> <output folder>\n");
@@ -40,12 +48,13 @@ int main (int argc, char **argv)
     fprintf (stderr, "gen_casetab: cannot open input table: %s\n", argv[1]);
     exit (1);
   }
-
+  printf ("Starting...\n");
   while (in)
   {
     in.getline (line, sizeof (line));
-    if (line[0] == '#')
-      continue; //ignore comment lines
+    printf ("%s\n", line);
+    if (!strlen(line) || line[0] == '#' || line[0] == '\r')
+      continue; //ignore empty and comment lines
     if (!(ptr = strtok (line, "; ")))
       continue;
     code.uc = strtol (ptr, nullptr, 16);

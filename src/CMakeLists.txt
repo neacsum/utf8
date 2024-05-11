@@ -17,6 +17,16 @@ target_sources(${PROJECT_NAME}
 	PRIVATE ${PROJECT_SOURCE_DIR}/include/uppertab.h ${PROJECT_SOURCE_DIR}/include/lowertab.h
 )
 
-target_sources(${PROJECT_NAME}
-	PUBLIC buffer.cpp casecvt.cpp ini.cpp utf8.cpp win.cpp
+target_sources(${PROJECT_NAME} PUBLIC 
+  casecvt.cpp 
+  ini.cpp
+  utf8.cpp 
 )
+
+# Windows specific stuff
+if (${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
+target_sources(${PROJECT_NAME} PUBLIC 
+  buffer.cpp
+  win.cpp
+)
+endif ()

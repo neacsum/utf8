@@ -4,9 +4,9 @@
 */
 
 /// \file ini.h Definition of IniFile class
+/// This file should not be included directly. It is included by utf8.h header. 
 #pragma once
 
-#include <Windows.h>
 #include <string>
 #include <deque>
 
@@ -50,14 +50,8 @@ public:
   /// Return a floating point value
   double GetDouble (const std::string& key, const std::string& section, double defval=0.) const;
 
-  ///Return a color specification key
-  COLORREF GetColor (const std::string& key, const std::string& section, COLORREF defval=RGB(0,0,0)) const;
-
   ///Return a boolean key
   bool GetBool (const std::string& key, const std::string& section, bool defval=false) const;
-
-  ///Return a font specification key
-  HFONT GetFont (const std::string& key, const std::string& section, HFONT defval=NULL) const;
 
   ///Check for key existence
   bool HasKey (const std::string& key, const std::string& section) const;
@@ -68,14 +62,8 @@ public:
   /// Write an integer key
   bool PutInt (const std::string& key, long value, const std::string& section);
 
-  /// Write a font specification key
-  bool PutFont (const std::string& key, HFONT font, const std::string& section);
-
   /// Write a boolean key
   bool PutBool (const std::string& key, bool value, const std::string& section);
-
-  /// Write a color specification key
-  bool PutColor (const std::string& key, COLORREF value, const std::string& section);
 
   /// Write a floating point value key
   bool PutDouble (const std::string& key, double value, const std::string& section, int dec = 2);
@@ -103,6 +91,20 @@ public:
 
   /// Return the names of all sections in the INI file.
   size_t GetSections (std::deque<std::string>& sections);
+
+#ifdef _WIN32          // Windows specific vvvvvvvv
+  ///Return a color specification key
+  COLORREF GetColor (const std::string& key, const std::string& section, COLORREF defval = RGB (0, 0, 0)) const;
+
+  ///Return a font specification key
+  HFONT GetFont (const std::string& key, const std::string& section, HFONT defval = NULL) const;
+
+  /// Write a color specification key
+  bool PutColor (const std::string& key, COLORREF value, const std::string& section);
+
+  /// Write a font specification key
+  bool PutFont (const std::string& key, HFONT font, const std::string& section);
+#endif                // end Windows specific ^^^^^^^^
 
 private:
 

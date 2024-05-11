@@ -366,7 +366,7 @@ TEST (invalid_utf8)
     auto s = runes(invalid);
   }
   catch (utf8::exception& e) {
-    CHECK_EQUAL (utf8::exception::invalid_utf8, e.cause);
+    CHECK_EQUAL (utf8::exception::invalid_utf8, e.why);
     thrown = true;
     cout << "Exception caught: " << e.what () << endl;
   }
@@ -380,7 +380,7 @@ TEST (throw_invalid_char32)
     narrow (0xd800);
   }
   catch (utf8::exception& e) {
-    CHECK_EQUAL (utf8::exception::invalid_char32, e.cause);
+    CHECK_EQUAL (utf8::exception::invalid_char32, e.why);
     thrown = true;
     cout << "Exception caught: " << e.what () << endl;
   }
@@ -480,9 +480,22 @@ TEST (out_stream)
   DWORD nr;
   CHECK (ReadFile (f, read_back, (DWORD)len, &nr, NULL));
   CloseHandle (f);
-  CHECK (remove (filename));
   CHECK_EQUAL (len, nr);
   CHECK_EQUAL (filetext, read_back);
+
+  //Read back using utf8::fopen API
+  auto fil = utf8::fopen (filename, "r");
+  CHECK (fil);
+  if (fil)
+  {
+    nr = fread (read_back, sizeof (char), len, fil);
+    CHECK_EQUAL (len, nr);
+    CHECK_EQUAL (filetext, read_back);
+    fclose (fil);
+  }
+
+  //cleanup
+  CHECK (remove (filename));
 }
 
 TEST (in_stream)
@@ -518,7 +531,7 @@ TEST (fopen_write)
   string filename = "ελληνικό";
   string filetext{ "😃😎😛" };
   FILE *u8file = utf8::fopen (filename, "w");
-  ABORT_EX (u8file, "Failed to create output file");
+  ABORT_EX (!u8file, "Failed to create output file");
 
   fwrite (filetext.c_str(), sizeof(char), filetext.length(), u8file);
   fclose (u8file);
