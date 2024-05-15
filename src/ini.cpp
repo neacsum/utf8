@@ -126,7 +126,7 @@ inline
 static FILE *openread (const std::string& fname)
 {
 #ifdef _WIN32
-  return fopen (fname, "rb, ccs=UTF-8");
+  return utf8::fopen (fname, "rb, ccs=UTF-8");
 #else
   return fopen (fname.c_str (), "rb");
 #endif
@@ -136,7 +136,7 @@ inline
 static FILE *openwrite (const std::string& fname)
 {
 #ifdef _WIN32
-  return fopen (fname, "wb, ccs=UTF-8");
+  return utf8::fopen (fname, "wb, ccs=UTF-8");
 #else
   return fopen (fname.c_str (), "wb");
 #endif
@@ -164,11 +164,15 @@ static std::string tempname (const std::string& source)
 /// Constructor 
 IniFile::IniFile (const std::string& file)
   : temp_file {false}
-#if USE_WINDOWS_API
-  , filename { utf8::fullpath (file) }  /* get the fully qualified path name in
-                                        case current directory changes after creation */
+  /* get the fully qualified path name in case current directory changes after creation */
+#ifdef _WIN32
+# if USE_WINDOWS_API
+  , filename { utf8::fullpath (file) }
+# else
+  , filename{ narrow (std::filesystem::absolute (widen (file))) }
+# endif
 #else
-  , filename (std::filesystem::absolute(file).u8string())
+  , filename{ std::filesystem::absolute (file) }
 #endif
 {
 }
@@ -179,7 +183,7 @@ IniFile::IniFile ()
 #if USE_WINDOWS_API
   , filename (utf8::GetTempFileName(".", "INI", 0))
 #else
-  ,filename (tmpnam(NULL))
+  , filename (tmpnam(NULL))
 #endif
 {
 }
@@ -814,7 +818,7 @@ size_t IniFile::GetSections (char *sects, size_t sz)
 /*!
   Section names are returned as a deque of strings
 
-  \param sects    seque of sections
+  \param sects    deque of sections
   \return         number of sections found
 */
 size_t IniFile::GetSections (std::deque<std::string>& sects)
@@ -1128,25 +1132,16 @@ static bool tmp_rename (const std::string& filename)
      input file making the rename operation to fail. Solved by adding a few
      retries before failing. */
   i = 0;
-  while (i++ < RETRIES)
-  {
-    std::error_code ec;
-    if (std::filesystem::remove (filename, ec))
-      break;
+  while (i++ < RETRIES && !utf8::remove(filename))
     std::this_thread::yield ();
-  }
+
   if (i >= RETRIES)
     return false;
 
   i = 0;
-  while (i++ < RETRIES)
-  {
-    std::error_code ec;
-    std::filesystem::rename (tmpname, filename, ec);
-    if (!ec)
-      break;
+  while (i++ < RETRIES && !utf8::rename(tmpname, filename))
     std::this_thread::yield ();
-  } 
+
   return (i < RETRIES);
 }
 

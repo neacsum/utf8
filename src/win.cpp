@@ -275,19 +275,6 @@ bool symlink (const std::string& path, const std::string& link, bool directory)
 }
 
 /*!
-  Gets the current working directory
-  \return UTF-8 encoded name of working directory
-*/
-std::string getcwd ()
-{
-  wchar_t tmp[_MAX_PATH];
-  if (_wgetcwd (tmp, _countof (tmp)))
-    return narrow (tmp);
-  else
-    return string ();
-}
-
-/*!
   Breaks a path name into components
 
   \param path   UTF-8 encoded full path

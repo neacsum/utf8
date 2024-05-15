@@ -420,13 +420,14 @@ SUITE (IniTests)
     utf8::remove (filename);
     Sleep (200);
     utf8::IniFile greek (filename);
-    greek.PutInt ("Integer", 1, "Keys");
+    CHECK (greek.PutInt ("Integer", 1, "Keys"));
     CHECK_EQUAL (1, greek.GetInt ("Integer", "Keys", 2));
-    greek.PutString ("GreekAlphabet", greek_text, "Keys");
-    greek.GetString (strval, sizeof (strval), "GreekAlphabet", "Keys");
-    CHECK_EQUAL (strval, greek_text);
-    greek.PutString (greek_text, "This is how you spell alphabet in Greek", "Keys");
-    utf8::remove (filename);
+    CHECK (greek.PutString ("GreekAlphabet", greek_text, "Keys"));
+    auto len = greek.GetString (strval, sizeof (strval), "GreekAlphabet", "Keys");
+    CHECK_EQUAL (strlen (greek_text), len);
+    CHECK_EQUAL (greek_text, strval);
+    CHECK (greek.PutString (greek_text, "This is how you spell alphabet in Greek", "Keys"));
+    CHECK (utf8::remove (filename));
   }
 
   TEST (Quoted_strings)

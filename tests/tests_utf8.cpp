@@ -488,7 +488,7 @@ TEST (out_stream)
   CHECK (fil);
   if (fil)
   {
-    nr = fread (read_back, sizeof (char), len, fil);
+    nr = (DWORD)fread (read_back, sizeof (char), len, fil);
     CHECK_EQUAL (len, nr);
     CHECK_EQUAL (filetext, read_back);
     fclose (fil);

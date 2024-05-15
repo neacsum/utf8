@@ -9,12 +9,11 @@
 #include <string>
 #include <vector>
 
-// If USE_WINDOWS_API is not zero, the library issues direct Windows API
-// calls. Otherwise it relies only on standard C++17 functions.
-// If not defined, USE_WINDOWS_API defaults to 1 on Windows platform.
+/* If USE_WINDOWS_API is not zero, the library issues direct Windows API
+  calls. Otherwise it relies only on standard C++17 functions.
+  If not defined, USE_WINDOWS_API defaults to 1 on Windows platform. */
 
 #define USE_WINDOWS_API 0
-
 
 #if defined (_WIN32) && !defined (USE_WINDOWS_API)
 #define USE_WINDOWS_API 1
@@ -22,8 +21,14 @@
 #define USE_WINDOWS_API 0
 #endif
 
-#if USE_WINDOWS_API
-#pragma message ("Using Windows API")
+#if !USE_WINDOWS_API
+#include <filesystem>
+
+#if (defined(_MSVC_LANG) && _MSVC_LANG < 201703L)                                                  \
+  || (!defined(_MSVC_LANG) && (__cplusplus < 201703L))
+#error "UTF8 requires c++17 or newer if not using Windows API functions"
+#endif
+
 #endif
 
 namespace utf8 {
@@ -407,6 +412,278 @@ bool islower (std::string::const_iterator p)
   return islower (rune(p));
 }
 
+// File System functions -----------------------------------------------------
+
+/*!
+  Open a file
+
+  \param filename UTF-8 encoded file name
+  \param mode access mode
+  \return pointer to the opened file or NULL if an error occurs
+*/
+inline
+FILE* fopen (const std::string& filename, const std::string& mode)
+{
+  FILE* h = nullptr;
+#ifdef _WIN32
+  _wfopen_s (&h, widen (filename).c_str (), widen (mode).c_str ());
+#else
+  h = ::fopen (filename.c_str(), mode.c_str());
+#endif
+  return h;
+}
+
+/// \copydoc fopen(const std::string& filename, const std::string& mode)
+inline
+FILE* fopen (const char* filename, const char* mode)
+{
+  FILE* h = nullptr;
+#ifdef _WIN32
+  _wfopen_s (&h, widen (filename).c_str (), widen (mode).c_str ());
+#else
+  h = ::fopen (filename, mode);
+#endif
+  return h;
+}
+
+/*!
+  Gets the current working directory
+  \return UTF-8 encoded name of working directory
+*/
+inline
+std::string getcwd ()
+{
+#if USE_WINDOWS_API
+  wchar_t tmp[_MAX_PATH];
+  if (_wgetcwd (tmp, _countof (tmp)))
+    return narrow (tmp);
+  else
+    return string ();
+#else
+  std::error_code ec;
+  std::filesystem::path wd = std::filesystem::current_path (ec);
+  if (ec)
+    return std::string ();
+# ifdef _WIN32
+  return narrow (wd.native());
+# else
+  return wd;
+# endif
+#endif
+}
+
+/*!
+  Changes the current working directory
+
+  \param dirname UTF-8 path of new working directory
+  \return true if successful, false otherwise
+*/
+inline
+bool chdir (const std::string& dirname)
+{
+#if USE_WINDOWS_API
+  return (_wchdir (widen (dirname).c_str ()) == 0);
+#else
+# ifdef _WIN32
+  std::filesystem::path dir (widen (dirname));
+# else
+  std::filesystem::path dir (dirname);
+# endif
+  std::error_code ec;
+  std::filesystem::current_path (dir, ec);
+  return !ec;
+#endif
+}
+
+/// \copydoc chdir (const std::string& dirname)
+inline
+bool chdir (const char* dirname)
+{
+#if USE_WINDOWS_API
+  return (_wchdir (widen (dirname).c_str ()) == 0);
+#else
+# ifdef _WIN32
+  std::filesystem::path dir (widen (dirname));
+# else
+  std::filesystem::path dir (dirname);
+# endif
+  std::error_code ec;
+  std::filesystem::current_path (dir, ec);
+  return !ec;
+#endif
+}
+
+
+/*!
+  Creates a new directory
+
+  \param dirname UTF-8 path for new directory
+  \return true if successful, false otherwise
+*/
+inline
+bool mkdir (const std::string& dirname)
+{
+#if USE_WINDOWS_API
+  return (_wmkdir (widen (dirname).c_str ()) == 0);
+#else
+# ifdef _WIN32
+  std::filesystem::path dir (widen (dirname));
+# else
+  std::filesystem::path dir (dirname);
+# endif
+  std::error_code ec;
+  std::filesystem::create_directory (dir, ec);
+  return !ec;
+#endif
+}
+
+
+/// \copydoc mkdir (const std::string& dirname)
+inline
+bool mkdir (const char* dirname)
+{
+#if USE_WINDOWS_API
+  return (_wmkdir (widen (dirname).c_str ()) == 0);
+#else
+# ifdef _WIN32
+  std::filesystem::path dir (widen (dirname));
+# else
+  std::filesystem::path dir (dirname);
+# endif
+  std::error_code ec;
+  std::filesystem::create_directory (dir, ec);
+  return !ec;
+#endif
+}
+
+/*!
+  Deletes a directory
+
+  \param dirname UTF-8 path of directory to be removed
+  \return true if successful, false otherwise
+*/
+inline
+bool rmdir (const std::string& dirname)
+{
+#if USE_WINDOWS_API
+  return (_wrmdir (widen (dirname).c_str ()) == 0);
+#else
+# ifdef _WIN32
+  std::filesystem::path dir (widen (dirname));
+# else
+  std::filesystem::path dir (dirname);
+# endif
+  std::error_code ec;
+  std::filesystem::remove (dir, ec);
+  return !ec;
+#endif
+}
+
+/// \copydoc rmdir (const std::string& dirname)
+inline
+bool rmdir (const char* dirname)
+{
+#if USE_WINDOWS_API
+  return (_wrmdir (widen (dirname).c_str ()) == 0);
+#else
+# ifdef _WIN32
+  std::filesystem::path dir (widen (dirname));
+# else
+  std::filesystem::path dir (dirname);
+# endif
+  std::error_code ec;
+  std::filesystem::remove (dir, ec);
+  return !ec;
+#endif
+}
+
+/*!
+  Rename a file or directory
+
+  \param oldname current UTF-8 encoded name of file or directory
+  \param newname new UTF-8 name
+  \return true if successful, false otherwise
+*/
+inline
+bool rename (const std::string& oldname, const std::string& newname)
+{
+#if USE_WINDOWS_API
+  return (_wrename (widen (oldname).c_str (), widen (newname).c_str ()) == 0);
+#else
+# ifdef _WIN32
+  std::filesystem::path fn (widen (newname));
+  std::filesystem::path fo (widen (oldname));
+# else
+  std::filesystem::path fn (newname);
+  std::filesystem::path fo (oldname);
+# endif
+  std::error_code ec;
+  std::filesystem::rename (fo, fn, ec);
+  return !ec;
+#endif
+}
+
+/// \copydoc rename(const std::string& oldname, const std::string& newname)
+inline 
+bool rename (const char* oldname, const char* newname)
+{
+#if USE_WINDOWS_API
+  return (_wrename (widen (oldname).c_str (), widen (newname).c_str ()) == 0);
+#else
+# ifdef _WIN32
+  std::filesystem::path fn (widen (newname));
+  std::filesystem::path fo (widen (oldname));
+# else
+  std::filesystem::path fn (newname);
+  std::filesystem::path fo (oldname);
+# endif
+  std::error_code ec;
+  std::filesystem::rename (fo, fn, ec);
+  return !ec;
+#endif
+}
+
+/*!
+  Delete a file
+
+  \param filename UTF-8 name of file to be deleted
+  \return true if successful, false otherwise
+*/
+inline
+bool remove (const std::string& filename)
+{
+#if USE_WINDOWS_API
+  return (_wremove (widen (filename).c_str ()) == 0);
+#else
+# ifdef _WIN32
+  std::filesystem::path f (widen(filename));
+# else
+  std::filesystem::path f (filename);
+# endif
+  std::error_code ec;
+  std::filesystem::remove (f, ec);
+  return !ec;
+#endif
+}
+
+
+/// \copydoc remove (const std::string& filename)
+inline
+bool remove (const char* filename)
+{
+#if USE_WINDOWS_API
+  return (_wremove (widen (filename).c_str ()) == 0);
+#else
+# ifdef _WIN32
+  std::filesystem::path f (widen (filename));
+# else
+  std::filesystem::path f (filename);
+# endif
+  std::error_code ec;
+  std::filesystem::remove (f, ec);
+  return !ec;
+#endif
+}
 
 }; //namespace utf8
 

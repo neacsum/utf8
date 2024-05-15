@@ -36,31 +36,11 @@ std::vector<std::string> get_argv ();
 char** get_argv (int* argc);
 void free_argv (int argc, char** argv);
 
-bool mkdir (const char* dirname);
-bool mkdir (const std::string& dirname);
-
-bool rmdir (const char* dirname);
-bool rmdir (const std::string& dirname);
-
-bool chdir (const char* dirname);
-bool chdir (const std::string& dirname);
-
 bool chmod (const char* filename, int mode);
 bool chmod (const std::string& filename, int mode);
 
-std::string getcwd ();
-
 bool access (const char* filename, int mode);
 bool access (const std::string& filename, int mode);
-
-bool remove (const char* filename);
-bool remove (const std::string& filename);
-
-bool rename (const char* oldname, const char* newname);
-bool rename (const std::string& oldname, const std::string& newname);
-
-FILE* fopen (const char* filename, const char* mode);
-FILE* fopen (const std::string& filename, const std::string& mode);
 
 bool splitpath (const std::string& path, char* drive, char* dir, char* fname, char* ext);
 bool splitpath (const std::string& path, std::string& drive, std::string& dir,
@@ -278,64 +258,6 @@ operator << (std::ostream& s, const buffer& b)
 //--------------------- INLINE FUNCTIONS --------------------------------------
 
 /*!
-  Creates a new directory
-
-  \param dirname UTF-8 path for new directory
-  \return true if successful, false otherwise
-*/
-inline
-bool mkdir (const char* dirname)
-{
-  return (_wmkdir (widen (dirname).c_str ()) == 0);
-}
-
-/// \copydoc utf8::mkdir()
-inline
-bool mkdir (const std::string& dirname)
-{
-  return (_wmkdir (widen (dirname).c_str ()) == 0);
-}
-
-/*!
-  Deletes a directory
-
-  \param dirname UTF-8 path of directory to be removed
-  \return true if successful, false otherwise
-*/
-inline
-bool rmdir (const char* dirname)
-{
-  return (_wrmdir (widen (dirname).c_str ()) == 0);
-}
-
-/// \copydoc utf8::rmdir()
-inline
-bool rmdir (const std::string& dirname)
-{
-  return (_wrmdir (widen (dirname).c_str ()) == 0);
-}
-
-
-/*!
-  Changes the current working directory
-
-  \param dirname UTF-8 path of new working directory
-  \return true if successful, false otherwise
-*/
-inline
-bool chdir (const char* dirname)
-{
-  return (_wchdir (widen (dirname).c_str ()) == 0);
-}
-
-/// \copydoc utf8::chdir()
-inline
-bool chdir (const std::string& dirname)
-{
-  return (_wchdir (widen (dirname).c_str ()) == 0);
-}
-
-/*!
   Changes the file access permissions
 
   \param filename UTF-8 name of file
@@ -385,69 +307,6 @@ bool access (const std::string& filename, int mode)
   return (_waccess (widen (filename).c_str (), mode) == 0);
 }
 
-
-/*!
-  Delete a file
-
-  \param filename UTF-8 name of file to be deleted
-  \return true if successful, false otherwise
-*/
-inline
-bool remove (const char* filename)
-{
-  return (_wremove (widen (filename).c_str ()) == 0);
-}
-
-/// \copydoc utf8::remove()
-inline
-bool remove (const std::string& filename)
-{
-  return (_wremove (widen (filename).c_str ()) == 0);
-}
-
-/*!
-  Rename a file or directory
-
-  \param oldname current UTF-8 encoded name of file or directory
-  \param newname new UTF-8 name
-  \return true if successful, false otherwise
-*/
-inline
-bool rename (const char* oldname, const char* newname)
-{
-  return (_wrename (widen (oldname).c_str (), widen (newname).c_str ()) == 0);
-}
-
-/// \copydoc utf8::rename()
-inline
-bool rename (const std::string& oldname, const std::string& newname)
-{
-  return (_wrename (widen (oldname).c_str (), widen (newname).c_str ()) == 0);
-}
-
-/*!
-  Open a file
-
-  \param filename UTF-8 encoded file name
-  \param mode access mode
-  \return pointer to the opened file or NULL if an error occurs
-*/
-inline
-FILE* fopen (const char* filename, const char* mode)
-{
-  FILE* h = nullptr;
-  _wfopen_s (&h, widen (filename).c_str (), widen (mode).c_str ());
-  return h;
-}
-
-/// \copydoc utf8::fopen()
-inline
-FILE* fopen (const std::string& filename, const std::string& mode)
-{
-  FILE* h = nullptr;
-  _wfopen_s (&h, widen (filename).c_str (), widen (mode).c_str ());
-  return h;
-}
 
 /*!
   Creates, modifies, or removes environment variables.
