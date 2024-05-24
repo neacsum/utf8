@@ -149,14 +149,14 @@ TEST (wemoji)
 
 TEST (rune)
 {
-  string smiley{ "😀" };
+  string smiley{ u8"😀" };
   int rune_smiley = rune (smiley.begin ());
   CHECK_EQUAL (0x1f600, rune_smiley);
 }
 
 TEST (rune2)
 {
-  const char* smiley{ "😀" };
+  const char* smiley{ u8"😀" };
   char32_t rune_smiley = rune (smiley);
   CHECK_EQUAL ((int)U'😀', (int)rune_smiley);
 }
@@ -165,21 +165,23 @@ TEST (rune2)
 //check that next function advances with one code point
 TEST (next)
 {
-  string emojis{ "😃😎😛" };
+  string emojis{ u8"😃😎😛" };
   int i = 0;
   auto ptr = emojis.begin ();
-  while (next (ptr, emojis.end ()) != REPLACEMENT_CHARACTER)
+  while (ptr != emojis.end ())
   {
+    next (ptr, emojis.end ());
     i++;
   }
-
   CHECK_EQUAL (3, i);
+
+
 }
 
 // same test but using a character pointer instead of a string iterator
 TEST (next_ptr)
 {
-  string emojis{ "😃😎😛" };
+  string emojis{ u8"😃😎😛" };
   int i = 0;
   const char *ptr = emojis.c_str ();
   while (utf8::next (ptr))
@@ -193,7 +195,7 @@ TEST (next_ptr)
 TEST (next_non_const)
 {
   char emojis[20];
-  strcpy (emojis, "😃😎😛" );
+  strcpy (emojis, u8"😃😎😛" );
   int i = 0;
   char* ptr = emojis;
   while (utf8::next (ptr))
@@ -205,11 +207,12 @@ TEST (next_non_const)
   CHECK_EQUAL (3, i);
 }
 
-TEST (next_invalid)
+TEST (next_invalid_replace)
 {
-  string s2 = "°";
-  string s3 = "€";
-  string s4 = "😃";
+  string s2 = u8"°";
+  string s3 = u8"€";
+  string s4 = u8"😃";
+  auto prev_mode = utf8::error_mode(utf8::action::replace);
 
   auto p = s2.begin () + 1;
   CHECK_EQUAL (utf8::REPLACEMENT_CHARACTER, next (p, s2.end ()));
@@ -224,11 +227,37 @@ TEST (next_invalid)
   CHECK_EQUAL (utf8::REPLACEMENT_CHARACTER, next (p, s3.end () - 1));
   p = s4.begin ();
   CHECK_EQUAL (utf8::REPLACEMENT_CHARACTER, next (p, s4.end () - 1));
+
+  utf8::error_mode (prev_mode);
+}
+
+TEST (next_invalid_throw)
+{
+  string s2 = u8"°";
+  string s3 = u8"€";
+  string s4 = u8"😃";
+  auto prev_mode = utf8::error_mode (utf8::action::except);
+
+  auto p = s2.begin () + 1;
+  CHECK_THROW_EQUAL (next (p, s2.end ()), utf8::exception(utf8::exception::invalid_utf8), utf8::exception);
+  p = s3.begin () + 1;
+  CHECK_THROW_EQUAL (next (p, s3.end ()), utf8::exception (utf8::exception::invalid_utf8), utf8::exception);
+  p = s4.begin () + 1;
+  CHECK_THROW_EQUAL (next (p, s4.end ()), utf8::exception (utf8::exception::invalid_utf8), utf8::exception);
+
+  p = s2.begin ();
+  CHECK_THROW_EQUAL (next (p, s2.end () - 1), utf8::exception (utf8::exception::invalid_utf8), utf8::exception);
+  p = s3.begin ();
+  CHECK_THROW_EQUAL (next (p, s3.end () - 1), utf8::exception (utf8::exception::invalid_utf8), utf8::exception);
+  p = s4.begin ();
+  CHECK_THROW_EQUAL (next (p, s4.end () - 1), utf8::exception (utf8::exception::invalid_utf8), utf8::exception);
+
+  utf8::error_mode (prev_mode);
 }
 
 TEST (valid_str_funcs)
 {
-  string emojis{ "😃😎😛" };
+  string emojis{ u8"😃😎😛" };
   CHECK (utf8::valid_str (emojis));
   CHECK (utf8::valid_str (emojis.c_str ()));
   CHECK (utf8::valid_str (emojis.c_str (), emojis.length()));
@@ -242,10 +271,10 @@ TEST (valid_str_funcs)
 
 TEST (is_valid_yes)
 {
-  string s1 = "a";
-  string s2 = "°";
-  string s3 = "€";
-  string s4 = "😃";
+  string s1 = u8"a";
+  string s2 = u8"°";
+  string s3 = u8"€";
+  string s4 = u8"😃";
 
   CHECK (is_valid (s1.c_str()));
   CHECK (is_valid (s2.c_str ()));
@@ -361,30 +390,33 @@ TEST (invalid_utf8)
 {
   const char invalid[] { "\xFE\xFF\xFF\xFE" }; //UTF-16 BOM markers
   bool thrown = false;
-
+  auto prev_mode = utf8::error_mode (action::except);
   try {
     auto s = runes(invalid);
   }
   catch (utf8::exception& e) {
-    CHECK_EQUAL (utf8::exception::invalid_utf8, e.why);
+    CHECK_EQUAL (utf8::exception::invalid_utf8, e.code);
     thrown = true;
     cout << "Exception caught: " << e.what () << endl;
   }
   CHECK (thrown);
+  utf8::error_mode (prev_mode);
 }
 
 TEST (throw_invalid_char32)
 {
+  auto prev_mode = utf8::error_mode (action::except);
   bool thrown = false;
   try {
     narrow (0xd800);
   }
   catch (utf8::exception& e) {
-    CHECK_EQUAL (utf8::exception::invalid_char32, e.why);
+    CHECK_EQUAL (utf8::exception::invalid_char32, e.code);
     thrown = true;
     cout << "Exception caught: " << e.what () << endl;
   }
   CHECK (thrown);
+  utf8::error_mode (prev_mode);
 }
 
 // test for runes function (conversion from UTF8 to UTF32)
@@ -859,7 +891,7 @@ std::string trim (const std::string& str)
   {
     auto c = utf8::next (pb, cend (str));
     if (c == utf8::REPLACEMENT_CHARACTER)
-      throw utf8::exception (utf8::exception::reason::invalid_utf8);
+      throw utf8::exception (utf8::exception::cause::invalid_utf8);
   }
 
   //now trim trailing blanks
@@ -869,7 +901,7 @@ std::string trim (const std::string& str)
   {
     auto c = utf8::prev (pe1, pb);
     if (c == utf8::REPLACEMENT_CHARACTER)
-      throw utf8::exception (utf8::exception::reason::invalid_utf8);
+      throw utf8::exception (utf8::exception::cause::invalid_utf8);
     if (!utf8::isblank (c))
       break;
     else

@@ -13,7 +13,29 @@
 using namespace std;
 namespace utf8 {
 
+static thread_local action ermode;
+
+/*!
+  \param mode new error handling mode
+  \return previous error handling mode for this thread
+*/
+action error_mode (action mode)
+{
+  auto prev = ermode;
+  ermode = mode;
+  return prev;
+}
+
+
 static void encode (char32_t c, std::string& s);
+
+inline char32_t throw_or_replace (exception::cause err)
+{
+  if (ermode == action::except)
+    throw exception (err);
+  else
+    return REPLACEMENT_CHARACTER;
+}
 
 /*!
   \defgroup basecvt Narrowing/Widening Functions
@@ -47,19 +69,19 @@ std::string narrow (const wchar_t* s, size_t nch)
   {
     unsigned int c = (unsigned int)*s++;
     if (0xDBFF < c && c < 0xDFFF)
-      c = REPLACEMENT_CHARACTER;  //missing hi-surrogate
-    else if (c > 0xD7FF && c < 0xDC00)
+      c = throw_or_replace (exception::cause::invalid_wchar); //missing hi-surrogate
+    else if (0xD7FF < c && c < 0xDC00)
     {
       //got high surrogate, get the low one now
       if (!nch)
-        c = REPLACEMENT_CHARACTER; //missing lo-surrogate
+        c = throw_or_replace (exception::cause::invalid_wchar); //missing lo-surrogate
       else
       {
         c -= 0xD800;
         unsigned int cl = (unsigned int)*s++;
         --nch;
         if (cl < 0xDC00 || cl > 0xDFFF)
-          c = REPLACEMENT_CHARACTER; //not a lo-surrogate
+          c = throw_or_replace (exception::cause::invalid_wchar); //not a lo-surrogate
         else
           c = (c << 10) | (cl - 0xDC00) | 0x10000;
       }
@@ -74,7 +96,7 @@ std::string narrow (const wchar_t* s, size_t nch)
 /*!
   Conversion from wide character to UTF-8
 
-  \param  s input string
+  \param  ws input string
   \return UTF-8 character string
 */
 std::string narrow (const std::wstring& ws)
@@ -93,18 +115,18 @@ std::string narrow (const std::wstring& ws)
   {
     unsigned int c = (unsigned int)*in++;
     if (0xDBFF < c && c < 0xDFFF)
-      c = REPLACEMENT_CHARACTER; //missing hi-surrogate
+      c = throw_or_replace(exception::cause::invalid_wchar); //missing hi-surrogate
     else if (c > 0xD7FF && c < 0xDC00)
     {
       //got high surrogate, get the low one now
       if (in == ws.end ())
-        c = REPLACEMENT_CHARACTER; //missing lo-surrogate
+        c = throw_or_replace(exception::cause::invalid_wchar); //missing lo-surrogate
       else
       {
         c -= 0xD800;
         unsigned int cl = (unsigned int)*in++;
         if (cl < 0xDC00 || cl > 0xDFFF)
-          c = REPLACEMENT_CHARACTER; //not a lo-surrogate
+          c = throw_or_replace(exception::cause::invalid_wchar); //not a lo-surrogate
         else
           c = (c << 10) | (cl - 0xDC00) | 0x10000;
       }
@@ -121,8 +143,9 @@ std::string narrow (const std::wstring& ws)
   \param  nch number of character to convert or 0 if string is null-terminated
   \return UTF-8 encoded string
 
-  Each character in the input string should be a valid UTF-32 code point
-  ( <0x10FFFF)
+  If the input string contains invalid UTF-32 characters, they are replaced with
+  utf8::REPLACEMENT_CHARACTER (0xFFFD) or the function throws an exception,
+  depending on error handling mode.
 */
 std::string narrow (const char32_t* s, size_t nch)
 {
@@ -137,11 +160,7 @@ std::string narrow (const char32_t* s, size_t nch)
   }
 
   for (; nch; nch--, p++)
-  {
-    if (*p > 0x10ffff)
-      throw exception (exception::reason::invalid_char32);
     encode (*p, str);
-  }
   return str;
 }
 
@@ -150,18 +169,15 @@ std::string narrow (const char32_t* s, size_t nch)
   \param s UTF-32 encoded string
   \return UTF-8 encoded string
 
-  Each character in the input string should be a valid UTF-32 code point
-  ( <0x10FFFF)
+  If the input string contains invalid UTF-32 characters, they are replaced with
+  utf8::REPLACEMENT_CHARACTER (0xFFFD) or the function throws an exception,
+  depending on error handling mode.
 */
 std::string narrow (const std::u32string& s)
 {
   string str;
   for (auto p = s.begin (); p != s.end (); p++)
-  {
-    if (*p >= 0x10ffff)
-      throw exception (exception::reason::invalid_char32);
     encode (*p, str);
-  }
   return str;
 }
 
@@ -170,13 +186,12 @@ std::string narrow (const std::u32string& s)
   \param r UTF-32 encoded character
   \return UTF-8 encoded string
 
-  Input parameter must be a valid UTF-32 code point
-  ( <0x10FFFF)
+  If the input string contains invalid UTF-32 characters, they are replaced with
+  utf8::REPLACEMENT_CHARACTER (0xFFFD) or the function throws an exception,
+  depending on error handling mode.
 */
 std::string narrow (char32_t r)
 {
-  if (r >= 0x10ffff)
-    throw exception (exception::reason::invalid_char32);
   string str;
   encode (r, str);
   return str;
@@ -265,7 +280,9 @@ std::wstring widen (const std::string& s)
   \param nch number of characters to convert or 0 if string is null-terminated
   \return UTF-32 encoded string
 
-  The function throws an exception if it encounters an invalid UTF-8 encoding.
+  If the input string contains invalid UTF-8 characters, they are replaced with
+  utf8::REPLACEMENT_CHARACTER (0xFFFD) or the function throws an exception,
+  depending on error handling mode.
 */
 std::u32string runes (const char* s, size_t nch)
 {
@@ -278,8 +295,6 @@ std::u32string runes (const char* s, size_t nch)
   while (s < end)
   {
     char32_t  r = next (s);
-    if (r == REPLACEMENT_CHARACTER)
-      throw exception (exception::reason::invalid_utf8);
     str.push_back (r);
   }
   return str;
@@ -291,7 +306,9 @@ std::u32string runes (const char* s, size_t nch)
   \param s UTF-8 encoded string
   \return UTF-32 encoded string
 
-  The function throws an exception if it encounters an invalid UTF-8 encoding.
+  If the input string contains invalid UTF-8 characters, they are replaced with
+  utf8::REPLACEMENT_CHARACTER (0xFFFD) or the function throws an exception,
+  depending on error handling mode.
 */
 std::u32string runes (const std::string& s)
 {
@@ -300,10 +317,7 @@ std::u32string runes (const std::string& s)
   while (ptr != s.cend())
   {
     char32_t r = next (ptr, s.cend());
-    if (r != REPLACEMENT_CHARACTER)
-      str.push_back (r);
-    else
-      throw exception (exception::reason::invalid_utf8);
+    str.push_back (r);
   }
   return str;
 }
@@ -321,12 +335,12 @@ bool valid_str (const char *s, size_t nch)
   if (!nch)
     nch = strlen (s);
 
+  auto prev_mode = error_mode (action::replace);
   const char* last = s + nch;
-  while (s < last)
-  {
-    if (next (s) == REPLACEMENT_CHARACTER)
-      return false;
-  }
+  bool valid = true;
+  while (s < last && valid)
+    valid = (next (s) != REPLACEMENT_CHARACTER);
+  error_mode (prev_mode);
   return (s == last);
 }
 
@@ -337,24 +351,25 @@ bool valid_str (const char *s, size_t nch)
   \param last   Iterator pointing to the end of range  
   \return       decoded character
 
-  If the string contains an invalid UTF-8 encoding, the function returns
-  REPLACEMENT_CHARACTER (0xfffd) and advances pointer to beginning of next
-  character or end of string.
+  If the iterator points to an invalid UTF-8 encoding or is at end, the function
+  throws an exception  or returns utf8::REPLACEMENT_CHARACTER (0xfffd) depending
+  on error handling mode. In any case, the iterator is advanced to beginning of
+  next character or end of string.
 */
 char32_t next (std::string::const_iterator& ptr, const std::string::const_iterator last)
 {
   char32_t rune = 0;
   if (ptr == last)
-    return REPLACEMENT_CHARACTER;
+    return throw_or_replace (utf8::exception::invalid_utf8);
 
   if ((*ptr & 0x80) == 0)
     return *ptr++;
   else if ((*ptr & 0xC0) == 0x80)
   {
-    rune = REPLACEMENT_CHARACTER;
     do {
       ++ptr;
     } while (ptr != last && (*ptr & 0x80) == 0x80);
+    rune = throw_or_replace (utf8::exception::invalid_utf8);
   }
   else
   {
@@ -376,10 +391,11 @@ char32_t next (std::string::const_iterator& ptr, const std::string::const_iterat
     }
     else
     {
+      //code points > U+0x10FFFF are invalid
       do {
         ++ptr;
       } while (ptr != last && (*ptr & 0xC0) == 0x80);
-      return REPLACEMENT_CHARACTER; //code points > U+0x10FFFF are invalid
+      return throw_or_replace (utf8::exception::invalid_utf8);
     }
     size_t i;
     for (i=0; i<cont && ptr != last && (*ptr & 0xC0) == 0x80; i++)
@@ -390,26 +406,36 @@ char32_t next (std::string::const_iterator& ptr, const std::string::const_iterat
 
     //sanity checks
     if (i != cont)
-      return REPLACEMENT_CHARACTER; //short encoding
+    {
+      //short encoding
+      return throw_or_replace (utf8::exception::invalid_utf8);
+    }
     if (0xD800 <= rune && rune <= 0xdfff)
-      return REPLACEMENT_CHARACTER; //surrogates (U+D000 to U+DFFF) are invalid
+    {
+      //surrogates (U+D000 to U+DFFF) are invalid
+      return throw_or_replace (utf8::exception::invalid_utf8);
+    }
 
     if (rune < 0x80
       || (cont > 1 && rune < 0x800)
       || (cont > 2 && rune < 0x10000))
-      return REPLACEMENT_CHARACTER; //overlong encoding
+    {
+      //overlong encoding
+      return throw_or_replace (utf8::exception::invalid_utf8);
+    }
   }
   return rune;
 }
 
 /*!
-  Decodes a UTF-8 encoded character and Advances pointer to next character
+  Decodes a UTF-8 encoded character and advances pointer to next character
 
   \param ptr    <b>Reference</b> to character pointer to be advanced
   \return       decoded character
 
-  If the string contains an invalid UTF-8 encoding, the function returns
-  REPLACEMENT_CHARACTER (0xfffd) and advances pointer to beginning of next
+  If the string contains an invalid UTF-8 encoding, the function throws an 
+  exception  or returns utf8::REPLACEMENT_CHARACTER (0xfffd) depending on error
+  handling mode. In any case, the pointer is advanced to beginning of next
   character or end of string.
 */
 char32_t next (const char*& ptr)
@@ -422,10 +448,10 @@ char32_t next (const char*& ptr)
   }
   else if ((*ptr & 0xC0) == 0x80)
   {
-    rune = REPLACEMENT_CHARACTER;
     do {
       ptr++;
     } while (*ptr && (*ptr & 0x80) == 0x80);
+    return throw_or_replace (utf8::exception::invalid_utf8);
   }
   else
   {
@@ -450,7 +476,8 @@ char32_t next (const char*& ptr)
       do {
         ptr++;
       } while (*ptr && (*ptr & 0xC0) == 0x80);
-      return REPLACEMENT_CHARACTER; //code points > U+0x10FFFF are invalid
+      //code points > U+0x10FFFF are invalid
+      return throw_or_replace (utf8::exception::invalid_utf8);
     }
     size_t i;
     for (i = 0; i < cont && (*ptr & 0xC0) == 0x80; i++)
@@ -461,14 +488,20 @@ char32_t next (const char*& ptr)
 
     //sanity checks
     if (i != cont)
-      return REPLACEMENT_CHARACTER; //short encoding
+      return throw_or_replace (utf8::exception::invalid_utf8); //short encoding
     if (0xD800 <= rune && rune <= 0xdfff)
-      return REPLACEMENT_CHARACTER; //surrogates (U+D000 to U+DFFF) are invalid
+    {
+      //surrogates (U+D000 to U+DFFF) are invalid
+      return throw_or_replace (utf8::exception::invalid_utf8);
+    }
 
     if (rune < 0x80
       || (cont > 1 && rune < 0x800)
       || (cont > 2 && rune < 0x10000))
-      return REPLACEMENT_CHARACTER; //overlong encoding
+    {
+      //overlong encoding
+      return throw_or_replace (utf8::exception::invalid_utf8);
+    }
   }
   return rune;
 }
@@ -479,8 +512,9 @@ char32_t next (const char*& ptr)
   \param ptr    <b>Reference</b> to character pointer to be decremented
   \return       previous UTF-8 encoded character
 
-  If the string contains an invalid UTF-8 encoding, the function returns
-  REPLACEMENT_CHARACTER (0xfffd) and pointer remains unchanged.
+  If the string contains an invalid UTF-8 encoding, the function throws an 
+  exception  or returns utf8::REPLACEMENT_CHARACTER (0xfffd) depending on error
+  handling mode. In this case the pointer remains unchanged.
 */
 char32_t prev (const char* & ptr)
 {
@@ -503,7 +537,7 @@ char32_t prev (const char* & ptr)
   else
   {
     ptr = in_ptr;
-    return REPLACEMENT_CHARACTER;
+    return throw_or_replace (utf8::exception::invalid_utf8);
   }
 
   if ((0xD800 <= rune && rune <= 0xdfff) //surrogate
@@ -512,7 +546,7 @@ char32_t prev (const char* & ptr)
    || (cont > 2 && rune < 0x10000))  //overlong encoding
   {
     ptr = in_ptr;
-    return REPLACEMENT_CHARACTER;
+    return throw_or_replace (utf8::exception::invalid_utf8);
   }
 
   return rune;
@@ -549,7 +583,7 @@ char32_t prev (std::string::const_iterator& ptr, const std::string::const_iterat
   else
   {
     ptr = in_ptr;
-    return REPLACEMENT_CHARACTER;
+    return throw_or_replace (utf8::exception::invalid_utf8);
   }
 
   if ((0xD800 <= rune && rune <= 0xdfff) //surrogate
@@ -558,7 +592,7 @@ char32_t prev (std::string::const_iterator& ptr, const std::string::const_iterat
    || (cont > 2 && rune < 0x10000))  //overlong encoding
   {
     ptr = in_ptr;
-    return REPLACEMENT_CHARACTER;
+    return throw_or_replace (utf8::exception::invalid_utf8);
   }
 
   return rune;
@@ -677,7 +711,7 @@ void encode (char32_t c, std::string& s)
   else if (c < 0xFFFF)
   {
     if (c >= 0xD800 && c <= 0xdfff)
-      throw exception (exception::reason::invalid_char32);
+      c= throw_or_replace(exception::cause::invalid_char32);
 
     s.push_back (0xE0 | c >> 12);
     s.push_back (0x80 | c >> 6 & 0x3f);
@@ -690,8 +724,10 @@ void encode (char32_t c, std::string& s)
     s.push_back (0x80 | c >> 6 & 0x3f);
     s.push_back (0x80 | c & 0x3f);
   }
+  else if (ermode == action::except)
+    throw exception (exception::cause::invalid_char32);
   else
-    throw exception (exception::reason::invalid_char32);
+    s.append ("\xEF\xBF\xBD"); //append replacement character
 }
 
 
@@ -708,7 +744,7 @@ void encode (char32_t c, std::string& s)
 
   //...
   catch (utf8::exception& e) {
-    if (e.why == utf8::exception::invalid_utf8) {
+    if (e.code == utf8::exception::invalid_utf8) {
       // do something
     }
   }

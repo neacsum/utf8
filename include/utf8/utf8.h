@@ -8,10 +8,13 @@
 
 #include <string>
 #include <vector>
+#include <fstream>
 
-/* If USE_WINDOWS_API is not zero, the library issues direct Windows API
+/*!
+  If USE_WINDOWS_API is not zero, the library issues direct Windows API
   calls. Otherwise it relies only on standard C++17 functions.
-  If not defined, USE_WINDOWS_API defaults to 1 on Windows platform. */
+  If not defined, USE_WINDOWS_API defaults to 1 on Windows platform.
+*/
 
 #define USE_WINDOWS_API 0
 
@@ -37,23 +40,33 @@ namespace utf8 {
 struct exception : public std::exception
 {
   /// Possible causes
-  enum reason { invalid_utf8, invalid_wchar, invalid_char32 };
+  enum cause { invalid_utf8=1, invalid_wchar, invalid_char32 };
 
   /// Constructor
-  explicit exception (reason c)
-    : why (c)
+  explicit exception (cause c)
+    : code (c)
   {}
+
+  /// Exception message
   const char* what() const noexcept
   {
-    return (why == reason::invalid_utf8)   ? "Invalid UTF-8 encoding"
-         : (why == reason::invalid_wchar)  ? "Invalid UTF-16 encoding"
-         : (why == reason::invalid_char32) ? "Invalid code-point value"
+    return (code == cause::invalid_utf8)   ? "Invalid UTF-8 encoding"
+         : (code == cause::invalid_wchar)  ? "Invalid UTF-16 encoding"
+         : (code == cause::invalid_char32) ? "Invalid code-point value"
          : "Other UTF-8 exception";
   }
-
-  /// What triggered the exception
-  reason why;
+  /// Condition that triggered the exception
+  cause code;
 };
+
+/// Error handling methods
+enum action {
+  replace, ///< Use replacement character for invalid encodings
+  except   ///< Throw an exception on invalid encodings
+};
+
+/// Set error handling mode for this thread
+action error_mode (action mode);
 
 /// Replacement character used for invalid encodings
 const char32_t REPLACEMENT_CHARACTER = 0xfffd;
@@ -141,6 +154,79 @@ bool islower (const char* p);
 bool islower (std::string::const_iterator p);
 /// @}
 
+/// Input stream class using UTF-8 filename
+#ifdef _WIN32
+class ifstream : public std::ifstream
+{
+public:
+  ifstream () : std::ifstream () {};
+  explicit ifstream (const char* filename, std::ios_base::openmode mode = ios_base::in)
+    : std::ifstream (utf8::widen (filename), mode) {};
+  explicit ifstream (const std::string& filename, std::ios_base::openmode mode = ios_base::in)
+    : std::ifstream (utf8::widen (filename), mode) {};
+  ifstream (ifstream&& other) noexcept : std::ifstream ((std::ifstream&&)other) {};
+  ifstream (const ifstream& rhs) = delete;
+
+  void open (const char* filename, std::ios_base::openmode mode = ios_base::in)
+  {
+    std::ifstream::open (utf8::widen (filename), mode);
+  }
+  void open (const std::string& filename, ios_base::openmode mode = ios_base::in)
+  {
+    std::ifstream::open (utf8::widen (filename), mode);
+  }
+};
+/// Output stream class using UTF-8 filename
+class ofstream : public std::ofstream
+{
+public:
+  ofstream () : std::ofstream () {};
+  explicit ofstream (const char* filename, std::ios_base::openmode mode = ios_base::out)
+    : std::ofstream (utf8::widen (filename), mode) {};
+  explicit ofstream (const std::string& filename, std::ios_base::openmode mode = ios_base::out)
+    : std::ofstream (utf8::widen (filename), mode) {};
+  ofstream (ofstream&& other) noexcept : std::ofstream ((std::ofstream&&)other) {};
+  ofstream (const ofstream& rhs) = delete;
+
+  void open (const char* filename, ios_base::openmode mode = ios_base::out)
+  {
+    std::ofstream::open (utf8::widen (filename), mode);
+  }
+  void open (const std::string& filename, ios_base::openmode mode = ios_base::out)
+  {
+    std::ofstream::open (utf8::widen (filename), mode);
+  }
+};
+
+/// Bidirectional stream class using UTF-8 filename
+class fstream : public std::fstream
+{
+public:
+  fstream () : std::fstream () {};
+  explicit fstream (const char* filename, std::ios_base::openmode mode = ios_base::in | ios_base::out)
+    : std::fstream (utf8::widen (filename), mode) {};
+  explicit fstream (const std::string& filename, std::ios_base::openmode mode = ios_base::in | ios_base::out)
+    : std::fstream (utf8::widen (filename), mode) {};
+  fstream (fstream&& other) noexcept : std::fstream ((std::fstream&&)other) {};
+  fstream (const fstream& rhs) = delete;
+
+  void open (const char* filename, ios_base::openmode mode = ios_base::in | ios_base::out)
+  {
+    std::fstream::open (utf8::widen (filename), mode);
+  }
+  void open (const std::string& filename, ios_base::openmode mode = ios_base::in | ios_base::out)
+  {
+    std::fstream::open (utf8::widen (filename), mode);
+  }
+};
+
+#else
+//Under Linux file streams already use UTF-8 filenames
+typedef std::ifstream ifstream;
+typedef std::ofstream ofstream;
+typedef std::fstream fstream;
+#endif
+
 
 // INLINES --------------------------------------------------------------------
 
@@ -153,7 +239,10 @@ bool islower (std::string::const_iterator p);
 inline
 bool is_valid (const char* p)
 {
-  return next (p) != REPLACEMENT_CHARACTER;
+  auto prev_mode = error_mode (action::replace);
+  bool valid =  (next (p) != REPLACEMENT_CHARACTER);
+  error_mode (prev_mode);
+  return valid;
 }
 
 /*!
@@ -166,7 +255,11 @@ bool is_valid (const char* p)
 inline
 bool is_valid (std::string::const_iterator p, const std::string::const_iterator last)
 {
-  return next (p, last) != REPLACEMENT_CHARACTER;
+  auto len = last - p;
+  auto prev_mode = error_mode (action::replace);
+  bool valid = (next (p, last) != REPLACEMENT_CHARACTER);
+  error_mode (prev_mode);
+  return valid;
 }
 
 /*!
@@ -433,7 +526,7 @@ FILE* fopen (const std::string& filename, const std::string& mode)
   return h;
 }
 
-/// \copydoc fopen(const std::string& filename, const std::string& mode)
+/// \copydoc utf8::fopen()
 inline
 FILE* fopen (const char* filename, const char* mode)
 {
@@ -458,7 +551,7 @@ std::string getcwd ()
   if (_wgetcwd (tmp, _countof (tmp)))
     return narrow (tmp);
   else
-    return string ();
+    return std::string ();
 #else
   std::error_code ec;
   std::filesystem::path wd = std::filesystem::current_path (ec);
@@ -495,7 +588,7 @@ bool chdir (const std::string& dirname)
 #endif
 }
 
-/// \copydoc chdir (const std::string& dirname)
+/// \copydoc utf8::chdir ()
 inline
 bool chdir (const char* dirname)
 {
@@ -538,7 +631,7 @@ bool mkdir (const std::string& dirname)
 }
 
 
-/// \copydoc mkdir (const std::string& dirname)
+/// \copydoc utf8::mkdir ()
 inline
 bool mkdir (const char* dirname)
 {
@@ -579,7 +672,7 @@ bool rmdir (const std::string& dirname)
 #endif
 }
 
-/// \copydoc rmdir (const std::string& dirname)
+/// \copydoc utf8::rmdir ()
 inline
 bool rmdir (const char* dirname)
 {
@@ -623,7 +716,7 @@ bool rename (const std::string& oldname, const std::string& newname)
 #endif
 }
 
-/// \copydoc rename(const std::string& oldname, const std::string& newname)
+/// \copydoc utf8::rename()
 inline 
 bool rename (const char* oldname, const char* newname)
 {
@@ -667,7 +760,7 @@ bool remove (const std::string& filename)
 }
 
 
-/// \copydoc remove (const std::string& filename)
+/// \copydoc utf8::remove ()
 inline
 bool remove (const char* filename)
 {
@@ -683,6 +776,28 @@ bool remove (const char* filename)
   std::filesystem::remove (f, ec);
   return !ec;
 #endif
+}
+
+/// Extraction operator for exception objects
+inline
+std::ostream& operator<<(std::ostream& os, const exception& x)
+{
+  os << x.what ();
+  return os;
+}
+
+/// Equality  operator for exception objects
+inline
+bool operator ==(const exception& lhs, const exception rhs)
+{
+  return (lhs.code == rhs.code);
+}
+
+/// Inequality operator for exception objects
+inline
+bool operator !=(const exception& lhs, const exception& rhs)
+{
+  return !operator ==(lhs, rhs);
 }
 
 }; //namespace utf8

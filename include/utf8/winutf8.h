@@ -8,7 +8,6 @@
 
 #include <Windows.h>
 #include <string>
-#include <fstream>
 #include <ostream>
 
 #undef MessageBox
@@ -57,79 +56,6 @@ bool symlink (const char* path, const char* link, bool directory);
 bool symlink (const std::string& path, const std::string& target, bool directory);
 
 int system (const std::string& cmd);
-
-
-/// Input stream class using UTF-8 filename
-class ifstream : public std::ifstream
-{
-public:
-  ifstream () : std::ifstream () {};
-  explicit ifstream (const char* filename, std::ios_base::openmode mode = ios_base::in)
-    : std::ifstream (utf8::widen (filename), mode) {};
-  explicit ifstream (const std::string& filename, std::ios_base::openmode mode = ios_base::in)
-    : std::ifstream (utf8::widen (filename), mode) {};
-  ifstream (ifstream&& other) noexcept : std::ifstream ((std::ifstream&&)other) {};
-  ifstream (const ifstream& rhs) = delete;
-
-  void open (const char* filename, ios_base::openmode mode = ios_base::in,
-    int prot = (int)ios_base::_Openprot)
-  {
-    std::ifstream::open (utf8::widen (filename), mode, prot);
-  }
-  void open (const std::string& filename, ios_base::openmode mode = ios_base::in,
-    int prot = (int)ios_base::_Openprot)
-  {
-    std::ifstream::open (utf8::widen (filename), mode, prot);
-  }
-};
-
-/// Output stream class using UTF-8 filename
-class ofstream : public std::ofstream
-{
-public:
-  ofstream () : std::ofstream () {};
-  explicit ofstream (const char* filename, std::ios_base::openmode mode = ios_base::out)
-    : std::ofstream (utf8::widen (filename), mode) {};
-  explicit ofstream (const std::string& filename, std::ios_base::openmode mode = ios_base::out)
-    : std::ofstream (utf8::widen (filename), mode) {};
-  ofstream (ofstream&& other) noexcept : std::ofstream ((std::ofstream&&)other) {};
-  ofstream (const ofstream& rhs) = delete;
-
-  void open (const char* filename, ios_base::openmode mode = ios_base::out,
-    int prot = (int)ios_base::_Openprot)
-  {
-    std::ofstream::open (utf8::widen (filename), mode, prot);
-  }
-  void open (const std::string& filename, ios_base::openmode mode = ios_base::out,
-    int prot = (int)ios_base::_Openprot)
-  {
-    std::ofstream::open (utf8::widen (filename), mode, prot);
-  }
-};
-
-/// Bidirectional stream class using UTF-8 filename
-class fstream : public std::fstream
-{
-public:
-  fstream () : std::fstream () {};
-  explicit fstream (const char* filename, std::ios_base::openmode mode = ios_base::in | ios_base::out)
-    : std::fstream (utf8::widen (filename), mode) {};
-  explicit fstream (const std::string& filename, std::ios_base::openmode mode = ios_base::in | ios_base::out)
-    : std::fstream (utf8::widen (filename), mode) {};
-  fstream (fstream&& other) noexcept : std::fstream ((std::fstream&&)other) {};
-  fstream (const fstream& rhs) = delete;
-
-  void open (const char* filename, ios_base::openmode mode = ios_base::in | ios_base::out,
-    int prot = (int)ios_base::_Openprot)
-  {
-    std::fstream::open (utf8::widen (filename), mode, prot);
-  }
-  void open (const std::string& filename, ios_base::openmode mode = ios_base::in | ios_base::out,
-    int prot = (int)ios_base::_Openprot)
-  {
-    std::fstream::open (utf8::widen (filename), mode, prot);
-  }
-};
 
 int MessageBox (HWND hWnd, const std::string& text, const std::string& caption,
   unsigned int type);

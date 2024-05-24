@@ -94,6 +94,13 @@ with names that are encoded using UTF-8. Because UTF-8 strings are character str
 
 The API for Windows profile files (also called INI files) was replaced with an object `utf8::IniFile`.
 
+### Error Handling
+Invalid characters or sequences can be handled in tow different ways:
+- the invalid character/sequence is replaced by a `REPLACEMENT_CHARACTER` (0xFFFD)
+- the functions throw an exception `utf8::exception`. The member `utf8::exception::code` indicates what has triggered the exception.
+
+The function `error_mode()` selects the error handling strategy. The error handling strategy is thread-safe.
+
 ## Using the library under C++20 standard
 The C++20 standard has [added an additional type `char8_t`](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2018/p0482r6.html), designed to keep UTF-8 encoded characters, and a string type `std::u8string`. By making it a separate type from `char` and `unsigned char`, the committee has also created a number of incompatibilities. For instance the following fragment will produce an error:
 ```C++
@@ -118,6 +125,9 @@ s += " and ";
 s += "日本語テキスト";
 ```
 with the implied assumption that all `char` strings are UTF-8 encoded character strings.
+
+## Using the library under Linux
+While the library was specifically built for Windows environment, a reduced version can be compiled and used under Linux. It has been tested under Ubuntu 22.04 with GCC. Obviously, functions that are specific to the Windows environment are not available.
 
 ## Documentation
 [Doxygen](http://www.doxygen.nl/) documentation can be found at https://neacsum.github.io/utf8/

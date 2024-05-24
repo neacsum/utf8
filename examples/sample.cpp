@@ -8,30 +8,34 @@
 #include <utf8/ini.h>
 #include <iostream>
 #include <tuple>
-#include <conio.h>
+#include <climits>
 
 using namespace std;
 
-/*
-  Windows default console fonts are very poor when it comes to exotic
-  characters. All messages will be written in this text file.
-*/
-utf8::ofstream out("sample_log.txt");
+// All messages will be written in this text file if ACP is not UTF-8
+const std::string FNAME{ "sample_output.txt" };
 
 
 void confirm ()
 {
-  printf ("Press any key to continue...");
-  while (!_kbhit ())
-    ;
-  std::ignore = _getch ();
-  printf ("\n");
+  cout << "Press ENTER to continue...";
+  cin.ignore ((streamsize)UINT_MAX , '\n');
+  cout << '\n';
 }
 
 
 int main (int /*unused*/, char ** /*unused*/)
 {
   int argc;
+#ifdef _WIN32
+  ofstream fout;
+  if (GetACP () != 65001)
+  {
+    cout << "Windows ACP is not UTF-8. Output will be sent to " << FNAME 
+      << endl << endl;
+    fout.open (FNAME);
+  }
+  ostream& out{ (GetACP () == 65001) ? cout : fout };
 
   char **argv = utf8::get_argv (&argc);
 
@@ -43,12 +47,14 @@ int main (int /*unused*/, char ** /*unused*/)
       out << "Arg " << i << " - " << argv[i] << endl;
   }
   out << endl;
-
+#else
+  ostream& out = cout;
+#endif
   //Create an INI file where we can store settings
   utf8::IniFile ini("Ελληνικός.ini");
 
   //create a (sub)folder
-  printf ("Creating Arabic folder. ");
+  cout << "Creating Arabic folder. ";
   utf8::mkdir ("اللغة العربي");
   out << "Created Arabic folder اللغة العربي" << endl;
   confirm ();
@@ -57,7 +63,7 @@ int main (int /*unused*/, char ** /*unused*/)
   //Change working directory to this new folder and create a file using fopen
   utf8::chdir ("اللغة العربي");
   out << "Working folder is " << utf8::getcwd () << endl;
-  printf ("Creating Aramaic file. ");
+  cout << "Creating Aramaic file. ";
   FILE *f = utf8::fopen ("ܐܪܡܝܐ.txt", "w");
 
   /* Basic I/O functions are 'agnostic' to the actual encoding that's why there
@@ -73,7 +79,7 @@ int main (int /*unused*/, char ** /*unused*/)
   confirm ();
 
   //How about a file with stream I/O
-  printf ("Using streams to create an Armenian file. ");
+  cout << "Using streams to create an Armenian file. ";
   utf8::ofstream os ("Հայերեն.txt");
   os << "Text in Armenian Հայերեն" << std::endl;
   os.close ();
@@ -82,7 +88,7 @@ int main (int /*unused*/, char ** /*unused*/)
   ini.PutString ("Հայերեն", "Armenian", "Settings");
 
   //Let's read some data using streams
-  printf ("Reading data from Aramaic file. ");
+  cout << "Reading data from Aramaic file. ";
   utf8::ifstream is ("ܐܪܡܝܐ.txt");
   string s;
   getline (is, s);
@@ -94,10 +100,12 @@ int main (int /*unused*/, char ** /*unused*/)
   utf8::rename ("Հայերեն.txt", u8"Japanese 日本語.txt");
   out << "New file name is Japanese 日本語.txt" << endl;
 
+#ifdef _WIN32
   //Set an environment variable and retrieve its value
   utf8::putenv ("Punjabi=पंजाबी");
   out << "The environment variable Punjabi is " 
       << utf8::getenv ("Punjabi") << endl;
+#endif
 
   //convert a string to uppercase
   string all_caps = utf8::toupper ("Neacșu"); // all_caps should be "NEACȘU"
@@ -109,27 +117,29 @@ int main (int /*unused*/, char ** /*unused*/)
   out << "This is how Greeks say 'alphabet': " << greek << endl;
 
   // Cleanup
-  printf ("Deleting Aramaic file.\n");
+  cout << "Deleting Aramaic file.\n";
   utf8::remove (u8"ܐܪܡܝܐ.txt");
-  printf ("Deleting Japanese file.\n");
+  cout << "Deleting Japanese file.\n";
   utf8::remove (u8"Japanese 日本語.txt");
   utf8::chdir ("..");
-  printf ("Deleting Arabic folder. ");
+  cout << "Deleting Arabic folder. ";
   utf8::rmdir (u8"اللغة العربي");
   confirm ();
 
   //retrieve settings from INI file
-  out << "INI setting: Folder=" << ini.GetString ("Folder", "Settings") << endl;
-  out << "INI setting: Aramaic=" << ini.GetString ("Aramaic", "Settings") << endl;
-  out << "INI setting: Armenian=" << ini.GetString ("Հայերեն", "Settings") << endl;
+  out << "INI setting: Folder= " << ini.GetString ("Folder", "Settings") << endl;
+  out << "INI setting: Aramaic(ܐܪܡܝܐ)= " << ini.GetString ("Aramaic", "Settings") << endl;
+  out << "INI setting: Armenian(Հայերեն)= " << ini.GetString ("Հայերեն", "Settings") << endl;
 
   //delete INI file
   utf8::remove (u8"Ελληνικός.ini");
 
   //Done
-  printf ("\nThat's all folks!\n");
+  cout << "\nThat's all folks!\n";
 
+#ifdef _WIN32
   //Don't forget to free argv array
   utf8::free_argv (argc, argv);
+#endif
   return 0;
 }

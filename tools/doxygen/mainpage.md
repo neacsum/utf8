@@ -111,11 +111,17 @@ The only changes compared to the Windows API are:
  - files without a path are in current directory while Windows places them in Windows folder
 
 ### Case Conversion
-Case conversion in Unicode is a much more complicated issue than ASCII case conversion.
-This library uses standard tables published by Unicode Consortium to perform upper case
-to lower case conversions. There is also a function `icompare()` that performs string
+Case conversion in Unicode is a more complicated issue than ASCII case conversion.
+This library uses standard tables published by Unicode Consortium to perform conversions between upper-case
+and lower-case. There is also a function `utf8::icompare()` that performs string
 comparison ignoring the case.
 
+### Error Handling
+Invalid characters or sequences can be handled in two different ways:
+- the invalid character/sequence is replaced by a `utf8::REPLACEMENT_CHARACTER` (0xFFFD)
+- the functions throw an exception `utf8::exception`. The member `utf8::exception::code` indicates what has triggered the exception.
+
+The function `utf8::error_mode()` selects the error handling strategy. The error handling strategy is thread-safe: each thread has its own strategy.
 
 ## Building
 The UTF8 library doesn't have any dependencies. The test program however uses the [UTTP library](https://github.com/neacsum/utpp).
