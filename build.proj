@@ -13,5 +13,6 @@
         <MSBuild Projects="tests\tests.vcxproj" Properties="SolutionDir=..\;Configuration=Debug;Platform=x86"/>  
         <MSBuild Projects="tests\tests.vcxproj" Properties="SolutionDir=..\;Configuration=Release;Platform=x86"/>
         <Exec Command="build\exe\x64\debug\tests.exe"/>
+        <Exec Command="build\exe\x64\release\tests.exe"/>
     </Target>
 </Project>

@@ -28,7 +28,10 @@ jobs:
           %USERPROFILE%\utf8\build.bat tests
 
       - name: Save tests result
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          path: tests/utf8_tests.xml
+          name: test_results
+          path: |
+            build/exe/x64/debug/utf8_tests.xml
+            build/exe/x64/release/utf8_tests.xml
 
