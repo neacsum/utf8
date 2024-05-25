@@ -16,7 +16,7 @@
   If not defined, USE_WINDOWS_API defaults to 1 on Windows platform.
 */
 
-#define USE_WINDOWS_API 0
+//#define USE_WINDOWS_API 0
 
 #if defined (_WIN32) && !defined (USE_WINDOWS_API)
 #define USE_WINDOWS_API 1

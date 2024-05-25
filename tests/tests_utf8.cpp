@@ -174,8 +174,6 @@ TEST (next)
     i++;
   }
   CHECK_EQUAL (3, i);
-
-
 }
 
 // same test but using a character pointer instead of a string iterator
@@ -188,7 +186,6 @@ TEST (next_ptr)
   {
     i++;
   }
-
   CHECK_EQUAL (3, i);
 }
 
@@ -205,6 +202,45 @@ TEST (next_non_const)
 
   CHECK (*ptr == 0);
   CHECK_EQUAL (3, i);
+}
+
+TEST (overlong)
+{
+  const char* o1{ "\xf0\x82\x82\xac" }; //overlong euro sign
+  CHECK_EQUAL (utf8::REPLACEMENT_CHARACTER, utf8::rune (o1));
+}
+
+TEST (encoding_limits)
+{
+  CHECK_EQUAL ("\x0", narrow (U"\x0"));
+  CHECK_EQUAL ("\x7f", narrow (U"\x7f"));
+  CHECK_EQUAL ("\xc2\x80", narrow (U"\x80"));
+  CHECK_EQUAL ("\xdf\xbf", narrow (U"\x7ff"));
+  CHECK_EQUAL ("\xe0\xa0\x80", narrow (U"\x800"));
+  CHECK_EQUAL ("\xef\xbf\xbf", narrow (U"\xffff"));
+  CHECK_EQUAL ("\xf0\x90\x80\x80", narrow (U"\x10000"));
+  CHECK_EQUAL ("\xf4\x8f\xbf\xbf", narrow (U"\x10ffff"));
+
+  CHECK_EQUAL ("\xf0\x90\x80\x80", narrow (L"\xd800\xdc00"));
+  CHECK_EQUAL ("\xf4\x8f\xbf\xbf", narrow (L"\xdbff\xdfff"));
+
+  CHECK_EQUAL ("\xf0\x90\x80\x80", narrow (wstring(L"\xd800\xdc00")));
+  CHECK_EQUAL ("\xf4\x8f\xbf\xbf", narrow (wstring(L"\xdbff\xdfff")));
+}
+
+TEST (decoding_limits)
+{
+  CHECK_EQUAL (0, rune ("\x0"));
+  CHECK_EQUAL (0x7f, rune ("\x7f"));
+  CHECK_EQUAL (0x80, rune ("\xc2\x80"));
+  CHECK_EQUAL (0x7ff, rune ("\xdf\xbf"));
+  CHECK_EQUAL (0x800, rune ("\xe0\xa0\x80"));
+  CHECK_EQUAL (0xffff, rune ("\xef\xbf\xbf"));
+  CHECK_EQUAL (0x10000, rune ("\xf0\x90\x80\x80"));
+  CHECK_EQUAL (0x10ffff, rune ("\xf4\x8f\xbf\xbf"));
+
+  CHECK_EQUAL (wstring (L"\xd800\xdc00"), widen ("\xf0\x90\x80\x80"));
+  CHECK_EQUAL (wstring (L"\xdbff\xdfff"), widen ("\xf4\x8f\xbf\xbf"));
 }
 
 TEST (next_invalid_replace)

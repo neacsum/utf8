@@ -13,7 +13,7 @@
 using namespace std;
 namespace utf8 {
 
-static thread_local action ermode;
+static thread_local action ermode{action::replace};
 
 /*!
   \param mode new error handling mode
@@ -83,7 +83,7 @@ std::string narrow (const wchar_t* s, size_t nch)
         if (cl < 0xDC00 || cl > 0xDFFF)
           c = throw_or_replace (exception::cause::invalid_wchar); //not a lo-surrogate
         else
-          c = (c << 10) | (cl - 0xDC00) | 0x10000;
+          c = ((c << 10) | (cl - 0xDC00)) + 0x10000;
       }
     }
     encode (c, out);
@@ -128,7 +128,7 @@ std::string narrow (const std::wstring& ws)
         if (cl < 0xDC00 || cl > 0xDFFF)
           c = throw_or_replace(exception::cause::invalid_wchar); //not a lo-surrogate
         else
-          c = (c << 10) | (cl - 0xDC00) | 0x10000;
+          c = ((c << 10) | (cl - 0xDC00)) + 0x10000;
       }
     }
     encode (c, out);
@@ -701,14 +701,14 @@ bool isspace (char32_t r)
 /// Encode a character and append it to a string
 void encode (char32_t c, std::string& s)
 {
-  if (c < 0x7f)
+  if (c <= 0x7f)
     s.push_back ((char)c);
-  else if (c < 0x7ff)
+  else if (c <= 0x7ff)
   {
     s.push_back (0xC0 | c >> 6);
     s.push_back (0x80 | c & 0x3f);
   }
-  else if (c < 0xFFFF)
+  else if (c <= 0xFFFF)
   {
     if (c >= 0xD800 && c <= 0xdfff)
       c= throw_or_replace(exception::cause::invalid_char32);
@@ -717,7 +717,7 @@ void encode (char32_t c, std::string& s)
     s.push_back (0x80 | c >> 6 & 0x3f);
     s.push_back (0x80 | c & 0x3f);
   }
-  else if (c < 0x10ffff)
+  else if (c <= 0x10ffff)
   {
     s.push_back (0xF0 | c >> 18);
     s.push_back (0x80 | c >> 12 & 0x3f);
