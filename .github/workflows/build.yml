@@ -28,8 +28,7 @@ jobs:
           %USERPROFILE%\utf8\build.bat tests
 
       - name: Save tests result
-        if: ${{ success() || failure() }}
         uses: actions/upload-artifact@v3
         with:
-          path: utf8/utf8_tests.xml
+          path: tests/utf8_tests.xml
 
