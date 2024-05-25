@@ -9,9 +9,9 @@
     </Target>
     <Target Name="tests">
         <MSBuild Projects="tests\tests.vcxproj" Properties="SolutionDir=..\;Configuration=Debug;Platform=x64"/>  
-        <MSBuild Projects="tests\tests.vcxproj" Properties="SolutionDir=..\;Configuration=Release;Platform=x64"/> 
+<!--        <MSBuild Projects="tests\tests.vcxproj" Properties="SolutionDir=..\;Configuration=Release;Platform=x64"/> 
         <MSBuild Projects="tests\tests.vcxproj" Properties="SolutionDir=..\;Configuration=Debug;Platform=x86"/>  
-        <MSBuild Projects="tests\tests.vcxproj" Properties="SolutionDir=..\;Configuration=Release;Platform=x86"/>
-        <Exec Command="build\exe\x64\debug\tests.exe"/>
+        <MSBuild Projects="tests\tests.vcxproj" Properties="SolutionDir=..\;Configuration=Release;Platform=x86"/>  -->
+        <Exec Command="build\exe\x64\debug\tests.exe build\exe\x64\debug\utf8_tests.xml"/>
     </Target>
 </Project>

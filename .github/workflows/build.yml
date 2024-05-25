@@ -1,9 +1,9 @@
 name: Build
 on:
   push:
-    branches: [ "main", "version_2" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "main", "version_2" ]
+    branches: [ "main" ]
 
 permissions:
   contents: read
@@ -14,7 +14,7 @@ jobs:
     
     steps:      
       - name: Get CPM
-        uses: engineerd/configurator@v0.0.10
+        uses: neacsum/configurator@v0.0.11
         with:
           name: cpm.exe
           url: https://github.com/neacsum/cpm/releases/latest/download/cpm.exe
@@ -28,8 +28,8 @@ jobs:
           %USERPROFILE%\utf8\build.bat tests
 
       - name: Save tests result
-        if: ${{ success() || failure() }}
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          path: utf8/utf8_tests.xml
+          name: test_results
+          path: ~/utf8/build/exe/x64/debug/utf8_tests.xml
 
