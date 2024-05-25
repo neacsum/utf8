@@ -18,7 +18,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Download Doxygen
-        uses: engineerd/configurator@v0.0.10
+        uses: neacsum/configurator@v0.0.11
         with:
           name: doxygen.exe
           url: https://github.com/doxygen/doxygen/releases/download/Release_1_9_8/doxygen-1.9.8.windows.x64.bin.zip
@@ -28,9 +28,9 @@ jobs:
         run: doxygen tools/doxygen/Doxyfile
       
       - name: Upload pages
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v3
         with:
           path: docs
       
       - name: Deploy pages
-        uses: actions/deploy-pages@v2
+        uses: actions/deploy-pages@v4
