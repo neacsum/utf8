@@ -15,6 +15,8 @@ TEST_MAIN (int argc, char **argv)
 {
   if (argc > 1)
     return UnitTest::RunSuite (argv[1]);
+  std::cout << "CWD: " << getcwd () << endl;
+  std::cout << "argv[0]: " << argv[0] << endl; 
 
   UnitTest::RunAllTests ();
   std::ofstream os ("utf8_tests.xml");
