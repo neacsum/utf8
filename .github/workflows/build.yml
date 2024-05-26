@@ -32,6 +32,6 @@ jobs:
         with:
           name: test_results
           path: |
-            build/exe/x64/debug/utf8_tests.xml
-            build/exe/x64/release/utf8_tests.xml
+            utf8/build/exe/x64/debug/utf8_tests.xml
+            utf8/build/exe/x64/release/utf8_tests.xml
 
