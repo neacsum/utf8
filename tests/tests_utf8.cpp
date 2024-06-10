@@ -2,6 +2,7 @@
 #include <windows.h>
 #include <utf8/utf8.h>
 #include <iostream>
+#include <filesystem>
 #include <tuple>
 
 #include "resource.h"
@@ -13,15 +14,34 @@ using namespace utf8;
 
 TEST_MAIN (int argc, char **argv)
 {
-  if (argc > 1)
-    return UnitTest::RunSuite (argv[1]);
-  std::cout << "CWD: " << getcwd () << endl;
-  std::cout << "argv[0]: " << argv[0] << endl; 
-
-  UnitTest::RunAllTests ();
-  std::ofstream os ("utf8_tests.xml");
-  UnitTest::ReporterXml xml (os);
-  return UnitTest::RunAllTests (xml);
+  const char* suite_under_test = nullptr;
+  std::cerr << "Running " << *argv++ << endl
+    << "working directory is: " << getcwd () << endl;
+  --argc;
+  if (argc && (*argv)[0] == '-')
+  {
+    if (!strcmp (*argv, "-s") && argc > 1)
+    {
+      ++argv;
+      return UnitTest::RunSuite (argv[1]);
+    }
+    else
+    {
+      std::cerr << "Invalid syntax." << endl;
+      exit (-1);
+    }
+  }
+  if (argc)
+  {
+    std::filesystem::path xml_filename(*argv);
+    std::ofstream xml_stream (xml_filename);
+    UnitTest::ReporterXml xml(xml_stream);
+    std::cerr << "Output sent to " 
+              << std::filesystem::absolute (xml_filename) << endl;
+    return RunAllTests (xml);
+  }
+  else
+    return UnitTest::RunAllTests ();
 }
 
 TEST (narrow_with_null)
