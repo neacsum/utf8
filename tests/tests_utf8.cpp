@@ -23,7 +23,7 @@ TEST_MAIN (int argc, char **argv)
     if (!strcmp (*argv, "-s") && argc > 1)
     {
       ++argv;
-      return UnitTest::RunSuite (argv[1]);
+      return UnitTest::RunSuite (*argv);
     }
     else
     {
