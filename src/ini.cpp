@@ -296,7 +296,7 @@ bool IniFile::PutInt (const std::string& key, long value, const std::string& sec
 bool IniFile::PutDouble (const std::string& key, double value, const std::string& section, int dec)
 {
   char buffer[80];
-  sprintf (buffer, "%.*lf", dec, value);
+  snprintf (buffer, sizeof(buffer), "%.*lf", dec, value);
   return PutString (key, buffer, section);
 }
 
