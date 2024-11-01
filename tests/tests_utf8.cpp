@@ -1,13 +1,18 @@
 ﻿#include <utpp/utpp.h>
-#include <windows.h>
 #include <utf8/utf8.h>
 #include <iostream>
 #include <filesystem>
 #include <tuple>
 
-#include "resource.h"
+#if USE_WINDOWS_API
+#include <windows.h>
+#endif
+
 
 #pragma warning (disable : 4566)
+#ifndef _WIN32
+#pragma GCC diagnostic ignored "-Wformat-security"
+#endif
 
 using namespace std;
 using namespace utf8;
@@ -164,7 +169,11 @@ TEST (wemoji)
 {
   const wchar_t *wsmiley = L"😄";
   size_t wlen = wcslen (wsmiley);
+#ifdef _WIN32
   CHECK_EQUAL (2, wlen);
+#else
+  CHECK_EQUAL (1, wlen);
+#endif
   string smiley = narrow (wsmiley);
   CHECK_EQUAL ("\xF0\x9f\x98\x84", smiley);
 }
@@ -189,8 +198,8 @@ TEST (next)
 {
   string emojis{ u8"😃😎😛" };
   int i = 0;
-  auto ptr = emojis.begin ();
-  while (ptr != emojis.end ())
+  auto ptr = emojis.cbegin ();
+  while (ptr != emojis.cend ())
   {
     next (ptr, emojis.end ());
     i++;
@@ -272,7 +281,7 @@ TEST (next_invalid_replace)
   string s4 = u8"😃";
   auto prev_mode = utf8::error_mode(utf8::action::replace);
 
-  auto p = s2.begin () + 1;
+  auto p = s2.cbegin () + 1;
   CHECK_EQUAL (utf8::REPLACEMENT_CHARACTER, next (p, s2.end ()));
   p = s3.begin () + 1;
   CHECK_EQUAL (utf8::REPLACEMENT_CHARACTER, next (p, s3.end ()));
@@ -433,9 +442,9 @@ TEST (prev_invalid_str)
   p = end (invalid_6);
   CHECK_EQUAL (utf8::REPLACEMENT_CHARACTER, prev (p, begin (invalid_6)));
 
-  std::string s2 = "x°";
-  std::string s3 = "x€";
-  std::string s4 = "x😃";
+  std::string s2 = u8"x°";
+  std::string s3 = u8"x€";
+  std::string s4 = u8"x😃";
   p = s2.end ()-1;
   CHECK_EQUAL (utf8::REPLACEMENT_CHARACTER, prev (p, begin (s2)));
   p = end (s3) - 1;
@@ -480,7 +489,7 @@ TEST (throw_invalid_char32)
 // test for runes function (conversion from UTF8 to UTF32)
 TEST (runes)
 {
-  string emojis{ "😃😎😛" };
+  string emojis{ u8"😃😎😛" };
   u32string emojis32 = runes (emojis);
   CHECK_EQUAL (3, emojis32.size ());
   CHECK_EQUAL (0x1f603, (int)emojis32[0]);
@@ -493,256 +502,35 @@ TEST (dir)
   obtain the current working directory and verify that it matches the name
   of the newly created folder */
 
-  string dirname = "ελληνικό";
-  CHECK (mkdir (dirname));   //mkdir returns true  for success
+  string dirname = u8"ελληνικό";
+  CHECK (utf8::mkdir (dirname));   //mkdir returns true  for success
 
   //enter newly created directory
-  CHECK (chdir (dirname));   //chdir returns true for success
+  CHECK (utf8::chdir (dirname));   //chdir returns true for success
 
   //Path returned by getcwd should end in our Greek string
   string cwd = getcwd ();
-  size_t idx = cwd.rfind ("\\");      //last backslash
+  
+  //find last path separator
+#ifdef _WIN32
+  size_t idx = cwd.rfind ("\\");
+#else
+  size_t idx = cwd.rfind ("/");
+#endif
   string last = cwd.substr (idx+1);
   CHECK_EQUAL (dirname, last);
 
   //Move out of directory and remove it
-  chdir ("..");
-  CHECK (rmdir (dirname));    //rmdir returrs true for success
+  utf8::chdir ("..");
+  CHECK (utf8::rmdir (dirname));    //rmdir returrs true for success
 }
 
-TEST (symlink)
-{
-  /* Make a folder using Greek alphabet, and another one using Armenian.
-  enter the 2nd directory and create a link to the first. It verifies a file
-  created in the first directory is visible through the symlink.*/
-
-  //make first directory
-  CHECK (mkdir ("ελληνικό"));
-  chdir ("ελληνικό");
-  //and a file in it
-  utf8::ofstream out ("f.txt");
-  out << "text" << endl;
-  out.close ();
-  chdir ("..");
-  //make 2nd directory
-  CHECK (mkdir ("Հայերեն"));
-  chdir ("Հայերեն");
-  //and symlink to first
-  CHECK (symlink (u8"..\\ελληνικό", "पंजाबी", true));
-  //change into symlink
-  chdir ("पंजाबी");
-  utf8::ifstream in ("f.txt");
-  string str;
-  in >> str;
-  CHECK_EQUAL ("text", str);
-  in.close ();
-
-  //cleanup
-  utf8::remove ("f.txt");
-  chdir ("..");
-  rmdir ("पंजाबी");
-  chdir ("..");
-  rmdir ("Հայերեն");
-  rmdir ("ελληνικό");
-}
-
-TEST (out_stream)
-{
-  /* Write some text in a file with a UTF8 encoded filename. Verifies using
-  standard Windows file reading that content was written. */
-
-  string filename = "ελληνικό";
-  string filetext{ "😃😎😛" };
-
-  utf8::ofstream u8strm(filename);
-
-  u8strm << filetext << endl;
-  u8strm.close ();
-
-  HANDLE f = CreateFile (utf8::widen (filename).c_str (), GENERIC_READ, 0,
-    NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
-  CHECK (f);
-
-  char read_back[80];
-  memset (read_back, 0, sizeof (read_back));
-
-  size_t len = filetext.size();
-  DWORD nr;
-  CHECK (ReadFile (f, read_back, (DWORD)len, &nr, NULL));
-  CloseHandle (f);
-  CHECK_EQUAL (len, nr);
-  CHECK_EQUAL (filetext, read_back);
-
-  //Read back using utf8::fopen API
-  auto fil = utf8::fopen (filename, "r");
-  CHECK (fil);
-  if (fil)
-  {
-    nr = (DWORD)fread (read_back, sizeof (char), len, fil);
-    CHECK_EQUAL (len, nr);
-    CHECK_EQUAL (filetext, read_back);
-    fclose (fil);
-  }
-
-  //cleanup
-  CHECK (remove (filename));
-}
-
-TEST (in_stream)
-{
-  /* write some stuff in file using utf8::ofstream object and read it
-  back using utf8::ifstream. Verify read back matches original.*/
-
-  string filetext{ "ελληνικό" };
-  string filename{ "😃😎😛" };
-
-  utf8::ofstream u8out (filename);
-
-  u8out << filetext << endl;
-  u8out.close ();
-
-  utf8::ifstream u8in (filename);
-
-  char read_back[80];
-  memset (read_back, 0, sizeof (read_back));
-  u8in.getline (read_back, sizeof (read_back));
-
-  CHECK_EQUAL (filetext, read_back);
-
-  u8in.close ();
-  CHECK (remove (filename));
-}
-
-TEST (fopen_write)
-{
-  /* Write some text in a file with a UTF8 encoded filename. Verifies using
-  standard Windows file reading that content was written. */
-
-  string filename = "ελληνικό";
-  string filetext{ "😃😎😛" };
-  FILE *u8file = utf8::fopen (filename, "w");
-  ABORT_EX (!u8file, "Failed to create output file");
-
-  fwrite (filetext.c_str(), sizeof(char), filetext.length(), u8file);
-  fclose (u8file);
-
-  HANDLE f = CreateFile (utf8::widen (filename).c_str (), GENERIC_READ, 0,
-    NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
-  CHECK (f);
-
-  char read_back[80];
-  memset (read_back, 0, sizeof (read_back));
-
-  size_t len = filetext.size ();
-  DWORD nr;
-  CHECK (ReadFile (f, read_back, (DWORD)len, &nr, NULL));
-  CloseHandle (f);
-  CHECK (remove (filename));
-  CHECK_EQUAL (len, nr);
-  CHECK_EQUAL (filetext, read_back);
-}
-
-TEST (full_path)
-{
-  const char* fname = "file.txt";
-  FILE* f = ::fopen (fname, "w");
-  fclose (f);
-
-  char full[_MAX_PATH];
-  _fullpath (full, fname, sizeof (full));
-  CHECK_EQUAL (full, utf8::fullpath (fname));
-  ::remove (fname);
-}
-
-
-TEST (make_splitpath)
-{
-  const string dir{ "ελληνικό αλφάβητο" },
-    fname{ "😃😎😛" };
-  string path;
-  CHECK (utf8::makepath (path, "C", dir, fname, ".txt"));
-  wstring wpath = widen (path);
-  CHECK_EQUAL ("C:ελληνικό αλφάβητο\\😃😎😛.txt", path);
-  string drv1, dir1, fname1, ext1;
-  CHECK (splitpath (path, drv1, dir1, fname1, ext1));
-
-  CHECK_EQUAL ("C:", drv1);
-  CHECK_EQUAL (dir + "\\", dir1);
-  CHECK_EQUAL (fname, fname1);
-  CHECK_EQUAL (".txt", ext1);
-}
-
-TEST (get_putenv)
-{
-  //a long variable
-  string path = utf8::getenv ("PATH");
-  CHECK (!path.empty ());
-
-  utf8::putenv ("ελληνικό=😃😎😛");
-  CHECK_EQUAL ("😃😎😛", utf8::getenv ("ελληνικό"));
-
-  utf8::putenv ("ελληνικό", string ());
-  CHECK (utf8::getenv ("ελληνικό").empty ());
-}
-
-TEST (msgbox)
-{
-#if 0
-  //requires user's intervention
-  utf8::MessageBox (NULL, "ελληνικό", "😃😎😛", MB_ICONINFORMATION);
-#endif
-}
-
-TEST (buffer_test)
-{
-  utf8::buffer buf (_MAX_PATH);
-
-  // You can set a buffer to a an initial value through the string assignment
-  // operator
-  string tmp{ "Some initial value" };
-  buf = tmp;
-
-  CHECK_EQUAL (tmp, (string)buf);
-  // size doesn't shrink when assigning a string 
-  CHECK_EQUAL (_MAX_PATH, buf.size ());
-
-  //Copy ctor
-  utf8::buffer buf1(buf);
-  CHECK_EQUAL (tmp, (string)buf1);
-  CHECK_EQUAL (_MAX_PATH, buf1.size ());
-
-  //Principal assignment operator
-  utf8::buffer buf2 (50);
-  buf2 = buf1;
-  CHECK_EQUAL (tmp, (string)buf2);
-  //After buffer assignment, size matches the right-hand side size
-  CHECK_EQUAL (_MAX_PATH, buf2.size ());
-}
-
-TEST (Temp_FileName)
-{
-  wstring wpath (_MAX_PATH, L'\0');
-  wstring wfname (_MAX_PATH, L'\0');
-
-  GetTempPathW ((DWORD)wpath.size (), const_cast<wchar_t*>(wpath.data ()));
-
-  UINT ret = ::GetTempFileNameW (wpath.c_str(), L"ÄñΩ",
-    1, const_cast<wchar_t*>(wfname.data ()));
-  CHECK (ret > 0);
-
-
-  //Do the same thing with utf8::GetTempPath and utf8::GetTempFileName
-  auto fname =  utf8::GetTempFileName (utf8::GetTempPath (), "ÄñΩ", 1);
-
-  //see that we get the same result
-  CHECK_EQUAL (narrow (wfname.c_str()), fname);
-}
 
 //check in-place versions of case folding functions
 TEST (case_conversion_inplace)
 {
-  string lc{ "mircea neacșu ăâățî" };
-  string uc{ "MIRCEA NEACȘU ĂÂĂȚÎ" };
+  string lc{ u8"mircea neacșu ăâățî" };
+  string uc{ u8"MIRCEA NEACȘU ĂÂĂȚÎ" };
   string t = lc;
   utf8::make_upper (t);
   CHECK_EQUAL (uc, t);
@@ -754,81 +542,31 @@ TEST (case_conversion_inplace)
 //check string-returning versions of case folding functions
 TEST (case_conversion_ret)
 {
-  string uc = utf8::toupper ("αλφάβητο");
-  CHECK_EQUAL ("ΑΛΦΆΒΗΤΟ", uc);
-  CHECK_EQUAL ("αλφάβητο", utf8::tolower ("ΑΛΦΆΒΗΤΟ"));
+  string uc = utf8::toupper (u8"αλφάβητο");
+  CHECK_EQUAL (u8"ΑΛΦΆΒΗΤΟ", uc);
+  CHECK_EQUAL (u8"αλφάβητο", utf8::tolower (u8"ΑΛΦΆΒΗΤΟ"));
 }
 
 //check case-insensitive comparison
 TEST (icompare_equal)
 {
-  string lc{ "mircea neacșu ăâățî" };
-  string uc{ "MIRCEA NEACȘU ĂÂĂȚÎ" };
+  string lc{ u8"mircea neacșu ăâățî" };
+  string uc{ u8"MIRCEA NEACȘU ĂÂĂȚÎ" };
   CHECK (utf8::icompare (lc, uc) == 0);
 }
 
 TEST (icompare_less)
 {
-  string lc{ "mircea neacșu ăâățî" };
-  string uc{ "MIRCEA NEACȘU ĂÂĂȚÎ " };
+  string lc{ u8"mircea neacșu ăâățî" };
+  string uc{ u8"MIRCEA NEACȘU ĂÂĂȚÎ " };
   CHECK (utf8::icompare (lc, uc) < 0);
 }
 
 TEST (icompare_greater)
 {
-  string lc{ "mircea neacșu ăâățî" };
-  string uc{ "MIRCEA NEACȘU ĂÂ2ȚÎ" };
+  string lc{ u8"mircea neacșu ăâățî" };
+  string uc{ u8"MIRCEA NEACȘU ĂÂ2ȚÎ" };
   CHECK (utf8::icompare (lc, uc) > 0);
-}
-
-static std::string mydir ()
-{
-  auto fname = GetModuleFileName ();
-  std::string drive, dir, name, ext;
-  splitpath (fname, drive, dir, name, ext);
-  return drive+dir;
-}
-
-// find files named "test*" using find_first/find_next functions
-TEST (find)
-{
-  find_data fd;
-  bool ret = find_first (mydir()+"test*", fd);
-  cout << "find_first: " << fd.filename << " - " << fd.size/1024 << "kb" << endl;
-  CHECK (ret);
-  while (ret)
-  {
-    ret = find_next (fd);
-    if (ret)
-      cout << "find_next: " << fd.filename << " - " << fd.size / 1024 << "kb" << endl;
-  }
-  cout << endl;
-  CHECK_EQUAL (ERROR_NO_MORE_FILES, GetLastError ());
-  find_close (fd);
-}
-
-// same thing as above using the file_enumerator class
-TEST (find_with_finder)
-{
-  file_enumerator f(mydir()+"test*");
-  CHECK (f.ok());
-  while (f.ok ())
-  {
-    cout << "finder: " << f.filename << " - " << f.size / 1024 << "kb" << endl;
-    f.next ();
-  }
-}
-
-TEST (find_missing_file)
-{
-  file_enumerator f ("no such file");
-  CHECK (!f.ok ());
-}
-
-TEST (bool_op_missing_file)
-{
-  file_enumerator found ("no such file");
-  CHECK (!found);
 }
 
 // test character classes in 0-127 range match standard functions
@@ -844,7 +582,7 @@ TEST (char_class)
     temp[0] = chartab[i];
     temp[1] = 0;
     char tst[80];
-    sprintf_s (tst, "testing char %d", i);
+    snprintf (tst, sizeof(tst), "testing char %d", i);
     CHECK_EQUAL_EX ((bool)isalpha (chartab[i]), utf8::isalpha (temp), tst);
     CHECK_EQUAL_EX ((bool)isalnum (chartab[i]), utf8::isalnum (temp), tst);
     CHECK_EQUAL_EX ((bool)(isdigit) (chartab[i]), utf8::isdigit (temp), tst);
@@ -875,8 +613,8 @@ TEST (skip_spaces)
 // test character classes outside the 0-127 range
 TEST (is_upper_lower)
 {
-  const char* uc{ "MIRCEANEACȘUĂÂȚÎ" };
-  const char* lc{ "mirceaneacșuăâțî" };
+  const char* uc{ u8"MIRCEANEACȘUĂÂȚÎ" };
+  const char* lc{ u8"mirceaneacșuăâțî" };
 
   for (auto p = uc; *p; next (p))
     CHECK (isupper (p));
@@ -888,8 +626,8 @@ TEST (is_upper_lower)
 // test character classes outside the 0-127 range using string iterators
 TEST (is_upper_lower_str)
 {
-  const std::string uc{ "MIRCEANEACȘUĂÂȚÎ" };
-  const std::string lc{ "mirceaneacșuăâțî" };
+  const std::string uc{ u8"MIRCEANEACȘUĂÂȚÎ" };
+  const std::string lc{ u8"mirceaneacșuăâțî" };
 
   auto it = uc.cbegin ();
   while (it != uc.cend())
@@ -907,8 +645,8 @@ TEST (is_upper_lower_str)
 
 TEST (lower_substring)
 {
-  const string uc{ "ȚEPUȘ nicolae" };
-  const string lc{ "Țepuș nicolae" };
+  const string uc{ u8"ȚEPUȘ nicolae" };
+  const string lc{ u8"Țepuș nicolae" };
 
   auto p = uc.begin ();
   string s = utf8::narrow (utf8::rune (p));
@@ -916,24 +654,6 @@ TEST (lower_substring)
   s += utf8::tolower (string (p, uc.end ()));
 
   CHECK_EQUAL (lc, s);
-}
-
-TEST (func_load_string)
-{
-  auto uc = utf8::LoadString (IDS_UC);
-  auto lc = utf8::LoadString (IDS_LC);
-
-  CHECK_EQUAL (lc, utf8::tolower (uc));
-}
-
-TEST (func_get_module_filename)
-{
-  string exe_name;
-  CHECK (utf8::GetModuleFileName (nullptr, exe_name));
-  CHECK_EQUAL (exe_name, utf8::GetModuleFileName ());
-  exe_name.erase (exe_name.begin(), std::find_if (exe_name.rbegin (), exe_name.rend (),
-    [](char ch) {return ch == '\\'; }).base());
-  CHECK_EQUAL ("tests.exe", exe_name);
 }
 
 /*
@@ -996,4 +716,3 @@ TEST (trim)
             u8"\u2006\u2007\u2008\u2009\u200A\u202f\u205f\u3000");
   CHECK_EQUAL (t, u8"MIRCEA NEACȘU ĂÂȚÎ");
 }
-

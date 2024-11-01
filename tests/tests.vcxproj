@@ -168,8 +168,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="tests_ini.cpp" />
-    <ClCompile Include="tests_registry.cpp" />
     <ClCompile Include="tests_utf8.cpp" />
+    <ClCompile Include="tests_win.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h" />

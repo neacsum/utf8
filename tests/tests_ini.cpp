@@ -3,7 +3,12 @@
 #include <utf8/utf8.h>
 #include <utpp/utpp.h>
 
+#include <thread>
+#include <chrono>
+
 using namespace std;
+using namespace chrono_literals;
+
 SUITE (IniTests)
 {
   /*
@@ -13,7 +18,7 @@ SUITE (IniTests)
   {
     char val[80];
     utf8::remove ("test.ini");
-    Sleep (200);
+    this_thread::sleep_for (200ms);
     utf8::IniFile test ("test.ini");
 
     // new file
@@ -36,7 +41,7 @@ SUITE (IniTests)
     utf8::remove ("test.ini");
   }
 
-
+#if USE_WINDOWS_API
   TEST (Compatibility)
   {
     char val[80];
@@ -189,7 +194,7 @@ SUITE (IniTests)
 
     remove ("test.ini");
   }
-
+#endif
 
   // Check malformed section line
   TEST (Malformed_section)
@@ -232,6 +237,7 @@ SUITE (IniTests)
     remove ("test.ini");
   }
 
+#if USE_WINDOWS_API
   TEST (Put_Spaced_Params)
   {
     utf8::IniFile ini{ "test.ini" };
@@ -242,12 +248,13 @@ SUITE (IniTests)
     CHECK_EQUAL ("value00", val);
     remove ("test.ini");
   }
+#endif
 
   // Check GetString that returns a C++ string
   TEST (GetStringString)
   {
     utf8::remove ("test.ini");
-    Sleep (200);
+    this_thread::sleep_for (200ms);
     utf8::IniFile test ("test.ini");
     CHECK (test.PutString ("key0", "value00", "section0"));
     CHECK (test.PutString ("key1", "value01", "section0"));
@@ -261,7 +268,11 @@ SUITE (IniTests)
   //Check PutString, PutDouble, PutInt, PutBool fail when ini file cannot be created
   TEST (IniNotCreated)
   {
+#ifdef _WIN32
     utf8::IniFile test ("inexistent folder\\test.ini");
+#else
+    utf8::IniFile test ("inexistent folder/test.ini");
+#endif
     CHECK (!test.PutString ("key0", "value00", "section0"));
     CHECK (!test.PutDouble ("key1", 123.45, "section0"));
     CHECK (!test.PutInt ("key1", 123, "section0"));
@@ -273,7 +284,7 @@ SUITE (IniTests)
   {
     char val[80];
     utf8::remove ("test.ini");
-    Sleep (200);
+    this_thread::sleep_for (200ms);
     utf8::IniFile test ("test.ini");
     CHECK (test.PutString ("key0", "value00", "section0"));
     CHECK (test.PutString ("key0", "newval", "section0"));
@@ -291,7 +302,7 @@ SUITE (IniTests)
   {
     char val[80];
     utf8::remove ("test.ini");
-    Sleep (200);
+    this_thread::sleep_for (200ms);
     utf8::IniFile test ("test.ini");
     test.PutString ("key0", "value00", "section0");
     test.PutString ("key1", "value01", "section0");
@@ -310,7 +321,7 @@ SUITE (IniTests)
   {
     char sections[80];
     utf8::remove ("test.ini");
-    Sleep (200);
+    this_thread::sleep_for (200ms);
     utf8::IniFile test ("test.ini");
     test.PutString ("key0", "value00", "section0");
     test.PutString ("key1", "value01", "section0");
@@ -327,7 +338,7 @@ SUITE (IniTests)
   {
     char sections[20];
     utf8::remove ("test.ini");
-    Sleep (200);
+    this_thread::sleep_for (200ms);
     utf8::IniFile test ("test.ini");
     test.PutString ("key0", "value00", "Asection12345678901234567890");
     test.PutString ("key1", "value01", "Bsection12345678901234567890");
@@ -342,7 +353,7 @@ SUITE (IniTests)
   {
     char buffer[256];
     utf8::remove ("test.ini");
-    Sleep (200);
+    this_thread::sleep_for (200ms);
     utf8::IniFile test ("test.ini");
     test.PutString ("key0", "value00", "section0");
     test.PutString ("key1", "value01", "section0");
@@ -363,7 +374,7 @@ SUITE (IniTests)
   TEST (GetKeys_deque)
   {
     utf8::remove ("test.ini");
-    Sleep (200);
+    this_thread::sleep_for (200ms);
     utf8::IniFile test ("test.ini");
     test.PutString ("key0", "value00", "section0");
     test.PutString ("key1", "value01", "section0");
@@ -382,7 +393,7 @@ SUITE (IniTests)
   {
     char buffer[20];
     utf8::remove ("test.ini");
-    Sleep (200);
+    this_thread::sleep_for (200ms);
     utf8::IniFile test ("test.ini");
     test.PutString ("key0", "value00", "section0");
     test.PutString ("key1", "value01", "section0");
@@ -399,7 +410,7 @@ SUITE (IniTests)
   TEST (HasSection)
   {
     utf8::remove ("test.ini");
-    Sleep (200);
+    this_thread::sleep_for (200ms);
     utf8::IniFile test ("test.ini");
     test.PutString ("key0", "value00", "section0");
     test.PutString ("key1", "value01", "section0");
@@ -418,7 +429,7 @@ SUITE (IniTests)
     char strval[80];
 
     utf8::remove (filename);
-    Sleep (200);
+    this_thread::sleep_for (200ms);
     utf8::IniFile greek (filename);
     CHECK (greek.PutInt ("Integer", 1, "Keys"));
     CHECK_EQUAL (1, greek.GetInt ("Integer", "Keys", 2));
@@ -435,7 +446,7 @@ SUITE (IniTests)
     const char *quoted = "\"Quoted String with \" in the middle\"";
     char buffer[256];
     utf8::remove ("test.ini");
-    Sleep (200);
+    this_thread::sleep_for (200ms);
     utf8::IniFile test ("test.ini");
     test.PutString ("key0", quoted, "section");
     test.GetString (buffer, sizeof (buffer), "key0", "section");
@@ -456,7 +467,11 @@ SUITE (IniTests)
     CHECK_EQUAL ("value01", f2.GetString ("key1", "section1"));
 
     //same file but different name
+#ifdef _WIN32
     utf8::IniFile f3{ ".\\test1.ini" };
+#else
+    utf8::IniFile f3{ "./test1.ini" };
+#endif
     CHECK (f3.CopySection (f1, "section0"));
     CHECK_EQUAL ("value00", f3.GetString ("key0", "section0"));
 

@@ -95,12 +95,14 @@ bool valid_str (const char* s, size_t nch = 0);
 bool valid_str (const std::string& s);
 
 char32_t next (std::string::const_iterator& ptr, const std::string::const_iterator last);
+char32_t next (std::string::iterator& ptr, const std::string::const_iterator last);
 char32_t next (const char*& ptr);
 char32_t next (char*& p);
 
 char32_t prev (const char*& ptr);
 char32_t prev (char*& ptr);
 char32_t prev (std::string::const_iterator& ptr, const std::string::const_iterator first);
+char32_t prev (std::string::iterator& ptr, const std::string::const_iterator first);
 
 size_t length (const std::string& s);
 size_t length (const char* s);
@@ -260,6 +262,20 @@ bool is_valid (std::string::const_iterator p, const std::string::const_iterator 
   bool valid = (next (p, last) != REPLACEMENT_CHARACTER);
   error_mode (prev_mode);
   return valid;
+}
+
+/// @copydoc char32_t prev (std::string::const_iterator& ptr, const std::string::const_iterator first);
+inline
+char32_t next (std::string::iterator& ptr, const std::string::const_iterator last)
+{
+  return next (*(std::string::const_iterator*)(&ptr), last);
+}
+
+/// @copydoc char32_t prev (std::string::const_iterator& ptr, const std::string::const_iterator first);
+inline
+char32_t prev (std::string::iterator& ptr, const std::string::const_iterator first)
+{
+  return prev (*(std::string::const_iterator*)(&ptr), first);
 }
 
 /*!
