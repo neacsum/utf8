@@ -4,8 +4,7 @@
     "https": "https://github.com/neacsum/utf8.git",
     "build": [
       {"os": "windows", "cmd": "build.bat", "args": ["lib"]},
-      {"os": "linux", "cmd": "cmake", "args": ["--workflow", "--preset", "x64"]}
-	  
+      {"os": "linux darwin", "cmd": "cmake", "args": ["--workflow", "--preset", "x64"]}	  
     ], 
     "depends": [
         {
