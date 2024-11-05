@@ -9,8 +9,8 @@ target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/include)
 
 add_custom_command(
   OUTPUT ${PROJECT_SOURCE_DIR}/include/uppertab.h ${PROJECT_SOURCE_DIR}/include/lowertab.h
-  COMMAND $<TARGET_FILE:gen_casetab> ${PROJECT_SOURCE_DIR}/tools/gen_casetab/CaseFolding.txt ${PROJECT_SOURCE_DIR}/include
-  MAIN_DEPENDENCY ${PROJECT_SOURCE_DIR}/tools/gen_casetab/CaseFolding.txt
+  COMMAND $<TARGET_FILE:gen_casetab> ${PROJECT_SOURCE_DIR}/data/UnicodeData.txt ${PROJECT_SOURCE_DIR}/include
+  MAIN_DEPENDENCY ${PROJECT_SOURCE_DIR}/data/UnicodeData.txt
   DEPENDS gen_casetab
   VERBATIM
 )

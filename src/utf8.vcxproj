@@ -109,7 +109,7 @@
     <PreBuildEvent />
     <PreBuildEvent />
     <PreBuildEvent>
-      <Command>if not exist "$(SolutionDir)include\uppertab.h" "$(SolutionDir)build\gen_casetab.exe" "$(SolutionDir)tools\gen_casetab\casefolding.txt" "$(SolutionDir)include" </Command>
+      <Command>if not exist "$(SolutionDir)include\uppertab.h" "$(SolutionDir)build\gen_casetab.exe" "$(SolutionDir)data\UnicodeData.txt" "$(SolutionDir)include" </Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -131,7 +131,7 @@
     <PreBuildEvent />
     <PreBuildEvent />
     <PreBuildEvent>
-      <Command>if not exist "$(SolutionDir)include\uppertab.h" "$(SolutionDir)build\gen_casetab.exe" "$(SolutionDir)tools\gen_casetab\casefolding.txt" "$(SolutionDir)include" </Command>
+      <Command>if not exist "$(SolutionDir)include\uppertab.h" "$(SolutionDir)build\gen_casetab.exe" "$(SolutionDir)data\UnicodeData.txt" "$(SolutionDir)include" </Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -157,7 +157,7 @@
     <PreBuildEvent />
     <PreBuildEvent />
     <PreBuildEvent>
-      <Command>if not exist "$(SolutionDir)include\uppertab.h" "$(SolutionDir)build\gen_casetab.exe" "$(SolutionDir)tools\gen_casetab\casefolding.txt" "$(SolutionDir)include" </Command>
+      <Command>if not exist "$(SolutionDir)include\uppertab.h" "$(SolutionDir)build\gen_casetab.exe" "$(SolutionDir)data\UnicodeData.txt" "$(SolutionDir)include" </Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -183,7 +183,7 @@
     <PreBuildEvent />
     <PreBuildEvent />
     <PreBuildEvent>
-      <Command>if not exist "$(SolutionDir)include\uppertab.h" "$(SolutionDir)build\gen_casetab.exe" "$(SolutionDir)tools\gen_casetab\casefolding.txt" "$(SolutionDir)include" </Command>
+      <Command>if not exist "$(SolutionDir)include\uppertab.h" "$(SolutionDir)build\gen_casetab.exe" "$(SolutionDir)data\UnicodeData.txt" "$(SolutionDir)include" </Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

@@ -1,9 +1,9 @@
 /*
   Generate case folding tables (UCASETAB.H and LCASETAB.H) from
-  CASEFOLDING.TXT file.
+  UnicodeData.txt file.
 
   Latest version of case folding table can be downloaded from:
-  https://www.unicode.org/Public/UCD/latest/ucd/CaseFolding.txt
+  https://www.unicode.org/Public/UCD/latest/ucd/UnicodeData.txt
 */
 
 
@@ -22,12 +22,39 @@ struct codept {
   string descr;
 };
 
-vector<codept> tab;
+/*
+  Fields in input file. For a description of format see:
+  https://www.unicode.org/reports/tr44/#Property_Definitions
+*/
+#define CODE_FIELD 0  //character code
+#define DESCR_FIELD 1 //description
+#define UC_FIELD 12   //upper case equivalent
+#define LC_FIELD 13   //lower case equivalent
+#define NUM_FIELDS 14 //number of fields
+
+// Parse fields in one line of input data file
+bool parse (const char* line, vector<string>& arr)
+{
+  int nf = 0;
+  arr.clear ();
+  while (line)
+  {
+    const char* pend = strchr (line, ';');
+    if (!pend)
+      break;
+    size_t len = pend - line;
+    arr.push_back (len ? string (line, len) : string ());
+    line = pend + 1;
+    ++nf;
+  }
+  return (nf == 14);
+}
 
 int main (int argc, char **argv)
 {
   char line[1024];
-  char *ptr;
+  vector<codept> tab;
+
   codept code;
   printf ("gen_casetab running. Command line is:\n");
   for (int i = 0; i < argc; i++)
@@ -49,23 +76,26 @@ int main (int argc, char **argv)
     exit (1);
   }
   printf ("Starting...\n");
+
+  //Generate upper case -> lower case table
   while (in)
   {
+    vector<string> fields;
     in.getline (line, sizeof (line));
-    printf ("%s\n", line);
+    // printf ("%s\n", line);
     if (!strlen(line) || line[0] == '#' || line[0] == '\r')
       continue; //ignore empty and comment lines
-    if (!(ptr = strtok (line, "; ")))
+    if (!parse (line, fields))
+    {
+      printf ("Cannot parse line:\n%s\n", line);
       continue;
-    code.uc = strtol (ptr, nullptr, 16);
-    ptr = strtok (nullptr, "; ");
-    if (*ptr != 'C' && *ptr != 'S')
+    }
+    if (fields[LC_FIELD].empty ())
       continue;
-    ptr = strtok (nullptr, "; ");
-    code.lc = strtol (ptr, nullptr, 16);
-    ptr = strtok (nullptr, ";");
-    ptr = strchr (ptr, '#') + 1;
-    code.descr = ptr;
+
+    code.uc = strtol (fields[CODE_FIELD].c_str(), nullptr, 16);
+    code.lc = strtol (fields[LC_FIELD].c_str(), nullptr, 16);
+    code.descr = fields[DESCR_FIELD];
     tab.push_back (code);
   }
 
@@ -98,36 +128,40 @@ int main (int argc, char **argv)
   }
   out.close ();
 
+  in.clear ();
+  in.seekg (0); //rewind
+  tab.clear ();
 
-  //Sort table by lower case codes
-  sort (tab.begin (), tab.end (),
-    [](codept& p1, codept& p2)->bool {return p1.lc < p2.lc; });
-
-  //check for duplicates
-  for (size_t i = 0; i < tab.size () - 1; i++)
+  //Generate lower case -> upper case table
+  while (in)
   {
-    if (tab[i].lc == tab[i + 1].lc)
-    {
-      printf ("Duplicate lowercase: %05x:\n Upper case %05x - %s\n and  %05x %s\n\n",
-        (int)tab[i].lc, (int)tab[i].uc, tab[i].descr.c_str (), (int)tab[i + 1].uc,
-        tab[i + 1].descr.c_str ());
-      tab.erase (tab.begin () + i+1);
-    }
+    vector<string> fields;
+    in.getline (line, sizeof (line));
+    // printf ("%s\n", line);
+    if (!strlen (line) || line[0] == '#' || line[0] == '\r')
+      continue; //ignore empty and comment lines
+    parse (line, fields);
+    if (fields[UC_FIELD].empty ())
+      continue;
+
+    code.uc = strtol (fields[UC_FIELD].c_str (), nullptr, 16);
+    code.lc = strtol (fields[CODE_FIELD].c_str (), nullptr, 16);
+    code.descr = fields[DESCR_FIELD];
+    tab.push_back (code);
   }
 
   out.open (string(argv[2]) + "/lowertab.h");
   out << "//Lower case table" << dec << endl
-    << "static const char32_t l2u [" << tab.size () << "] = { ";
+    << "static const char32_t l2u [" << tab.size () << "] = { " << endl;
   out << hex;
   for (size_t i = 0; i < tab.size (); i++)
   {
-    if (i % 8 == 0)
-      out << endl << "  ";
-    out << "0x" << std::setfill ('0') << std::setw (5) << tab[i].lc;
+    out << "  0x" << std::setfill ('0') << std::setw (5) << tab[i].lc;
     if (i == tab.size () - 1)
       out << "};";
     else
       out << ", ";
+    out << "// " << tab[i].descr.c_str () << endl;
   }
   out << dec << endl;
   out << "//Upper case equivalents" << endl
@@ -135,14 +169,16 @@ int main (int argc, char **argv)
   out << hex;
   for (size_t i = 0; i < tab.size (); i++)
   {
-    out << "  0x" << std::setfill ('0') << std::setw (5) << tab[i].uc;
+    if (i % 8 == 0)
+      out << endl << "  ";
+    out << "0x" << std::setfill ('0') << std::setw (5) << tab[i].uc;
     if (i == tab.size () - 1)
       out << "};";
     else
       out << ", ";
-    out << "// " << tab[i].descr.c_str () << endl;
   }
   out.close ();
 
+  in.close ();
   return 0;
 }
