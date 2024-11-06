@@ -1,6 +1,6 @@
 /*
-  (c) Mircea Neacsu 2014-2023. Licensed under MIT License.
-  See README file for full license terms.
+  Copyright (c) Mircea Neacsu (2014-2024) Licensed under MIT License.
+  This is part of UTF8 project. See LICENSE file for full license terms.
 */
 
 ///  \file casecvt.cpp Implementation case folding functions
@@ -69,8 +69,8 @@ bool islower (const char* p)
   \param str UTF-8 string to convert to lowercase.
   \return lower case UTF-8 string
 
-  Uses case folding table published by Unicode Consortium
-  (https://www.unicode.org/Public/UCD/latest/ucd/CaseFolding.txt)
+  Uses case mapping table published by Unicode Consortium
+  (https://www.unicode.org/Public/UCD/latest/ucd/UnicodeData.txt)
 */
 
 std::string tolower (const std::string& str)
@@ -127,8 +127,8 @@ bool isupper (const char* p)
   \param str UTF-8 string to convert to uppercase.
   \return upper case UTF-8 string
 
-  Uses case folding table published by Unicode Consortium
-  (http://www.unicode.org/Public/UCD/latest/ucd/CaseFolding.txt)
+  Uses case mapping table published by Unicode Consortium
+  (https://www.unicode.org/Public/UCD/latest/ucd/UnicodeData.txt)
 */
 std::string toupper (const std::string& str)
 {

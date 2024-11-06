@@ -1,6 +1,6 @@
 ﻿/*
-  (c) Mircea Neacsu 2014-2023. Licensed under MIT License.
-  See README file for full license terms.
+  Copyright (c) Mircea Neacsu (2014-2024) Licensed under MIT License.
+  This is part of UTF8 project. See LICENSE file for full license terms.
 */
 
 /// \file utf8.h UTF-8 Conversion functions

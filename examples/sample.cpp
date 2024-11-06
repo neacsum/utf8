@@ -1,9 +1,10 @@
 ﻿/*
-  SAMPLE.CPP Example program for UTF8 functions
-
-  (c) Mircea Neacsu 2019. Licensed under MIT License.
-  See README file for full license terms.
+  Copyright (c) Mircea Neacsu (2014-2024) Licensed under MIT License.
+  This is part of UTF8 project. See LICENSE file for full license terms.
 */
+
+///  SAMPLE.CPP Example program for UTF8 functions
+
 #include <utf8/utf8.h>
 #include <utf8/ini.h>
 #include <iostream>

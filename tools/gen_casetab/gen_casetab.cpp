@@ -1,8 +1,13 @@
 /*
-  Generate case folding tables (UCASETAB.H and LCASETAB.H) from
+  Copyright (c) Mircea Neacsu (2014-2024) Licensed under MIT License.
+  This is part of UTF8 project. See LICENSE file for full license terms.
+*/
+
+/*
+  Generate case mapping tables (lowertab.h and uppertab.h) from
   UnicodeData.txt file.
 
-  Latest version of case folding table can be downloaded from:
+  Latest version of case mapping table can be downloaded from:
   https://www.unicode.org/Public/UCD/latest/ucd/UnicodeData.txt
 */
 
@@ -23,7 +28,7 @@ struct codept {
 };
 
 /*
-  Fields in input file. For a description of format see:
+  Fields in input file. For a description of input file format see:
   https://www.unicode.org/reports/tr44/#Property_Definitions
 */
 #define CODE_FIELD 0  //character code

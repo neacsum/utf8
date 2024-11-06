@@ -1,4 +1,8 @@
-﻿#include <utpp/utpp.h>
+﻿/*
+  Copyright (c) Mircea Neacsu (2014-2024) Licensed under MIT License.
+  This is part of UTF8 project. See LICENSE file for full license terms.
+*/
+#include <utpp/utpp.h>
 #include <utf8/utf8.h>
 #include <iostream>
 #include <filesystem>

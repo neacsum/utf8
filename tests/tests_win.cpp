@@ -1,4 +1,8 @@
-﻿#include <utpp/utpp.h>
+﻿/*
+  Copyright (c) Mircea Neacsu (2014-2024) Licensed under MIT License.
+  This is part of UTF8 project. See LICENSE file for full license terms.
+*/
+#include <utpp/utpp.h>
 #include <utf8/utf8.h>
 
 #if USE_WINDOWS_API
@@ -7,6 +11,7 @@
 
 using namespace std;
 
+// Windows specific tests
 SUITE (MS_Windows)
 {
   TEST (symlink)
@@ -306,7 +311,7 @@ SUITE (MS_Windows)
   }
 }
 
-SUITE (registry)
+SUITE (Registry)
 {
   
 const string key_name{ u8"αρχείο" };//Greek for "registry" according to Google

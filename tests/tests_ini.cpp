@@ -1,4 +1,8 @@
-﻿#define _CRT_SECURE_NO_WARNINGS
+﻿/*
+  Copyright (c) Mircea Neacsu (2014-2024) Licensed under MIT License.
+  This is part of UTF8 project. See LICENSE file for full license terms.
+*/
+#define _CRT_SECURE_NO_WARNINGS
 
 #include <utf8/utf8.h>
 #include <utpp/utpp.h>
