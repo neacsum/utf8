@@ -818,7 +818,7 @@ bool operator !=(const exception& lhs, const exception& rhs)
 
 }; //namespace utf8
 
-#ifdef _WIN32
+#if defined(_WIN32) && !defined(REPLACE_WIN32_APIS_UTF8)
 #include <utf8/winutf8.h>
 #endif
 #include <utf8/ini.h>
