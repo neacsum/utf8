@@ -10,21 +10,30 @@
 #include <vector>
 #include <fstream>
 
+// ------------- Global configuration options ---------------------------------
+
 /*!
-  If USE_WINDOWS_API is not zero, the library issues direct Windows API
+  If UTF8_USE_WINDOWS_API is not zero, the library issues direct Windows API
   calls. Otherwise it relies only on standard C++17 functions.
-  If not defined, USE_WINDOWS_API defaults to 1 on Windows platform.
+  If not defined, UTF8_USE_WINDOWS_API defaults to 1 on Windows platform.
 */
+// #define UTF8_USE_WINDOWS_API 0
 
-//#define USE_WINDOWS_API 0
+/*!
+  If UTF8_KEEP_WIN32_API is defined, WIN32 functions aren't redefined in utf8
+  namespace.
+*/
+// #define UTF8_KEEP_WIN32_API
 
-#if defined (_WIN32) && !defined (USE_WINDOWS_API)
-#define USE_WINDOWS_API 1
-#elif !defined (USE_WINDOWS_API)
-#define USE_WINDOWS_API 0
+// --------------- end of configuration options -------------------------------
+
+#if defined (_WIN32) && !defined (UTF8_USE_WINDOWS_API)
+#define UTF8_USE_WINDOWS_API 1
+#elif !defined (UTF8_USE_WINDOWS_API)
+#define UTF8_USE_WINDOWS_API 0
 #endif
 
-#if !USE_WINDOWS_API
+#if !UTF8_USE_WINDOWS_API
 #include <filesystem>
 
 #if (defined(_MSVC_LANG) && _MSVC_LANG < 201703L)                                                  \
@@ -562,7 +571,7 @@ FILE* fopen (const char* filename, const char* mode)
 inline
 std::string getcwd ()
 {
-#if USE_WINDOWS_API
+#if UTF8_USE_WINDOWS_API
   wchar_t tmp[_MAX_PATH];
   if (_wgetcwd (tmp, _countof (tmp)))
     return narrow (tmp);
@@ -590,7 +599,7 @@ std::string getcwd ()
 inline
 bool chdir (const std::string& dirname)
 {
-#if USE_WINDOWS_API
+#if UTF8_USE_WINDOWS_API
   return (_wchdir (widen (dirname).c_str ()) == 0);
 #else
 # ifdef _WIN32
@@ -608,7 +617,7 @@ bool chdir (const std::string& dirname)
 inline
 bool chdir (const char* dirname)
 {
-#if USE_WINDOWS_API
+#if UTF8_USE_WINDOWS_API
   return (_wchdir (widen (dirname).c_str ()) == 0);
 #else
 # ifdef _WIN32
@@ -632,7 +641,7 @@ bool chdir (const char* dirname)
 inline
 bool mkdir (const std::string& dirname)
 {
-#if USE_WINDOWS_API
+#if UTF8_USE_WINDOWS_API
   return (_wmkdir (widen (dirname).c_str ()) == 0);
 #else
 # ifdef _WIN32
@@ -651,7 +660,7 @@ bool mkdir (const std::string& dirname)
 inline
 bool mkdir (const char* dirname)
 {
-#if USE_WINDOWS_API
+#if UTF8_USE_WINDOWS_API
   return (_wmkdir (widen (dirname).c_str ()) == 0);
 #else
 # ifdef _WIN32
@@ -674,7 +683,7 @@ bool mkdir (const char* dirname)
 inline
 bool rmdir (const std::string& dirname)
 {
-#if USE_WINDOWS_API
+#if UTF8_USE_WINDOWS_API
   return (_wrmdir (widen (dirname).c_str ()) == 0);
 #else
 # ifdef _WIN32
@@ -692,7 +701,7 @@ bool rmdir (const std::string& dirname)
 inline
 bool rmdir (const char* dirname)
 {
-#if USE_WINDOWS_API
+#if UTF8_USE_WINDOWS_API
   return (_wrmdir (widen (dirname).c_str ()) == 0);
 #else
 # ifdef _WIN32
@@ -716,7 +725,7 @@ bool rmdir (const char* dirname)
 inline
 bool rename (const std::string& oldname, const std::string& newname)
 {
-#if USE_WINDOWS_API
+#if UTF8_USE_WINDOWS_API
   return (_wrename (widen (oldname).c_str (), widen (newname).c_str ()) == 0);
 #else
 # ifdef _WIN32
@@ -736,7 +745,7 @@ bool rename (const std::string& oldname, const std::string& newname)
 inline 
 bool rename (const char* oldname, const char* newname)
 {
-#if USE_WINDOWS_API
+#if UTF8_USE_WINDOWS_API
   return (_wrename (widen (oldname).c_str (), widen (newname).c_str ()) == 0);
 #else
 # ifdef _WIN32
@@ -761,7 +770,7 @@ bool rename (const char* oldname, const char* newname)
 inline
 bool remove (const std::string& filename)
 {
-#if USE_WINDOWS_API
+#if UTF8_USE_WINDOWS_API
   return (_wremove (widen (filename).c_str ()) == 0);
 #else
 # ifdef _WIN32
@@ -780,7 +789,7 @@ bool remove (const std::string& filename)
 inline
 bool remove (const char* filename)
 {
-#if USE_WINDOWS_API
+#if UTF8_USE_WINDOWS_API
   return (_wremove (widen (filename).c_str ()) == 0);
 #else
 # ifdef _WIN32

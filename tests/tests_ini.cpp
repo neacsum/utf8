@@ -45,7 +45,7 @@ SUITE (IniTests)
     utf8::remove ("test.ini");
   }
 
-#if USE_WINDOWS_API
+#if UTF8_USE_WINDOWS_API
   TEST (Compatibility)
   {
     char val[80];
@@ -241,7 +241,7 @@ SUITE (IniTests)
     remove ("test.ini");
   }
 
-#if USE_WINDOWS_API
+#if UTF8_USE_WINDOWS_API
   TEST (Put_Spaced_Params)
   {
     utf8::IniFile ini{ "test.ini" };

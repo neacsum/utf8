@@ -8,7 +8,7 @@
 #include <filesystem>
 #include <tuple>
 
-#if USE_WINDOWS_API
+#if UTF8_USE_WINDOWS_API
 #include <windows.h>
 #endif
 

@@ -9,8 +9,9 @@
 *.user
 
 /build
-/.vs
+/.vs*
 /lib
 /.editorconfig
 /utf8.cppcheck
 /docs
+/.DS_Store

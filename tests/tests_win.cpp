@@ -5,7 +5,7 @@
 #include <utpp/utpp.h>
 #include <utf8/utf8.h>
 
-#if USE_WINDOWS_API
+#if UTF8_USE_WINDOWS_API
 #include <windows.h>
 #include "resource.h"
 

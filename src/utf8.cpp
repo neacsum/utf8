@@ -51,7 +51,7 @@ inline char32_t throw_or_replace (exception::cause err)
 */
 std::string narrow (const wchar_t* s, size_t nch)
 {
-#if USE_WINDOWS_API
+#if UTF8_USE_WINDOWS_API
   int nsz;
   if (!s || !(nsz = WideCharToMultiByte (CP_UTF8, 0, s, (nch?(int)nch:-1), 0, 0, 0, 0)))
     return string ();
@@ -101,7 +101,7 @@ std::string narrow (const wchar_t* s, size_t nch)
 */
 std::string narrow (const std::wstring& ws)
 {
-#if USE_WINDOWS_API
+#if UTF8_USE_WINDOWS_API
   size_t nsz = WideCharToMultiByte (CP_UTF8, 0, ws.c_str(), (int)ws.size(), 0, 0, 0, 0);
   if (!nsz)
     return string ();
@@ -206,7 +206,7 @@ std::string narrow (char32_t r)
 */
 std::wstring widen (const char* s, size_t nch)
 {
-#if USE_WINDOWS_API
+#if UTF8_USE_WINDOWS_API
   size_t wsz;
   if (!s || !(wsz = MultiByteToWideChar (CP_UTF8, 0, s, (nch?(int)nch:-1), 0, 0)))
     return wstring ();
@@ -245,7 +245,7 @@ std::wstring widen (const char* s, size_t nch)
 */
 std::wstring widen (const std::string& s)
 {
-#if USE_WINDOWS_API
+#if UTF8_USE_WINDOWS_API
   size_t wsz = MultiByteToWideChar (CP_UTF8, 0, s.c_str(), (int)s.size(), 0, 0);
   if (!wsz)
     return wstring ();

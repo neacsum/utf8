@@ -166,7 +166,7 @@ IniFile::IniFile (const std::string& file)
   : temp_file {false}
   /* get the fully qualified path name in case current directory changes after creation */
 #ifdef _WIN32
-# if USE_WINDOWS_API
+# if UTF8_USE_WINDOWS_API
   , filename { utf8::fullpath (file) }
 # else
   , filename{ narrow (std::filesystem::absolute (widen (file))) }
@@ -180,7 +180,7 @@ IniFile::IniFile (const std::string& file)
 ///  Creates a temporary file as filename.
 IniFile::IniFile ()
   : temp_file {true}
-#if USE_WINDOWS_API
+#if UTF8_USE_WINDOWS_API
   , filename (utf8::GetTempFileName(".", "INI", 0))
 #else
   , filename (tmpnam(NULL))
@@ -220,7 +220,7 @@ void IniFile::File (const std::string& fname)
   }
   else
   {
-#if USE_WINDOWS_API
+#if UTF8_USE_WINDOWS_API
     wchar_t tmp[_MAX_PATH];
     GetTempFileNameW (L".", L"INI", 0, tmp);
     filename = utf8::narrow (tmp);
@@ -235,7 +235,7 @@ void IniFile::File (const std::string& fname)
 IniFile& IniFile::operator = (const IniFile& p)
 {
   // Copy the source file to the destination file.
-#if USE_WINDOWS_API
+#if UTF8_USE_WINDOWS_API
   CopyFile (p.filename, filename, false);
 #else
   std::filesystem::copy (p.filename, filename, std::filesystem::copy_options::overwrite_existing);
