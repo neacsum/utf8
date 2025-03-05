@@ -274,6 +274,27 @@ std::wstring widen (const std::string& s)
 }
 
 /*!
+  Conversion from UTF-32 to wide character (UTF-16)
+  \param r input UTF-32 character
+  \return wide character string
+*/
+std::wstring widen(char32_t r)
+{
+  wstring out;
+  if (r < 0x10000)
+    out.push_back((wchar_t)r);
+  else
+  {
+    r -= 0x10000;
+    wchar_t sh = (wchar_t)((r >> 10) + 0xD800);
+    wchar_t sl = (wchar_t)((r & 0x3FF) + 0xDC00);
+    out.push_back(sh);
+    out.push_back(sl);
+  }
+  return out;
+}
+
+/*!
   Conversion from UTF-8 to UTF-32
 
   \param s UTF-8 encoded string

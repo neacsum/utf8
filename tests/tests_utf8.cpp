@@ -189,6 +189,17 @@ TEST (rune)
   CHECK_EQUAL (0x1f600, rune_smiley);
 }
 
+TEST (utf32_to_utf16)
+{
+  char32_t smiley{ U'😄' };
+  wstring ws = widen (smiley);
+  CHECK_EQUAL (L"😄", ws.c_str());
+
+  ws = widen (U'©');
+  CHECK_EQUAL (L"©", ws.c_str());
+
+}
+
 TEST (rune2)
 {
   const char* smiley{ u8"😀" };

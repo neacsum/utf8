@@ -91,6 +91,8 @@ std::string narrow (char32_t r);
 
 std::wstring widen (const char* s, size_t nch = 0);
 std::wstring widen (const std::string& s);
+std::wstring widen (char32_t r);
+
 std::u32string runes (const char* s, size_t nch = 0);
 std::u32string runes (const std::string& s);
 
