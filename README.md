@@ -52,12 +52,12 @@ std::string utf8::narrow (const char32_t* s, size_t nch=0);
 std::string utf8::narrow (const std::u32string& s);	
 ```
 
-The `widen()` function converts from UTF-16:
+The `widen()` function converts UTF-8 to UTF-16:
 ```C++
 std::wstring utf8::widen (const char* s, size_t nch);
 std::wstring utf8::widen (const std::string& s);
 ```
-The `runes()` function converts from UTF-32:
+The `runes()` function converts UTF-8 to UTF-32:
 ```C++
 std::u32string runes (const char* s, size_t nch = 0);
 std::u32string utf8::runes (const std::string& s);
