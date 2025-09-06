@@ -95,7 +95,7 @@ with names that are encoded using UTF-8. Because UTF-8 strings are character str
 The API for Windows profile files (also called INI files) was replaced with an object `utf8::IniFile`.
 
 ### Error Handling
-Invalid characters or sequences can be handled in tow different ways:
+Invalid characters or sequences can be handled in two different ways:
 - the invalid character/sequence is replaced by a `REPLACEMENT_CHARACTER` (0xFFFD)
 - the functions throw an exception `utf8::exception`. The member `utf8::exception::code` indicates what has triggered the exception.
 
@@ -149,7 +149,7 @@ You can build the library using CMake. From the _utf8_ directory:
 ```
 Alternatively, `BUILD.bat` script will build the libraries and test programs.
 
-While the library has been designed for Windows, some of the functions may be useful in a Linux environment. Under Linux, the library can be build using `CPM` as explained before, or with `cmake` using the same commands shown above.
+Under Linux, the library can be build using `CPM` as explained before, or with `cmake` using the same commands shown above.
 
 
 ## License
