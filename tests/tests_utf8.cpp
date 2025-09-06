@@ -103,7 +103,6 @@ TEST (widen_count)
   wstring l2 = widen (s1, 4);
 
   CHECK (l1 == l2);
-
 }
 
 TEST (narrow_string)
@@ -489,16 +488,17 @@ TEST (throw_invalid_char32)
 {
   auto prev_mode = utf8::error_mode (action::except);
   bool thrown = false;
-  try {
-    narrow (0xd800);
-  }
-  catch (utf8::exception& e) {
-    CHECK_EQUAL (utf8::exception::invalid_char32, e.code);
-    thrown = true;
-    cout << "Exception caught: " << e.what () << endl;
-  }
-  CHECK (thrown);
+  CHECK_THROW (narrow (0xd800), utf8::exception);
+  CHECK_THROW (narrow (0xdbff), utf8::exception);
   utf8::error_mode (prev_mode);
+
+  //check the 4 "corners" of the high/low surrogate encoding "square"
+  auto v1 = narrow (0x10000);
+  auto v2 = narrow (L"\xD800\xDC00");
+  CHECK_EQUAL (v1, v2);
+  CHECK_EQUAL (narrow (0x10fc00), narrow (L"\xdbff\xdc00"));
+  CHECK_EQUAL (narrow (0x103ff), narrow (L"\xd800\xdfff"));
+  CHECK_EQUAL (narrow (0x10ffff), narrow (L"\xdbff\xdfff"));
 }
 
 // test for runes function (conversion from UTF8 to UTF32)

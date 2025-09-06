@@ -68,9 +68,9 @@ std::string narrow (const wchar_t* s, size_t nch)
   while (nch)
   {
     unsigned int c = (unsigned int)*s++;
-    if (0xDBFF < c && c < 0xDFFF)
+    if (0xDC00 <= c && c <= 0xDFFF)
       c = throw_or_replace (exception::cause::invalid_wchar); //missing hi-surrogate
-    else if (0xD7FF < c && c < 0xDC00)
+    else if (0xD800 <= c && c <= 0xDBFF)
     {
       //got high surrogate, get the low one now
       if (!nch)
