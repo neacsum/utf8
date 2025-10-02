@@ -8,7 +8,7 @@
 #include <utf8/utf8.h>
 #include <utf8/ini.h>
 #include <iostream>
-#include <tuple>
+// #include <tuple>
 #include <climits>
 
 using namespace std;
@@ -32,7 +32,7 @@ int main (int /*unused*/, char ** /*unused*/)
   ofstream fout;
   if (GetACP () != 65001)
   {
-    cout << "Windows ACP is not UTF-8. Output will be sent to " << FNAME 
+    cout << "Windows ACP is not UTF-8. Output will be sent to " << FNAME
       << endl << endl;
     fout.open (FNAME);
   }
@@ -104,7 +104,7 @@ int main (int /*unused*/, char ** /*unused*/)
 #ifdef _WIN32
   //Set an environment variable and retrieve its value
   utf8::putenv ("Punjabi=पंजाबी");
-  out << "The environment variable Punjabi is " 
+  out << "The environment variable Punjabi is "
       << utf8::getenv ("Punjabi") << endl;
 #endif
 

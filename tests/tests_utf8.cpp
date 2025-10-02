@@ -2,7 +2,7 @@
   Copyright (c) Mircea Neacsu (2014-2024) Licensed under MIT License.
   This is part of UTF8 project. See LICENSE file for full license terms.
 */
-#include <utpp/utpp.h>
+#include <utpp_shim.h>
 #include <utf8/utf8.h>
 #include <iostream>
 #include <filesystem>
@@ -23,7 +23,7 @@ using namespace utf8;
 
 TEST_MAIN (int argc, char **argv)
 {
-  const char* suite_under_test = nullptr;
+  // const char* suite_under_test = nullptr;
   std::cerr << "Running " << *argv++ << endl
     << "working directory is: " << getcwd () << endl;
   --argc;
@@ -45,7 +45,7 @@ TEST_MAIN (int argc, char **argv)
     std::filesystem::path xml_filename(*argv);
     std::ofstream xml_stream (xml_filename);
     UnitTest::ReporterXml xml(xml_stream);
-    std::cerr << "Output sent to " 
+    std::cerr << "Output sent to "
               << std::filesystem::absolute (xml_filename) << endl;
     return RunAllTests (xml);
   }
@@ -237,7 +237,7 @@ TEST (next_ptr)
 TEST (next_non_const)
 {
   char emojis[20];
-  strcpy (emojis, u8"😃😎😛" );
+  strcpy_s(emojis, sizeof(emojis), u8"😃😎😛");
   int i = 0;
   char* ptr = emojis;
   while (utf8::next (ptr))
@@ -487,7 +487,7 @@ TEST (invalid_utf8)
 TEST (throw_invalid_char32)
 {
   auto prev_mode = utf8::error_mode (action::except);
-  bool thrown = false;
+  // bool thrown = false;
   CHECK_THROW (narrow (0xd800), utf8::exception);
   CHECK_THROW (narrow (0xdbff), utf8::exception);
   utf8::error_mode (prev_mode);
@@ -525,7 +525,7 @@ TEST (dir)
 
   //Path returned by getcwd should end in our Greek string
   string cwd = getcwd ();
-  
+
   //find last path separator
 #ifdef _WIN32
   size_t idx = cwd.rfind ("\\");
@@ -537,7 +537,7 @@ TEST (dir)
 
   //Move out of directory and remove it
   utf8::chdir ("..");
-  CHECK (utf8::rmdir (dirname));    //rmdir returrs true for success
+  CHECK (utf8::rmdir (dirname));    //rmdir returns true for success
 }
 
 
@@ -598,14 +598,14 @@ TEST (char_class)
     temp[1] = 0;
     char tst[80];
     snprintf (tst, sizeof(tst), "testing char %d", i);
-    CHECK_EQUAL_EX ((bool)isalpha (chartab[i]), utf8::isalpha (temp), tst);
-    CHECK_EQUAL_EX ((bool)isalnum (chartab[i]), utf8::isalnum (temp), tst);
-    CHECK_EQUAL_EX ((bool)(isdigit) (chartab[i]), utf8::isdigit (temp), tst);
-    CHECK_EQUAL_EX ((bool)(isspace) (chartab[i]), utf8::isspace (temp), tst);
-    CHECK_EQUAL_EX ((bool)(isblank)(chartab[i]), utf8::isblank (temp), tst);
-    CHECK_EQUAL_EX ((bool)(isxdigit) (chartab[i]), utf8::isxdigit (temp), tst);
-    CHECK_EQUAL_EX ((bool)isupper (chartab[i]), utf8::isupper (temp), tst);
-    CHECK_EQUAL_EX ((bool)islower (chartab[i]), utf8::islower (temp), tst);
+    CHECK_EQUAL_EX ((bool)isalpha (chartab[i]), utf8::isalpha (temp), "%s", tst);
+    CHECK_EQUAL_EX ((bool)isalnum (chartab[i]), utf8::isalnum (temp), "%s", tst);
+    CHECK_EQUAL_EX ((bool)(isdigit) (chartab[i]), utf8::isdigit (temp), "%s", tst);
+    CHECK_EQUAL_EX ((bool)(isspace) (chartab[i]), utf8::isspace (temp), "%s", tst);
+    CHECK_EQUAL_EX ((bool)(isblank)(chartab[i]), utf8::isblank (temp), "%s", tst);
+    CHECK_EQUAL_EX ((bool)(isxdigit) (chartab[i]), utf8::isxdigit (temp), "%s", tst);
+    CHECK_EQUAL_EX ((bool)isupper (chartab[i]), utf8::isupper (temp), "%s", tst);
+    CHECK_EQUAL_EX ((bool)islower (chartab[i]), utf8::islower (temp), "%s", tst);
   }
 }
 

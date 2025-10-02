@@ -1,0 +1,2 @@
+set(CMAKE_EXPORT_COMPILE_COMMANDS TRUE CACHE BOOL "Generate compile_commands.json" FORCE)
+mark_as_advanced(CMAKE_EXPORT_COMPILE_COMMANDS)

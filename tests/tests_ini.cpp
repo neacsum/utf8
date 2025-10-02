@@ -5,7 +5,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <utf8/utf8.h>
-#include <utpp/utpp.h>
+#include <utpp_shim.h>
 
 #include <thread>
 #include <chrono>
@@ -247,7 +247,7 @@ SUITE (IniTests)
     utf8::IniFile ini{ "test.ini" };
     char val[80];
     ini.PutString (" key00  ", "  value00  ", "  section0  ");
-    GetPrivateProfileStringA ("section0", "key00", "bad", val, 
+    GetPrivateProfileStringA ("section0", "key00", "bad", val,
       sizeof(val), ".\\test.ini");
     CHECK_EQUAL ("value00", val);
     remove ("test.ini");
@@ -466,7 +466,7 @@ SUITE (IniTests)
 
     utf8::IniFile f2 ("test2.ini");
     f2.CopySection (f1, "section0", "section1");
-    
+
     CHECK_EQUAL ("value00", f2.GetString ("key0", "section1"));
     CHECK_EQUAL ("value01", f2.GetString ("key1", "section1"));
 
@@ -508,7 +508,7 @@ SUITE (IniTests)
 
     f2.CopySection (f1, "section1");
     deque<string> keys;
-    
+
     //previous content of section1 was erased
     CHECK_EQUAL (2, f2.GetKeys (keys, "section1"));
 

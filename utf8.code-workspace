@@ -1,0 +1,49 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+  "settings": {
+    "files.watcherExclude": {
+			"build/**": true,
+      "**/.git/**": true,
+		},
+    "files.insertFinalNewline": true,
+    "clangd.arguments": [
+      // "--compile-commands-dir=${workspaceFolder}"
+    ],
+    "cmake.configureOnOpen": true,
+    "cmake.configureOnEdit": true,
+    "cmake.buildBeforeRun": true,
+    "cmake.launchBehavior": "breakAndReuseTerminal",
+    "lldb.verboseLogging": true,
+    "lldb.useNativePDBReader": true,
+    "cmake.copyCompileCommands": "${workspaceFolder}/compile_commands.json"
+  },
+  "extensions": {
+    // See http://go.microsoft.com/fwlink/?LinkId=827846
+    // for the documentation about the extensions.json format
+    "recommendations": [
+      "streetsidesoftware.code-spell-checker",
+      "streetsidesoftware.code-spell-checker-scientific-terms",
+			"streetsidesoftware.code-spell-checker-win32",
+      "ltex-plus.vscode-ltex-plus",
+      "vadimcn.vscode-lldb"
+    ]
+  },
+  "launch": {
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "type": "lldb",
+        "request": "launch",
+        "name": "Launch",
+        "program": "${command:cmake.launchTargetPath}",
+        "args": [],
+        "cwd": "${command:cmake.getLaunchTargetDirectory}",
+        "console": "integratedTerminal"
+      }
+    ]
+  },
+}

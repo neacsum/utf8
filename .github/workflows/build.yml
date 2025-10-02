@@ -11,25 +11,42 @@ permissions:
 jobs:
   build:
     runs-on: windows-latest
-    
-    steps:      
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
       - name: Get CPM
         uses: neacsum/configurator@v0.0.11
         with:
           name: cpm.exe
           url: https://github.com/neacsum/cpm/releases/latest/download/cpm.exe
-      
-      - name: Build libraries
-        run: cpm -v --proto https -u https://github.com/neacsum/utf8.git -r $HOME utf8
-        
+
+      - name: Create dependencies directory
+        shell: cmd
+        run: |
+          if not exist "build\.dep-cache" mkdir "build\.dep-cache"
+
+      - name: Download dependencies
+        run: cpm -v -f --proto https -r build\.dep-cache
+
+      - name: Copy utpp directory
+        shell: cmd
+        run: |
+          xcopy /E /I build\.dep-cache\utpp build\.dep-cache\utpp-repo-src
+
+      - name: Build library (local version, not from CPM)
+        shell: cmd
+        run: |
+          build.bat lib
+
       - name: Build and run tests
         shell: cmd
         run: |
-          %USERPROFILE%\utf8\build.bat tests
+          build.bat tests
 
       - name: Save tests result
         uses: actions/upload-artifact@v4
         with:
           name: test_results
-          path: ~/utf8/build/exe/x64/debug/utf8_tests.xml
-
+          path: build/exe/x64/debug/utf8_tests.xml

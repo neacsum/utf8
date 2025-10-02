@@ -10,8 +10,15 @@
 
 /build
 /.vs*
+!/.vscode/
+/.vscode/*
+!/.vscode/ltex.dictionary.en-US.txt
+!/.vscode/ltex.hiddenFalsePositives.en-US.txt
 /lib
 /.editorconfig
 /utf8.cppcheck
 /docs
 /.DS_Store
+.cache/
+/compile_commands.json
+.dep-cache/

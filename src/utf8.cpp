@@ -13,7 +13,7 @@
 using namespace std;
 namespace utf8 {
 
-static thread_local action ermode{action::replace};
+static thread_local action errmode{action::replace};
 
 /*!
   \param mode new error handling mode
@@ -21,8 +21,8 @@ static thread_local action ermode{action::replace};
 */
 action error_mode (action mode)
 {
-  auto prev = ermode;
-  ermode = mode;
+  auto prev = errmode;
+  errmode = mode;
   return prev;
 }
 
@@ -31,7 +31,7 @@ static void encode (char32_t c, std::string& s);
 
 inline char32_t throw_or_replace (exception::cause err)
 {
-  if (ermode == action::except)
+  if (errmode == action::except)
     throw exception (err);
   else
     return REPLACEMENT_CHARACTER;
@@ -369,7 +369,7 @@ bool valid_str (const char *s, size_t nch)
   Decodes a UTF-8 encoded character and advances iterator to next code point
 
   \param ptr    Reference to iterator to be advanced
-  \param last   Iterator pointing to the end of range  
+  \param last   Iterator pointing to the end of range
   \return       decoded character
 
   If the iterator points to an invalid UTF-8 encoding or is at end, the function
@@ -454,7 +454,7 @@ char32_t next (std::string::const_iterator& ptr, const std::string::const_iterat
   \param ptr    <b>Reference</b> to character pointer to be advanced
   \return       decoded character
 
-  If the string contains an invalid UTF-8 encoding, the function throws an 
+  If the string contains an invalid UTF-8 encoding, the function throws an
   exception  or returns utf8::REPLACEMENT_CHARACTER (0xfffd) depending on error
   handling mode. In any case, the pointer is advanced to beginning of next
   character or end of string.
@@ -533,7 +533,7 @@ char32_t next (const char*& ptr)
   \param ptr    <b>Reference</b> to character pointer to be decremented
   \return       previous UTF-8 encoded character
 
-  If the string contains an invalid UTF-8 encoding, the function throws an 
+  If the string contains an invalid UTF-8 encoding, the function throws an
   exception  or returns utf8::REPLACEMENT_CHARACTER (0xfffd) depending on error
   handling mode. In this case the pointer remains unchanged.
 */
@@ -727,7 +727,7 @@ void encode (char32_t c, std::string& s)
   else if (c <= 0x7ff)
   {
     s.push_back (0xC0 | c >> 6);
-    s.push_back (0x80 | c & 0x3f);
+    s.push_back (0x80 | (c & 0x3f));
   }
   else if (c <= 0xFFFF)
   {
@@ -735,17 +735,17 @@ void encode (char32_t c, std::string& s)
       c= throw_or_replace(exception::cause::invalid_char32);
 
     s.push_back (0xE0 | c >> 12);
-    s.push_back (0x80 | c >> 6 & 0x3f);
-    s.push_back (0x80 | c & 0x3f);
+    s.push_back (0x80 | (c >> 6 & 0x3f));
+    s.push_back (0x80 | (c & 0x3f));
   }
   else if (c <= 0x10ffff)
   {
     s.push_back (0xF0 | c >> 18);
-    s.push_back (0x80 | c >> 12 & 0x3f);
-    s.push_back (0x80 | c >> 6 & 0x3f);
-    s.push_back (0x80 | c & 0x3f);
+    s.push_back (0x80 | (c >> 12 & 0x3f));
+    s.push_back (0x80 | (c >> 6 & 0x3f));
+    s.push_back (0x80 | (c & 0x3f));
   }
-  else if (ermode == action::except)
+  else if (errmode == action::except)
     throw exception (exception::cause::invalid_char32);
   else
     s.append ("\xEF\xBF\xBD"); //append replacement character

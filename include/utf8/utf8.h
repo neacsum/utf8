@@ -7,7 +7,6 @@
 #pragma once
 
 #include <string>
-#include <vector>
 #include <fstream>
 
 // ------------- Global configuration options ---------------------------------
@@ -268,7 +267,7 @@ bool is_valid (const char* p)
 inline
 bool is_valid (std::string::const_iterator p, const std::string::const_iterator last)
 {
-  auto len = last - p;
+  // auto len = last - p;
   auto prev_mode = error_mode (action::replace);
   bool valid = (next (p, last) != REPLACEMENT_CHARACTER);
   error_mode (prev_mode);
@@ -744,7 +743,7 @@ bool rename (const std::string& oldname, const std::string& newname)
 }
 
 /// \copydoc utf8::rename()
-inline 
+inline
 bool rename (const char* oldname, const char* newname)
 {
 #if UTF8_USE_WINDOWS_API

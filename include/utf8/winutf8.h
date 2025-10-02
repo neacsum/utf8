@@ -9,6 +9,8 @@
 #include <Windows.h>
 #include <string>
 #include <ostream>
+#include <vector>
+#include <utf8/utf8.h>
 
 #undef MessageBox
 #undef CopyFile
@@ -97,7 +99,7 @@ std::string GetFullPathName (const std::string& rel_path);
 bool GetModuleFileName (HMODULE hModule, std::string& filename);
 std::string GetModuleFileName (HMODULE hModule = NULL);
 
-/// File enumeration structure used by find_first() and find_next() functions 
+/// File enumeration structure used by find_first() and find_next() functions
 struct find_data {
   find_data ()                        ///< Initializes the structure
     : handle{ INVALID_HANDLE_VALUE }
@@ -112,7 +114,7 @@ struct find_data {
   FILETIME creation_time;             ///< file creation time
   FILETIME access_time;               ///< file last access time
   FILETIME write_time;                ///< file last write time
-  __int64  size;                      ///< file size
+  int64_t  size;                      ///< file size
   std::string  filename;              ///< file name
   std::string  short_name;            ///< 8.3 file name
 };
@@ -147,16 +149,16 @@ public:
 
   operator bool () const;
 
-  find_data::attributes;
-  find_data::creation_time;
-  find_data::access_time;
-  find_data::write_time;
-  find_data::size;
-  find_data::filename;
-  find_data::short_name;
+  using find_data::attributes;
+  using find_data::creation_time;
+  using find_data::access_time;
+  using find_data::write_time;
+  using find_data::size;
+  using find_data::filename;
+  using find_data::short_name;
 };
 
-/// A simple buffer for caching values returned by Windows API 
+/// A simple buffer for caching values returned by Windows API
 class buffer {
 public:
   explicit buffer (size_t size_);
@@ -343,4 +345,3 @@ inline DWORD
 }
 
 } //end namespace
-

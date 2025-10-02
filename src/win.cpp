@@ -3,7 +3,7 @@
   This is part of UTF8 project. See LICENSE file for full license terms.
 */
 
-/// \file win.cpp Wrappers for common Windows functions 
+/// \file win.cpp Wrappers for common Windows functions
 
 #include <utf8/utf8.h>
 #include <cassert>
@@ -18,7 +18,7 @@ static void copy_fdat (WIN32_FIND_DATAW& wfd, find_data& fdat)
   fdat.creation_time = wfd.ftCreationTime;
   fdat.access_time = wfd.ftLastAccessTime;
   fdat.write_time = wfd.ftLastWriteTime;
-  fdat.size = ((__int64)wfd.nFileSizeHigh << 32) | (wfd.nFileSizeLow);
+  fdat.size = ((int64_t)wfd.nFileSizeHigh << 32) | (wfd.nFileSizeLow);
   fdat.filename = narrow (wfd.cFileName);
   fdat.short_name = narrow (wfd.cAlternateFileName);
 }
@@ -57,7 +57,7 @@ bool find_first (const std::string& name, find_data& fdat)
 
   \note Wrapper for [FindNextFileW](https://docs.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-findnextfilew)
   Windows API function.
-  
+
   If there are no more files, the function returns _false_ and GetLastError
   function returns __ERROR_NO_MORE_FILES__
 */
@@ -458,13 +458,13 @@ std::vector<std::string> get_argv ()
 
 
 //=============================================================================
-/*! 
+/*!
   \defgroup reg Registry Functions
   Wrappers for Windows registry functions.
 
   For all these functions wide character strings arguments are replaced
   with UTF-8 encoded C++ strings.
-@{ 
+@{
 */
 
 /*!
@@ -562,7 +562,7 @@ LSTATUS RegDeleteTree (HKEY key, const std::string& subkey)
 }
 
 /*!
-  Wrapper for 
+  Wrapper for
   [RegRenameKey](https://learn.microsoft.com/en-us/windows/win32/api/winreg/nf-winreg-regrenamekey)
 
   \param key    handle to an open registry key
@@ -644,7 +644,7 @@ LSTATUS RegSetValue (HKEY key, const std::string& value, const std::vector<std::
     *ptr++ = 0;
   }
   *ptr++ = 0;
-  assert (ptr - buf == key_size);
+  assert (static_cast<size_t>(ptr - buf) == key_size);
   auto ret = RegSetValue (key, value, REG_MULTI_SZ, buf, (DWORD)key_size*sizeof(wchar_t));
   delete []buf;
   return ret;
@@ -680,7 +680,7 @@ LSTATUS RegQueryValue (HKEY key, const std::string& value, DWORD* type, void* da
   \param size   pointer to size data size (in bytes)
   \param type   pointer to type of data
 */
-LSTATUS RegGetValue (HKEY key, const std::string& subkey, const std::string& value, 
+LSTATUS RegGetValue (HKEY key, const std::string& subkey, const std::string& value,
   DWORD flags, void* data, DWORD* size, DWORD* type)
 {
   auto wsubkey = widen (subkey);
@@ -707,7 +707,7 @@ LSTATUS RegGetValue (HKEY key, const std::string& subkey, const std::string& val
   auto wvalue = widen (value);
   DWORD sz = 0;
   const DWORD flags = RRF_RT_REG_SZ | RRF_RT_REG_EXPAND_SZ | (expand ? 0 :RRF_NOEXPAND);
-  auto ret = RegGetValueW (key, wsubkey.c_str (), wvalue.c_str (), 
+  auto ret = RegGetValueW (key, wsubkey.c_str (), wvalue.c_str (),
     flags, NULL, NULL, &sz);
   if (ret == ERROR_SUCCESS)
   {
@@ -716,7 +716,7 @@ LSTATUS RegGetValue (HKEY key, const std::string& subkey, const std::string& val
     https://stackoverflow.com/questions/29223180/successive-calls-to-reggetvalue-return-two-different-sizes-for-the-same-string
     */
     wchar_t *wdat  = new wchar_t[sz / sizeof (wchar_t)];
-    ret = RegGetValueW (key, wsubkey.c_str (), wvalue.c_str (), flags, NULL, 
+    ret = RegGetValueW (key, wsubkey.c_str (), wvalue.c_str (), flags, NULL,
       wdat, &sz);
     if (ret == ERROR_SUCCESS)
       data = narrow (wdat);
@@ -808,7 +808,7 @@ LSTATUS RegEnumKey (HKEY key, std::vector<std::string>& names)
   if (ret != ERROR_SUCCESS)
     return ret;
   maxlen++; //for terminating NULL
-  
+
   wchar_t* wnam = new wchar_t[maxlen];
   DWORD index = 0;
   names.clear ();

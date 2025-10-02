@@ -1,0 +1,2 @@
+{"rule":"ADD_AN_ADDITIONAL","sentence":"^\\QThe C++20 standard has added an additional type \\E(?:Dummy|Ina|Jimmy-|Dummy-|Maniquí-|Maniquíes-)[0-9]+\\Q, designed to keep UTF-8 encoded characters, and a string type \\E(?:Dummy|Ina|Jimmy-|Dummy-|Maniquí-|Maniquíes-)[0-9]+\\Q.\\E$"}
+{"rule":"UPPERCASE_SENTENCE_START","sentence":"^\\Qwith the implied assumption that all \\E(?:Dummy|Ina|Jimmy-|Dummy-|Maniquí-|Maniquíes-)[0-9]+\\Q strings are UTF-8 encoded character strings.\\E$"}

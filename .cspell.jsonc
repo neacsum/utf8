@@ -1,0 +1,50 @@
+{
+  "version": "0.2",
+  "ignorePaths": [
+    ".cspell.jsonc",
+    ".git/**",
+    "*.code-workspace",
+    ".local-gitignore",
+    "data/UnicodeData.txt"
+  ],
+  "dictionaryDefinitions": [
+    {
+      "name": "project-words",
+      "path": ".vscode/ltex.dictionary.en-US.txt",
+      "addWords": true
+    }
+  ],
+  "dictionaries": [
+    "bash",
+    "win32",
+    "scientific-terms-us",
+    "project-words"
+  ],
+  "ignoreWords": [
+    "ăâățî",
+    "ĂÂȚÎ",
+    "BCDEFGH",
+    "MIRCEANEACȘUĂÂȚÎ",
+    "ȚEPUȘ",
+    "αλφάβητο",
+    "αξία",
+    "αρχείο",
+    "ελληνικό",
+    "ΚΛΕΙΔΙ",
+    "Հայերեն",
+    "पंजाबी",
+    "ᓀᐦᐃᔭᐍᐏᐣ",
+    "Ελληνικός",
+    "العربي",
+    "اللغة",
+    "ܐܪܡܝܐ"
+  ],
+  "ignoreRegExpList": [
+    "/-W.*/",
+    "/-D.*/",
+    "/-X.*/",
+    "/-I.*/"
+  ],
+  "allowCompoundWords": true,
+  "words": []
+}

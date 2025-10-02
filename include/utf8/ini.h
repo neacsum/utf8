@@ -4,11 +4,14 @@
 */
 
 /// \file ini.h Definition of IniFile class
-/// This file should not be included directly. It is included by utf8.h header. 
+/// This file should not be included directly. It is included by utf8.h header.
 #pragma once
 
 #include <string>
 #include <deque>
+#ifdef _WIN32
+  #include <windows.h>
+#endif
 
 namespace utf8 {
 
@@ -37,7 +40,7 @@ public:
 
   /// Set the file name associated with this object
   void File (const std::string& filename);
-  
+
   ///Get a string key
   size_t GetString (char *value, size_t len, const std::string& key, const std::string& section, const std::string& defval = std::string()) const;
 

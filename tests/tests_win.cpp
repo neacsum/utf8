@@ -2,7 +2,7 @@
   Copyright (c) Mircea Neacsu (2014-2024) Licensed under MIT License.
   This is part of UTF8 project. See LICENSE file for full license terms.
 */
-#include <utpp/utpp.h>
+#include <utpp_shim.h>
 #include <utf8/utf8.h>
 
 #if UTF8_USE_WINDOWS_API
@@ -82,7 +82,9 @@ SUITE (MS_Windows)
   TEST (full_path)
   {
     const char* fname = "file.txt";
-    FILE* f = ::fopen (fname, "w");
+    FILE* f = nullptr;
+    if (fopen_s(&f, fname, "w") != 0 || !f)
+      ABORT_EX(true, "Failed to open file");
     fclose (f);
 
     char full[_MAX_PATH];
@@ -140,7 +142,7 @@ SUITE (MS_Windows)
     buf = tmp;
 
     CHECK_EQUAL (tmp, (string)buf);
-    // size doesn't shrink when assigning a string 
+    // size doesn't shrink when assigning a string
     CHECK_EQUAL (_MAX_PATH, buf.size ());
 
     //Copy ctor
@@ -313,7 +315,7 @@ SUITE (MS_Windows)
 
 SUITE (Registry)
 {
-  
+
 const string key_name{ u8"αρχείο" };//Greek for "registry" according to Google
 
 TEST (create_open)
@@ -379,7 +381,7 @@ TEST (enum_keys)
 {
   HKEY key;
   utf8::RegCreateKey (HKEY_CURRENT_USER, key_name, key);
-  
+
   vector<string>in_name{ u8"α1", u8"β2", u8"γ3", u8"😃😎😛"};
   vector<string>out_name(4);
 

@@ -29,7 +29,7 @@ namespace utf8 {
   \defgroup inifile INI File Replacement API
   An object-oriented replacement for working with INI files
 
-  The basic Windows API functions for reading and writing INI files, 
+  The basic Windows API functions for reading and writing INI files,
   [GetPrivateProfileStringW]
   (https://docs.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-getprivateprofilestringw)
   and [WritePrivateProfileStringW]
@@ -120,7 +120,7 @@ static char *trimtrailing (char *str)
 }
 
 //-----------------------------------------------------------------------------
-//  File manipulation functions 
+//  File manipulation functions
 
 inline
 static FILE *openread (const std::string& fname)
@@ -161,30 +161,30 @@ static std::string tempname (const std::string& source)
   \ingroup inifile
 */
 
-/// Constructor 
-IniFile::IniFile (const std::string& file)
-  : temp_file {false}
+/// Constructor
+IniFile::IniFile (const std::string& file):
   /* get the fully qualified path name in case current directory changes after creation */
-#ifdef _WIN32
-# if UTF8_USE_WINDOWS_API
-  , filename { utf8::fullpath (file) }
-# else
-  , filename{ narrow (std::filesystem::absolute (widen (file))) }
-# endif
-#else
-  , filename{ std::filesystem::absolute (file) }
-#endif
+  #ifdef _WIN32
+    #if UTF8_USE_WINDOWS_API
+      filename { utf8::fullpath (file) },
+    #else
+      filename{ narrow (std::filesystem::absolute (widen (file))) },
+    #endif
+  #else
+    filename{ std::filesystem::absolute (file) },
+  #endif
+  temp_file {false}
 {
 }
 
 ///  Creates a temporary file as filename.
-IniFile::IniFile ()
-  : temp_file {true}
-#if UTF8_USE_WINDOWS_API
-  , filename (utf8::GetTempFileName(".", "INI", 0))
-#else
-  , filename (tmpnam(NULL))
-#endif
+IniFile::IniFile ():
+  #if UTF8_USE_WINDOWS_API
+  filename (utf8::GetTempFileName(".", "INI", 0)),
+  #else
+    filename (tmpnam(NULL)),
+  #endif
+  temp_file {true}
 {
 }
 
@@ -205,7 +205,7 @@ IniFile::~IniFile()
 /*!
   Changes the file associated with this object. If previous one was a
   temporary file, it is deleted now (loosing all settings in the process).
-  
+
   \param fname New file name. If empty it creates a temporary file.
 */
 void IniFile::File (const std::string& fname)
@@ -418,7 +418,7 @@ HFONT IniFile::GetFont (const std::string& key, const std::string& section, HFON
 }
 
 /*!
-  Color is assumed to be in the same format as written by PutColor i.e. 
+  Color is assumed to be in the same format as written by PutColor i.e.
   R G B numbers separated by spaces.
 
   \param key      key name
@@ -502,8 +502,8 @@ bool IniFile::GetBool (const std::string& key, const std::string& section, bool 
 
   if (!GetString (buffer, sizeof(buffer), key, section))
     return defval;
-  return (!icompare (buffer, "on") 
-       || !icompare (buffer, "yes") 
+  return (!icompare (buffer, "on")
+       || !icompare (buffer, "yes")
        || !icompare (buffer, "true")
        || (atoi (buffer) == 1));
 }
@@ -672,7 +672,7 @@ int IniFile::GetKeys (char *keys, size_t sz, const std::string& section)
   int cnt = 0;
   sz -= 2;   //leave space for terminating NULL
 
-  auto f = [&keys, &sz] (const char *k) 
+  auto f = [&keys, &sz] (const char *k)
     {
       size_t l = min (strlen(k), sz);
       strncpy (keys, k, sz);
@@ -725,7 +725,7 @@ size_t IniFile::GetString (char *value, size_t len, const std::string& key, cons
   if (!value || !len)
     return 0;
   fp = openread (filename);
-  if (fp) 
+  if (fp)
   {
     found = getkey (fp, section.c_str(), key.c_str(), value, len);
     fclose(fp);
@@ -771,7 +771,7 @@ bool IniFile::PutString (const std::string& key, const std::string& value, const
 }
 
 /*!
-  Section names are returned as null-terminated strings followed by one 
+  Section names are returned as null-terminated strings followed by one
   final null.
 
   \param sects    buffer for returned keys
@@ -913,7 +913,7 @@ static bool findsection (const char *section, FILE *rf, FILE *wf, char *buffer, 
     if (*sp == '[' && strchr(buffer, ']'))
     {
       sp = skipleading (sp + 1);
-      
+
       if (!icomparen (sp, section, len))
         return true;
     }
@@ -946,10 +946,10 @@ static bool putkey (const char *key, const char *value, const char *section, con
 
   assert (section);
 
-  if (!(rfp = openread(filename))) 
+  if (!(rfp = openread(filename)))
   {
     /* If the .ini file doesn't exist, make a new file */
-    if (key && value) 
+    if (key && value)
     {
       if (!(wfp = openwrite (filename)))
         return false;
@@ -975,7 +975,7 @@ static bool putkey (const char *key, const char *value, const char *section, con
   // key not found, or different value -> proceed (but rewind the input file first)
   fseek (rfp, 0, SEEK_SET);
 
-  if (!(wfp = openwrite(tempname(filename)))) 
+  if (!(wfp = openwrite(tempname(filename))))
   {
     fclose (rfp);
     return false;
@@ -1010,7 +1010,7 @@ static bool putkey (const char *key, const char *value, const char *section, con
     }
     else
     {
-      //deleting the section -> skip all entries until next section or end of file 
+      //deleting the section -> skip all entries until next section or end of file
       while ((sp = fgets (buffer, sizeof (buffer), rfp)) && *(sp = skipleading (buffer)) != '[')
         ;
     }
@@ -1058,7 +1058,7 @@ static bool getkey(FILE *fp, const char *section, const char *key, char *val, si
   assert (fp);
   assert (section);
   assert (key);
-  
+
   // Move through file 1 line at a time until the section is matched or EOF.
   if (!findsection (section, fp, NULL, buffer, sizeof(buffer)))
     return false;
@@ -1068,7 +1068,7 @@ static bool getkey(FILE *fp, const char *section, const char *key, char *val, si
   key = skipleading (key);
   len = trimmed_len (key);
   bool found = false;
-  do 
+  do
   {
     if (!fgets (buffer, sizeof (buffer), fp) || *(sp = skipleading (buffer)) == '[')
       return false;
@@ -1158,4 +1158,3 @@ static bool same_file (const std::string& f1, const std::string& f2)
 }
 
 }
-

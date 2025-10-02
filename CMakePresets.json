@@ -1,13 +1,34 @@
 {
-  "version": 6,
-  "configurePresets":[
+  "version": 8,
+  "configurePresets": [
     {
-      "name": "x64",
+      "name": "clang-x86_64-pc-windows-msvc",
+      "displayName": "Clang (WinSDK/MSVC libs) Win x64",
+      "description": "Using WinSDK/MSVC libs and Clang compilers",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/x64-clang",
+      "environment": {
+        "WinSdkVersion": "10.0.26100.0",
+        "WinSdkDir": "C:/Program Files (x86)/Windows Kits/10/bin/$env{WinSdkVersion}/x64",
+        "PATH": "$env{WinSdkDir};$penv{PATH}",
+        "CMAKE_POLICY_DEFAULT_CMP0174": "NEW"
+      },
+      "cacheVariables": {
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+        "CMAKE_C_COMPILER": "clang.exe",
+        "CMAKE_CXX_COMPILER": "clang++.exe",
+        "CMAKE_RC_COMPILER": "rc.exe",
+        "CMAKE_C_COMPILER_TARGET": "x86_64-pc-windows-msvc",
+        "CMAKE_CXX_COMPILER_TARGET": "x86_64-pc-windows-msvc"
+      }
+    },
+    {
+      "name": "MSVC x64",
       "displayName": "x64 Config",
       "binaryDir": "${sourceDir}/build/x64"
     },
     {
-      "name": "x86",
+      "name": "MSVC x86",
       "displayName": "x86 Config",
       "architecture": {
         "value": "win32"
@@ -15,62 +36,87 @@
       "binaryDir": "${sourceDir}/build/x86"
     }
   ],
-
   "buildPresets":[
     {
-      "name": "debug_x64",
-      "configurePreset": "x64",
+      "name": "msvc_debug_x64",
+      "configurePreset": "MSVC x64",
       "configuration": "Debug"
     },
     {
-      "name": "release_x64",
-      "configurePreset": "x64",
+      "name": "msvc_release_x64",
+      "configurePreset": "MSVC x64",
       "configuration": "Release"
     },
     {
-      "name": "debug_x86",
-      "configurePreset": "x86",
+      "name": "msvc_debug_x86",
+      "configurePreset": "MSVC x86",
       "configuration": "Debug"
     },
     {
-      "name": "release_x86",
-      "configurePreset": "x86",
+      "name": "msvc_release_x86",
+      "configurePreset": "MSVC x86",
+      "configuration": "Release"
+    },
+    {
+      "name": "clang_debug_x64",
+      "configurePreset": "clang-x86_64-pc-windows-msvc",
+      "configuration": "Debug"
+    },
+    {
+      "name": "clang_release_x64",
+      "configurePreset": "clang-x86_64-pc-windows-msvc",
       "configuration": "Release"
     }
   ],
-
   "workflowPresets":[
     {
-      "name": "x64",
+      "name": "MSVC x64",
       "steps": [
         {
           "type": "configure",
-          "name": "x64"
+          "name": "MSVC x64"
         },
         {
           "type": "build",
-          "name": "debug_x64"
+          "name": "msvc_debug_x64"
         },
         {
           "type": "build",
-          "name": "release_x64"
+          "name": "msvc_release_x64"
         }
       ]
     },
     {
-      "name": "x86",
+      "name": "MSVC x86",
       "steps": [
         {
           "type": "configure",
-          "name": "x86"
+          "name": "MSVC x86"
         },
         {
           "type": "build",
-          "name": "debug_x86"
+          "name": "msvc_debug_x86"
         },
         {
           "type": "build",
-          "name": "release_x86"
+          "name": "msvc_release_x86"
+        }
+      ]
+    },
+    {
+      "name": "Clang x64",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "clang-x86_64-pc-windows-msvc"
+        },
+        {
+          "type": "build",
+          "name": "clang_debug_x64"
+        },
+        {
+          "type": "build",
+          "name": "clang_release_x64"
         }
       ]
     }

@@ -1,8 +1,8 @@
 add_executable(sample sample.cpp)
 
-set_target_properties(sample PROPERTIES 
-  CXX_STANDARD 17
-  )
+set_target_properties(sample PROPERTIES
+  CXX_STANDARD 20
+)
 
 # All link directories are subfolders of ./lib
 if (WIN32)
@@ -13,4 +13,3 @@ endif()
 
 # Add dependent libraries
 target_link_libraries (sample PRIVATE utf8)
-
