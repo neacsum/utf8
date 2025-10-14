@@ -2,8 +2,12 @@
   Copyright (c) Mircea Neacsu (2014-2024) Licensed under MIT License.
   This is part of UTF8 project. See LICENSE file for full license terms.
 */
-#include <utpp_shim.h>
+#ifdef _MSC_VER
+#define _CRT_SECURE_NO_WARNINGS
+#endif
+
 #include <utf8/utf8.h>
+#include <utpp/utpp.h>
 #include <iostream>
 #include <filesystem>
 #include <tuple>
@@ -12,6 +16,10 @@
 #include <windows.h>
 #endif
 
+#define _STR(X) #X
+#define STR(X) _STR(X)
+
+#pragma message ("C++ language version " STR(_MSVC_LANG))
 
 #pragma warning (disable : 4566)
 #ifndef _WIN32
@@ -52,7 +60,6 @@ TEST_MAIN (int argc, char **argv)
   else
     return UnitTest::RunAllTests ();
 }
-
 TEST (narrow_with_null)
 {
   wstring w1 (L"ABC");
@@ -188,7 +195,7 @@ TEST (rune)
   CHECK_EQUAL (0x1f600, rune_smiley);
 }
 
-TEST (utf32_to_utf16)
+TEST (utf32_to_wide)
 {
   char32_t smiley{ U'😄' };
   wstring ws = widen (smiley);
@@ -237,7 +244,7 @@ TEST (next_ptr)
 TEST (next_non_const)
 {
   char emojis[20];
-  strcpy_s(emojis, sizeof(emojis), u8"😃😎😛");
+  strcpy(emojis, u8"😃😎😛");
   int i = 0;
   char* ptr = emojis;
   while (utf8::next (ptr))
@@ -275,17 +282,21 @@ TEST (encoding_limits)
 
 TEST (decoding_limits)
 {
-  CHECK_EQUAL (0, rune ("\x0"));
-  CHECK_EQUAL (0x7f, rune ("\x7f"));
-  CHECK_EQUAL (0x80, rune ("\xc2\x80"));
-  CHECK_EQUAL (0x7ff, rune ("\xdf\xbf"));
-  CHECK_EQUAL (0x800, rune ("\xe0\xa0\x80"));
-  CHECK_EQUAL (0xffff, rune ("\xef\xbf\xbf"));
-  CHECK_EQUAL (0x10000, rune ("\xf0\x90\x80\x80"));
-  CHECK_EQUAL (0x10ffff, rune ("\xf4\x8f\xbf\xbf"));
-
+  CHECK_EQUAL ((char32_t)0, rune ("\x0"));
+  CHECK_EQUAL ((char32_t)0x7f, rune ("\x7f"));
+  CHECK_EQUAL ((char32_t)0x80, rune ("\xc2\x80"));
+  CHECK_EQUAL ((char32_t)0x7ff, rune ("\xdf\xbf"));
+  CHECK_EQUAL ((char32_t)0x800, rune ("\xe0\xa0\x80"));
+  CHECK_EQUAL ((char32_t)0xffff, rune ("\xef\xbf\xbf"));
+  CHECK_EQUAL ((char32_t)0x10000, rune ("\xf0\x90\x80\x80"));
+  CHECK_EQUAL ((char32_t)0x10ffff, rune ("\xf4\x8f\xbf\xbf"));
+#if __WCHAR_MAX__ < 0x10000 //for 2-bytes wchar_t
   CHECK_EQUAL (wstring (L"\xd800\xdc00"), widen ("\xf0\x90\x80\x80"));
   CHECK_EQUAL (wstring (L"\xdbff\xdfff"), widen ("\xf4\x8f\xbf\xbf"));
+#else
+  CHECK_EQUAL (wstring (L"\x10000"), widen ("\xf0\x90\x80\x80"));
+  CHECK_EQUAL (wstring (L"\x10ffff"), widen ("\xf4\x8f\xbf\xbf"));
+#endif
 }
 
 TEST (next_invalid_replace)

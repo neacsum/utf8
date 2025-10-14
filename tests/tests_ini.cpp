@@ -5,7 +5,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <utf8/utf8.h>
-#include <utpp_shim.h>
+#include <utpp/utpp.h>
 
 #include <thread>
 #include <chrono>

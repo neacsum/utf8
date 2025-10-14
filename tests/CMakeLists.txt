@@ -3,7 +3,6 @@ add_executable(tests
   tests.rc
 )
 target_include_directories(tests PRIVATE .)
-set_property(TARGET tests PROPERTY CXX_STANDARD 20)
 set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT tests)
 set_target_properties(tests PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/tests"

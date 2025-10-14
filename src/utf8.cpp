@@ -215,7 +215,16 @@ std::wstring widen (const char* s, size_t nch)
   MultiByteToWideChar (CP_UTF8, 0, s, -1, &out[0], (int)wsz);
   if (!nch)
     out.resize (wsz - 1); //output is null-terminated
-#else
+#elif __WCHAR_MAX__ > 0x10000 //4-bytes wchar_t
+  wstring out;
+
+  auto end = s + (nch ? nch : strlen (s));
+  while (s < end)
+  {
+    auto c = next (s);
+    out.push_back ((wchar_t)c);
+  }
+#else //2-byte wchar_t
   wstring out;
 
   auto end = s + (nch ? nch : strlen (s));
@@ -252,7 +261,15 @@ std::wstring widen (const std::string& s)
 
   wstring out (wsz, 0);
   MultiByteToWideChar (CP_UTF8, 0, s.c_str (), (int)s.size(), &out[0], (int)wsz);
-#else
+#elif __WCHAR_MAX__ > 0x10000 //4-bytes wchar_t
+  wstring out;
+  auto in = s.cbegin ();
+  while (in != s.end ())
+  {
+    auto c = next (in, s.end ());
+    out.push_back ((wchar_t)c);
+  }
+#else //2-bytes wchar_t
   wstring out;
   auto in = s.cbegin ();
   while (in != s.end ())
@@ -274,13 +291,16 @@ std::wstring widen (const std::string& s)
 }
 
 /*!
-  Conversion from UTF-32 to wide character (UTF-16)
+  Conversion from UTF-32 to UTF-16
   \param r input UTF-32 character
-  \return wide character string
+  \return UTF-16 character string
 */
 std::wstring widen(char32_t r)
 {
   wstring out;
+#if __WCHAR_MAX__ > 0x10000 //4-bytes wchar_t
+  out.push_back ((wchar_t)r);
+#else
   if (r < 0x10000)
     out.push_back((wchar_t)r);
   else
@@ -291,6 +311,7 @@ std::wstring widen(char32_t r)
     out.push_back(sh);
     out.push_back(sl);
   }
+#endif
   return out;
 }
 

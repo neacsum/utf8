@@ -173,7 +173,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h" />
-    <ClInclude Include="utpp_shim.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="tests.rc" />

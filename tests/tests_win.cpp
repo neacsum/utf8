@@ -2,7 +2,7 @@
   Copyright (c) Mircea Neacsu (2014-2024) Licensed under MIT License.
   This is part of UTF8 project. See LICENSE file for full license terms.
 */
-#include <utpp_shim.h>
+#include <utpp/utpp.h>
 #include <utf8/utf8.h>
 
 #if UTF8_USE_WINDOWS_API
