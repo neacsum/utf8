@@ -1,0 +1,18 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="examples/sample.vcxproj">
+    <BuildDependency Project="src/utf8.vcxproj" />
+  </Project>
+  <Project Path="src/utf8.vcxproj">
+    <BuildDependency Project="tools/gen_casetab/gen_casetab.vcxproj" />
+  </Project>
+  <Project Path="tests/tests.vcxproj">
+    <BuildDependency Project="src/utf8.vcxproj" />
+  </Project>
+  <Project Path="tools/gen_casetab/gen_casetab.vcxproj">
+    <Platform Project="x64" />
+  </Project>
+</Solution>
