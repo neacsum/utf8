@@ -8,6 +8,17 @@ rem
 rem setup environment for Visual Studio 2017 and later
 rem
 
+rem If you need a specific Visual Studio version set VS_VERSION to some
+rem particular part of the path. "2022" works for VS 2022 and "18" works
+rem for VS2026.
+rem If you need just the latest/only version of Visual Studio, do not set
+rem the VS_VERSION
+
+set VS_VERSION=2022
+
+if "%VS_VERSION%"=="" (set WHERE_PARAM=-latest && set SEARCH_STR="."
+) else (set WHERE_PARAM=-all && set SEARCH_STR=%VS_VERSION%)
+
 rem VS2017U2 contains vswhere.exe
 if "%VSWHERE%"=="" set "VSWHERE=%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe"
 if not exist "%VSWHERE%" (
@@ -16,9 +27,15 @@ if not exist "%VSWHERE%" (
   goto :EOF
 )
 
-for /f "usebackq tokens=*" %%i in (`"%VSWHERE%" -latest -products * -requires Microsoft.Component.MSBuild -property installationPath`) do (
+for /f "usebackq tokens=*" %%i in (`"%VSWHERE%" %WHERE_PARAM% -requires Microsoft.Component.MSBuild -property installationPath`) do (
+  echo %%i>> vs.tmp
+)
+
+for /f "usebackq tokens=*" %%i in (`findstr "%SEARCH_STR%" vs.tmp`) do (
   set VSInstallDir=%%i
 )
+del vs.tmp
+
 echo Visual studio installation folder is: %VSInstallDir%
 call "%VSInstallDir%\common7\tools\vsmsbuildcmd.bat"
 
