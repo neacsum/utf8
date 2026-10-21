@@ -3,16 +3,16 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Project Path="examples/sample.vcxproj">
+  <Project Path="examples/sample.vcxproj" Id="57343c2f-f5b4-4f9e-a50e-2b9b38ff142a">
     <BuildDependency Project="src/utf8.vcxproj" />
   </Project>
-  <Project Path="src/utf8.vcxproj">
+  <Project Path="src/utf8.vcxproj" Id="fc9a9364-74e4-4b89-8012-025f6beed492">
     <BuildDependency Project="tools/gen_casetab/gen_casetab.vcxproj" />
   </Project>
-  <Project Path="tests/tests.vcxproj">
+  <Project Path="tests/tests.vcxproj" Id="613f4eaf-15fd-4542-9df3-3e346f971a61">
     <BuildDependency Project="src/utf8.vcxproj" />
   </Project>
-  <Project Path="tools/gen_casetab/gen_casetab.vcxproj">
+  <Project Path="tools/gen_casetab/gen_casetab.vcxproj" Id="3971961a-74e7-494b-9617-72fcb8955281">
     <Platform Project="x64" />
   </Project>
 </Solution>
