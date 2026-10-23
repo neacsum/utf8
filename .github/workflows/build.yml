@@ -1,9 +1,9 @@
 name: Build
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "vs2022" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "vs2022" ]
 
 permissions:
   contents: read
@@ -22,23 +22,10 @@ jobs:
           name: cpm.exe
           url: https://github.com/neacsum/cpm/releases/latest/download/cpm.exe
 
-      - name: Create dependencies directory
+      - name: Build library
         shell: cmd
         run: |
-          if not exist "build\.dep-cache" mkdir "build\.dep-cache"
-
-      - name: Download dependencies
-        run: cpm -v -f --proto https -r build\.dep-cache
-
-      - name: Copy utpp directory
-        shell: cmd
-        run: |
-          xcopy /E /I build\.dep-cache\utpp build\.dep-cache\utpp-repo-src
-
-      - name: Build library (local version, not from CPM)
-        shell: cmd
-        run: |
-          build.bat lib
+          cpm -b vs2022
 
       - name: Build and run tests
         shell: cmd
