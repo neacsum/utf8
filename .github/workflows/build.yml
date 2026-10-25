@@ -14,7 +14,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Get CPM
         uses: neacsum/configurator@v0.0.11
@@ -25,7 +25,7 @@ jobs:
       - name: Build library
         shell: cmd
         run: |
-          cpm -b vs2022 --proto https
+          cpm -v -r.. -b vs2022 --proto https
 
       - name: Build and run tests
         shell: cmd
