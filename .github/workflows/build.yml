@@ -25,7 +25,7 @@ jobs:
       - name: Build library
         shell: cmd
         run: |
-          cpm -b vs2022
+          cpm -b vs2022 --proto https
 
       - name: Build and run tests
         shell: cmd
