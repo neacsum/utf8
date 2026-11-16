@@ -15,7 +15,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
-        ref: VS2022
 
       - name: Get CPM
         uses: neacsum/configurator@v0.0.11
