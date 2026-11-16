@@ -1,7 +1,6 @@
 {
     "name": "utf8",
-    "git": "git@github.com:neacsum/utf8.git",
-    "https": "https://github.com/neacsum/utf8.git",
+    "ORIGIN": "https://github.com/neacsum/utf8.git",
     "build": [
       {"os": "windows", "cmd": "build.bat", "args": ["lib"]},
       {"os": "linux darwin", "cmd": "cmake", "args": ["--workflow", "--preset", "MSVC x64"]}
@@ -9,8 +8,7 @@
     "depends": [
         {
             "name": "utpp",
-            "git": "git@github.com:neacsum/utpp.git",
-            "https": "https://github.com/neacsum/utpp.git"
+            "uri": "https://github.com/neacsum/utpp.git"
         }
     ]
 }
