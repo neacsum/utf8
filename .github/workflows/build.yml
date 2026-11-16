@@ -1,9 +1,9 @@
 name: Build
 on:
   push:
-    branches: [ "vs2022" ]
+    branches: [ "VS2022" ]
   pull_request:
-    branches: [ "vs2022" ]
+    branches: [ "VS2022" ]
 
 permissions:
   contents: read
@@ -15,6 +15,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
+        ref: VS2022
 
       - name: Get CPM
         uses: neacsum/configurator@v0.0.11
@@ -25,7 +26,7 @@ jobs:
       - name: Build library
         shell: cmd
         run: |
-          cpm -v -r .. -b vs2022 --proto https
+          cpm -v
 
       - name: Build and run tests
         shell: cmd
