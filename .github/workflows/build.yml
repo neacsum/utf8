@@ -14,7 +14,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Get CPM
         uses: neacsum/configurator@v0.0.11
@@ -22,21 +22,8 @@ jobs:
           name: cpm.exe
           url: https://github.com/neacsum/cpm/releases/latest/download/cpm.exe
 
-      - name: Create dependencies directory
-        shell: cmd
-        run: |
-          if not exist "build\.dep-cache" mkdir "build\.dep-cache"
-
-      - name: Download dependencies
-        run: cpm -v -f --proto https -r build\.dep-cache
-
-      - name: Copy utpp directory
-        shell: cmd
-        run: |
-          xcopy /E /I build\.dep-cache\utpp build\.dep-cache\utpp-repo-src
-
-      - name: Build library (local version, not from CPM)
-        shell: cmd
+      - name: Build library
+        shell: cpm -v utf8
         run: |
           build.bat lib
 
