@@ -23,7 +23,7 @@ jobs:
           url: https://github.com/neacsum/cpm/releases/latest/download/cpm.exe
 
       - name: Build library
-        run: cpm -v utf8
+        run: cpm -v
 
       - name: Build and run tests
         shell: cmd
